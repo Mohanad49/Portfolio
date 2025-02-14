@@ -4,12 +4,12 @@ import { getStorage } from "firebase/storage";
 import { collection, addDoc } from "@firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyA2xAjPJYLDouySjJOeWPxMv71ekEL0rZg",
-  authDomain: "portfolio-comments-d28cc.firebaseapp.com",
-  projectId: "portfolio-comments-d28cc",
-  storageBucket: "portfolio-comments-d28cc.firebasestorage.app",
-  messagingSenderId: "1073106311316",
-  appId: "1:1073106311316:web:67805d5c58f575665cbc81",
+  apiKey: import.meta.env.VITE_COMMENTS_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_COMMENTS_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_COMMENTS_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_COMMENTS_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_COMMENTS_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_COMMENTS_FIREBASE_APP_ID,
 };
 
 // Initialize with a unique name
