@@ -1,29 +1,52 @@
-Here’s the translation of your text to English:  
+# 🚀 Mohanad Yehia - Portfolio Website  
+
+![Portfolio](https://github.com/user-attachments/assets/959a7e93-a69b-4e54-b1d4-b45d94a30a79)
+
+
+## 📝 About the Project  
+
+This is my personal portfolio website showcasing:  
+- 🧑‍💻 Who I am  
+- 💼 My projects  
+- 📜 My certificates  
+- 📩 How to contact me  
+
+The website is designed with a modern, responsive UI and smooth animations to enhance user experience.  
 
 ---
 
-# Portfolio V5  
-Hello everyone!  
-Let me introduce myself, I’m Eki Zulfar Rachman. On this occasion, I’d like to share the portfolio website project that I’ve developed.  
+## 🛠️ Tech Stack  
 
-**Tech Stack used:**  
-- ReactJS  
-- Tailwind CSS  
-- AOS  
-- Firebase  
-- Framer Motion  
-- Lucide  
-- Material UI  
-- SweetAlert2  
+### **Frontend:**  
+- ⚛️ **ReactJS** – Component-based UI development  
+- 🎨 **Tailwind CSS** – Utility-first styling for a sleek design  
+- 🚀 **AOS (Animate On Scroll)** – Scroll-based animations  
+- 🎭 **Framer Motion** – Smooth animations and transitions  
+- 🏞️ **Material UI** – UI components for better design consistency  
+- 🌟 **Lucide** – Modern icons for UI enhancement  
+- ⚠️ **SweetAlert2** – Interactive alerts for user engagement  
 
-**Website Link:**  
-[https://www.eki.my.id/](https://www.eki.my.id/)  
-
-We would appreciate it if you decide to use this project. Please include credit when using it. Thank you! 🙏  
+### **Backend & Database:**  
+- 🔥 **Firebase** – Hosting and database integration  
 
 ---
 
-# Tutorial: Running the Project  
+## 🎬 Features  
+✅ Fully responsive design  
+✅ Smooth animations & transitions  
+✅ Dynamic project showcase  
+✅ Contact form for easy communication  
+✅ Light and dark mode support _(if implemented)_  
+
+---
+
+
+## 🚀 Live Demo  
+Check out the live website: **[Your Portfolio URL](https://your-portfolio-link.com)**  
+
+---
+
+# 🔧 Tutorial: Running the Project  
 
 Here’s a simple guide to run this project.  
 
@@ -39,7 +62,7 @@ Ensure that you have already installed:
 1. **Download this project:**  
 
    ```bash  
-   git clone https://github.com/EkiZR/Portofolio_V5.git  
+   git clone https://github.com/Mohanad49/Portfolio.git  
    ```  
 
 2. **Install all dependencies:**  
@@ -113,6 +136,11 @@ To configure Firebase for this project, follow these steps:
    ![Collection Structure Example 2](https://github.com/user-attachments/assets/d563d7ad-f1ab-46ff-8185-640dcebd0363)  
 
 6. **Update `firebase.js` and `firebase-comment.js` Files:**  
-   - Replace the `firebaseConfig` content with your Firebase configuration.  
+   - Replace the `firebaseConfig` content with your Firebase configuration.
+
+---
+
+## 🙌 Credits
+This portfolio is based on a template originally created by Eki Zulfar Rachman. Special thanks for the amazing design and inspiration!
 
 ---
