@@ -25,7 +25,7 @@ const MainTitle = memo(() => (
       <span className="relative inline-block">
         <span className="absolute -inset-2 bg-gradient-to-r from-[#6366f1] to-[#a855f7] blur-2xl opacity-20"></span>
         <span className="relative bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent">
-          SOFTWARE
+          SOFTWARE QA
         </span>
       </span>
       <br />
@@ -77,8 +77,8 @@ const SocialLink = memo(({ icon: Icon, link }) => (
 const TYPING_SPEED = 100;
 const ERASING_SPEED = 50;
 const PAUSE_DURATION = 2000;
-const WORDS = ["Computer Science and Engineering Student", "Tech Enthusiast"];
-const TECH_STACK = ["React", "Javascript", "Node.js", "Tailwind"];
+const WORDS = ["Software QA Engineer", "Test Automation Expert"];
+const TECH_STACK = ["Python", "Selenium", "PyTest", "Appium"];
 const SOCIAL_LINKS = [
   { icon: Github, link: "https://github.com/Mohanad49" },
   { icon: Linkedin, link: "https://www.linkedin.com/in/mohanad49/" },
@@ -143,7 +143,7 @@ const Home = () => {
 
   // Lottie configuration
   const lottieOptions = {
-    src: "https://lottie.host/58753882-bb6a-49f5-a2c0-950eda1e135a/NLbpVqGegK.lottie",
+    src: "/Lottie.json",
     loop: true,
     autoplay: true,
     rendererSettings: {
@@ -183,7 +183,7 @@ const Home = () => {
                 <p className="text-base md:text-lg text-gray-400 max-w-xl leading-relaxed font-light"
                   data-aos="fade-up"
                   data-aos-delay="1000">
-                  Creating Innovative, Functional and User-Friendly Websites for Digital Solutions.
+                  Ensuring End-to-End Quality Assurance and Reliable Automated Testing Solutions.
                 </p>
 
                 {/* Tech Stack */}

@@ -101,18 +101,18 @@ function a11yProps(index) {
 }
 
 const techStacks = [
+  { icon: "python.svg", language: "Python" },
+  { icon: "selenium.svg", language: "Selenium" },
+  { icon: "pytest.svg", language: "PyTest" },
+  { icon: "Maestro.svg", language: "Maestro" },
+  { icon: "javascript.svg", language: "JavaScript" },
+  { icon: "reactjs.svg", language: "ReactJS" },
+  { icon: "nodejs.svg", language: "Node JS" },
+  { icon: "firebase.svg", language: "Firebase" },
   { icon: "html.svg", language: "HTML" },
   { icon: "css.svg", language: "CSS" },
-  { icon: "javascript.svg", language: "JavaScript" },
   { icon: "tailwind.svg", language: "Tailwind CSS" },
-  { icon: "reactjs.svg", language: "ReactJS" },
   { icon: "vite.svg", language: "Vite" },
-  { icon: "nodejs.svg", language: "Node JS" },
-  { icon: "bootstrap.svg", language: "Bootstrap" },
-  { icon: "firebase.svg", language: "Firebase" },
-  { icon: "MUI.svg", language: "Material UI" },
-  { icon: "vercel.svg", language: "Vercel" },
-  { icon: "SweetAlert.svg", language: "SweetAlert2" },
 ];
 
 export default function FullWidthTabs() {
@@ -134,20 +134,71 @@ export default function FullWidthTabs() {
 
   const fetchData = useCallback(async () => {
     try {
-      const projectCollection = collection(db, "projects");
+      const projectData = [
+        {
+          id: "1",
+          Img: "https://storage.cloud.google.com/test_bucket49/QA%20WAR-ROOM.png",
+          Title: "Open-Source Web App QA Portfolio",
+          Description: "Built a production-style Selenium/PyTest automation framework targeting Sauce Labs’ open-source The Internet application.",
+          Link: "https://mohanad49.github.io/open-source-webapp-qa-portfolio/",
+          Github: "https://github.com/Mohanad49/open-source-webapp-qa-portfolio",
+          TechStack: ["Python", "Selenium", "PyTest"],
+          Features: ["Authentication", "Forms", "Dynamic Waits", "CI/CD Integration"]
+        },
+        {
+          id: "2",
+          Img: "https://storage.cloud.google.com/test_bucket49/API%20console.png",
+          Title: "API Testing Framework with CI Integration",
+          Description: "Built a comprehensive Postman collection targeting a public REST API (Restful-Booker), covering CRUD flows.",
+          Link: "https://mohanad49.github.io/api-testing-framework-ci/",
+          Github: "https://github.com/Mohanad49/api-testing-framework-ci",
+          TechStack: ["Postman", "Newman", "CI/CD Integration"],
+          Features: ["CRUD flows", "Auth edge cases", "Negative scenarios"]
+        },
+        {
+          id: "3",
+          Img: "https://storage.cloud.google.com/test_bucket49/Jmeter.png",
+          Title: "JMeter Performance Testing Report",
+          Description: "Stress-tested the graduation project’s Streamlit prediction API under concurrent simulated users.",
+          Link: "",
+          Github: "https://github.com/Mohanad49",
+          TechStack: ["JMeter", "Python"],
+          Features: ["Stress testing", "Performance report", "Identify throughput limits"]
+        },
+        {
+          id: "4",
+          Img: "https://storage.cloud.google.com/test_bucket49/GamerHQ.png",
+          Title: "GamerHQ",
+          Description: "GamerHQ is a React web application designed to help gamers discover new and interesting video games across various platforms and genres.",
+          Link: "https://gamer-hq.vercel.app/",
+          Github: "https://github.com/Mohanad49/GamerHQ",
+          TechStack: ['Typescript', 'React.js'],
+          Features: ['Search by Platform', 'Search by Genre', 'Game Details', 'Responsive Design']
+        },
+        {
+          id: "5",
+          Img: "https://storage.cloud.google.com/test_bucket49/Kindle.png",
+          Title: "Kindle",
+          Description: "Kindle is a non-monetary donation platform designed to facilitate the exchange of goods between donors and individuals or organizations in need.",
+          Link: "https://kindle-ebon.vercel.app",
+          Github: "https://github.com/Mohanad49/Kindle",
+          TechStack: ['HTML5', 'CSS3', 'Javascript'],
+          Features: ['User Registration and Profiles', 'Donation Requests', 'Donation Listings', 'Communication Tools', 'Feedback and Ratings']
+        },
+        {
+          id: "6",
+          Img: "https://storage.cloud.google.com/test_bucket49/Landing%20Page%20Cut.png",
+          Title: "Lafefny",
+          Description: "Lafefny is a comprehensive travel platform connecting tourists with local tour guides, activities, and curated itineraries across Egypt.",
+          Link: "https://lafefny.vercel.app",
+          Github: "https://github.com/Mohanad49/Lafefny",
+          TechStack: ['MongoDB', 'Express.js', 'React.js', 'Node.js'],
+          Features: ['Real-time notifications', 'Secure payment processing', 'Multi-currency support', 'Rating and review system']
+        }
+      ];
+
       const certificateCollection = collection(db, "certificates");
-
-      const [projectSnapshot, certificateSnapshot] = await Promise.all([
-        getDocs(projectCollection),
-        getDocs(certificateCollection),
-      ]);
-
-      const projectData = projectSnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-        TechStack: doc.data().TechStack || [],
-      }));
-
+      const certificateSnapshot = await getDocs(certificateCollection);
       const certificateData = certificateSnapshot.docs.map((doc) => doc.data());
 
       setProjects(projectData);

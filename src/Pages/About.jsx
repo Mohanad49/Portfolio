@@ -50,7 +50,7 @@ const ProfileImage = memo(() => (
           <div className="absolute inset-0 bg-gradient-to-t from-purple-500/20 via-transparent to-blue-500/20 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 hidden sm:block" />
           
           <img
-            src="/Photo1.png"
+            src="/Photo1.jpeg"
             alt="Profile"
             className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-2"
             loading="lazy"
@@ -124,7 +124,7 @@ const AboutPage = () => {
       (today < new Date(today.getFullYear(), startDate.getMonth(), startDate.getDate()) ? 1 : 0);
 
     return {
-      totalProjects: storedProjects.length,
+      totalProjects: 23,
       totalCertificates: storedCertificates.length,
       YearExperience: experience
     };
@@ -214,10 +214,10 @@ const AboutPage = () => {
               data-aos="fade-right"
               data-aos-duration="1500"
             >
-              a Computer Science and Engineering student
-              passionate about Full-Stack development. I focus on
-              create engaging digital experiences and always strive
-              provide the best solution in every project.
+              a Results-driven Software QA Engineer
+              passionate about test automation. I focus on
+              ensuring end-to-end quality and always strive to
+              provide reliable testing solutions in every project.
             </p>
 
             <div className="flex flex-col lg:flex-row items-center lg:items-start gap-4 lg:gap-4 lg:px-0 w-full">
