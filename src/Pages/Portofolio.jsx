@@ -161,7 +161,7 @@ export default function FullWidthTabs() {
           Title: "JMeter Performance Testing Report",
           Description: "Stress-tested the graduation project’s Streamlit prediction API under concurrent simulated users.",
           Link: "",
-          Github: "https://github.com/Mohanad49",
+          Github: "https://github.com/Mohanad49/jmeter_performance_testing_report",
           TechStack: ["JMeter", "Python"],
           Features: ["Stress testing", "Performance report", "Identify throughput limits"]
         },
