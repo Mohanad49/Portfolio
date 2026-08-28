@@ -1,5 +1,6 @@
 import React, { useEffect, memo, useMemo } from "react"
 import { FileText, Code, Award, Globe, ArrowUpRight, Sparkles, UserCheck } from "lucide-react"
+import { PROJECTS, CERTIFICATES } from "../data/portfolio"
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 
@@ -115,13 +116,7 @@ const StatCard = memo(({ icon: Icon, color, value, label, description, animation
 const AboutPage = () => {
   // Memoized calculations
   const { totalProjects, totalCertificates, YearExperience } = useMemo(() => {
-    // Fall back to the canonical counts rather than 0: this memo runs on mount,
-    // before the Portfolio section has fetched and written localStorage, so a
-    // first-time visitor would otherwise see "0 Certifications".
-    const PROJECT_COUNT = 13;
-    const CERTIFICATE_COUNT = 8;
-    const storedProjects = JSON.parse(localStorage.getItem("projects") || "[]");
-    const storedCertificates = JSON.parse(localStorage.getItem("certificates") || "[]");
+
     
     // QA career start (Blue Ribbon, Jul 2025) — keep in step with the resume summary
     const startDate = new Date("2025-07-01");
@@ -130,8 +125,8 @@ const AboutPage = () => {
       (today < new Date(today.getFullYear(), startDate.getMonth(), startDate.getDate()) ? 1 : 0);
 
     return {
-      totalProjects: storedProjects.length || PROJECT_COUNT,
-      totalCertificates: storedCertificates.length || CERTIFICATE_COUNT,
+      totalProjects: PROJECTS.length,
+      totalCertificates: CERTIFICATES.length,
       YearExperience: experience
     };
   }, []);

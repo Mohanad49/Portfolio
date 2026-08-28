@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { getProjectById } from "../data/portfolio";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   ArrowLeft, ExternalLink, Github, Code2, Star,
@@ -99,29 +100,46 @@ const ProjectDetails = () => {
   const navigate = useNavigate();
   const [project, setProject] = useState(null);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    const storedProjects = JSON.parse(localStorage.getItem("projects")) || [];
-    const selectedProject = storedProjects.find((p) => String(p.id) === id);
-    
+    // Read from the bundled data, not localStorage: a direct link to this page on a
+    // cold cache used to leave the loading spinner up forever.
+    const selectedProject = getProjectById(id);
+
     if (selectedProject) {
-      const enhancedProject = {
+      setProject({
         ...selectedProject,
         Features: selectedProject.Features || [],
         TechStack: selectedProject.TechStack || [],
-        Github: selectedProject.Github || 'https://github.com/mohanad49',
-      };
-      setProject(enhancedProject);
+        Github: selectedProject.Github || 'https://github.com/Mohanad49',
+      });
     }
+    setNotFound(!selectedProject);
   }, [id]);
 
   if (!project) {
     return (
-      <div className="min-h-screen bg-[#030014] flex items-center justify-center">
+      <div className="min-h-screen bg-[#030014] flex items-center justify-center px-6">
         <div className="text-center space-y-6 animate-fadeIn">
-          <div className="w-16 h-16 md:w-24 md:h-24 mx-auto border-4 border-blue-500/30 border-t-blue-500 rounded-full animate-spin" />
-          <h2 className="text-xl md:text-3xl font-bold text-white">Loading Project...</h2>
+          {notFound ? (
+            <>
+              <h2 className="text-xl md:text-3xl font-bold text-white">Project not found</h2>
+              <p className="text-gray-400">That project link doesn&apos;t match anything here.</p>
+              <button
+                onClick={() => navigate("/")}
+                className="px-6 py-3 rounded-lg bg-gradient-to-r from-[#6366f1] to-[#a855f7] text-white font-medium transition-all duration-300 hover:scale-105"
+              >
+                Back to portfolio
+              </button>
+            </>
+          ) : (
+            <>
+              <div className="w-16 h-16 md:w-24 md:h-24 mx-auto border-4 border-blue-500/30 border-t-blue-500 rounded-full animate-spin" />
+              <h2 className="text-xl md:text-3xl font-bold text-white">Loading Project...</h2>
+            </>
+          )}
         </div>
       </div>
     );
