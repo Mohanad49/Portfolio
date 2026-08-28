@@ -21,7 +21,7 @@ const Header = memo(() => (
       data-aos-duration="800"
     >
       <Sparkles className="w-5 h-5 text-purple-400" />
-      Transforming ideas into digital experiences
+      Finding the defects that reach production — before they do
       <Sparkles className="w-5 h-5 text-purple-400" />
     </p>
   </div>
@@ -115,17 +115,23 @@ const StatCard = memo(({ icon: Icon, color, value, label, description, animation
 const AboutPage = () => {
   // Memoized calculations
   const { totalProjects, totalCertificates, YearExperience } = useMemo(() => {
+    // Fall back to the canonical counts rather than 0: this memo runs on mount,
+    // before the Portfolio section has fetched and written localStorage, so a
+    // first-time visitor would otherwise see "0 Certifications".
+    const PROJECT_COUNT = 13;
+    const CERTIFICATE_COUNT = 8;
     const storedProjects = JSON.parse(localStorage.getItem("projects") || "[]");
     const storedCertificates = JSON.parse(localStorage.getItem("certificates") || "[]");
     
-    const startDate = new Date("2024-07-01");
+    // QA career start (Blue Ribbon, Jul 2025) — keep in step with the resume summary
+    const startDate = new Date("2025-07-01");
     const today = new Date();
     const experience = today.getFullYear() - startDate.getFullYear() -
       (today < new Date(today.getFullYear(), startDate.getMonth(), startDate.getDate()) ? 1 : 0);
 
     return {
-      totalProjects: 23,
-      totalCertificates: storedCertificates.length,
+      totalProjects: storedProjects.length || PROJECT_COUNT,
+      totalCertificates: storedCertificates.length || CERTIFICATE_COUNT,
       YearExperience: experience
     };
   }, []);
@@ -160,16 +166,16 @@ const AboutPage = () => {
       icon: Code,
       color: "from-[#6366f1] to-[#a855f7]",
       value: totalProjects,
-      label: "Total Projects",
-      description: "Innovative web solutions crafted",
+      label: "Public Projects",
+      description: "Test frameworks & QA tooling shipped",
       animation: "fade-right",
     },
     {
       icon: Award,
       color: "from-[#a855f7] to-[#6366f1]",
       value: totalCertificates,
-      label: "Certificates",
-      description: "Professional skills validated",
+      label: "Certifications",
+      description: "ISTQB CTFL and professional coursework",
       animation: "fade-up",
     },
     {
@@ -177,7 +183,7 @@ const AboutPage = () => {
       color: "from-[#6366f1] to-[#a855f7]",
       value: YearExperience,
       label: "Years of Experience",
-      description: "Continuous learning journey",
+      description: "Production QA ownership, web · mobile · API",
       animation: "fade-left",
     },
   ], [totalProjects, totalCertificates, YearExperience]);
@@ -214,14 +220,18 @@ const AboutPage = () => {
               data-aos="fade-right"
               data-aos-duration="1500"
             >
-              a Results-driven Software QA Engineer
-              passionate about test automation. I focus on
-              ensuring end-to-end quality and always strive to
-              provide reliable testing solutions in every project.
+              an ISTQB CTFL-certified Software QA Engineer with over a year of
+              production ownership of a live, payment-integrated platform spanning a
+              Flutter mobile app and a multi-tenant admin portal — plus enterprise QA
+              delivery on a government data-protection regulatory programme at Atos.
+              I moved that team from manual testing to 85% automated regression
+              coverage in Playwright, with mobile coverage in Maestro, both gated in CI
+              on every release. I work across E2E, REST API, SQL backend verification
+              and performance testing, and I own the pipelines that run it all.
             </p>
 
             <div className="flex flex-col lg:flex-row items-center lg:items-start gap-4 lg:gap-4 lg:px-0 w-full">
-              <a href="https://drive.google.com/file/d/1nxEi2NTanONfEx4at5oVoCJamd0vWdgZ/view?usp=sharing" className="w-full lg:w-auto">
+              <a href="https://drive.google.com/file/d/1DlFesFvIiA9ODTNBC7jC26dH4uYKm5N8/view?usp=sharing" className="w-full lg:w-auto">
               <button 
                 data-aos="fade-up"
                 data-aos-duration="800"

@@ -1,6 +1,4 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { db, collection } from "../firebase";
-import { getDocs } from "firebase/firestore";
 import PropTypes from "prop-types";
 import SwipeableViews from "react-swipeable-views";
 import { useTheme } from "@mui/material/styles";
@@ -101,18 +99,24 @@ function a11yProps(index) {
 }
 
 const techStacks = [
-  { icon: "python.svg", language: "Python" },
+  { icon: "playwright.svg", language: "Playwright" },
   { icon: "selenium.svg", language: "Selenium" },
   { icon: "pytest.svg", language: "PyTest" },
   { icon: "Maestro.svg", language: "Maestro" },
+  { icon: "appium.svg", language: "Appium" },
+  { icon: "cucumber.svg", language: "Cucumber" },
+  { icon: "postman.svg", language: "Postman" },
+  { icon: "k6.svg", language: "k6" },
+  { icon: "jmeter.svg", language: "JMeter" },
+  { icon: "allure.svg", language: "Allure" },
+  { icon: "githubactions.svg", language: "GitHub Actions" },
+  { icon: "azuredevops.svg", language: "Azure DevOps" },
+  { icon: "docker.svg", language: "Docker" },
+  { icon: "python.svg", language: "Python" },
+  { icon: "typescript.svg", language: "TypeScript" },
   { icon: "javascript.svg", language: "JavaScript" },
+  { icon: "sql.svg", language: "SQL" },
   { icon: "reactjs.svg", language: "ReactJS" },
-  { icon: "nodejs.svg", language: "Node JS" },
-  { icon: "firebase.svg", language: "Firebase" },
-  { icon: "html.svg", language: "HTML" },
-  { icon: "css.svg", language: "CSS" },
-  { icon: "tailwind.svg", language: "Tailwind CSS" },
-  { icon: "vite.svg", language: "Vite" },
 ];
 
 export default function FullWidthTabs() {
@@ -137,69 +141,150 @@ export default function FullWidthTabs() {
       const projectData = [
         {
           id: "1",
-          Img: "https://storage.cloud.google.com/test_bucket49/QA%20WAR-ROOM.png",
-          Title: "Open-Source Web App QA Portfolio",
-          Description: "Built a production-style Selenium/PyTest automation framework targeting Sauce Labs’ open-source The Internet application.",
-          Link: "https://mohanad49.github.io/open-source-webapp-qa-portfolio/",
-          Github: "https://github.com/Mohanad49/open-source-webapp-qa-portfolio",
-          TechStack: ["Python", "Selenium", "PyTest"],
-          Features: ["Authentication", "Forms", "Dynamic Waits", "CI/CD Integration"]
+          Img: "/projects/testpulse.svg",
+          Title: "TestPulse — Test Observability & Flake Detection",
+          Description: "Full-stack platform that ingests CI results (JUnit, Playwright, Allure, PyTest), computes per-test flakiness and duration trends, and surfaces them in a dashboard and automated PR comments — with a configurable flake classifier and an expiring quarantine list.",
+          Link: "https://testpulse-eight.vercel.app",
+          Github: "https://github.com/Mohanad49/testpulse",
+          TechStack: ["Python", "FastAPI", "React/TypeScript", "PostgreSQL", "GitHub Actions"],
+          Features: ["Flake classification", "Quarantine list", "PR comment bot", "Live dashboard"]
         },
         {
           id: "2",
-          Img: "https://storage.cloud.google.com/test_bucket49/API%20console.png",
-          Title: "API Testing Framework with CI Integration",
-          Description: "Built a comprehensive Postman collection targeting a public REST API (Restful-Booker), covering CRUD flows.",
-          Link: "https://mohanad49.github.io/api-testing-framework-ci/",
-          Github: "https://github.com/Mohanad49/api-testing-framework-ci",
-          TechStack: ["Postman", "Newman", "CI/CD Integration"],
-          Features: ["CRUD flows", "Auth edge cases", "Negative scenarios"]
+          Img: "/projects/caldiy.svg",
+          Title: "Cal.diy QA Strategy & Automation",
+          Description: "A layered QA engagement against Cal.diy v6.2.0, the final public Cal.com open-source snapshot: risk-led strategy, Python API contracts, Playwright/TypeScript E2E with selective Cucumber (BDD/Gherkin), and k6 CI gates. Two current-main contract defects filed publicly after duplicate search and exact-commit reproduction.",
+          Link: "https://mohanad49.github.io/caldiy-qa-strategy/",
+          Github: "https://github.com/Mohanad49/caldiy-qa-strategy",
+          TechStack: ["Playwright", "TypeScript", "Python", "Cucumber", "k6", "Docker"],
+          Features: ["Risk-based strategy", "Timezone/DST testing", "20-way contention", "Accessibility", "Upstream defects filed"]
         },
         {
           id: "3",
-          Img: "https://storage.cloud.google.com/test_bucket49/Jmeter.png",
-          Title: "JMeter Performance Testing Report",
-          Description: "Stress-tested the graduation project’s Streamlit prediction API under concurrent simulated users.",
-          Link: "",
-          Github: "https://github.com/Mohanad49/jmeter_performance_testing_report",
-          TechStack: ["JMeter", "Python"],
-          Features: ["Stress testing", "Performance report", "Identify throughput limits"]
+          Img: "/projects/llm-eval.svg",
+          Title: "LLM Evaluation & Prompt-Regression Harness",
+          Description: "PyTest-native harness for evaluating LLM features: versioned golden datasets, N-sampling for non-determinism, an LLM-as-judge validated against blind human labels (Cohen's kappa), prompt-version regression diffs, and an adversarial red-team suite — all gated in CI.",
+          Link: "https://mohanad49.github.io/llm-eval-harness/",
+          Github: "https://github.com/Mohanad49/llm-eval-harness",
+          TechStack: ["Python", "PyTest", "RAG", "LLM-as-judge"],
+          Features: ["Golden datasets", "Judge validation (kappa)", "Prompt regression diffs", "Red-team suite"]
         },
         {
           id: "4",
-          Img: "https://storage.cloud.google.com/test_bucket49/GamerHQ.png",
-          Title: "GamerHQ",
-          Description: "GamerHQ is a React web application designed to help gamers discover new and interesting video games across various platforms and genres.",
-          Link: "https://gamer-hq.vercel.app/",
-          Github: "https://github.com/Mohanad49/GamerHQ",
-          TechStack: ['Typescript', 'React.js'],
-          Features: ['Search by Platform', 'Search by Genre', 'Game Details', 'Responsive Design']
+          Img: "/projects/orangehrm.svg",
+          Title: "OrangeHRM E2E — Playwright Framework",
+          Description: "End-to-end Playwright/TypeScript suite for OrangeHRM built on the Page Object Model with fixtures, a Dockerised application under test, Allure reporting, and GitHub Actions CI.",
+          Link: "https://mohanad49.github.io/orangehrm-playwright/",
+          Github: "https://github.com/Mohanad49/orangehrm-playwright",
+          TechStack: ["Playwright", "TypeScript", "Docker", "Allure"],
+          Features: ["Page Object Model", "Fixtures", "Dockerised AUT", "Allure reporting"]
         },
         {
           id: "5",
-          Img: "https://storage.cloud.google.com/test_bucket49/Kindle.png",
-          Title: "Kindle",
-          Description: "Kindle is a non-monetary donation platform designed to facilitate the exchange of goods between donors and individuals or organizations in need.",
-          Link: "https://kindle-ebon.vercel.app",
-          Github: "https://github.com/Mohanad49/Kindle",
-          TechStack: ['HTML5', 'CSS3', 'Javascript'],
-          Features: ['User Registration and Profiles', 'Donation Requests', 'Donation Listings', 'Communication Tools', 'Feedback and Ratings']
+          Img: "/projects/maestro.svg",
+          Title: "Wikipedia Mobile Suite — Maestro",
+          Description: "Maestro UI automation for the Wikipedia Android app, running on an emulator inside GitHub Actions — including a written Appium-to-Maestro migration rationale covering flakiness and setup overhead.",
+          Link: "",
+          Github: "https://github.com/Mohanad49/wikipedia-maestro",
+          TechStack: ["Maestro", "Android", "GitHub Actions"],
+          Features: ["Emulator in CI", "YAML flows", "Appium→Maestro migration study"]
         },
         {
           id: "6",
-          Img: "https://storage.cloud.google.com/test_bucket49/Landing%20Page%20Cut.png",
+          Img: "/projects/github-api.svg",
+          Title: "GitHub REST API Test Framework",
+          Description: "Automated API testing framework for the GitHub REST API built with Python, PyTest and Requests — schema validation, authentication and rate-limit scenarios, and CI-published reports.",
+          Link: "https://mohanad49.github.io/github-api-tests/",
+          Github: "https://github.com/Mohanad49/github-api-tests",
+          TechStack: ["Python", "PyTest", "Requests"],
+          Features: ["JSON schema validation", "OAuth scenarios", "Rate-limit testing", "CI reporting"]
+        },
+        {
+          id: "7",
+          Img: "/projects/selenium-qa.svg",
+          Title: "Open-Source Web App QA Portfolio",
+          Description: "Production-style Selenium/PyTest automation framework targeting Sauce Labs' open-source The Internet application, with Page Object Model architecture and CI integration.",
+          Link: "https://mohanad49.github.io/open-source-webapp-qa-portfolio/",
+          Github: "https://github.com/Mohanad49/open-source-webapp-qa-portfolio",
+          TechStack: ["Python", "Selenium", "PyTest"],
+          Features: ["Authentication", "Forms", "Dynamic waits", "CI/CD integration"]
+        },
+        {
+          id: "8",
+          Img: "/projects/postman-api.svg",
+          Title: "API Testing Framework with CI Integration",
+          Description: "Postman/Newman API testing framework for Restful Booker covering authentication, full CRUD flows and negative cases, wired into GitHub Actions with published reports.",
+          Link: "https://mohanad49.github.io/api-testing-framework-ci/",
+          Github: "https://github.com/Mohanad49/api-testing-framework-ci",
+          TechStack: ["Postman", "Newman", "GitHub Actions"],
+          Features: ["CRUD flows", "Auth edge cases", "Negative scenarios", "CI reporting"]
+        },
+        {
+          id: "9",
+          Img: "/projects/jmeter.svg",
+          Title: "JMeter Performance Testing Report",
+          Description: "Load-tested a FastAPI prediction endpoint with Apache JMeter — latency percentiles and error-rate thresholds set before the run, with throughput limits identified and documented.",
+          Link: "",
+          Github: "https://github.com/Mohanad49/jmeter_performance_testing_report",
+          TechStack: ["JMeter", "Python", "FastAPI"],
+          Features: ["Stress testing", "Latency percentiles", "Pre-set thresholds", "Throughput limits"]
+        },
+        {
+          id: "10",
+          Img: "/projects/ebay-selenium.svg",
+          Title: "eBay Web Automation — Selenium + Java",
+          Description: "Selenium WebDriver and Java test automation framework for eBay search and refinement flows, using the Page Object Model with externalised test data.",
+          Link: "",
+          Github: "https://github.com/Mohanad49/ebay-web-automation",
+          TechStack: ["Java", "Selenium", "JUnit"],
+          Features: ["Page Object Model", "Externalised test data", "Search & refinement flows"]
+        },
+        {
+          id: "11",
+          Img: "/projects/gamerhq.svg",
+          Title: "GamerHQ",
+          Description: "React web application that helps gamers discover new titles across platforms and genres.",
+          Link: "https://gamer-hq.vercel.app/",
+          Github: "https://github.com/Mohanad49/GamerHQ",
+          TechStack: ["TypeScript", "React.js"],
+          Features: ["Search by platform", "Search by genre", "Game details", "Responsive design"]
+        },
+        {
+          id: "12",
+          Img: "/projects/kindle.svg",
+          Title: "Kindle",
+          Description: "Non-monetary donation platform that connects donors with individuals and organisations in need.",
+          Link: "https://kindle-ebon.vercel.app",
+          Github: "https://github.com/Mohanad49/Kindle",
+          TechStack: ["HTML5", "CSS3", "JavaScript"],
+          Features: ["User profiles", "Donation requests", "Donation listings", "Ratings & feedback"]
+        },
+        {
+          id: "13",
+          Img: "/projects/lafefny.svg",
           Title: "Lafefny",
-          Description: "Lafefny is a comprehensive travel platform connecting tourists with local tour guides, activities, and curated itineraries across Egypt.",
+          Description: "Travel platform connecting tourists with local tour guides, activities and curated itineraries across Egypt.",
           Link: "https://lafefny.vercel.app",
           Github: "https://github.com/Mohanad49/Lafefny",
-          TechStack: ['MongoDB', 'Express.js', 'React.js', 'Node.js'],
-          Features: ['Real-time notifications', 'Secure payment processing', 'Multi-currency support', 'Rating and review system']
+          TechStack: ["MongoDB", "Express.js", "React.js", "Node.js"],
+          Features: ["Real-time notifications", "Secure payments", "Multi-currency support", "Ratings & reviews"]
         }
       ];
 
-      const certificateCollection = collection(db, "certificates");
-      const certificateSnapshot = await getDocs(certificateCollection);
-      const certificateData = certificateSnapshot.docs.map((doc) => doc.data());
+      // Self-hosted credential images. Previously these were pulled from a Firestore
+      // collection pointing at a private GCS bucket (storage.cloud.google.com), which
+      // redirected anonymous visitors to a Google sign-in page — so every card rendered
+      // broken for everyone except the signed-in owner. Committed to the repo instead.
+      const certificateData = [
+        { Img: "/certs/istqb-ctfl.svg", Title: "ISTQB Certified Tester, Foundation Level (CTFL)" },
+        { Img: "/certs/ml-specialization.jpg", Title: "Machine Learning Specialization — DeepLearning.AI / Stanford University" },
+        { Img: "/certs/mbg-internship.jpg", Title: "Software Engineering Internship — MBG Developments" },
+        { Img: "/certs/enppi-internship.jpg", Title: "IT Division Training — ENPPI" },
+        { Img: "/certs/career-essentials-sd.jpg", Title: "Career Essentials in Software Development — Microsoft & LinkedIn" },
+        { Img: "/certs/career-essentials-genai.jpg", Title: "Career Essentials in Generative AI — Microsoft & LinkedIn" },
+        { Img: "/certs/ethical-hacking-essentials.jpg", Title: "Ethical Hacking Essentials (EHE) — EC-Council" },
+        { Img: "/certs/hr-learning-development.jpg", Title: "HR Learning & Development" },
+      ];
 
       setProjects(projectData);
       setCertificates(certificateData);
@@ -247,8 +332,8 @@ export default function FullWidthTabs() {
           </span>
         </h2>
         <p className="text-slate-400 max-w-2xl mx-auto text-sm md:text-base mt-2">
-          Explore my journey through projects, certifications, and technical expertise. 
-          Each section represents a milestone in my continuous learning path.
+          Test automation frameworks, QA strategy engagements and testing tooling — each with a public
+          repository, CI pipeline and published report you can open and read.
         </p>
       </div>
 
