@@ -22,7 +22,7 @@ const Header = memo(() => (
       data-aos-duration="800"
     >
       <Sparkles className="w-5 h-5 text-purple-400" />
-      Finding the defects that reach production — before they do
+      Finding the defects that reach production, before they do
       <Sparkles className="w-5 h-5 text-purple-400" />
     </p>
   </div>
@@ -118,7 +118,7 @@ const AboutPage = () => {
   const { totalProjects, totalCertificates, YearExperience } = useMemo(() => {
 
     
-    // QA career start (Blue Ribbon, Jul 2025) — keep in step with the resume summary
+    // QA career start (Blue Ribbon, Jul 2025). Keep in step with the resume summary.
     const startDate = new Date("2025-07-01");
     const today = new Date();
     const experience = today.getFullYear() - startDate.getFullYear() -
@@ -217,7 +217,7 @@ const AboutPage = () => {
             >
               an ISTQB CTFL-certified Software QA Engineer with over a year of
               production ownership of a live, payment-integrated platform spanning a
-              Flutter mobile app and a multi-tenant admin portal — plus enterprise QA
+              Flutter mobile app and a multi-tenant admin portal, plus enterprise QA
               delivery on a government data-protection regulatory programme at Atos.
               I moved that team from manual testing to 85% automated regression
               coverage in Playwright, with mobile coverage in Maestro, both gated in CI

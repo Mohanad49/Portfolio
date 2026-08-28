@@ -177,7 +177,7 @@ export default function FullWidthTabs() {
           </span>
         </h2>
         <p className="text-slate-400 max-w-2xl mx-auto text-sm md:text-base mt-2">
-          Test automation frameworks, QA strategy engagements and testing tooling — each with a public
+          Test automation frameworks, QA strategy engagements and testing tooling, each with a public
           repository, CI pipeline and published report you can open and read.
         </p>
       </div>

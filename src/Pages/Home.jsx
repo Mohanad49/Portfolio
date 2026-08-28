@@ -184,7 +184,7 @@ const Home = () => {
                   data-aos="fade-up"
                   data-aos-delay="1000">
                   85% automated regression coverage on a live, payment-integrated platform.
-                  Web, mobile and API testing — gated in CI on every release.
+                  Web, mobile and API testing, gated in CI on every release.
                 </p>
 
                 {/* Tech Stack */}
