@@ -140,7 +140,8 @@ export const PROJECTS = [
 ];
 
 export const CERTIFICATES = [
-  { Img: "/certs/istqb-ctfl.svg", Title: "ISTQB Certified Tester, Foundation Level (CTFL 4.0)" },
+  { Img: "/certs/istqb-ctfl.svg", Title: "ISTQB Certified Tester, Foundation Level (CTFL 4.0), scored 85%" },
+  { Img: "/certs/atos-internship.jpg", Title: "Software Testing Internship, Atos (Jul to Sep 2026)" },
   { Img: "/certs/ml-specialization.jpg", Title: "Machine Learning Specialization, DeepLearning.AI / Stanford University" },
   { Img: "/certs/mbg-internship.jpg", Title: "Software Engineering Internship, MBG Developments" },
   { Img: "/certs/enppi-internship.jpg", Title: "IT Division Training, ENPPI" },

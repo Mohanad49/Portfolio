@@ -218,7 +218,8 @@ const AboutPage = () => {
               an ISTQB CTFL-certified Software QA Engineer with over a year of
               production ownership of a live, payment-integrated platform spanning a
               Flutter mobile app and a multi-tenant admin portal, plus enterprise QA
-              delivery on a government data-protection regulatory programme at Atos.
+              delivery at Atos on MCIT's Personal Data Protection Centre platform,
+              Egypt's national data-protection regulator.
               I moved that team from manual testing to 85% automated regression
               coverage in Playwright, with mobile coverage in Maestro, both gated in CI
               on every release. I work across E2E, REST API, SQL backend verification
