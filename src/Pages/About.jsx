@@ -227,7 +227,7 @@ const AboutPage = () => {
             </p>
 
             <div className="flex flex-col lg:flex-row items-center lg:items-start gap-4 lg:gap-4 lg:px-0 w-full">
-              <a href="https://drive.google.com/file/d/1DlFesFvIiA9ODTNBC7jC26dH4uYKm5N8/view?usp=sharing" className="w-full lg:w-auto">
+              <a href="https://drive.google.com/file/d/1ECiV4Kd-3ea_hneHVa-CkG1RQLfMa4yX/view?usp=sharing" className="w-full lg:w-auto">
               <button 
                 data-aos="fade-up"
                 data-aos-duration="800"
