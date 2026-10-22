@@ -1,0 +1,105 @@
+[
+  {
+    "id": "orangehrm",
+    "legacyId": 4,
+    "title": "OrangeHRM E2E framework",
+    "category": "Web",
+    "description": "Enterprise HR journeys using page objects, fixtures, a Dockerized application, and Allure reporting.",
+    "stack": [
+      "Playwright",
+      "TypeScript",
+      "Docker",
+      "Allure"
+    ],
+    "repository": "https://github.com/Mohanad49/orangehrm-playwright",
+    "report": "https://mohanad49.github.io/orangehrm-playwright/"
+  },
+  {
+    "id": "wikipedia-maestro",
+    "legacyId": 5,
+    "title": "Wikipedia Android flows",
+    "category": "Mobile",
+    "description": "Reusable Maestro journeys for search, reading lists, and language changes, with Android emulator execution in CI.",
+    "stack": [
+      "Maestro",
+      "YAML",
+      "Android",
+      "GitHub Actions"
+    ],
+    "repository": "https://github.com/Mohanad49/wikipedia-maestro",
+    "report": null
+  },
+  {
+    "id": "github-api",
+    "legacyId": 6,
+    "title": "GitHub REST API suite",
+    "category": "API",
+    "description": "Token authentication, CRUD behavior, JSON Schema validation, and rate-limit handling through a reusable Python client.",
+    "stack": [
+      "Python",
+      "PyTest",
+      "Requests",
+      "JSON Schema"
+    ],
+    "repository": "https://github.com/Mohanad49/github-api-tests",
+    "report": "https://mohanad49.github.io/github-api-tests/"
+  },
+  {
+    "id": "selenium-web",
+    "legacyId": 7,
+    "title": "Selenium web QA framework",
+    "category": "Web",
+    "description": "Page objects, explicit waits, failure evidence, and CI reporting for Sauce Labs' open-source The Internet application.",
+    "stack": [
+      "Python",
+      "Selenium",
+      "PyTest",
+      "Allure"
+    ],
+    "repository": "https://github.com/Mohanad49/open-source-webapp-qa-portfolio",
+    "report": "https://mohanad49.github.io/open-source-webapp-qa-portfolio/"
+  },
+  {
+    "id": "restful-booker",
+    "legacyId": 8,
+    "title": "Restful Booker API framework",
+    "category": "API",
+    "description": "Authentication, CRUD, negative cases, and repeatable Postman/Newman runs with published execution reports.",
+    "stack": [
+      "Postman",
+      "Newman",
+      "JavaScript",
+      "GitHub Actions"
+    ],
+    "repository": "https://github.com/Mohanad49/api-testing-framework-ci",
+    "report": "https://mohanad49.github.io/api-testing-framework-ci/"
+  },
+  {
+    "id": "jmeter",
+    "legacyId": 9,
+    "title": "Prediction API load testing",
+    "category": "Performance",
+    "description": "Load testing a FastAPI prediction endpoint with preselected latency and error thresholds and documented throughput limits.",
+    "stack": [
+      "JMeter",
+      "Python",
+      "FastAPI"
+    ],
+    "repository": "https://github.com/Mohanad49/jmeter_performance_testing_report",
+    "report": null
+  },
+  {
+    "id": "ebay-selenium",
+    "legacyId": 10,
+    "title": "Search and refinement automation",
+    "category": "Web",
+    "description": "Selenium/Java search scenarios with page objects, external test data, and an HTML execution report.",
+    "stack": [
+      "Java",
+      "Selenium",
+      "JSON fixtures"
+    ],
+    "repository": "https://github.com/Mohanad49/ebay-web-automation",
+    "report": null
+  }
+]

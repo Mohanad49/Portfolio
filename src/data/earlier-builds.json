@@ -1,0 +1,5 @@
+[
+  { "id": "gamerhq", "legacyId": 11, "title": "GamerHQ", "description": "A React game-discovery application.", "repository": "https://github.com/Mohanad49/GamerHQ" },
+  { "id": "kindle", "legacyId": 12, "title": "Kindle", "description": "A non-monetary donation platform.", "repository": "https://github.com/Mohanad49/Kindle" },
+  { "id": "lafefny", "legacyId": 13, "title": "Lafefny", "description": "A travel platform connecting tourists with local guides and activities.", "repository": "https://github.com/Mohanad49/Lafefny" }
+]
