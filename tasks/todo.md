@@ -11,7 +11,7 @@
 - [x] Add the 3D scene, motion, and complete fallback states.
 - [x] Complete case studies, archive, experience, about, and contact.
 - [x] Add resume, metadata, social previews, 404, and legacy compatibility.
-- [ ] Pass focused checks and technical source review.
-- [ ] Complete Impeccable visual review and design documentation.
+- [x] Pass focused checks and technical source review.
+- [x] Complete Impeccable visual review and design documentation.
 - [ ] Verify preview, replace production, and retain rollback evidence.
 - [ ] Smoke-test the live site and report final verification.

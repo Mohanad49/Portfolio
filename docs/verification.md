@@ -2,9 +2,9 @@
 
 ## Current source
 
-Application: commit 00a2a63 on codex/qa-portfolio, plus the reviewed CI-only graphics
-configuration. The original checkout is unchanged.
-The static production build is served locally on 127.0.0.1:4173.
+Application and test configuration: commit 213871f on codex/qa-portfolio.
+The final documentation commit changes no application, asset, test, dependency,
+build, or deployment configuration. The original checkout is unchanged.
 This is the shared record for Git, visual review, and technical review.
 
 ## Completed verification
@@ -31,6 +31,10 @@ This is the shared record for Git, visual review, and technical review.
 | Technical source review | Commit 9355bab, five review axes | Approved; four findings resolved |
 | Transmission material | Final scene in all three desktop engines | Input, reset, live preferences, real context loss pass; no console or page errors |
 | Mobile Lighthouse | Three production-build runs per main route | Home median 99; other four routes 100; all thresholds passed |
+| Hosted Ubuntu matrix | Three engines, three viewport sizes, actual software WebGL2 | 115 passed, 12 inapplicable desktop-only skips, 0 failures, 0 retries |
+| Hosted performance | Fifteen mobile production-build runs | All median performance, LCP, and CLS gates passed |
+| Hosted preview | Vercel deployment 7266432783 | Routes, filters and reload, metadata, 404, legacy links, exact resume verified |
+| Design documentation | DESIGN.md and .impeccable/design.json | Actual tokens, ten component previews, sidecar schema and CSS validated |
 
 | Route | Median performance | Median LCP | Median CLS |
 | --- | --- | --- | --- |
@@ -42,6 +46,16 @@ This is the shared record for Git, visual review, and technical review.
 
 These are local mobile lab measurements, not field Core Web Vitals. All fifteen
 runs are retained in .lighthouseci/ and .research/mobile-performance.json.
+
+Hosted run: https://github.com/Mohanad49/Portfolio/actions/runs/39873648429.
+Its median scores are also 99 for home and 100 for the other four routes; median
+LCP spans 1.356 to 1.584 seconds and median CLS stays below 0.018. Hosted artifacts
+are retained in .research/ci-accepted-artifacts and summarized in
+.research/ci-accepted-summary.json. The first Ubuntu Firefox failure is resolved
+by actual rendering under the virtual display, with assertions unchanged.
+
+Authenticated preview: https://portfolio-lq7mlbe83-mohanad49s-projects.vercel.app.
+The downloaded preview resume matches the supplied PDF hash above.
 
 The first full browser run executed 114 tests: 110 passed and four failed. The
 scrollable-table accessibility issue from the preceding Chromium run was already
@@ -71,16 +85,15 @@ The independent Impeccable review accepted the first viewport, responsive layout
 archive, case studies, and metadata cleanup. The owner authorized one additional
 focused material pass. The resulting transparent amber overlap, dark chrome, and
 graphite field were accepted. Both visual findings are resolved, disposition ship.
-See docs/visual-review.md. Final design documentation is being completed.
+See docs/visual-review.md. The extracted design system and its sidecar are complete;
+the Impeccable build-phase finish is recorded as ship, with no forced gates.
 Live design hooks ran on edited files. Their colored-shadow finding was fixed by
 removing that shadow. No rule suppressions were added and no duplicate detector
 run was performed.
 
 ## Remaining release gates
 
-- Pass hosted Ubuntu verification with the corrected Firefox graphics environment.
-- Completed DESIGN.md and .impeccable/design.json.
-- Hosted preview validation, production replacement, and live smoke verification.
+- Production replacement and live smoke verification.
 
 The deferred 3D chunk exceeds Vite's general 500 kB warning. The warning threshold
 was not raised. Its mobile request exclusion and deferred desktop behavior passed
