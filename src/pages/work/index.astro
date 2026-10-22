@@ -1,0 +1,102 @@
+---
+import { getCollection } from 'astro:content';
+import { getProjects } from '../../lib/content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
+import earlierBuilds from '../../data/earlier-builds.json';
+const projects = await getProjects();
+const frameworks = (await getCollection('frameworks')).sort((a, b) => a.data.legacyId - b.data.legacyId);
+const categories = ['All', 'Web', 'API', 'Mobile', 'Performance'];
+---
+<BaseLayout title="Work & test frameworks | Mohanad Yehia" description="QA case studies and seven test frameworks across web, API, mobile, and performance testing. Source code, reports, scope, and decisions.">
+  <header class="work-heading"><a class="back-link" href="/">← Home</a><h1>Selected work.<br />The deeper cuts.</h1><p>Systems I’ve tested, tools I’ve built, and the evidence worth opening.</p></header>
+  <section class="case-index" aria-labelledby="selected-heading"><h2 id="selected-heading">Three case studies</h2>{projects.map(project => <a class="case-index-link" href={`/work/${project.data.slug}`}><span class="case-number">0{project.data.order}</span><span class="case-name">{project.data.title}<span>{project.data.eyebrow}</span></span><Icon /></a>)}</section>
+  <section class="framework-archive section-space" id="frameworks" aria-labelledby="framework-heading">
+    <div class="archive-heading"><h2 id="framework-heading">Framework archive</h2><p>Focused projects across four testing disciplines. Open the source to inspect their structure and limitations.</p></div>
+    <form class="filter-form" aria-label="Filter frameworks" hidden><fieldset><legend class="sr-only">Testing discipline</legend>{categories.map(category => <label class="filter-option"><input type="radio" name="discipline" value={category} checked={category === 'All'} /><span>{category}<span class="filter-count">{category === 'All' ? frameworks.length : frameworks.filter(item => item.data.category === category).length}</span></span></label>)}</fieldset></form>
+    <p class="filter-status" role="status" aria-live="polite">{frameworks.length} frameworks</p>
+    <div class="framework-list">{frameworks.map(item => <article class="framework-item" id={item.id} data-category={item.data.category}>
+      <span class="framework-number" aria-hidden="true">{String(item.data.legacyId - 3).padStart(2, '0')}</span>
+      <div class="framework-info"><p class="framework-category">{item.data.category} testing</p><h3>{item.data.title}</h3><p>{item.data.description}</p><ul class="framework-stack" aria-label="Technology">{item.data.stack.map(technology => <li>{technology}</li>)}</ul></div>
+      <div class="framework-actions"><a href={item.data.repository} aria-label={`Source code for ${item.data.title}`}>Source <Icon name="external" /></a>{item.data.report && <a href={item.data.report} aria-label={`Execution report for ${item.data.title}`}>Report <Icon name="external" /></a>}</div>
+    </article>)}</div>
+  </section>
+  <section class="earlier-builds" aria-labelledby="earlier-heading"><div><h2 id="earlier-heading">Earlier software builds</h2><p>Development projects that broadened my understanding of the systems I now test.</p></div><div class="earlier-list">{earlierBuilds.map(project => <article id={project.id}><h3><a href={project.repository}>{project.title} <Icon name="external" /></a></h3><p>{project.description}</p></article>)}</div></section>
+</BaseLayout>
+<script>
+  const form = document.querySelector<HTMLFormElement>('.filter-form');
+  const items = [...document.querySelectorAll<HTMLElement>('.framework-item')];
+  const status = document.querySelector<HTMLElement>('.filter-status');
+  if (form && status) {
+    const choices = [...form.querySelectorAll<HTMLInputElement>('input[name="discipline"]')];
+    function applyFilter(category: string, updateUrl: boolean) {
+      let count = 0;
+      for (const item of items) { item.hidden = category !== 'All' && item.dataset.category !== category; if (!item.hidden) count++; }
+      if (status) status.textContent = `${count} ${category === 'All' ? '' : `${category} `}framework${count === 1 ? '' : 's'}`;
+      for (const choice of choices) choice.checked = choice.value === category;
+      if (updateUrl) {
+        const url = new URL(window.location.href);
+        if (category === 'All') url.searchParams.delete('type'); else url.searchParams.set('type', category);
+        history.replaceState(null, '', url);
+      }
+    }
+    function readUrl() {
+      const requested = new URL(window.location.href).searchParams.get('type');
+      const selected = choices.find(choice => choice.value === requested);
+      applyFilter(selected?.value ?? 'All', false);
+      const target = items.find(item => `#${item.id}` === window.location.hash);
+      if (target?.hidden) { applyFilter('All', true); target.scrollIntoView(); }
+    }
+    form.hidden = false;
+    form.addEventListener('submit', event => event.preventDefault());
+    form.addEventListener('change', () => { const selected = choices.find(choice => choice.checked); if (selected) applyFilter(selected.value, true); });
+    window.addEventListener('popstate', readUrl);
+    window.addEventListener('hashchange', readUrl);
+    readUrl();
+  }
+</script>
+<style>
+  .work-heading { padding: clamp(2rem, 5vw, 5rem) var(--page-gutter) 4rem; }
+  .back-link { display: inline-flex; align-items: center; min-height: 44px; font-size: .9rem; color: var(--color-muted); }
+  h1 { font-size: clamp(2.5rem, 7.5vw, 8.5rem); margin-top: 2.5rem; }
+  .work-heading > p { max-width: 38ch; font-size: clamp(1.1rem, 1.8vw, 1.8rem); color: #d5cec4; margin-top: 2rem; }
+  .case-index { margin-inline: var(--page-gutter); }
+  .case-index h2 { font-family: var(--font-sans); font-size: .9rem; font-weight: 500; letter-spacing: 0; color: var(--color-muted); margin-bottom: 1.5rem; }
+  .case-index-link { display: grid; grid-template-columns: 3rem 1fr 2rem; gap: 1.5rem; align-items: center; padding-block: 1.8rem; border-top: 1px solid var(--line); }
+  .case-index-link:last-child { border-bottom: 1px solid var(--line); }
+  .case-number { font-size: .8rem; color: var(--color-amber); }
+  .case-name { font-family: var(--font-display); font-size: clamp(1.4rem, 3vw, 3.2rem); line-height: 1.2; letter-spacing: -.04em; }
+  .case-name > span { display: block; font-family: var(--font-sans); font-size: .8rem; color: var(--color-muted); letter-spacing: 0; margin-top: .7rem; }
+  .case-index-link:hover .case-name { color: var(--color-amber); }
+  .framework-archive { padding-inline: var(--page-gutter); }
+  .archive-heading { display: flex; gap: 3rem; justify-content: space-between; align-items: end; margin-bottom: 2.5rem; }
+  h2 { font-size: clamp(2rem, 3.6vw, 4rem); }
+  .archive-heading > p { max-width: 37ch; font-size: .95rem; color: var(--color-muted); }
+  fieldset { border: 0; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: .5rem 2rem; }
+  .filter-option { position: relative; cursor: pointer; }
+  .filter-option input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+  .filter-option > span { min-height: 44px; display: inline-flex; align-items: center; border-bottom: 2px solid transparent; padding-block: .5rem; color: var(--color-muted); }
+  .filter-option input:checked + span { color: var(--color-amber); border-color: var(--color-amber); }
+  .filter-option input:focus-visible + span { outline: 2px solid var(--color-amber); outline-offset: 5px; }
+  .filter-count { margin-left: .4rem; font-size: .7rem; }
+  .filter-status { font-size: .8rem; color: var(--color-muted); margin-block: 1.5rem; }
+  .framework-item { display: grid; grid-template-columns: 3rem 1fr 8rem; gap: 1.5rem; padding-block: 2.5rem; border-top: 1px solid var(--line); scroll-margin-top: 2rem; }
+  .framework-item:last-child { border-bottom: 1px solid var(--line); }
+  .framework-number { color: var(--color-muted); font-size: .8rem; }
+  .framework-category { color: var(--color-amber); font-size: .75rem; margin-bottom: .7rem; }
+  h3 { font-size: clamp(1.35rem, 2vw, 2.2rem); }
+  .framework-info > p:not(.framework-category) { color: #d5cec4; max-width: 65ch; margin-top: 1rem; font-size: .95rem; }
+  .framework-stack { display: flex; flex-wrap: wrap; gap: .5rem 1.2rem; list-style: none; padding: 0; margin: 1.2rem 0 0; font-size: .75rem; color: var(--color-muted); }
+  .framework-actions { display: flex; flex-direction: column; align-items: start; gap: .5rem; }
+  .framework-actions a { display: inline-flex; align-items: center; gap: .5rem; min-height: 44px; font-size: .9rem; }
+  .framework-actions a:hover { color: var(--color-amber); }
+  .framework-actions :global(svg) { width: 18px; height: 18px; }
+  .earlier-builds { display: grid; grid-template-columns: 1fr 1fr; gap: 10%; padding: 0 var(--page-gutter) clamp(4rem, 8vw, 9rem); }
+  .earlier-builds > div > p { max-width: 40ch; color: var(--color-muted); margin-top: 1.5rem; }
+  .earlier-list article { padding-block: 1.5rem; border-top: 1px solid var(--line); }
+  .earlier-list h3 { font-size: 1.5rem; }
+  .earlier-list a { display: flex; align-items: center; justify-content: space-between; min-height: 44px; }
+  .earlier-list :global(svg) { width: 20px; height: 20px; }
+  .earlier-list p { color: var(--color-muted); font-size: .85rem; margin-top: .5rem; }
+  @media (max-width: 760px) { .archive-heading { display: block; } .archive-heading > p { margin-top: 1.5rem; } fieldset { gap: .3rem 1.3rem; } .framework-item { grid-template-columns: 1.6rem 1fr; gap: 1rem; } .framework-actions { grid-column: 2; flex-direction: row; gap: 2rem; } .earlier-builds { grid-template-columns: 1fr; gap: 2.5rem; } .case-index-link { grid-template-columns: 1.6rem 1fr 1.5rem; gap: 1rem; } }
+</style>

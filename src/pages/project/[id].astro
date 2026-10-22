@@ -1,0 +1,9 @@
+---
+import legacy from '../../data/legacy-routes.json';
+export function getStaticPaths() {
+  return Object.entries(legacy.projects).map(([id, destination]) => ({ params: { id }, props: { destination } }));
+}
+const { destination } = Astro.props;
+const canonical = new URL(destination, Astro.site);
+---
+<!doctype html><html lang="en"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta http-equiv="refresh" content={`0;url=${destination}`} /><link rel="canonical" href={canonical} /><meta name="robots" content="noindex, follow" /><title>Project moved | Mohanad Yehia</title></head><body><main><h1>This project has a new home.</h1><p><a href={destination}>Continue to the project</a></p></main></body></html>
