@@ -24,4 +24,24 @@ import heroScene from '../../assets/plates/hero-scene.png';
   .work-action:hover { background: #ffda98; }
   .resume-action { position: absolute; left: 18.16%; top: 37.89vw; width: 8.92%; height: 4.1vw; border: 1px solid #b1a492; background: #19171470; }
   .resume-action:hover { background: #393027; }
+  @media (max-width: 1000px) {
+    .hero { aspect-ratio: auto; height: 660px; }
+    .hero-scene { top: auto; bottom: 0; height: 400px; object-position: 60% center; mask-image: linear-gradient(to bottom, transparent, #000 24%); }
+    h1 { top: 110px; font-size: 9.96vw; }
+    .hero-role { top: 310px; left: var(--page-gutter); font-size: 1.25rem; }
+    .hero-introduction { top: 350px; left: var(--page-gutter); font-size: 1rem; line-height: 1.5; }
+    .button { top: 420px; height: 48px; font-size: .9rem; }
+    .work-action { left: var(--page-gutter); width: 11rem; }
+    .resume-action { left: calc(var(--page-gutter) + 11.75rem); width: 7rem; }
+  }
+  @media (max-width: 600px) {
+    .hero { height: calc(660px + 20vw); }
+    .hero-scene { height: 390px; object-position: 65% center; }
+    h1 { top: 140px; left: var(--page-gutter); font-size: 10vw; line-height: 1.05; }
+    .hero-role { top: calc(180px + 20vw); font-size: 1.15rem; }
+    .hero-introduction { top: calc(220px + 20vw); }
+    .button { top: calc(298px + 20vw); }
+    .work-action { width: min(46vw, 11rem); }
+    .resume-action { left: calc(var(--page-gutter) + min(46vw, 11rem) + .75rem); }
+  }
 </style>

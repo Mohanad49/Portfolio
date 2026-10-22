@@ -16,6 +16,9 @@
   --page-gutter: clamp(1.25rem, 3.58vw, 5rem);
   --line: #49433b;
   --surface: #1d1a17;
+  scrollbar-color: #81705a #171515;
+  accent-color: var(--color-amber);
+  caret-color: var(--color-amber);
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 2rem; }
@@ -38,6 +41,7 @@ p { text-wrap: pretty; }
 .legacy-anchor { position: absolute; top: 0; left: 0; width: 1px; height: 1px; pointer-events: none; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 [hidden] { display: none !important; }
+table, dd, .framework-number, .case-number { font-variant-numeric: tabular-nums; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }

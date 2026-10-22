@@ -4,7 +4,7 @@ import Icon from './Icon.astro';
 const profile = await getProfile();
 ---
 <section class="experience section-space" id="experience" aria-labelledby="experience-title">
-  <div class="experience-heading" data-reveal><p class="section-label">Production &amp; enterprise QA</p><h2 id="experience-title">The work behind<br />the numbers.</h2></div>
+  <div class="experience-heading" data-reveal><h2 id="experience-title">Production QA.<br />Behind the numbers.</h2></div>
   <div class="production-metrics" aria-label="Blue Ribbon production scope" data-reveal>
     <p class="metrics-attribution">Blue Ribbon <span>Production club-management platform</span></p>
     <dl>{profile.metrics.map(metric => <div><dt>{metric.label}<span>{metric.scope}</span></dt><dd>{metric.value}</dd></div>)}</dl>
@@ -18,8 +18,7 @@ const profile = await getProfile();
 </section>
 <style>
   .experience { padding-inline: var(--page-gutter); border-top: 1px solid var(--line); background: #1d1a17; }
-  .experience-heading { display: grid; grid-template-columns: 1fr 2fr; align-items: start; gap: 3rem; }
-  .experience-heading .section-label { padding-top: .6rem; }
+  .experience-heading { margin-left: 33%; }
   h2 { font-size: clamp(2.6rem, 4.8vw, 5.5rem); }
   .production-metrics { margin-block: clamp(3rem, 5vw, 5.5rem); }
   .metrics-attribution { font-weight: 600; font-size: .95rem; margin-bottom: 2.5rem; }
@@ -43,4 +42,14 @@ const profile = await getProfile();
   ul { padding-left: 1.1rem; margin-block: 1.4rem 0; }
   li { padding-left: .3rem; margin-top: .8rem; font-size: .92rem; }
   li::marker { color: var(--color-amber); }
+  @media (max-width: 900px) { .experience-heading { margin-left: 0; } dl { grid-template-columns: repeat(2, 1fr); gap: 2.5rem 1.5rem; } dd { font-size: clamp(1.8rem, 6.8vw, 3.5rem); } dl > div { padding-left: 1rem; } .metrics-attribution span { display: block; margin: .3rem 0 0; } }
+  @media (max-width: 600px) {
+    h2 { font-size: clamp(2rem, 8vw, 2.6rem); }
+    summary { grid-template-columns: 1fr 24px; gap: .8rem; padding-block: 1.5rem; }
+    .company { font-size: 1.5rem; }
+    .job-role { grid-column: 1; font-size: .9rem; }
+    summary :global(svg) { grid-column: 2; grid-row: 1 / span 2; }
+    .job-body { padding: 0 0 1.8rem; font-size: .95rem; }
+    li { font-size: .9rem; }
+  }
 </style>

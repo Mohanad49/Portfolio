@@ -20,7 +20,7 @@ const { profile } = Astro.props;
   <p class="copy-status" role="status" aria-live="polite"></p>
   <div class="contact-bottom">
     <p>{profile.name}<span>Software QA Engineer · Cairo, Egypt</span></p>
-    <div class="social-links"><a href={profile.linkedin}>LinkedIn <Icon name="external" /></a><a href={profile.github}>GitHub <Icon name="external" /></a><a href="#top">Back to top ↑</a></div>
+    <div class="social-links"><a href={profile.linkedin}>LinkedIn <Icon name="external" /></a><a href={profile.github}>GitHub <Icon name="external" /></a><a href="#top">Back to top <Icon class="up-icon" /></a></div>
   </div>
 </footer>
 <script>
@@ -56,6 +56,7 @@ const { profile } = Astro.props;
   .social-links { display: flex; flex-wrap: wrap; align-items: center; gap: 2rem; }
   .social-links a { display: inline-flex; gap: .3rem; align-items: center; min-height: 44px; }
   .social-links :global(svg) { width: 17px; height: 17px; }
+  .social-links :global(.up-icon) { transform: rotate(-90deg); }
   @media (max-width: 760px) {
     .contact-top { grid-template-columns: 1fr; gap: 2rem; }
     .contact-note { max-width: 100%; }
