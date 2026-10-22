@@ -1,0 +1,27 @@
+---
+import { Image } from 'astro:assets';
+import heroScene from '../../assets/plates/hero-scene.png';
+---
+<section class="hero" id="home" aria-labelledby="intro-title">
+  <span id="Home" class="legacy-anchor" aria-hidden="true"></span>
+  <Image class="hero-scene" src={heroScene} alt="" aria-hidden="true" format="webp" quality={85} widths={[640, 1024, 1536, 1751]} sizes="100vw" loading="eager" fetchpriority="high" />
+  <h1 id="intro-title"><span>Complex systems.</span><span>Clear evidence.</span></h1>
+  <p class="hero-role">Software QA Engineer</p>
+  <p class="hero-introduction">Production QA across web, mobile,<br /> API, and data.</p>
+  <a class="button work-action" href="#work">Explore the work</a>
+  <a class="button resume-action" href="/resume.pdf" download="Mohanad_Yehia_Software_QA_Engineer.pdf">Resume</a>
+</section>
+<style>
+  .hero { position: relative; aspect-ratio: 1536 / 786; isolation: isolate; overflow: hidden; }
+  .hero-scene { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+  .hero > :not(img) { z-index: 1; }
+  h1 { position: absolute; top: 5.8vw; left: 3.13%; font-size: 9.96vw; line-height: .9; letter-spacing: -.04em; font-weight: 700; transform: scaleX(.93); transform-origin: top left; }
+  h1 span { display: block; white-space: nowrap; }
+  .hero-role { position: absolute; top: 29.2vw; left: 3.58%; font-size: 1.823vw; line-height: 1.3; letter-spacing: -.035em; }
+  .hero-introduction { position: absolute; top: 32.3vw; left: 3.58%; font-size: 1.498vw; line-height: 1.25; letter-spacing: -.025em; color: var(--color-muted); }
+  .button { display: inline-flex; justify-content: center; align-items: center; border-radius: .6rem; font-size: 1.25vw; font-weight: 600; line-height: 1.2; transition: background .2s, color .2s; }
+  .work-action { position: absolute; left: 3.58%; top: 37.89vw; width: 13.54%; height: 4.1vw; background: linear-gradient(145deg, #ffd17d, #f4a938); color: #17110a; }
+  .work-action:hover { background: #ffda98; }
+  .resume-action { position: absolute; left: 18.16%; top: 37.89vw; width: 8.92%; height: 4.1vw; border: 1px solid #b1a492; background: #19171470; }
+  .resume-action:hover { background: #393027; }
+</style>

@@ -1,0 +1,42 @@
+---
+import { getImage } from 'astro:assets';
+import { getProfile } from '../lib/content';
+import Header from '../components/Header.astro';
+import Contact from '../components/Contact.astro';
+import heroScene from '../../assets/plates/hero-scene.png';
+import '../styles/global.css';
+interface Props { title?: string; description?: string; home?: boolean; noindex?: boolean; }
+const { title = 'Mohanad Yehia | Software QA Engineer', description = 'Software QA across web, mobile, API, and data. Explore production experience, test frameworks, and evidence-backed QA case studies.', home = false, noindex = false } = Astro.props;
+const profile = await getProfile();
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const social = await getImage({ src: heroScene, width: 1200, height: 630, fit: 'cover', format: 'webp', quality: 85 });
+const person = { '@context': 'https://schema.org', '@type': 'Person', name: profile.name, jobTitle: profile.role, url: Astro.site?.toString(), sameAs: [profile.linkedin, profile.github], email: `mailto:${profile.email}` };
+---
+<!doctype html>
+<html lang="en" id="top">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#171515" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(social.src, Astro.site)} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Layered glass and dark chrome, a conceptual study of software inspection." />
+    <meta name="twitter:card" content="summary_large_image" />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    <script type="application/ld+json" set:html={JSON.stringify(person).replace(/</g, '\u003c')} />
+  </head>
+  <body>
+    <Header home={home} />
+    <main id="main" tabindex="-1"><slot /></main>
+    <Contact profile={profile} />
+  </body>
+</html>

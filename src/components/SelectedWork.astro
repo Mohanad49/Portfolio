@@ -1,0 +1,85 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import projectArt from '../../assets/plates/project-art.png';
+---
+<section class="featured" id="work" aria-labelledby="testpulse-title">
+  <span id="Portofolio" class="legacy-anchor" aria-hidden="true"></span>
+  <div class="feature-intro">
+    <Image class="project-art" src={projectArt} alt="" aria-hidden="true" format="webp" quality={85} widths={[640, 1024, 1536]} sizes="60vw" />
+    <p class="work-label">Selected work</p>
+    <h2 id="testpulse-title"><a href="/work/testpulse">TestPulse</a></h2>
+    <p class="project-summary">Test observability &amp; flake detection</p>
+  </div>
+  <div class="feature-body" data-reveal>
+    <h3>A red test deserves<br />a better explanation.</h3>
+    <div>
+      <p>A CI history that distinguishes inconsistent tests from new regressions. Multiple runners, a shared evidence model, and the reason behind every flake classification.</p>
+      <p class="boundary">The public dashboard is an exported snapshot of real CI results.</p>
+      <div class="feature-actions"><a class="text-link" href="/work/testpulse">Read the case study <Icon /></a><a class="subtle-link" href="https://testpulse-eight.vercel.app/">Open dashboard <Icon name="external" /></a></div>
+    </div>
+  </div>
+  <div class="feature-meta"><span>01 / Independent QA tooling</span><span>Python · FastAPI · React · PostgreSQL</span></div>
+</section>
+<div class="secondary-work">
+  <article class="caldiy-project" data-reveal>
+    <div class="project-meta"><span>02 / Risk-led test strategy</span><span>Cal.diy v6.2.0</span></div>
+    <h2><a href="/work/caldiy">One slot.<br />Twenty contenders.</a></h2>
+    <figure class="contention-figure">
+      <div class="contention-bars" aria-hidden="true">{Array.from({ length: 20 }, (_, i) => <span class:list={{ winner: i === 0 }}></span>)}</div>
+      <figcaption><strong>1 persisted booking</strong><span>19 expected conflicts in a recorded contention run</span></figcaption>
+    </figure>
+    <p>API, timezone, concurrency, and accessibility testing for a self-hosted scheduling system. Documented failures stay in the evidence.</p>
+    <a class="text-link" href="/work/caldiy">Inspect Cal.diy <Icon /></a>
+  </article>
+  <article class="llm-project" data-reveal>
+    <div class="project-meta"><span>03 / LLM evaluation</span><span>Local RAG target</span></div>
+    <h2><a href="/work/llm-evaluation">How reliable is<br />the judge?</a></h2>
+    <div class="agreement"><span>82<span class="percent">%</span></span><p>raw agreement with<br />45 blind human labels</p></div>
+    <p>An evaluation harness that checks retrieval, answers, and safety. Its refusal judge remains outside CI gates because the measured evidence has limits.</p>
+    <a class="text-link" href="/work/llm-evaluation">Read the evaluation <Icon /></a>
+  </article>
+</div>
+<section class="archive-link" aria-label="Framework archive" data-reveal>
+  <div><p class="section-label">There’s more under the surface.</p><h2>Seven frameworks.<br />Four testing disciplines.</h2></div>
+  <div class="archive-link-action"><p>Web · API · Mobile · Performance</p><a class="text-link" href="/work">Explore the work archive <Icon /></a></div>
+</section>
+<style>
+  .featured { position: relative; isolation: isolate; overflow: hidden; }
+  .feature-intro { position: relative; height: 15.5vw; }
+  .project-art { position: absolute; top: 0; left: 40.1%; width: 59.9%; height: 15.5vw; object-fit: cover; z-index: 0; }
+  .work-label { position: absolute; top: 1.6vw; left: 3.58%; font-size: 1.3vw; letter-spacing: .09em; color: var(--color-muted); z-index: 1; }
+  .feature-intro h2 { position: absolute; top: 4.1vw; left: 3.58%; font-size: 6.77vw; font-weight: 700; z-index: 1; }
+  .project-summary { position: absolute; top: 11.2vw; left: 3.58%; font-size: 1.69vw; line-height: 1.3; color: var(--color-muted); z-index: 1; }
+  .feature-body { padding: 3.5rem var(--page-gutter) 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 10%; }
+  .feature-body h3 { font-size: clamp(1.8rem, 3.2vw, 3.7rem); }
+  .feature-body p { max-width: 40rem; font-size: 1.1rem; color: #d5cec4; }
+  .feature-body .boundary { font-size: .9rem; color: var(--color-muted); margin-top: 1.3rem; }
+  .feature-actions { display: flex; gap: 2rem; flex-wrap: wrap; align-items: center; margin-top: 2rem; }
+  .subtle-link { color: var(--color-muted); font-size: .9rem; display: inline-flex; gap: .4rem; align-items: center; min-height: 44px; }
+  .subtle-link:hover { color: var(--color-ink); }
+  .subtle-link :global(svg) { width: 18px; height: 18px; }
+  .feature-meta { margin-inline: var(--page-gutter); padding-block: 1.4rem; border-block: 1px solid var(--line); display: flex; justify-content: space-between; gap: 2rem; font-size: .85rem; color: var(--color-muted); }
+  .secondary-work { display: grid; grid-template-columns: 1.1fr 1fr; gap: 3vw; padding: clamp(3rem, 5vw, 6rem) var(--page-gutter) 0; }
+  .secondary-work article { display: flex; flex-direction: column; padding: clamp(1.5rem, 3vw, 3.5rem); }
+  .caldiy-project { background: #e9e0d4; color: #252019; }
+  .llm-project { border-top: 1px solid var(--line); padding-right: 0 !important; }
+  .project-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem 1rem; font-size: .75rem; margin-bottom: 2rem; }
+  .secondary-work h2 { font-size: clamp(2rem, 3.35vw, 4rem); }
+  .secondary-work p { font-size: 1rem; margin-bottom: 1.5rem; max-width: 39rem; }
+  .secondary-work .text-link { align-self: flex-start; margin-top: auto; }
+  .caldiy-project .text-link:hover { color: #774000; }
+  .contention-figure { margin: 2.5rem 0 2rem; }
+  .contention-bars { height: 5rem; display: flex; align-items: end; gap: 5px; }
+  .contention-bars span { flex: 1; height: 40%; background: #8d8170; }
+  .contention-bars .winner { height: 100%; background: #46301c; }
+  figcaption { display: flex; flex-direction: column; font-size: .8rem; line-height: 1.5; margin-top: 1rem; }
+  figcaption strong { font-weight: 700; }
+  .agreement { display: flex; gap: 1.5rem; align-items: center; margin: 2rem 0; }
+  .agreement > span { font-family: var(--font-display); font-size: clamp(5rem, 8vw, 9rem); letter-spacing: -.04em; line-height: 1; color: var(--color-amber); }
+  .percent { font-size: .45em; }
+  .agreement p { font-size: .85rem; margin: 0; color: var(--color-muted); }
+  .archive-link { padding: clamp(3rem, 6vw, 6rem) var(--page-gutter); display: flex; justify-content: space-between; align-items: end; gap: 2rem; }
+  .archive-link h2 { font-size: clamp(1.8rem, 3vw, 3.4rem); margin-top: 1rem; }
+  .archive-link-action p { color: var(--color-muted); font-size: .9rem; margin-bottom: 1rem; }
+</style>
