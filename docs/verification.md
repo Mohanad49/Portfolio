@@ -2,7 +2,8 @@
 
 ## Current source
 
-Application: commit 9355bab on codex/qa-portfolio. The original checkout is unchanged.
+Application: commit 00a2a63 on codex/qa-portfolio, plus the reviewed CI-only graphics
+configuration. The original checkout is unchanged.
 The static production build is served locally on 127.0.0.1:4173.
 This is the shared record for Git, visual review, and technical review.
 
@@ -28,6 +29,19 @@ This is the shared record for Git, visual review, and technical review.
 | Bundle requests | Normal mobile/tablet and all reduced-motion states | No React renderer, island, or Canvas module requested |
 | Desktop Canvas deferral | Chromium, Firefox, WebKit | Canvas module absent at the top, requested near Approach |
 | Technical source review | Commit 9355bab, five review axes | Approved; four findings resolved |
+| Transmission material | Final scene in all three desktop engines | Input, reset, live preferences, real context loss pass; no console or page errors |
+| Mobile Lighthouse | Three production-build runs per main route | Home median 99; other four routes 100; all thresholds passed |
+
+| Route | Median performance | Median LCP | Median CLS |
+| --- | --- | --- | --- |
+| / | 99 | 1.597 s | 0 |
+| /work | 100 | 1.508 s | 0.000124 |
+| /work/testpulse | 100 | 1.511 s | 0.014464 |
+| /work/caldiy | 100 | 1.514 s | 0 |
+| /work/llm-evaluation | 100 | 1.510 s | 0 |
+
+These are local mobile lab measurements, not field Core Web Vitals. All fifteen
+runs are retained in .lighthouseci/ and .research/mobile-performance.json.
 
 The first full browser run executed 114 tests: 110 passed and four failed. The
 scrollable-table accessibility issue from the preceding Chromium run was already
@@ -54,23 +68,22 @@ live preferences. Retained summaries are .research/affected-matrix.json and
 The builder completed its first inspection and one confirmation round. Its two
 material fixes were a readable mobile strategy comparison and clearer 3D lighting.
 The independent Impeccable review accepted the first viewport, responsive layouts,
-archive, case studies, and metadata cleanup. One material finding remains open:
-the interactive scene does not yet visibly distinguish dark chrome and transparent
-amber glass. The required decision after two fix verdicts is pending with the owner.
-See docs/visual-review.md. Final design documentation follows the last correction.
+archive, case studies, and metadata cleanup. The owner authorized one additional
+focused material pass. The resulting transparent amber overlap, dark chrome, and
+graphite field were accepted. Both visual findings are resolved, disposition ship.
+See docs/visual-review.md. Final design documentation is being completed.
 Live design hooks ran on edited files. Their colored-shadow finding was fixed by
 removing that shadow. No rule suppressions were added and no duplicate detector
 run was performed.
 
 ## Remaining release gates
 
-- Run the three-run mobile Lighthouse measurements for all five main routes.
-- Close the remaining Impeccable material finding or record an explicit owner concession.
+- Pass hosted Ubuntu verification with the corrected Firefox graphics environment.
 - Completed DESIGN.md and .impeccable/design.json.
 - Hosted preview validation, production replacement, and live smoke verification.
 
 The deferred 3D chunk exceeds Vite's general 500 kB warning. The warning threshold
 was not raised. Its mobile request exclusion and deferred desktop behavior passed
-browser network assertions; mobile performance remains a separate gate.
+browser network assertions. The local mobile performance gate passed independently.
 Local reports are under test-results/,
 playwright-report/, .impeccable/review/, and .research/; they are not served by the app.

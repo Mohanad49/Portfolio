@@ -3,7 +3,8 @@
 Review date: 2026-10-22.
 
 Initial immutable source: `68a4ab408d7d686ce5dfba907f64b77d65918de8`.
-Final approved source: `9355bab6df21a5011b6510316ababfaa625b3cf1`.
+Approved source before the material follow-up: `9355bab6df21a5011b6510316ababfaa625b3cf1`.
+The approved material/CI follow-up is identified by exact blob hashes below.
 Production baseline: `283ac31982d3e77893c8f28d22384e795172737e`.
 
 Scope: correctness, architecture, readability, resource lifecycle, security,
@@ -17,7 +18,7 @@ while objective measurements or hosted validation remain outstanding.
 initial review requested changes for filter URL persistence and initial fragment
 navigation. Commit `92cd582182b821ca14a6fd68ce62b9101e2cf9b7` addresses both,
 along with the two Optional findings. The final scene commit was also reviewed
-for resource lifecycle and rendering behavior. Its material changes do not add
+for resource lifecycle and rendering behavior. That commit's material changes do not add
 resource owners; its explicit initial invalidation schedules a bounded render.
 
 The final source has reported type checking across 30 authored files with zero
@@ -150,9 +151,99 @@ The exact source correction was reviewed and the final build passed.
 ## Objective acceptance remains separate
 
 The final shared record must identify the approved source and consolidate the
-full and affected browser evidence. At the time of source approval, the three
-mobile Lighthouse runs for each main route were running. Their results, hosted
-preview routing/status/headers, and final live smoke checks remain release gates.
+full and affected browser evidence. The three mobile Lighthouse runs for each
+main route subsequently passed. Hosted preview routing/status/headers and final
+live smoke checks remain release gates.
 External evidence links and professional claims retain their separate factual
 verification responsibility. No additional browser process was launched by this
 reviewer during the Lighthouse measurement window.
+
+## Approved material and CI follow-up
+
+**Approve.** No additional Critical, Required, Optional, or Nit findings.
+This is the owner-authorized material-only follow-up plus the limited CI trigger
+change. No additional design review or engineering workflow was introduced.
+
+Reviewed patch base: `51c3a54a028da44807a731b5e1a0404ed2428647`.
+Exact approved Git blob identities before the parent commits this patch:
+
+| File | Blob SHA |
+| --- | --- |
+| `src/components/InspectionCanvas.tsx` | `83f7592ed22e04f047a63a7df622a33df46b233d` |
+| `.github/workflows/quality.yml` | `6aa8f0e8a636207cd07076bffbf7567f8e81ed23` |
+| `tests/portfolio.spec.ts` | `89a7aaf0a2af6a79fb53ec4940a133506ad07e13` |
+
+The three inner layers now use Drei MeshTransmissionMaterial from the existing
+pinned dependency. The official [material documentation](https://drei.docs.pmnd.rs/shaders/mesh-transmission-material)
+describes its ability to sample other transmissive objects and its extra scene
+render cost. The installed implementation was inspected directly, including
+its framebuffer hook, rather than inferring ownership from the component name.
+
+- Each of the three materials performs one additional scene render per demanded
+  frame. This is three additional renders in total, not one. Backside rendering
+  remains disabled. Resolution is explicitly 512 by 512 and refraction samples
+  are explicitly six; no new full-viewport buffer or unbounded sampling is added.
+- Drei's useFBO owns the main and back target objects and disposes them on unmount.
+  The existing Canvas lifecycle still disposes its owned renderer and restores
+  the artwork on context loss. The temporary discard material is scoped to the
+  mounted component, with its GPU programs released by owned renderer teardown.
+- The material's frame callback updates uniforms and renders its buffers but does
+  not call invalidate or schedule another animation frame. Existing demand
+  rendering, near-viewport activation, and mobile/reduced-motion exclusion remain
+  intact. Distortion and temporal distortion are zero.
+- The shader compiled and the interaction/lifecycle paths passed in Chromium,
+  Firefox, and WebKit. `.research/transmission-browser-verification.json` reports
+  three passed, zero failures, zero skips, zero flaky results, and no runner errors.
+  Each retained inspection-browser-errors attachment decodes to an empty array.
+  The test collects both console errors and page errors, so a silent Three shader
+  compile failure cannot be concealed by otherwise changing opaque geometry.
+- The CI change limits push runs to main while retaining pull_request. Pull
+  requests still receive validation, main still receives post-merge validation,
+  and an open feature PR no longer duplicates its run through the branch-push
+  trigger. Permissions, checks, action pins, and artifact retention are unchanged.
+
+The increased desktop GPU work is bounded but is still a real cost. This review
+does not claim a measured desktop frame-rate improvement. The separately retained
+15-run mobile report, `.research/mobile-performance.json`, has median performance
+99 for home and 100 for the other four routes, median LCP from 1.508 to 1.597
+seconds, and median CLS below 0.015. The deferred scene is excluded from those
+mobile requests, so this material-only change does not invalidate that evidence.
+
+## CI software-rendering follow-up
+
+Review date: 2026-10-23. **Approve the source delta.** No additional Critical,
+Required, Optional, or Nit findings. Hosted Ubuntu execution remains an objective
+gate, independent of this configuration review.
+
+Reviewed against source `00a2a63023c6f3c43e96359f14de18e0a9f56552`:
+
+| File | Reviewed blob SHA |
+| --- | --- |
+| `.github/workflows/quality.yml` | `716a944933f8b506905fe4f26b675cbe9371e040` |
+| `playwright.config.ts` | `aa1f43bf499f069712e3ed611c4a175f18b07904` |
+
+The retained Firefox trace from failed GitHub run `39747337308` reports
+`AllowWebgl2:false restricts context creation on this system`. Mozilla's
+[upstream report](https://bugzilla.mozilla.org/show_bug.cgi?id=1970486) documents
+the same denial and the `webgl.force-enabled` workaround on a GPU-less Windows
+system. That supports the diagnosis; it does not prove the Ubuntu fix.
+[Playwright's CI guidance](https://playwright.dev/docs/ci#running-headed) requires
+Xvfb for headed Linux execution, and the installed Playwright dependency list
+includes Xvfb. [Mesa documents](https://docs.mesa3d.org/envvars.html#libgl-environment-variables)
+the software-rendering environment control used by the test step.
+
+The headed mode and Firefox preferences apply only to Firefox under Linux CI.
+The Xvfb wrapper and software-rendering environment apply to the browser-test
+step. There is no production rendering change, new dependency, added retry,
+error suppression, fake context, or expanded skip. The existing real-context
+test still requires a rendered image change after keyboard input, actual
+`WEBGL_lose_context` support, fallback recovery, and zero collected console or
+page errors. The separately forced WebGL-failure test still covers fallback.
+All nine engine/viewport projects remain configured. Pull requests and main
+pushes retain validation; the duplicate feature-branch push trigger is removed.
+
+No browser or broad check was rerun by this reviewer. The parent owns affected
+type/lint validation and the hosted Ubuntu run. The earlier run's 114 passes,
+one failure, and 12 documented inapplicable skips remain a failed result until
+the new run completes. Release acceptance requires retained results for the
+approved source with no unexpected failures, flaky results, or runner errors.
