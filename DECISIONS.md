@@ -26,3 +26,11 @@ The owner chose image concepts first in the planning interview and repeated that
 requirement in the approved implementation plan. Generate three compositions in
 the approved quality-lab family. Record the selected concept before UI authoring.
 The rest of the product brief is already confirmed and must not be re-interviewed.
+
+## D-005: Layered monograph composition
+
+The owner selected concept B on comparison page 7bd85de9. The approval is recorded
+in .impeccable/mocks/concept-b.png.json and .impeccable/selection.json. Three
+compositions were shown together; no further palette or identity interview is
+required. The approved image is the measured first-viewport target, with native
+HTML text and controls and a deliberate responsive adaptation.

@@ -1,0 +1,65 @@
+{
+  "title": "Choose the homepage composition",
+  "question": "The visual direction is fixed. Choose the composition to carry into the responsive implementation, or describe a revision.",
+  "options": [
+    {
+      "id": "a",
+      "label": "A · Sculptural editorial",
+      "thesis": "An exploded inspection object and a large editorial title form a diagonal composition.",
+      "palette": [
+        "#101112",
+        "#F2EEE6",
+        "#F2B760"
+      ],
+      "materials": [
+        "dark chrome",
+        "amber glass",
+        "matte graphite"
+      ],
+      "viewport": "Role at the top, large title lower left, inspection object above and beside it.",
+      "risk": "The hero gives more space to atmosphere before the main message.",
+      "comp": ".impeccable/mocks/concept-a.png"
+    },
+    {
+      "id": "b",
+      "label": "B · Layered monograph",
+      "thesis": "The message leads at an unmistakable scale, followed by a close inspection of the system's layers.",
+      "palette": [
+        "#101112",
+        "#F2EEE6",
+        "#F2B760"
+      ],
+      "materials": [
+        "dark chrome",
+        "amber glass",
+        "matte graphite"
+      ],
+      "viewport": "Oversized headline across the top, concise QA introduction below, wide sculpture on the right.",
+      "risk": "The large headline needs careful mobile typography and a deliberate art crop.",
+      "comp": ".impeccable/mocks/concept-b.png"
+    },
+    {
+      "id": "c",
+      "label": "C · Inspection gallery",
+      "thesis": "A tall inspection sculpture anchors a clear and measured gallery-like introduction.",
+      "palette": [
+        "#101112",
+        "#F2EEE6",
+        "#F2B760"
+      ],
+      "materials": [
+        "dark chrome",
+        "amber glass",
+        "matte graphite"
+      ],
+      "viewport": "Left-aligned QA introduction, tall central-right sculpture, selected work directly below.",
+      "risk": "Its left-copy/right-object structure is the most familiar of the three.",
+      "comp": ".impeccable/mocks/concept-c.png"
+    }
+  ],
+  "buildPath": {
+    "value": "comp",
+    "toggle": false
+  },
+  "steer": true
+}

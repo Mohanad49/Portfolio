@@ -3,10 +3,10 @@
 - [x] Inspect original repository and confirm clean working state.
 - [x] Create isolated checkout on codex/qa-portfolio and refresh origin/main.
 - [x] Record approved product truth, ownership, scope, and acceptance criteria.
-- [ ] Verify and retain current source references for the three case studies.
-- [ ] Prepare case-study copy and profile/framework content.
-- [ ] Generate three image compositions within the approved visual direction.
-- [ ] Receive and record the owner's composition selection.
+- [x] Verify and retain current source references for the three case studies.
+- [x] Prepare case-study copy and profile/framework content.
+- [x] Generate three image compositions within the approved visual direction.
+- [x] Receive and record the owner's composition selection: B, Layered monograph.
 - [ ] Implement the static shell and first viewport against the chosen concept.
 - [ ] Add the 3D scene, motion, and complete fallback states.
 - [ ] Complete case studies, archive, experience, about, and contact.
