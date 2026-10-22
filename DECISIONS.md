@@ -34,3 +34,23 @@ in .impeccable/mocks/concept-b.png.json and .impeccable/selection.json. Three
 compositions were shown together; no further palette or identity interview is
 required. The approved image is the measured first-viewport target, with native
 HTML text and controls and a deliberate responsive adaptation.
+# D006: Native raster limits and explicit layers
+
+The asset tool returned the hero at 1751 x 898 after a targeted resolution retry.
+The retained original is not upscaled. The project-detail plate is 2012 x 782 and
+uses the approved bleed crop. Both passed the asset tool's actual checks; the
+hero comparison passed at 90 percent after semantic text was integrated.
+The requested 1.5x hero density from the skill's prose was not produced by the
+available generator. Sharpness remains part of the visual review at real sizes.
+
+The hero uses optimized raster artwork behind semantic HTML. The testing-approach
+section supplies the real optional 3D interaction. Both layers stay complete when
+JavaScript, motion, or WebGL is unavailable.
+
+# D007: Supported, compatible build tooling
+
+Use Node 24, ESLint 10, Astro's current lint plugin, and TypeScript 6.0.3.
+TypeScript 7 is outside typescript-eslint's supported range. Disable automatic
+peer installation for this project and explicitly pin Vite so optional legacy
+accessibility lint peers cannot add an incompatible ESLint dependency. Axe and
+the browser suite own measured accessibility verification. Peer checks pass.
