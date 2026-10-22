@@ -1,146 +1,67 @@
-# 🚀 Mohanad Yehia - Portfolio Website  
+# Mohanad Yehia: QA portfolio
 
-![Portfolio](https://github.com/user-attachments/assets/959a7e93-a69b-4e54-b1d4-b45d94a30a79)
+A static, evidence-led portfolio for production QA, test automation, and test
+observability. Built with Astro, TypeScript, Tailwind CSS, React islands,
+React Three Fiber, Three.js, and GSAP.
 
+## Local development
 
-## 📝 About the Project  
+Use Node 24.16 or newer within the Node 24 release line and pnpm 11.17.0.
 
-This is my personal portfolio website showcasing:  
-- 🧑‍💻 Who I am  
-- 💼 My projects  
-- 📜 My certificates  
-- 📩 How to contact me  
+```sh
+pnpm install --frozen-lockfile
+pnpm dev
+```
 
-The website is designed with a modern, responsive UI and smooth animations to enhance user experience.  
+## Verification
 
----
+```sh
+pnpm check
+pnpm lint
+pnpm build
+pnpm exec playwright install chromium firefox webkit
+pnpm test
+pnpm perf
+```
 
-## 🛠️ Tech Stack  
+Playwright covers Chromium, Firefox, and WebKit at desktop, tablet, and mobile
+viewport sizes. It exercises navigation, filters, downloads, clipboard feedback,
+keyboard focus, no-JavaScript content, reduced motion, unavailable WebGL, the
+interactive scene, accessibility, and text reflow. It does not retry failures.
 
-### **Frontend:**  
-- ⚛️ **ReactJS** – Component-based UI development  
-- 🎨 **Tailwind CSS** – Utility-first styling for a sleek design  
-- 🚀 **AOS (Animate On Scroll)** – Scroll-based animations  
-- 🎭 **Framer Motion** – Smooth animations and transitions  
-- 🏞️ **Material UI** – UI components for better design consistency  
-- 🌟 **Lucide** – Modern icons for UI enhancement  
-- ⚠️ **SweetAlert2** – Interactive alerts for user engagement  
+Lighthouse CI runs the production build three times per main route with mobile
+emulation. Median performance must reach 90; median LCP must stay below 2.5 seconds
+and CLS below 0.1. Reports stay local or in the workflow artifact. The single
+current verification record is docs/verification.md.
 
-### **Backend & Database:**  
-- 🔥 **Firebase** – Hosting and database integration  
+## Content and evidence
 
----
+- Profile and experience: src/data/profile.json.
+- Three case studies: src/content/case-studies/.
+- Framework archive: src/data/frameworks.json.
+- Evidence boundaries and pinned sources: docs/evidence.md.
+- Current resume: public/resume.pdf.
 
-## 🎬 Features  
-✅ Fully responsive design  
-✅ Smooth animations & transitions  
-✅ Dynamic project showcase  
-✅ Contact form for easy communication  
-✅ Light and dark mode support _(if implemented)_  
+Content collections validate these records at build time. TestPulse is a static
+export of real CI data, Cal.diy targets the pinned v6.2.0 snapshot, and the refusal
+judge remains outside CI gates. Generated artwork is conceptual and never serves
+as a report capture or employer interface.
 
----
+## Motion and fallbacks
 
+GSAP owns DOM timelines and scroll progress. React Three Fiber owns scene rendering
+and resource lifecycle. A small shared progress object connects them. The scene
+loads only for eligible desktop visitors when it approaches the viewport and
+renders on demand. Mobile, reduced-motion, no-JavaScript, and unavailable-WebGL
+states retain the artwork, content, and links.
 
-## 🚀 Live Demo  
-Check out the live website: **[myehia.vercel.app](https://myehia.vercel.app)**  
+## Deployment
 
----
+Deploy this checkout through the existing Vercel project at https://myehia.vercel.app.
+The production build is dist/. Vercel uses the pinned pnpm version and Node 24.
+Legacy /project/1 through /project/13 links redirect to their replacement pages.
+The original bookmark IDs and search-verification HTML remain available.
 
-# 🔧 Tutorial: Running the Project  
-
-Here’s a simple guide to run this project.  
-
-## Prerequisites  
-
-Ensure that you have already installed:  
-- **Node.js**  
-
----
-
-## Steps to Run the Project  
-
-1. **Download this project:**  
-
-   ```bash  
-   git clone https://github.com/Mohanad49/Portfolio.git  
-   ```  
-
-2. **Install all dependencies:**  
-
-   ```bash  
-   npm install  
-   ```  
-   Or use:  
-
-   ```bash  
-   npm install --legacy-peer-deps  
-   ```  
-
-3. **Run the project:**  
-
-   ```bash  
-   npm run dev  
-   ```  
-
-4. **Open in browser:**  
-
-   Access the application through the link displayed in your terminal.  
-
----
-
-## Creating a Production Build  
-
-To create a production-ready build:  
-
-1. Run the build command:  
-
-   ```bash  
-   npm run build  
-   ```  
-
-2. The build files will be saved in the `dist` folder. You can upload this folder to your hosting server.  
-
----
-
-## Notes  
-
-If you encounter issues while running the project, ensure that:  
-- Node.js is correctly installed.  
-- You’re in the correct project directory.  
-- All dependencies are installed without errors.  
-
----
-
-## Firebase Configuration  
-
-To configure Firebase for this project, follow these steps:  
-
-1. **Add Firebase to the Project:**  
-   - Go to the [Firebase Console](https://console.firebase.google.com/).  
-   - Create a new project or use an existing one.  
-
-2. **Enable Firestore Database:**  
-   - Create a database.  
-
-3. **Go to Project Settings:**  
-   - Click the settings icon.  
-   - Copy the Firebase configuration.  
-
-4. **Go to Rules:**  
-   - Set the rules to `true`.  
-
-5. **Adjust the Collection Structure:**  
-   - Set up the collections as shown in the following images:  
-
-   ![Collection Structure Example 1](https://github.com/user-attachments/assets/38580122-08a4-4499-a8fd-0f253652a239)  
-   ![Collection Structure Example 2](https://github.com/user-attachments/assets/d563d7ad-f1ab-46ff-8185-640dcebd0363)  
-
-6. **Update `firebase.js` and `firebase-comment.js` Files:**  
-   - Replace the `firebaseConfig` content with your Firebase configuration.
-
----
-
-## 🙌 Credits
-This portfolio is based on a template originally created by Eki Zulfar Rachman. Special thanks for the amazing design and inspiration!
-
----
+See tasks/plan.md for the approved ownership and acceptance contract, DECISIONS.md
+for implementation decisions, and docs/release.md for deployment and rollback.
+The existing MIT license is retained.

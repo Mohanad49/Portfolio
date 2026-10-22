@@ -1,7 +1,7 @@
 {
   "extends": "astro/tsconfigs/strict",
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist", "node_modules", ".impeccable", ".research"],
+  "exclude": ["dist", "node_modules", ".impeccable", ".research", "playwright-report", "test-results", ".lighthouseci", ".vercel"],
   "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "react",

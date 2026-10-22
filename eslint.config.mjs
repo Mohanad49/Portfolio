@@ -10,4 +10,5 @@ export default [
   ...astro.configs.recommended,
   { languageOptions: { globals: { ...globals.browser, ...globals.node } } },
   { files: ['**/*.astro'], languageOptions: { parserOptions: { parser: ts.parser } } },
+  { files: ['lighthouserc.cjs'], rules: { '@typescript-eslint/no-require-imports': 'off' } },
 ];
