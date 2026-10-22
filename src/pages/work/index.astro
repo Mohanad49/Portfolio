@@ -10,14 +10,13 @@ const categories = ['All', 'Web', 'API', 'Mobile', 'Performance'];
 ---
 <BaseLayout title="Work & test frameworks | Mohanad Yehia" description="QA case studies and seven test frameworks across web, API, mobile, and performance testing. Source code, reports, scope, and decisions.">
   <header class="work-heading"><a class="back-link" href="/"><Icon class="back-icon" /> Home</a><h1>Selected work.<br />The deeper cuts.</h1><p>Systems I’ve tested, tools I’ve built, and the evidence worth opening.</p></header>
-  <section class="case-index" aria-labelledby="selected-heading"><h2 id="selected-heading">Three case studies</h2>{projects.map(project => <a class="case-index-link" href={`/work/${project.data.slug}`}><span class="case-number">0{project.data.order}</span><span class="case-name">{project.data.title}<span>{project.data.eyebrow}</span></span><Icon /></a>)}</section>
+  <section class="case-index" aria-labelledby="selected-heading"><h2 id="selected-heading">Three case studies</h2>{projects.map(project => <a class="case-index-link" href={`/work/${project.data.slug}`}><span class="case-name">{project.data.title}<span>{project.data.eyebrow}</span></span><Icon /></a>)}</section>
   <section class="framework-archive section-space" id="frameworks" aria-labelledby="framework-heading">
     <div class="archive-heading"><h2 id="framework-heading">Framework archive</h2><p>Focused projects across four testing disciplines. Open the source to inspect their structure and limitations.</p></div>
     <form class="filter-form" aria-label="Filter frameworks" hidden><fieldset><legend class="sr-only">Testing discipline</legend>{categories.map(category => <label class="filter-option"><input type="radio" name="discipline" value={category} checked={category === 'All'} /><span>{category}<span class="filter-count">{category === 'All' ? frameworks.length : frameworks.filter(item => item.data.category === category).length}</span></span></label>)}</fieldset></form>
     <p class="filter-status" role="status" aria-live="polite">{frameworks.length} frameworks</p>
     <div class="framework-list">{frameworks.map(item => <article class="framework-item" id={item.id} data-category={item.data.category}>
-      <span class="framework-number" aria-hidden="true">{String(item.data.legacyId - 3).padStart(2, '0')}</span>
-      <div class="framework-info"><p class="framework-category">{item.data.category} testing</p><h3>{item.data.title}</h3><p>{item.data.description}</p><ul class="framework-stack" aria-label="Technology">{item.data.stack.map(technology => <li>{technology}</li>)}</ul></div>
+      <div class="framework-info"><h3>{item.data.title}</h3><p class="framework-category">{item.data.category} testing</p><p>{item.data.description}</p><ul class="framework-stack" aria-label="Technology">{item.data.stack.map(technology => <li>{technology}</li>)}</ul></div>
       <div class="framework-actions"><a href={item.data.repository} aria-label={`Source code for ${item.data.title}`}>Source <Icon name="external" /></a>{item.data.report && <a href={item.data.report} aria-label={`Execution report for ${item.data.title}`}>Report <Icon name="external" /></a>}</div>
     </article>)}</div>
   </section>
@@ -64,9 +63,8 @@ const categories = ['All', 'Web', 'API', 'Mobile', 'Performance'];
   .work-heading > p { max-width: 38ch; font-size: clamp(1.1rem, 1.8vw, 1.8rem); color: #d5cec4; margin-top: 2rem; }
   .case-index { margin-inline: var(--page-gutter); }
   .case-index h2 { font-family: var(--font-sans); font-size: .9rem; font-weight: 500; letter-spacing: 0; color: var(--color-muted); margin-bottom: 1.5rem; }
-  .case-index-link { display: grid; grid-template-columns: 3rem 1fr 2rem; gap: 1.5rem; align-items: center; padding-block: 1.8rem; border-top: 1px solid var(--line); }
+  .case-index-link { display: grid; grid-template-columns: 1fr 2rem; gap: 1.5rem; align-items: center; padding-block: 1.8rem; border-top: 1px solid var(--line); }
   .case-index-link:last-child { border-bottom: 1px solid var(--line); }
-  .case-number { font-size: .8rem; color: var(--color-amber); }
   .case-name { font-family: var(--font-display); font-size: clamp(1.4rem, 3vw, 3.2rem); line-height: 1.2; letter-spacing: -.04em; }
   .case-name > span { display: block; font-family: var(--font-sans); font-size: .8rem; color: var(--color-muted); letter-spacing: 0; margin-top: .7rem; }
   .case-index-link:hover .case-name { color: var(--color-amber); }
@@ -82,10 +80,9 @@ const categories = ['All', 'Web', 'API', 'Mobile', 'Performance'];
   .filter-option input:focus-visible + span { outline: 2px solid var(--color-amber); outline-offset: 5px; }
   .filter-count { margin-left: .4rem; font-size: .7rem; }
   .filter-status { font-size: .8rem; color: var(--color-muted); margin-block: 1.5rem; }
-  .framework-item { display: grid; grid-template-columns: 3rem 1fr 8rem; gap: 1.5rem; padding-block: 2.5rem; border-top: 1px solid var(--line); scroll-margin-top: 2rem; }
+  .framework-item { display: grid; grid-template-columns: 1fr 8rem; gap: 1.5rem; padding-block: 2.5rem; border-top: 1px solid var(--line); scroll-margin-top: 2rem; }
   .framework-item:last-child { border-bottom: 1px solid var(--line); }
-  .framework-number { color: var(--color-muted); font-size: .8rem; }
-  .framework-category { color: var(--color-amber); font-size: .75rem; margin-bottom: .7rem; }
+  .framework-category { color: var(--color-amber); font-size: .75rem; margin-top: .7rem; }
   h3 { font-size: clamp(1.35rem, 2vw, 2.2rem); }
   .framework-info > p:not(.framework-category) { color: #d5cec4; max-width: 65ch; margin-top: 1rem; font-size: .95rem; }
   .framework-stack { display: flex; flex-wrap: wrap; gap: .5rem 1.2rem; list-style: none; padding: 0; margin: 1.2rem 0 0; font-size: .75rem; color: var(--color-muted); }
@@ -100,5 +97,5 @@ const categories = ['All', 'Web', 'API', 'Mobile', 'Performance'];
   .earlier-list a { display: flex; align-items: center; justify-content: space-between; min-height: 44px; }
   .earlier-list :global(svg) { width: 20px; height: 20px; }
   .earlier-list p { color: var(--color-muted); font-size: .85rem; margin-top: .5rem; }
-  @media (max-width: 760px) { .archive-heading { display: block; } .archive-heading > p { margin-top: 1.5rem; } fieldset { gap: .3rem 1.3rem; } .framework-item { grid-template-columns: 1.6rem 1fr; gap: 1rem; } .framework-actions { grid-column: 2; flex-direction: row; gap: 2rem; } .earlier-builds { grid-template-columns: 1fr; gap: 2.5rem; } .case-index-link { grid-template-columns: 1.6rem 1fr 1.5rem; gap: 1rem; } }
+  @media (max-width: 760px) { .archive-heading { display: block; } .archive-heading > p { margin-top: 1.5rem; } fieldset { gap: .3rem 1.3rem; } .framework-item { grid-template-columns: 1fr; gap: 1rem; } .framework-actions { flex-direction: row; gap: 2rem; } .earlier-builds { grid-template-columns: 1fr; gap: 2.5rem; } .case-index-link { grid-template-columns: 1fr 1.5rem; gap: 1rem; } }
 </style>
