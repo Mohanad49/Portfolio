@@ -23,11 +23,11 @@ const base = home ? '' : '/';
   nav a { padding: .2rem 0; transition: color .2s; }
   nav a:hover, nav a[aria-current] { color: var(--color-amber); }
   @media (min-width: 1800px) { .brand { font-size: 2.3rem; } nav { font-size: 1.35rem; } }
-  @media (max-width: 1000px) { .brand { font-size: 1.35rem; } nav { font-size: .86rem; gap: 1.8rem; } .site-header { padding-block: 1rem; } nav a { min-height: 44px; display: inline-flex; align-items: center; } }
+  @media (max-width: 1000px) { .brand { font-size: 1.35rem; } nav { font-size: .86rem; gap: 1.8rem; } .site-header { padding-block: 1rem; } .site-header--home { position: relative; } nav a { min-height: 44px; display: inline-flex; align-items: center; } }
   @media (max-width: 600px) {
     .site-header { padding: 1.2rem var(--page-gutter) .8rem; align-items: flex-start; gap: .7rem; flex-direction: column; }
     .brand { font-size: 1.35rem; }
-    nav { width: 100%; justify-content: space-between; gap: 1rem; font-size: .86rem; }
+    nav { width: 100%; justify-content: space-between; flex-wrap: wrap; gap: .25rem 1rem; font-size: .86rem; }
     nav a { display: flex; align-items: center; min-height: 44px; }
   }
 </style>

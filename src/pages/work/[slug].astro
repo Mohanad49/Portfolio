@@ -18,7 +18,7 @@ const checkedDate = new Intl.DateTimeFormat('en-GB', { dateStyle: 'long', timeZo
 ---
 <BaseLayout title={`${data.title} | QA case study | Mohanad Yehia`} description={data.summary}>
   <header class="case-hero">
-    <a class="back-link" href="/work">← All work</a>
+    <a class="back-link" href="/work"><Icon class="back-icon" /> All work</a>
     <div class="case-kicker"><span>0{data.order} / {data.eyebrow}</span><span>{data.role}</span></div>
     <h1>{data.title}</h1>
     <p class="case-summary">{data.summary}</p>
@@ -39,6 +39,8 @@ const checkedDate = new Intl.DateTimeFormat('en-GB', { dateStyle: 'long', timeZo
   .case-hero { padding: clamp(2rem, 5vw, 6rem) var(--page-gutter) clamp(3rem, 5vw, 6rem); }
   .back-link { display: inline-flex; align-items: center; min-height: 44px; color: var(--color-muted); font-size: .9rem; }
   .back-link:hover { color: var(--color-amber); }
+  .back-link { gap: .5rem; }
+  .back-link :global(svg) { width: 16px; height: 16px; transform: rotate(180deg); }
   .case-kicker { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-top: 2.5rem; font-size: .85rem; color: var(--color-muted); }
   h1 { font-size: clamp(2.8rem, 8vw, 9rem); margin-top: 1.2rem; overflow-wrap: anywhere; }
   .case-summary { font-size: clamp(1.3rem, 2.1vw, 2.3rem); line-height: 1.4; max-width: 42ch; margin-top: 2rem; }

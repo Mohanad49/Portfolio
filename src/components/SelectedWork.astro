@@ -8,7 +8,7 @@ import projectArt from '../../assets/plates/project-art.png';
   <div class="feature-intro">
     <Image class="project-art" src={projectArt} alt="" aria-hidden="true" format="webp" quality={85} widths={[640, 1024, 1536]} sizes="60vw" />
     <p class="work-label">Selected work</p>
-    <h2 id="testpulse-title"><a href="/work/testpulse">TestPulse</a></h2>
+    <h2 id="testpulse-title"><a href="/work/testpulse">Test<wbr />Pulse</a></h2>
     <p class="project-summary">Test observability &amp; flake detection</p>
   </div>
   <div class="feature-body" data-reveal>
@@ -82,13 +82,17 @@ import projectArt from '../../assets/plates/project-art.png';
   .archive-link { padding: clamp(3rem, 6vw, 6rem) var(--page-gutter); display: flex; justify-content: space-between; align-items: end; gap: 2rem; }
   .archive-link h2 { font-size: clamp(1.8rem, 3vw, 3.4rem); }
   .archive-link-action p { color: var(--color-muted); font-size: .9rem; margin-bottom: 1rem; }
-  @media (max-width: 1000px) { .feature-intro { height: 250px; } .project-art { height: 250px; } .work-label { top: 24px; font-size: .85rem; } .feature-intro h2 { top: 65px; font-size: 4.5rem; } .project-summary { top: 155px; font-size: 1.15rem; max-width: 22ch; } }
+  @media (max-width: 1000px) {
+    .feature-intro { display: flex; flex-direction: column; height: auto; padding-top: 24px; }
+    .project-art { position: relative; order: 4; top: auto; left: auto; width: 100%; height: 240px; margin-top: 32px; mask-image: linear-gradient(to bottom, transparent, #000 25%); }
+    .work-label { position: relative; top: auto; left: auto; padding-inline: var(--page-gutter); font-size: .85rem; }
+    .feature-intro h2 { position: relative; top: auto; left: auto; padding-inline: var(--page-gutter); margin-top: 20px; font-size: 4.5rem; }
+    .project-summary { position: relative; top: auto; left: auto; padding-inline: var(--page-gutter); margin-top: 16px; font-size: 1.15rem; max-width: 100%; }
+  }
   @media (max-width: 760px) {
-    .feature-intro { height: 380px; }
-    .work-label { left: var(--page-gutter); }
-    .feature-intro h2 { left: var(--page-gutter); font-size: clamp(2.8rem, 13vw, 4.5rem); }
-    .project-summary { left: var(--page-gutter); top: 135px; font-size: 1rem; max-width: 100%; }
-    .project-art { top: 175px; left: 0; width: 100%; height: 205px; mask-image: linear-gradient(to bottom, transparent, #000 25%); }
+    .feature-intro h2 { font-size: clamp(2.8rem, 13vw, 4.5rem); }
+    .project-summary { font-size: 1rem; }
+    .project-art { height: 205px; }
     .feature-body { grid-template-columns: 1fr; gap: 1.8rem; padding-block: 2.5rem; }
     .feature-body h3 { font-size: 1.9rem; }
     .feature-body p { font-size: 1rem; }

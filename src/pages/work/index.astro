@@ -9,7 +9,7 @@ const frameworks = (await getCollection('frameworks')).sort((a, b) => a.data.leg
 const categories = ['All', 'Web', 'API', 'Mobile', 'Performance'];
 ---
 <BaseLayout title="Work & test frameworks | Mohanad Yehia" description="QA case studies and seven test frameworks across web, API, mobile, and performance testing. Source code, reports, scope, and decisions.">
-  <header class="work-heading"><a class="back-link" href="/">← Home</a><h1>Selected work.<br />The deeper cuts.</h1><p>Systems I’ve tested, tools I’ve built, and the evidence worth opening.</p></header>
+  <header class="work-heading"><a class="back-link" href="/"><Icon class="back-icon" /> Home</a><h1>Selected work.<br />The deeper cuts.</h1><p>Systems I’ve tested, tools I’ve built, and the evidence worth opening.</p></header>
   <section class="case-index" aria-labelledby="selected-heading"><h2 id="selected-heading">Three case studies</h2>{projects.map(project => <a class="case-index-link" href={`/work/${project.data.slug}`}><span class="case-number">0{project.data.order}</span><span class="case-name">{project.data.title}<span>{project.data.eyebrow}</span></span><Icon /></a>)}</section>
   <section class="framework-archive section-space" id="frameworks" aria-labelledby="framework-heading">
     <div class="archive-heading"><h2 id="framework-heading">Framework archive</h2><p>Focused projects across four testing disciplines. Open the source to inspect their structure and limitations.</p></div>
@@ -58,6 +58,8 @@ const categories = ['All', 'Web', 'API', 'Mobile', 'Performance'];
 <style>
   .work-heading { padding: clamp(2rem, 5vw, 5rem) var(--page-gutter) 4rem; }
   .back-link { display: inline-flex; align-items: center; min-height: 44px; font-size: .9rem; color: var(--color-muted); }
+  .back-link { gap: .5rem; }
+  .back-link :global(svg) { width: 16px; height: 16px; transform: rotate(180deg); }
   h1 { font-size: clamp(2.5rem, 7.5vw, 8.5rem); margin-top: 2.5rem; }
   .work-heading > p { max-width: 38ch; font-size: clamp(1.1rem, 1.8vw, 1.8rem); color: #d5cec4; margin-top: 2rem; }
   .case-index { margin-inline: var(--page-gutter); }

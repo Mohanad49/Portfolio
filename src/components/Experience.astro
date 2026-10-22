@@ -44,6 +44,7 @@ const profile = await getProfile();
   li::marker { color: var(--color-amber); }
   @media (max-width: 900px) { .experience-heading { margin-left: 0; } dl { grid-template-columns: repeat(2, 1fr); gap: 2.5rem 1.5rem; } dd { font-size: clamp(1.8rem, 6.8vw, 3.5rem); } dl > div { padding-left: 1rem; } .metrics-attribution span { display: block; margin: .3rem 0 0; } }
   @media (max-width: 600px) {
+    dl { grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr)); }
     h2 { font-size: clamp(2rem, 8vw, 2.6rem); }
     summary { grid-template-columns: 1fr 24px; gap: .8rem; padding-block: 1.5rem; }
     .company { font-size: 1.5rem; }
