@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Environment, Lightformer, RoundedBox } from '@react-three/drei';
+import { Environment, Lightformer, MeshTransmissionMaterial, RoundedBox } from '@react-three/drei';
 import type { Group } from 'three';
 import { inspectionState } from '../lib/inspection-state';
 import type { InspectionCanvasProps } from './InspectionIsland';
@@ -17,7 +17,7 @@ function Layers() {
     });
   });
   return <group ref={group}>{Array.from({ length: 5 }, (_, index) => <RoundedBox key={index} args={[3.8, .16, 2.35]} radius={.035} smoothness={3} position={[0, (index - 2) * .45, 0]}>
-    {index === 0 || index === 4 ? <meshStandardMaterial color="#6c7178" metalness={.92} roughness={.19} envMapIntensity={2} /> : <meshPhysicalMaterial color="#ffcb77" metalness={0} roughness={.08} transmission={.96} thickness={.6} attenuationColor="#ffae44" attenuationDistance={.8} emissive="#b9640a" emissiveIntensity={.18} ior={1.45} clearcoat={1} envMapIntensity={1.6} />}
+    {index === 0 || index === 4 ? <meshStandardMaterial color="#30343b" metalness={.8} roughness={.24} envMapIntensity={1.2} /> : <MeshTransmissionMaterial color="#ffd18a" transmission={1} roughness={.06} thickness={.3} attenuationColor="#ed9718" attenuationDistance={4} ior={1.35} clearcoat={1} chromaticAberration={.008} anisotropicBlur={.02} distortion={0} temporalDistortion={0} resolution={512} samples={6} />}
   </RoundedBox>)}</group>;
 }
 
@@ -47,12 +47,12 @@ export default function InspectionCanvas(props: InspectionCanvasProps) {
     <directionalLight position={[3, 5, 4]} intensity={2.5} color="#f4f5f7" />
     <directionalLight position={[-3, 2, -1]} intensity={1.2} color="#eab76a" />
     <Environment resolution={128} frames={1}>
-      <Lightformer form="rect" intensity={5} position={[-4, 6, -6]} rotation-x={Math.PI / 2} scale={[10, 10, 1]} color="#f4f5f7" />
-      <Lightformer form="rect" intensity={2} position={[-5, 1, 0]} rotation-y={Math.PI / 2} scale={[1, 6, 1]} color="#ffb249" />
-      <Lightformer form="rect" intensity={4} position={[3, 1, 4]} rotation-y={Math.PI} scale={[4, 3, 1]} color="#eef0f4" />
+      <Lightformer form="rect" intensity={2} position={[-4, 6, -6]} rotation-x={Math.PI / 2} scale={[2.8, 6, 1]} color="#f4f5f7" />
+      <Lightformer form="rect" intensity={1.5} position={[-5, 1, 0]} rotation-y={Math.PI / 2} scale={[.7, 6, 1]} color="#ffb249" />
+      <Lightformer form="rect" intensity={2} position={[3, 1, 4]} rotation-y={Math.PI} scale={[1.5, 3, 1]} color="#eef0f4" />
     </Environment>
     <group position={[0, .35, 0]}><Layers /></group>
-    <mesh rotation-x={-Math.PI / 2} position={[0, -2.5, 0]}><planeGeometry args={[200, 200]} /><meshStandardMaterial color="#161718" metalness={.45} roughness={.45} /></mesh>
+    <mesh rotation-x={-Math.PI / 2} position={[0, -2.5, 0]}><planeGeometry args={[200, 200]} /><meshBasicMaterial color="#111110" /></mesh>
     <Lifecycle {...props} />
   </Canvas>;
 }

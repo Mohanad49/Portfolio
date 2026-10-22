@@ -144,6 +144,9 @@ test('WebGL failure preserves artwork and working content', async ({ page }) => 
 
 test('desktop inspection responds to keyboard input and returns to its fallback', async ({ page }, testInfo) => {
   test.skip(!testInfo.project.name.endsWith('desktop'), 'The interactive scene is a desktop enhancement.');
+  const browserErrors: string[] = [];
+  page.on('console', message => { if (message.type() === 'error') browserErrors.push(message.text()); });
+  page.on('pageerror', error => browserErrors.push(error.message));
   const canvasRequests: string[] = [];
   page.on('request', request => { if (new URL(request.url()).pathname.includes('/InspectionCanvas.')) canvasRequests.push(request.url()); });
   await page.goto('/');
@@ -177,6 +180,8 @@ test('desktop inspection responds to keyboard input and returns to its fallback'
   await expect(canvas).toHaveCount(0);
   await expect(page.locator('.inspection-fallback')).toHaveCSS('opacity', '1');
   await expect.poll(() => page.locator('.inspection-fallback').evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBe(true);
+  await testInfo.attach('inspection-browser-errors', { body: JSON.stringify(browserErrors), contentType: 'application/json' });
+  expect(browserErrors).toEqual([]);
 });
 
 test('all public routes have zero serious or critical axe findings', async ({ page }, testInfo) => {
