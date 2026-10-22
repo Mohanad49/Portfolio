@@ -32,7 +32,7 @@ const person = { '@context': 'https://schema.org', '@type': 'Person', name: prof
     <meta property="og:image:alt" content="Layered glass and dark chrome, a conceptual study of software inspection." />
     <meta name="twitter:card" content="summary_large_image" />
     {noindex && <meta name="robots" content="noindex, follow" />}
-    <script type="application/ld+json" set:html={JSON.stringify(person).replace(/</g, '\u003c')} />
+    <script type="application/ld+json" set:html={JSON.stringify(person).replace(/</g, '\\u003c')} />
   </head>
   <body>
     <Header home={home} />

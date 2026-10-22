@@ -7,7 +7,9 @@ const resumeDigest = '1053c4a9375885e7a248291bb2f76b4c93f348d9618f6422da8d8333f2
 
 test('every main route has a readable heading, working images, and direct contact', async ({ page }) => {
   const errors: string[] = [];
+  const sceneRequests: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
+  page.on('request', request => { if (/\/(?:InspectionIsland|InspectionCanvas|client)\.[^/]+\.js/.test(new URL(request.url()).pathname)) sceneRequests.push(request.url()); });
   for (const route of routes) {
     const response = await page.goto(route);
     expect(response?.status()).toBe(200);
@@ -26,6 +28,7 @@ test('every main route has a readable heading, working images, and direct contac
     }
   }
   expect(errors).toEqual([]);
+  if ((page.viewportSize()?.width ?? 0) < 1024) expect(sceneRequests).toEqual([]);
 });
 
 test('navigation exposes selected work, approach, profile, and contact', async ({ page }) => {
@@ -53,6 +56,11 @@ test('framework filters preserve source links and bookmark visibility', async ({
   await expect(page.getByRole('radio', { name: /^All/ })).toBeChecked();
   await expect(page.locator('#github-api')).toBeVisible();
   await expect(page.locator('#github-api').getByRole('link', { name: /^Source code/ })).toHaveAttribute('href', 'https://github.com/Mohanad49/github-api-tests');
+  await page.getByRole('radio', { name: /^Mobile/ }).check();
+  await expect(page).toHaveURL(/\/work\?type=Mobile$/);
+  await page.reload();
+  await expect(page.getByRole('radio', { name: /^Mobile/ })).toBeChecked();
+  await expect(page.locator('.framework-item:visible')).toHaveCount(1);
 });
 
 test('the resume download is the exact updated PDF', async ({ page, request }) => {
@@ -107,6 +115,8 @@ test('all routes retain their content without JavaScript', async ({ browser, bas
 });
 
 test('reduced motion keeps the complete fallback and omits the scene', async ({ page }) => {
+  const sceneRequests: string[] = [];
+  page.on('request', request => { if (/\/(?:InspectionIsland|InspectionCanvas|client)\.[^/]+\.js/.test(new URL(request.url()).pathname)) sceneRequests.push(request.url()); });
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/');
   await page.locator('#approach').scrollIntoViewIfNeeded();
@@ -115,6 +125,7 @@ test('reduced motion keeps the complete fallback and omits the scene', async ({ 
   await expect(page.locator('.inspection-fallback')).toBeVisible();
   await expect.poll(() => page.locator('.inspection-fallback').evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBe(true);
   expect(await page.locator('.hero-scene').evaluate(element => getComputedStyle(element).transform)).toBe('none');
+  expect(sceneRequests).toEqual([]);
 });
 
 test('WebGL failure preserves artwork and working content', async ({ page }) => {
@@ -133,10 +144,15 @@ test('WebGL failure preserves artwork and working content', async ({ page }) => 
 
 test('desktop inspection responds to keyboard input and returns to its fallback', async ({ page }, testInfo) => {
   test.skip(!testInfo.project.name.endsWith('desktop'), 'The interactive scene is a desktop enhancement.');
+  const canvasRequests: string[] = [];
+  page.on('request', request => { if (new URL(request.url()).pathname.includes('/InspectionCanvas.')) canvasRequests.push(request.url()); });
   await page.goto('/');
+  await page.waitForLoadState('networkidle');
+  expect(canvasRequests).toEqual([]);
   await page.locator('.inspection-frame').scrollIntoViewIfNeeded();
   const slider = page.getByRole('slider', { name: 'Separate layers' });
   await expect(slider).toBeVisible({ timeout: 20_000 });
+  expect(canvasRequests).toHaveLength(1);
   const canvas = page.locator('canvas');
   const before = await canvas.screenshot();
   await slider.focus();
@@ -190,5 +206,9 @@ test('old project links and section bookmarks reach their replacement', async ({
     await page.goto(`/project/${id}`);
     await expect.poll(() => { const url = new URL(page.url()); return `${url.pathname.replace(/\/$/, '')}${url.hash}`; }).toBe(destination);
   }
-  for (const hash of ['Home', 'Portofolio', 'About', 'Contact']) { await page.goto(`/#${hash}`); await expect(page.locator(`[id="${hash}"]`)).toBeInViewport(); }
+  for (const hash of ['Home', 'Portofolio', 'About', 'Contact']) {
+    await page.goto('/work');
+    await page.goto(`/#${hash}`);
+    await expect(page.locator(`[id="${hash}"]`)).toBeInViewport();
+  }
 });

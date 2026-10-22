@@ -36,6 +36,7 @@ const categories = ['All', 'Web', 'API', 'Mobile', 'Performance'];
       if (updateUrl) {
         const url = new URL(window.location.href);
         if (category === 'All') url.searchParams.delete('type'); else url.searchParams.set('type', category);
+        if (items.some(item => item.hidden && `#${item.id}` === url.hash)) url.hash = '';
         history.replaceState(null, '', url);
       }
     }

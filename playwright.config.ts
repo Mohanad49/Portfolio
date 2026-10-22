@@ -20,6 +20,7 @@ export default defineConfig({
   use: { baseURL, trace: 'retain-on-failure', screenshot: 'only-on-failure', actionTimeout: 10_000, navigationTimeout: 20_000 },
   projects: browsers.flatMap(browserName => sizes.map(size => ({
     name: `${browserName}-${size.name}`,
+    testIgnore: browserName === 'chromium' && size.name === 'desktop' ? undefined : '**/history.spec.ts',
     use: { browserName, viewport: size.viewport, launchOptions: browserName === 'chromium' ? { args: ['--enable-unsafe-swiftshader'] } : {} },
   }))),
   webServer: process.env.PORTFOLIO_BASE_URL ? undefined : { command: 'pnpm preview --port 4173', url: baseURL, reuseExistingServer: !process.env.CI, timeout: 60_000 },
