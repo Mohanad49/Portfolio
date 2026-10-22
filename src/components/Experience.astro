@@ -1,0 +1,46 @@
+---
+import { getProfile } from '../lib/content';
+import Icon from './Icon.astro';
+const profile = await getProfile();
+---
+<section class="experience section-space" id="experience" aria-labelledby="experience-title">
+  <div class="experience-heading" data-reveal><p class="section-label">Production &amp; enterprise QA</p><h2 id="experience-title">The work behind<br />the numbers.</h2></div>
+  <div class="production-metrics" aria-label="Blue Ribbon production scope" data-reveal>
+    <p class="metrics-attribution">Blue Ribbon <span>Production club-management platform</span></p>
+    <dl>{profile.metrics.map(metric => <div><dt>{metric.label}</dt><dd>{metric.value}</dd><p>{metric.scope}</p></div>)}</dl>
+  </div>
+  <div class="experience-list">
+    {profile.experience.map((job, index) => <details class="experience-item" open={index === 0}>
+      <summary><span class="company">{job.company}</span><span class="job-role">{job.role}<span>{job.period}</span></span><Icon name="plus" /></summary>
+      <div class="job-body"><p>{job.summary}</p>{job.highlights.length > 0 && <ul>{job.highlights.map(highlight => <li>{highlight}</li>)}</ul>}</div>
+    </details>)}
+  </div>
+</section>
+<style>
+  .experience { padding-inline: var(--page-gutter); border-top: 1px solid var(--line); background: #1d1a17; }
+  .experience-heading { display: grid; grid-template-columns: 1fr 2fr; align-items: start; gap: 3rem; }
+  .experience-heading .section-label { padding-top: .6rem; }
+  h2 { font-size: clamp(2.6rem, 4.8vw, 5.5rem); }
+  .production-metrics { margin-block: clamp(3rem, 5vw, 5.5rem); }
+  .metrics-attribution { font-weight: 600; font-size: .95rem; margin-bottom: 2.5rem; }
+  .metrics-attribution span { color: var(--color-muted); font-weight: 400; margin-left: 1rem; }
+  dl { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.2rem; margin: 0; }
+  dl > div { display: flex; flex-direction: column; align-items: start; border-left: 1px solid var(--line); padding-left: 1.5rem; }
+  dt { font-size: .9rem; color: #d5cec4; order: 1; max-width: 19ch; margin-top: 1rem; }
+  dd { font-family: var(--font-display); font-size: clamp(2.6rem, 4.4vw, 5rem); line-height: 1; letter-spacing: -.04em; margin: 0; }
+  dl p { font-size: .72rem; color: var(--color-muted); margin-top: .6rem; order: 2; }
+  .experience-item { border-top: 1px solid var(--line); }
+  .experience-item:last-child { border-bottom: 1px solid var(--line); }
+  summary { display: grid; grid-template-columns: 1fr 1.6fr 24px; align-items: center; gap: 2rem; padding-block: 1.8rem; cursor: pointer; list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  .company { font-family: var(--font-display); font-size: clamp(1.4rem, 2vw, 2.3rem); letter-spacing: -.04em; }
+  .job-role { font-size: 1rem; }
+  .job-role > span { display: block; font-size: .8rem; color: var(--color-muted); margin-top: .3rem; }
+  summary :global(svg) { transition: transform .25s; }
+  details[open] summary :global(svg) { transform: rotate(45deg); color: var(--color-amber); }
+  .job-body { padding: 0 3rem 2.5rem calc(38.45% + .4rem); max-width: 80rem; color: #d5cec4; }
+  .job-body p { max-width: 65ch; }
+  ul { padding-left: 1.1rem; margin-block: 1.4rem 0; }
+  li { padding-left: .3rem; margin-top: .8rem; font-size: .92rem; }
+  li::marker { color: var(--color-amber); }
+</style>
