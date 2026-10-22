@@ -54,3 +54,26 @@ TypeScript 7 is outside typescript-eslint's supported range. Disable automatic
 peer installation for this project and explicitly pin Vite so optional legacy
 accessibility lint peers cannot add an incompatible ESLint dependency. Axe and
 the browser suite own measured accessibility verification. Peer checks pass.
+
+## D-008: Overlapping glass in the desktop inspection study
+
+Use Drei's existing MeshTransmissionMaterial so the amber layers can sample other
+transmissive layers. Its extra buffers are bounded at 512 square with six samples,
+backside rendering disabled, and no temporal distortion. The three inner layers
+add three scene passes per demanded frame. The scene still mounts only near the
+viewport for eligible desktop visitors and disposes its owned resources on exit.
+The owner authorized the final focused material pass, and the visual reviewer
+accepted the resulting dark chrome, refracted amber overlap, and graphite field.
+See https://drei.docs.pmnd.rs/shaders/mesh-transmission-material.
+
+## D-009: Real WebGL2 coverage in hosted Firefox
+
+The first Ubuntu acceptance run passed 114 checks and failed the Firefox desktop
+interaction check. Its trace reported AllowWebgl2:false. Keep that failure as
+evidence rather than changing the assertion or skipping the browser. Run Linux CI
+Firefox with a virtual display and explicit software WebGL preferences, then prove
+that the existing input, rendering, console-error, and context-loss checks pass.
+These settings affect the ephemeral test browser, not the deployed application.
+Hosted execution remains a gate until the new configuration actually succeeds.
+References: https://playwright.dev/docs/ci and
+https://bugzilla.mozilla.org/show_bug.cgi?id=1970486.

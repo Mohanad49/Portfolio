@@ -21,7 +21,15 @@ export default defineConfig({
   projects: browsers.flatMap(browserName => sizes.map(size => ({
     name: `${browserName}-${size.name}`,
     testIgnore: browserName === 'chromium' && size.name === 'desktop' ? undefined : '**/history.spec.ts',
-    use: { browserName, viewport: size.viewport, launchOptions: browserName === 'chromium' ? { args: ['--enable-unsafe-swiftshader'] } : {} },
+    use: {
+      browserName,
+      viewport: size.viewport,
+      launchOptions: browserName === 'chromium'
+        ? { args: ['--enable-unsafe-swiftshader'] }
+        : browserName === 'firefox' && process.env.CI && process.platform === 'linux'
+          ? { headless: false, firefoxUserPrefs: { 'webgl.force-enabled': true, 'webgl.enable-software-renderer': true } }
+          : {},
+    },
   }))),
   webServer: process.env.PORTFOLIO_BASE_URL ? undefined : { command: 'pnpm preview --port 4173', url: baseURL, reuseExistingServer: !process.env.CI, timeout: 60_000 },
 });
