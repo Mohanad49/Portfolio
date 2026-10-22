@@ -5,7 +5,7 @@ import { z } from 'astro/zod';
 const caseStudies = defineCollection({
   loader: glob({ pattern: '*.md', base: './src/content/case-studies' }),
   schema: z.object({
-    title: z.string(), slug: z.string(), eyebrow: z.string(), summary: z.string(),
+    title: z.string(), slug: z.enum(['testpulse', 'caldiy', 'llm-evaluation']), eyebrow: z.string(), summary: z.string(),
     role: z.string(), order: z.number(), category: z.string(), stack: z.array(z.string()),
     repository: z.url(), report: z.url(), reportLabel: z.string(), evidence: z.url(),
     evidenceDate: z.string(), boundary: z.string(),

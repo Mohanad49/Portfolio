@@ -7,7 +7,7 @@ const profile = await getProfile();
   <div class="experience-heading" data-reveal><p class="section-label">Production &amp; enterprise QA</p><h2 id="experience-title">The work behind<br />the numbers.</h2></div>
   <div class="production-metrics" aria-label="Blue Ribbon production scope" data-reveal>
     <p class="metrics-attribution">Blue Ribbon <span>Production club-management platform</span></p>
-    <dl>{profile.metrics.map(metric => <div><dt>{metric.label}</dt><dd>{metric.value}</dd><p>{metric.scope}</p></div>)}</dl>
+    <dl>{profile.metrics.map(metric => <div><dt>{metric.label}<span>{metric.scope}</span></dt><dd>{metric.value}</dd></div>)}</dl>
   </div>
   <div class="experience-list">
     {profile.experience.map((job, index) => <details class="experience-item" open={index === 0}>
@@ -28,7 +28,7 @@ const profile = await getProfile();
   dl > div { display: flex; flex-direction: column; align-items: start; border-left: 1px solid var(--line); padding-left: 1.5rem; }
   dt { font-size: .9rem; color: #d5cec4; order: 1; max-width: 19ch; margin-top: 1rem; }
   dd { font-family: var(--font-display); font-size: clamp(2.6rem, 4.4vw, 5rem); line-height: 1; letter-spacing: -.04em; margin: 0; }
-  dl p { font-size: .72rem; color: var(--color-muted); margin-top: .6rem; order: 2; }
+  dt span { display: block; font-size: .72rem; color: var(--color-muted); margin-top: .6rem; }
   .experience-item { border-top: 1px solid var(--line); }
   .experience-item:last-child { border-bottom: 1px solid var(--line); }
   summary { display: grid; grid-template-columns: 1fr 1.6fr 24px; align-items: center; gap: 2rem; padding-block: 1.8rem; cursor: pointer; list-style: none; }

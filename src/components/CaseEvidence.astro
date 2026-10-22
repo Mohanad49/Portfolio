@@ -1,0 +1,39 @@
+---
+import type { CollectionEntry } from 'astro:content';
+interface Props { slug: CollectionEntry<'caseStudies'>['data']['slug']; }
+const { slug } = Astro.props;
+---
+<section class:list={['case-evidence', `case-evidence--${slug}`]} aria-label="Evidence in focus">
+  {slug === 'testpulse' && <>
+    <h2>The evidence behind a flake.</h2>
+    <div class="table-scroll"><table><caption>Two classification strategies documented in TestPulse</caption><thead><tr><th scope="col">Strategy</th><th scope="col">What it uses</th><th scope="col">How to read it</th></tr></thead><tbody><tr><th scope="row">Same-commit evidence</th><td>Inconsistent outcomes at an unchanged commit</td><td>Stronger evidence of instability</td></tr><tr><th scope="row">Rolling-flip inference</th><td>History window, pass-rate bounds, and outcome changes</td><td>An inference whose context stays visible</td></tr></tbody></table></div>
+  </>}
+  {slug === 'caldiy' && <>
+    <h2>A report that keeps the red.</h2>
+    <div class="table-scroll"><table><caption>Recorded audit of the pinned Cal.diy v6.2.0 target</caption><thead><tr><th scope="col">Suite</th><th scope="col">Recorded result</th></tr></thead><tbody><tr><th scope="row">API</th><td>13 / 13 passed</td></tr><tr><th scope="row">BDD journeys</th><td>3 / 3 passed</td></tr><tr><th scope="row">DST boundaries</th><td>14 / 14 passed</td></tr><tr class="retained"><th scope="row">Accessibility</th><td>1 / 3 passed. Two failures retained.</td></tr></tbody></table></div>
+    <p class="evidence-note">These are retained audit results, rather than a claim about the current hosted Cal.com service.</p>
+  </>}
+  {slug === 'llm-evaluation' && <>
+    <h2>Measure the judge, too.</h2>
+    <dl class="judge-results"><div><dt>Raw agreement</dt><dd>82%</dd></div><div><dt>95% confidence interval</dt><dd>69–91%</dd></div><div><dt>Cohen’s kappa</dt><dd>0.51</dd></div></dl>
+    <p class="evidence-note">45 blind human labels. The refusal judge is excluded from CI gates; these results do not validate the other judges.</p>
+  </>}
+</section>
+<style>
+  .case-evidence { margin: 0 var(--page-gutter); padding: clamp(1.5rem, 3.5vw, 4rem); background: #252019; border: 1px solid #4b3d2b; }
+  .case-evidence--caldiy { background: #e9e0d4; color: #252019; border: 0; }
+  h2 { font-size: clamp(1.8rem, 3vw, 3.3rem); margin-bottom: 2rem; }
+  .table-scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; text-align: left; font-size: .95rem; }
+  caption { text-align: left; font-size: .8rem; padding-bottom: 1rem; opacity: .8; }
+  th, td { padding: 1.1rem 1.5rem 1.1rem 0; vertical-align: top; border-top: 1px solid #85735b60; }
+  th { font-weight: 600; }
+  thead { font-size: .8rem; }
+  tbody th { width: 30%; }
+  .retained { color: #7a311e; font-weight: 700; }
+  .evidence-note { margin-top: 1.5rem; font-size: .9rem; max-width: 75ch; }
+  .judge-results { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin: 0; }
+  .judge-results dt { font-size: .8rem; color: #d5cec4; }
+  .judge-results dd { font-family: var(--font-display); font-size: clamp(2.2rem, 4vw, 4.5rem); letter-spacing: -.04em; margin: .6rem 0 0; color: var(--color-amber); }
+  @media (max-width: 760px) { .judge-results { grid-template-columns: 1fr; gap: 1.5rem; } th, td { padding-right: 1rem; min-width: 8rem; } }
+</style>
