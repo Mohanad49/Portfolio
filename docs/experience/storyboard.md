@@ -43,9 +43,9 @@ without image-generated blur, in the prototype.
 ## Opening storyboard
 
 The original three choices below preserve the concept comparison. B now uses
-the approved artwork itself, separated into complementary upper and lower image
-fields. Their common first frame retains the material finish; short separation
-and a visual push open the existing TestPulse slot. This replaces the rejected
+the approved artwork itself as one continuous field. A short visual push toward
+its existing viewing slot and independent semantic title movement retain the
+material finish. Mobile separates the approved upper and lower cutouts. This replaces the rejected
 live 3D implementation. It does not promise new camera angles or physical optics.
 
 The percentages describe sequence progress, not elapsed time. The visitor chooses
@@ -87,8 +87,8 @@ claim. Other green suites are retained as green. No result is recolored for dram
 
 ## Device and accessibility treatments
 
-- Desktop prototype: preserve the approved plate in complementary image fields.
-  GSAP separates them and advances the composition with native scroll. No canvas,
+- Desktop prototype: preserve the approved plate as one continuous image field.
+  GSAP advances toward its existing viewing slot with native scroll. No canvas,
   live material rendering, extra motion library, or continuous idle loop.
 - Mobile prototype: prove the composition with bounded material transforms and
   a short sequence of rendered layers or frames. Live transmission is an option

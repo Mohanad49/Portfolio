@@ -1,6 +1,52 @@
 # Verification record
 
-## Experience prototype: current comparison snapshot
+## Layered artwork prototype: active checkpoint
+
+The owner rejected the hosted renderer at 6a46f0b and authorized preserving the
+approved B artwork with cinematic layers. D-017 and the surface brief record
+that treatment. The new /experience opening advances through its continuous
+text-free plate; its mobile cutouts and actual TestPulse evidence are retained.
+The prototype-only React/WebGL components and abandoned material maps are removed.
+The homepage, its standalone renderer, and production remain unchanged.
+
+Application commit 70aff97 passes sequential type checking across 34 files with
+zero diagnostics, lint, and the twenty-page static build. Existing optional
+homepage renderer chunk warnings remain visible. The complete affected matrix
+passes all 54 checks across Chromium, Firefox, and WebKit at desktop, tablet, and
+mobile sizes. There are no skips, retries, failures, or flaky results. This covers
+native forward/reverse scrolling, immediate work access, evidence bookmarks,
+reading-position retention, live preferences, no-JavaScript/WebGL-unavailable
+paths, one-resource artwork loading, and idle rest without a renderer. All nine
+axe/reflow cases have zero serious or critical findings. The retained report is
+.research/experience-study/layered-browser.json.
+
+One batched visual inspection and one correction/confirmation are complete. The
+first split-image motion exposed a visible seam; the desktop artwork now remains
+continuous. The 729px actual in-app viewport also reserves the title slot below
+the upper cutout. Current captures and motion samples are retained under
+.impeccable/review; the initial layer attempt and rejected renderer stay archived
+under .research/experience-study. The matching static comparison is 94.2%, with
+no forced gate. Provenance scan: five rasters, zero missing. Fresh full visual
+review, source review, performance measurements, and hosted checks are pending.
+
+The rejected snapshot's hosted run 40016674543 completed its full browser matrix:
+172 passed, eighteen inapplicable skips, zero failures, zero flaky results, and
+no retries. The workflow concluded cancelled during performance collection after
+eleven of eighteen Lighthouse reports. The job annotation confirms the 25-minute
+execution limit was exceeded. Browser installation alone took 18 minutes and
+53 seconds. Increase the job allowance to 35 minutes so the existing browser and
+performance checks can finish; no test, retry, metric, or threshold is relaxed.
+The cancelled run is not a green full pipeline. Artifacts and the parsed
+summary are retained in .research/experience-study/ci-artifacts and
+ci-summary-40016674543.json. Its local three-run /experience measurement had median
+performance 97, LCP 2.409 s, and CLS 0.000124; one individual LCP was 2.707 s.
+Those measurements apply to the rejected renderer snapshot, not the new treatment.
+
+The rejected hosted preview's work fragment, comparison navigation, and current
+resume download were checked in the authenticated browser. The downloaded PDF's
+SHA-256 matches the current public resume. New preview verification is pending.
+
+## Rejected renderer: comparison checkpoint
 
 The owner selected B: Pass Through on 2026-10-23. Application source a697113
 and test configuration 8125cf0 implement the isolated /experience route on

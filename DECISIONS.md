@@ -193,9 +193,10 @@ and authorized preserving the cinematic layered artwork if the renderer could
 not match it. Two independent full reviews had already found that material gap.
 Choose the authorized layered treatment rather than extend the rejected renderer.
 
-Desktop uses the approved text-free material plate in complementary image fields.
-They share one composition at rest, then separate with bounded native-scroll
-transforms. Keep semantic HTML, immediate actions, compact mobile cutouts, and
+Desktop keeps the approved text-free plate continuous and advances toward its
+existing slot with a bounded native-scroll push. The first layered capture exposed
+a hard horizontal seam when that image was split, so no artificial cut ships.
+Mobile retains the independently moving transparent cutouts. Keep semantic HTML, immediate actions, compact mobile cutouts, and
 complete reduced-motion/no-JavaScript states. Remove the prototype-only renderer
 and its abandoned maps. Keep the homepage's standalone inspection scene intact.
 

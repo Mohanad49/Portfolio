@@ -29,8 +29,8 @@ left region. Navigation remains readable. TestPulse appears through the lower sl
 
 FORM: Established inspection-monograph world, seed dfa28b62. This is its selected
 local interaction expansion, not another world selection. Desktop preserves the
-approved material plate and separates its upper and lower fields with a short
-visual push. Mobile uses the approved compact cutout reveal. The owner rejected
+approved material plate as a continuous field and advances toward its existing
+viewing slot. Mobile separates the approved cutouts around the project title. The owner rejected
 the live renderer on 2026-10-23 and authorized this cinematic layered treatment.
 
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
