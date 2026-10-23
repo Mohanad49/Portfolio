@@ -1,0 +1,36 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import passageMaterial from '../../assets/plates/passage-material.png';
+---
+<BaseLayout title="Pass Through | Mohanad Yehia" description="An isolated study of inspection, motion, and the evidence behind TestPulse." noindex>
+  <section class="passage-opening" aria-labelledby="passage-title">
+    <div class="passage-frame">
+      <Image class="passage-fallback" src={passageMaterial} alt="" aria-hidden="true" format="webp" quality={85} widths={[640, 1024, 1536]} sizes="100vw" loading="eager" fetchpriority="high" />
+      <h1 id="passage-title"><span>Complex systems.</span><span>Clear evidence.</span></h1>
+      <p class="passage-role">Software QA Engineer</p>
+      <p class="passage-introduction">Production QA across web, mobile,<br />API, and data.</p>
+      <div class="passage-actions"><a class="passage-work" href="#evidence">Explore the work</a><a class="passage-resume" href="/resume.pdf" download="Mohanad_Yehia_Software_QA_Engineer.pdf">Resume</a></div>
+      <div class="passage-peek" aria-hidden="true"><span class="passage-peek-title">TestPulse</span><p class="passage-peek-summary">Test observability &amp; flake detection</p></div>
+    </div>
+  </section>
+</BaseLayout>
+<style>
+  :global(body:has(.passage-opening) .site-header) { position: absolute; inset: 0 0 auto; }
+  .passage-opening { position: relative; background: #161514; }
+  .passage-frame { position: relative; width: 100%; height: 100svh; min-height: 720px; isolation: isolate; overflow: clip; }
+  .passage-fallback { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; }
+  h1 { position: absolute; top: 6.7vw; left: 3.2%; font-size: 7.95vw; line-height: .9; font-weight: 700; transform: scaleX(.93); transform-origin: left top; }
+  h1 span { display: block; white-space: nowrap; }
+  .passage-role { position: absolute; top: 26.3vw; left: 3.5%; font-size: 1.82vw; line-height: 1.3; letter-spacing: -.035em; }
+  .passage-introduction { position: absolute; top: 29.15vw; left: 3.5%; font-size: 1.48vw; line-height: 1.3; color: var(--color-muted); letter-spacing: -.025em; }
+  .passage-actions { display: contents; }
+  .passage-actions a { position: absolute; top: 34.9vw; display: inline-flex; justify-content: center; align-items: center; height: 4.16vw; min-height: 44px; border-radius: .6rem; font-size: 1.25vw; font-weight: 600; transition: background .2s, color .2s; }
+  .passage-work { left: 3.5%; width: 13.67%; background: linear-gradient(145deg, #ffd17d, #f4a938); color: #17110a; }
+  .passage-work:hover { background: #ffda98; }
+  .passage-resume { left: 18.1%; width: 8.99%; background: #19171470; border: 1px solid #b1a492; }
+  .passage-resume:hover { background: #393027; }
+  .passage-peek { display: contents; }
+  .passage-peek-title { position: absolute; left: 66.4%; top: 62.5%; display: block; width: max-content; font-family: var(--font-display); font-weight: 700; font-size: 5.7vw; line-height: 1; letter-spacing: -.04em; transform: scaleX(.95); transform-origin: left top; }
+  .passage-peek-summary { position: absolute; left: 66.4%; top: 70.75%; color: var(--color-muted); font-size: 1.48vw; line-height: 1.3; white-space: nowrap; }
+</style>
