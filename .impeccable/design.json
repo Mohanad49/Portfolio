@@ -208,6 +208,11 @@
         "purpose": "GSAP scrub for the slow hero image displacement; no continuous scene render loop."
       },
       {
+        "name": "scene-entry-settle",
+        "value": "150ms",
+        "purpose": "Initial 3D activation waits for settled scrolling within its observation area; exit immediately restores static artwork."
+      },
+      {
         "name": "reduced-motion-duration",
         "value": ".01ms",
         "purpose": "Global reduced-motion animation and transition duration; scrolling becomes immediate."

@@ -77,3 +77,26 @@ These settings affect the ephemeral test browser, not the deployed application.
 Hosted execution remains a gate until the new configuration actually succeeds.
 References: https://playwright.dev/docs/ci and
 https://bugzilla.mozilla.org/show_bug.cgi?id=1970486.
+
+## D-010: Stable scene entry before GPU initialization
+
+A hosted desktop Chromium bookmark check exposed software-GPU stalls during
+initial Contact navigation. Its trace ends at the correct footer, but the native
+smooth scroll briefly passes the inspection study and initializes its renderer.
+A local 90-frame capture confirms one renderer request and fifteen canvas frames
+during that transit. Delay initial activation until scrolling has settled for
+150 ms, then recheck visibility, the media query, and document visibility. Keep
+immediate deactivation and the behavior of an already active scene. Consume the
+latest IntersectionObserver entry and clear pending timers and listeners on exit.
+The same capture now records zero renderer requests and zero canvas frames,
+reaching the identical Contact scroll position. Preserve the strict bookmark and
+real rendering assertions; do not change global smooth scrolling or the artwork.
+
+## D-011: Explicit resume response filename
+
+The PDF bytes matched the supplied resume in preview and production, but Vercel's
+default response header named the browser download resume.pdf. Set the descriptive
+attachment filename explicitly on /resume.pdf in vercel.json. Preserve the exact
+PDF, route, cache policy, and strict download assertion. The authenticated preview
+downloads Mohanad_Yehia_Software_QA_Engineer.pdf with the expected SHA-256 digest.
+Reference: https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Disposition.
