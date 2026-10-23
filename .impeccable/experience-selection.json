@@ -1,0 +1,8 @@
+{
+  "choice": "pass-through",
+  "comp": ".impeccable/mocks/experience/pass-through.png",
+  "supportingMobile": ".impeccable/mocks/experience/mobile-study.png",
+  "approved": true,
+  "approvedOn": "2026-10-23",
+  "scope": "Isolated opening-to-TestPulse prototype; production integration is not approved."
+}

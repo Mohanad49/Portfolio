@@ -1,6 +1,6 @@
 # Experience study: opening into TestPulse
 
-Status: visual concept selection, before prototype implementation.
+Status: B selected by the owner; isolated prototype implementation authorized.
 Owner request confirmed on 2026-10-23. Baseline: 40a24f16ec037658fb13d5509dd1ba59573f480a.
 
 ## The job
@@ -22,16 +22,16 @@ mandatory interaction, cursor replacement, sound, or continuous decorative loop.
 | B: Pass Through | A close viewing slot opens between the material layers; the camera advances a short distance. | The TestPulse title appears through that separation, then becomes ordinary readable HTML. | The optical transition needs to remain comfortable and smooth on phones. |
 | C: Follow | One compact specimen travels from the opening into the project composition. | Its position anchors the change of section. | The composition remains closest to the current site and may feel too conservative. |
 
-B is the working recommendation: it makes inspection the act of entering the
-portfolio and makes the biggest structural departure from the incumbent. This
-is a recommendation for a bounded prototype, not a selected or released design.
-The owner must approve a composition or explicitly delegate selection first.
+B is selected: the owner explicitly chose Pass Through on 2026-10-23. It makes
+inspection the act of entering the portfolio and makes the biggest structural
+departure from the incumbent. Approval covers the isolated prototype and its
+mobile adaptation, not production integration or a release.
 
 Concept artifacts: [A: Unfold](../../.impeccable/mocks/experience/unfold.png),
 [B: Pass Through](../../.impeccable/mocks/experience/pass-through.png),
 [C: Follow](../../.impeccable/mocks/experience/follow.png), and the
 [mobile comparison](../../.impeccable/mocks/experience/mobile-study.png).
-Exact prompts and unapproved sidecars are stored beside the four generated images.
+Exact prompts and approval sidecars are stored beside the four generated images.
 The current comparison is https://myehia.vercel.app.
 
 The PNGs show intermediate composition frames. They do not prove working motion,

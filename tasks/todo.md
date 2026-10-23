@@ -33,7 +33,7 @@
 - [x] Verify a real public TestPulse history for the proposed evidence sequence.
 - [x] Produce three opening composition concepts with exact prompt sidecars.
 - [x] Review the mobile concept study and show the complete selection artifact.
-- [ ] Receive composition approval or explicit delegation before UI code.
+- [x] Receive composition approval or explicit delegation before UI code.
 - [ ] Build one isolated motion prototype and compare it with the current site.
 - [ ] Verify behavior, runtime cost, and visual finish at the prototype's scope.
 - [ ] Present the comparison and integration recommendation without changing production.
