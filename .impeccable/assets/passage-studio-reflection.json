@@ -1,6 +1,0 @@
-{
-  "prompt": "Use case: stylized-concept. Asset type: an original equirectangular 2:1 environment reflection map for real-time chrome and amber glass. Create a seamless 360-degree dark product-photography studio panorama, 2048x1024, in equirectangular latitude-longitude projection. Almost-black neutral graphite void, no horizon or floor seam. Three deliberate studio reflection sources: one very broad soft warm-white ceiling ribbon across the upper quarter, one tall narrow warm-white softbox left of center, one narrower amber-gold vertical reflection band on the right. Bright sources have controlled feathered edges and large dark intervals. Include a gentle very dim neutral fill so polished metal retains depth. White and amber highlights should be crisp and physically plausible rather than a neon gradient wallpaper. No objects, people, furniture, machinery, text, symbols, UI, logos, sun, clouds, scenery, or artificial lens flare. Left and right edges join seamlessly. Poles naturally compress in the equirectangular projection. This panorama is only the reflected lighting world, not the visible website backdrop.",
-  "tool": "built-in image_gen",
-  "output": "assets/materials/passage-studio-reflection.png",
-  "role": "desktop focal scene rebuild material"
-}

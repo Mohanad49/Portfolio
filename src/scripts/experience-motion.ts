@@ -1,6 +1,5 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { setInspectionProgress } from '../lib/inspection-state';
 
 export function initExperienceMotion() {
   const opening = document.querySelector<HTMLElement>('.passage-opening');
@@ -23,12 +22,12 @@ export function initExperienceMotion() {
     opening.style.setProperty('--passage-height', desktop.matches ? '200svh' : '145svh');
     opening.style.setProperty('--passage-min-height', desktop.matches ? '1440px' : '1073px');
     opening.classList.toggle('has-passage-motion', motion.matches);
-    setInspectionProgress(0);
     if (motion.matches) context = gsap.context(() => {
-      const progress = { value: 0 };
       const sequence = gsap.timeline({ scrollTrigger: { trigger: opening, start: 'top top', end: 'bottom bottom', scrub: .2, invalidateOnRefresh: true } });
-      sequence.to(progress, { value: 1, duration: 1, ease: 'none', onUpdate: () => setInspectionProgress(progress.value) }, 0);
-      sequence.to('.passage-fallback', { scale: 1.13, xPercent: -3, transformOrigin: '72% 55%', duration: 1, ease: 'none' }, 0);
+      if (desktop.matches) {
+        sequence.to('.passage-plate', { scale: 1.22, duration: 1, ease: 'none' }, 0);
+        sequence.to('.passage-shade', { opacity: .9, duration: 1, ease: 'none' }, 0);
+      }
       sequence.to('.passage-upper', { yPercent: () => innerWidth <= 600 ? -12 : -4, xPercent: 4, rotate: 2, duration: 1, ease: 'none' }, 0);
       sequence.to('.passage-lower', { yPercent: desktop.matches ? 55 : 65, xPercent: -3, rotate: -2, duration: 1, ease: 'none' }, 0);
       sequence.to('.passage-peek-title', { xPercent: desktop.matches ? -35 : 0, scale: desktop.matches ? 1.35 : 1.15, duration: .8, ease: 'none' }, .15);
@@ -48,7 +47,7 @@ export function initExperienceMotion() {
   desktop.addEventListener('change', configure);
   function cleanup(event: PageTransitionEvent) {
     if (event.persisted) return;
-    context?.revert(); setInspectionProgress(0);
+    context?.revert();
     motion.removeEventListener('change', configure);
     desktop.removeEventListener('change', configure);
     window.removeEventListener('pagehide', cleanup);

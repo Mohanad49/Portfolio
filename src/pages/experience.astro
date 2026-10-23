@@ -1,28 +1,27 @@
 ---
-import { Image, getImage } from 'astro:assets';
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
-import PassageIsland from '../components/experience/PassageIsland';
 import { experienceHistory } from '../data/experience-history';
 import passageMaterial from '../../assets/plates/passage-material.png';
 import passageUpper from '../../assets/plates/passage-upper.png';
 import passageLower from '../../assets/plates/passage-lower.png';
-import chromeSurface from '../../assets/materials/passage-chrome-surface.png';
-import studioReflection from '../../assets/materials/passage-studio-reflection.png';
-const metal = await getImage({ src: chromeSurface, width: 1024, format: 'webp', quality: 90 });
-const studio = await getImage({ src: studioReflection, width: 1536, format: 'webp', quality: 90 });
 const day = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'Africa/Cairo' });
 const clock = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Africa/Cairo' });
 ---
 <BaseLayout title="Pass Through | Mohanad Yehia" description="An isolated study of inspection, motion, and the evidence behind TestPulse." noindex>
   <section class="passage-opening" aria-labelledby="passage-title">
     <div class="passage-frame">
-      <Image class="passage-fallback" src={passageMaterial} alt="" aria-hidden="true" format="webp" quality={85} widths={[640, 1024, 1536]} sizes="100vw" loading="eager" fetchpriority="high" />
+      <div class="passage-artwork" aria-hidden="true">
+        <div class="passage-plates">
+          <Image class="passage-plate" src={passageMaterial} alt="" format="webp" quality={85} widths={[640, 1024, 1536]} sizes="(min-width: 1024px) max(100vw, 150svh), 1px" loading="eager" fetchpriority="high" />
+        </div>
+        <div class="passage-shade"></div>
+      </div>
       <div class="passage-mobile" aria-hidden="true">
         <Image class="passage-upper" src={passageUpper} alt="" format="webp" quality={85} widths={[640, 1024]} sizes="100vw" />
         <Image class="passage-lower" src={passageLower} alt="" format="webp" quality={85} widths={[640, 1024]} sizes="100vw" />
       </div>
-      <PassageIsland metalUrl={metal.src} environmentUrl={studio.src} client:media="(min-width: 1024px) and (prefers-reduced-motion: no-preference)" />
       <h1 id="passage-title"><span>Complex systems.</span><span>Clear evidence.</span></h1>
       <p class="passage-role">Software QA Engineer</p>
       <p class="passage-introduction">Production QA across web, mobile,<br />API, and data.</p>
@@ -68,10 +67,10 @@ const clock = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-dig
   .passage-opening.has-passage-motion { height: var(--passage-height); min-height: var(--passage-min-height); }
   .has-passage-motion .passage-frame { position: sticky; top: 0; }
   .passage-frame { position: relative; width: 100%; height: 100svh; min-height: 720px; isolation: isolate; overflow: clip; }
-  .passage-fallback { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -3; }
-  :global(.passage-enhancement) { position: absolute; inset: 0; z-index: -1; opacity: 0; pointer-events: none; transition: opacity .4s; }
-  :global(.passage-enhancement[data-ready='true']) { opacity: 1; }
-  .passage-frame:has(:global(.passage-enhancement[data-ready='true'])) .passage-fallback { opacity: 0; }
+  .passage-artwork { position: absolute; inset: 0; z-index: -3; overflow: clip; pointer-events: none; }
+  .passage-plates { position: absolute; left: 50%; top: 50%; width: max(100%, 150svh, 1080px); aspect-ratio: 3 / 2; transform: translate(-50%, -50%); }
+  .passage-plate { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; transform-origin: 76% 69%; }
+  .passage-shade { position: absolute; inset: 0; background: linear-gradient(90deg, #111110f2, #111110b8 30%, #11111000 68%); opacity: 0; }
   .passage-mobile { display: none; }
   h1 { position: absolute; top: 6.7vw; left: 3.2%; font-size: 7.95vw; line-height: .9; font-weight: 700; transform: scaleX(.93); transform-origin: left top; }
   h1 span { display: block; white-space: nowrap; }
@@ -125,20 +124,23 @@ const clock = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-dig
     .passage-introduction, .passage-peek-summary { font-size: 1.5rem; }
     .passage-actions a { font-size: 1.2rem; }
   }
+  @media (min-width: 1024px) and (min-aspect-ratio: 8 / 5) {
+    .passage-shade { opacity: .65; }
+  }
   @media (max-width: 1023px) {
     :global(body:has(.passage-opening) .site-header) { position: relative; }
-    .passage-frame { min-height: 740px; }
-    .passage-fallback { display: none; }
+    .passage-frame { min-height: 740px; --passage-upper-top: max(41%, calc(38% + 4rem)); --passage-slot-top: max(73%, calc(var(--passage-upper-top) + min(46.2vw, 34.44svh))); }
+    .passage-artwork { display: none; }
     .passage-mobile { display: block; position: absolute; inset: 0; z-index: -1; overflow: clip; }
-    .passage-mobile img { position: absolute; width: 165%; max-width: none; height: auto; left: 3%; }
-    .passage-upper { top: 41%; }
-    .passage-lower { top: 76%; }
+    .passage-mobile img { position: absolute; width: min(165vw, 123svh); max-width: none; height: auto; left: 3%; }
+    .passage-upper { top: var(--passage-upper-top); }
+    .passage-lower { top: max(76%, calc(var(--passage-slot-top) + 7.5vw + 1.5rem)); }
     h1 { top: 1.8rem; left: var(--page-gutter); font-size: clamp(2.3rem, 8.3vw, 5rem); line-height: 1; }
     .passage-role { top: 25%; left: var(--page-gutter); font-size: 1.25rem; }
     .passage-introduction { top: 31%; left: var(--page-gutter); font-size: 1rem; line-height: 1.5; }
     .passage-actions { display: flex; flex-wrap: wrap; gap: .8rem; position: absolute; top: 38%; left: var(--page-gutter); right: var(--page-gutter); }
     .passage-actions a { position: static; width: auto; height: auto; min-height: 48px; padding: .85rem 1.2rem; font-size: .9rem; }
-    .passage-peek-title { left: var(--page-gutter); top: 73%; font-size: clamp(3rem, 10vw, 6rem); }
+    .passage-peek-title { left: var(--page-gutter); top: var(--passage-slot-top); font-size: clamp(3rem, 10vw, 6rem); }
     .passage-peek-summary { display: none; }
     .evidence-intro { grid-template-columns: 1fr; gap: 2rem; }
     .evidence-intro h2 { font-size: clamp(3rem, 11vw, 6rem); }

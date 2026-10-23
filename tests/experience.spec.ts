@@ -38,7 +38,7 @@ test('native scrolling advances and reverses the opening on every viewport', asy
   expect(errors).toEqual([]);
 });
 
-test('live preferences preserve readable evidence and omit mobile rendering', async ({ page }, testInfo) => {
+test('live preferences preserve readable evidence without loading a renderer', async ({ page }) => {
   const rendererRequests: string[] = [];
   page.on('request', request => { if (/PassageCanvas|PassageIsland|\/client\.[^/]+\.js/.test(request.url())) rendererRequests.push(request.url()); });
   await page.goto('/experience#evidence');
@@ -58,7 +58,7 @@ test('live preferences preserve readable evidence and omit mobile rendering', as
   await expect(page.locator('canvas')).toHaveCount(0);
   await expect(page.locator('.observation').first()).toHaveCSS('opacity', '1');
   await expect(page.locator('.observation').first()).toBeInViewport();
-  if ((testInfo.project.use.viewport?.width ?? 0) < 1024) expect(rendererRequests).toEqual([]);
+  expect(rendererRequests).toEqual([]);
 });
 
 test('static and unsupported rendering paths retain the complete study', async ({ browser, baseURL }, testInfo) => {
@@ -100,34 +100,37 @@ test('the study keeps accessible semantics and narrow reflow', async ({ page }) 
   }
 });
 
-test('the desktop scene draws on scroll, rests at idle, and recovers from context loss', async ({ page }, testInfo) => {
-  test.skip((testInfo.project.use.viewport?.width ?? 0) < 1024, 'The actual renderer is a desktop enhancement.');
+test('artwork moves on scroll, returns intact, and rests without a renderer', async ({ page }, testInfo) => {
   const errors: string[] = [];
+  const rendererRequests: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
   page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
-  await page.addInitScript(() => {
-    let draws = 0;
-    Object.defineProperty(window, 'passageDraws', { get: () => draws });
-    for (const method of ['drawElements', 'drawArrays'] as const) {
-      const original = WebGL2RenderingContext.prototype[method];
-      Object.defineProperty(WebGL2RenderingContext.prototype, method, { value: function (this: WebGL2RenderingContext, ...args: unknown[]) { draws++; return Reflect.apply(original, this, args); } });
-    }
-  });
+  page.on('request', request => { if (/PassageCanvas|PassageIsland|\/client\.[^/]+\.js/.test(request.url())) rendererRequests.push(request.url()); });
   await page.goto('/experience');
   await expect(page.locator('.passage-opening')).toHaveClass(/has-passage-motion/);
-  const canvas = page.locator('.passage-enhancement[data-ready="true"] canvas');
-  await expect(canvas).toBeVisible({ timeout: 25_000 });
-  const draws = () => page.evaluate(() => (window as unknown as { passageDraws: number }).passageDraws);
-  await expect.poll(draws).toBeGreaterThan(0);
-  await page.waitForTimeout(500);
-  const idle = await draws();
-  await page.waitForTimeout(500);
-  expect(await draws()).toBe(idle);
+  const desktop = (testInfo.project.use.viewport?.width ?? 0) >= 1024;
+  const upper = page.locator(desktop ? '.passage-plate' : '.passage-upper');
+  const layers = desktop ? [upper] : [upper, page.locator('.passage-lower')];
+  for (const layer of layers) {
+    await expect(layer).toBeVisible();
+    await expect.poll(() => layer.evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBe(true);
+  }
+  if (desktop) {
+    const source = await upper.evaluate((image: HTMLImageElement) => image.currentSrc);
+    expect(await page.evaluate(url => performance.getEntriesByName(url).length, source)).toBe(1);
+  }
+  const pose = () => upper.evaluate(element => new DOMMatrixReadOnly(getComputedStyle(element).transform).toString());
+  const initial = await pose();
   await page.mouse.move(Math.round((page.viewportSize()?.width ?? 1440) * .25), Math.round((page.viewportSize()?.height ?? 1000) * .5));
-  await page.mouse.wheel(0, 400);
-  await expect.poll(draws).toBeGreaterThan(idle);
-  await canvas.evaluate((element: HTMLCanvasElement) => element.getContext('webgl2')?.getExtension('WEBGL_lose_context')?.loseContext());
+  await page.mouse.wheel(0, Math.round((page.viewportSize()?.height ?? 844) * .35));
+  await expect.poll(pose).not.toBe(initial);
+  await page.waitForTimeout(600);
+  const settled = await upper.evaluate(element => element.getAttribute('style'));
+  await page.waitForTimeout(400);
+  expect(await upper.getAttribute('style')).toBe(settled);
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
+  await expect.poll(pose).toBe(initial);
   await expect(page.locator('canvas')).toHaveCount(0);
-  await expect(page.locator('.passage-fallback')).toHaveCSS('opacity', '1');
+  expect(rendererRequests).toEqual([]);
   expect(errors).toEqual([]);
 });

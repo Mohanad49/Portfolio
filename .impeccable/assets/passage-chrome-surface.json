@@ -1,6 +1,0 @@
-{
-  "prompt": "Use case: stylized-concept. Asset type: square PBR color/roughness surface texture for actual WebGL dark chrome slabs in a cinematic QA portfolio. Create a completely flat, orthographic, edge-to-edge macro material sample of finely brushed, slightly weathered dark chrome. Neutral cool charcoal and steel, average midtone around RGB 85, 88, 91, small pits and hairline scratches, restrained fine uneven grain, subtle horizontal machining marks. Dense realistic microdetail like a premium machined specimen. Uniform diffuse studio lighting, absolutely no large baked reflection, no bevel, no object edge, no cast shadow, no vignette, no perspective. The texture must tile seamlessly at all four edges and have consistent exposure across the square. No amber baked into this texture, the renderer supplies amber light. This is a texture only, not a metal panel photograph in a room. No text, UI, symbols, logos, or borders. Square 1024x1024.",
-  "tool": "built-in image_gen",
-  "output": "assets/materials/passage-chrome-surface.png",
-  "role": "desktop focal scene rebuild material"
-}
