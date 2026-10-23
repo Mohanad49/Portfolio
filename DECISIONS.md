@@ -185,3 +185,20 @@ deciding between another 3D rebuild and an explicitly approved layered treatment
 Do not integrate or replace production while that material finding remains open.
 The existing mobile treatment, factual observations, immediate work/resume access,
 complete fallbacks, and original homepage stay intact in this comparison snapshot.
+
+## D-017: Preserve B with cinematic artwork layers
+
+The owner rejected the hosted renderer as visibly unlike the approved B artwork
+and authorized preserving the cinematic layered artwork if the renderer could
+not match it. Two independent full reviews had already found that material gap.
+Choose the authorized layered treatment rather than extend the rejected renderer.
+
+Desktop uses the approved text-free material plate in complementary image fields.
+They share one composition at rest, then separate with bounded native-scroll
+transforms. Keep semantic HTML, immediate actions, compact mobile cutouts, and
+complete reduced-motion/no-JavaScript states. Remove the prototype-only renderer
+and its abandoned maps. Keep the homepage's standalone inspection scene intact.
+
+This resolves the implementation strategy, not visual acceptance. Archive the
+rejected build/captures, perform a fresh full finish review of the new treatment,
+and update the isolated preview. Production integration remains outside scope.

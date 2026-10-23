@@ -2,7 +2,7 @@
 version: 1
 slug: "src-pages-experience-astro"
 primary_target: "src/pages/experience.astro"
-related_targets: ["src/components/experience/PassageCanvas.tsx","src/scripts/experience-motion.ts"]
+related_targets: ["src/scripts/experience-motion.ts"]
 ---
 
 # Opening-to-TestPulse prototype
@@ -28,8 +28,10 @@ two-line copy, role, description, and immediate work/resume actions occupy a cle
 left region. Navigation remains readable. TestPulse appears through the lower slot.
 
 FORM: Established inspection-monograph world, seed dfa28b62. This is its selected
-local interaction expansion, not another world selection. Desktop uses short
-camera travel; mobile uses a compact layered reveal without a long camera ride.
+local interaction expansion, not another world selection. Desktop preserves the
+approved material plate and separates its upper and lower fields with a short
+visual push. Mobile uses the approved compact cutout reveal. The owner rejected
+the live renderer on 2026-10-23 and authorized this cinematic layered treatment.
 
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
 
@@ -43,6 +45,7 @@ no-JavaScript/Reduce Motion fallbacks, native scroll, and direct comparison link
 
 Real reports remain real. The material artwork is conceptual. Image-generated
 lettering is replaced by actual HTML, with no blur on the project title. GSAP
-owns DOM timelines and progress; React Three Fiber owns the actual desktop scene.
+owns the native-scroll DOM timeline. This prototype loads no WebGL scene or React
+island. The current homepage's separate interactive inspection scene is retained.
 No additional animation dependency. The existing production acceptance thresholds
 remain. Evaluate actual motion work in addition to mobile Lighthouse measurements.

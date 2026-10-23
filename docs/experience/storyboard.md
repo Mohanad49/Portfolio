@@ -1,6 +1,7 @@
 # Experience study: opening into TestPulse
 
-Status: B selected by the owner; isolated prototype implementation authorized.
+Status: B selected; the owner authorized the cinematic layered treatment after
+rejecting the hosted live renderer on 2026-10-23. Isolated prototype only.
 Owner request confirmed on 2026-10-23. Baseline: 40a24f16ec037658fb13d5509dd1ba59573f480a.
 
 ## The job
@@ -41,6 +42,12 @@ without image-generated blur, in the prototype.
 
 ## Opening storyboard
 
+The original three choices below preserve the concept comparison. B now uses
+the approved artwork itself, separated into complementary upper and lower image
+fields. Their common first frame retains the material finish; short separation
+and a visual push open the existing TestPulse slot. This replaces the rejected
+live 3D implementation. It does not promise new camera angles or physical optics.
+
 The percentages describe sequence progress, not elapsed time. The visitor chooses
 the pace and can reverse direction. A typical deliberate viewing might take
 roughly 15 to 20 seconds including TestPulse; no timer enforces that duration.
@@ -80,8 +87,9 @@ claim. Other green suites are retained as green. No result is recolored for dram
 
 ## Device and accessibility treatments
 
-- Desktop prototype: use the existing renderer and GSAP ownership split, one
-  active scene, no extra motion library, and on-demand rendering.
+- Desktop prototype: preserve the approved plate in complementary image fields.
+  GSAP separates them and advances the composition with native scroll. No canvas,
+  live material rendering, extra motion library, or continuous idle loop.
 - Mobile prototype: prove the composition with bounded material transforms and
   a short sequence of rendered layers or frames. Live transmission is an option
   to measure, not an assumption or requirement. Keep a native vertical scroll.

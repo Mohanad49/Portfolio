@@ -4,5 +4,11 @@
   "supportingMobile": ".impeccable/mocks/experience/mobile-study.png",
   "approved": true,
   "approvedOn": "2026-10-23",
-  "scope": "Isolated opening-to-TestPulse prototype; production integration is not approved."
+  "scope": "Isolated opening-to-TestPulse prototype; production integration is not approved.",
+  "treatment": {
+    "choice": "cinematic-layered-artwork",
+    "approvedOn": "2026-10-23",
+    "reason": "The owner rejected the hosted renderer as visibly unlike B and explicitly authorized preserving the cinematic layered artwork if it could not match.",
+    "boundary": "Retain B composition, native scrolling, semantic text, and the existing homepage inspection scene. Prototype only."
+  }
 }
