@@ -2,6 +2,33 @@
 
 ## Current source
 
+Owner-feedback application source: 5387919, including the content increment b0e89e6.
+The current PDF SHA-256 is
+683ede439d00f58b2323c78629635ea674558fee1f5e1cce9d7132d7ae47735d.
+It is an exact copy of the owner's existing local PDF; the original Word/PDF files
+were already current and are unchanged. Both resume pages were rendered and viewed.
+
+Type checks, lint, and the nineteen-page production build pass. The first affected
+matrix passed 27 checks for filters, downloads, and visible motion. Technical review
+then found completed reveals could replay after breakpoint/preference changes.
+The fix preserves completed targets in a WeakSet. Its strengthened nine-project
+motion matrix passes in Chromium, Firefox, and WebKit at desktop, tablet, and mobile
+sizes. Reports are .research/owner-feedback-focused.json and
+.research/owner-feedback-motion-verification.json. No retries were enabled.
+
+One batched desktop/mobile inspection covers metrics, the graduation label, and
+the six-framework archive. Real motion samples and videos are retained under
+.research/owner-feedback. The mobile capture records zero Canvas requests and a
+complete reveal to opacity 1; desktop also completes after its sampled interval.
+The updated source and GitHub profile copy are independently approved in
+docs/technical-review.md. Visual finish, hosted acceptance, and live publication
+verification for this increment remain pending.
+
+The remaining sections retain the original release's dated evidence, including
+its previous PDF identity and seven-framework count. They are historical results.
+
+## Previous release source
+
 Verified release head: 398525e5c1bd0f69c1719dc6880fff9426557233. The production
 merge b5c5cb860b42d6048b57e2492c02b113701f7c89 has the identical Git tree
 fb4a0c20ac8a90bf6dd1d424e4773dafdbca40cc. Application source includes a2c56c2

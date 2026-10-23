@@ -100,3 +100,28 @@ attachment filename explicitly on /resume.pdf in vercel.json. Preserve the exact
 PDF, route, cache policy, and strict download assertion. The authenticated preview
 downloads Mohanad_Yehia_Software_QA_Engineer.pdf with the expected SHA-256 digest.
 Reference: https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Disposition.
+
+## D-012: Current employment metrics and curated testing evidence
+
+The owner confirms 5,000+ authored test cases and 600+ defects driven to resolution
+at Blue Ribbon. The existing local Word and PDF resumes already contain these
+figures; copy that PDF exactly into the portfolio rather than rebuilding it.
+Add the same figures to the GitHub profile and retain the 85% admin-portal scope.
+Identify the degree project explicitly as Graduation Project.
+
+Remove the eBay exercise from the curated portfolio and GitHub framework table.
+Its source has one externally configured search/filter journey and a parser unit
+suite. Broadening a live-marketplace exercise would duplicate stronger existing
+Selenium evidence. Keep the repository unchanged, and send its old /project/10 URL
+directly to GitHub. The archive now contains six frameworks across four disciplines.
+
+## D-013: Visible mobile reveals, with desktop-only 3D
+
+The owner selected visible, lightweight reveals on both desktop and mobile.
+Remove the viewport cutoff from the existing GSAP loader and keep it only around
+the hero's image movement. Strengthen the existing once-only evidence reveal from
+75% to 18% starting opacity, with 28px displacement over 0.8 seconds. Skip content
+already at the current reading position, clear completed styles, and retain live
+Reduce Motion cleanup and history restoration. No dependency or mobile Canvas is
+added. The static artwork below 1024px remains an intentional performance choice,
+not an inference about iPhone or Safari capability.

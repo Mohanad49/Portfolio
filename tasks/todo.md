@@ -15,3 +15,13 @@
 - [x] Complete Impeccable visual review and design documentation.
 - [x] Verify preview, replace production, and retain rollback evidence.
 - [x] Smoke-test the live site and report final verification.
+
+## Owner feedback on 2026-10-23
+
+- [x] Confirm 5,000+ cases and 600+ defects in the local Word and PDF resumes.
+- [x] Update portfolio figures and its published resume source.
+- [x] Remove eBay from curated work and preserve its original project URL.
+- [x] Identify the graduation project in About.
+- [x] Enable visible desktop/mobile reveals with reduced-motion support.
+- [ ] Verify visual changes and publish the matching GitHub profile copy.
+- [ ] Pass hosted checks, deploy, and verify the live updates.
