@@ -34,6 +34,10 @@
 - [x] Produce three opening composition concepts with exact prompt sidecars.
 - [x] Review the mobile concept study and show the complete selection artifact.
 - [x] Receive composition approval or explicit delegation before UI code.
-- [ ] Build one isolated motion prototype and compare it with the current site.
-- [ ] Verify behavior, runtime cost, and visual finish at the prototype's scope.
+- [x] Build one isolated motion prototype for comparison with the current site.
+- [x] Verify the prototype's behavior, accessibility, and renderer lifecycle locally.
+- [x] Complete two independent full visual reviews and document their rebuild verdicts.
+- [ ] Verify the hosted preview and eighteen mobile Lighthouse measurements.
+- [ ] Resolve the desktop material strategy after the owner's comparison decision.
+- [ ] Reach accepted visual finish before integration.
 - [ ] Present the comparison and integration recommendation without changing production.

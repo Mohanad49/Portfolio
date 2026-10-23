@@ -134,9 +134,9 @@ current site. Keep the established material identity and factual copy, while
 allowing a more expressive interaction. The study is separate from production.
 
 Three composition probes compare an opening fan, a short advance through a
-material slot, and a specimen travelling between sections. The slot is the
-working recommendation, pending the image-concept approval required by this
-project. Do not treat approval of the study's scope as approval of an unseen comp.
+material slot, and a specimen travelling between sections. On 2026-10-23 the
+owner selected B: Pass Through after reviewing the desktop and mobile concepts.
+Its approved image is .impeccable/mocks/experience/pass-through.png.
 
 Use the current public TestPulse export for the second sequence. The selected
 Cal.diy API booking-lifecycle history includes passed and failed observations at
@@ -147,3 +147,41 @@ After selection, implement only the study in an isolated preview and measure
 mobile comfort and rendering cost. Keep the existing acceptance thresholds and
 one shared verification record. Integration and production replacement are
 separate decisions after the prototype comparison.
+
+## D-015: One native scroll sequence, with stable evidence access
+
+The isolated /experience route has a short sticky opening, immediate work/resume
+actions, and three immutable TestPulse observations. GSAP owns scroll progress
+and HTML transforms; React Three Fiber reads that progress and renders five
+actual desktop volumes on demand. It does not run a perpetual frame loop.
+Mobile opens two alpha-cut material plates over 45% of a viewport of travel.
+Reduce Motion and no JavaScript show the complete still and semantic evidence.
+
+This route overrides inherited smooth fragment scrolling with native immediate
+anchor navigation. The first production-build check exposed a stale fragment
+destination when enhancement lengthened the opening during smooth scrolling.
+Opening height changes now belong to the same configuration transaction as
+reading-position compensation, rather than changing earlier in media-query CSS.
+Completed evidence reveals stay completed across preference and size changes.
+
+HTML project lettering remains above the scene so a transmissive surface cannot
+hide the destination. The rebuilt renderer uses original chrome and reflection
+maps, with cloned color/data textures and a transmission background. A transparent
+canvas cannot refract HTML behind it.
+The static concept and actual real-time material are reviewed separately.
+Reference: https://drei.docs.pmnd.rs/shaders/mesh-transmission-material and
+https://drei.docs.pmnd.rs/staging/environment.
+
+## D-016: Keep the desktop material rejection visible
+
+Two independent full reviews of the isolated prototype return rebuild. The
+second resolves mobile action clearance, but the live desktop finish still has
+broad white/beige reflections and opaque-looking gold planes. It does not match
+the approved textured dark chrome, luminous amber volume, and close passage.
+The static composition's 94.2% match is a separate result, not a visual approval
+of the live scene. Retain both reports and present the actual preview before
+deciding between another 3D rebuild and an explicitly approved layered treatment.
+
+Do not integrate or replace production while that material finding remains open.
+The existing mobile treatment, factual observations, immediate work/resume access,
+complete fallbacks, and original homepage stay intact in this comparison snapshot.

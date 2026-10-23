@@ -1,13 +1,73 @@
 # Verification record
 
-## Experience study: preimplementation checkpoint
+## Experience prototype: current comparison snapshot
+
+The owner selected B: Pass Through on 2026-10-23. Application source a697113
+and test configuration 8125cf0 implement the isolated /experience route on
+codex/qa-portfolio. The homepage and production are unchanged. Type checking
+passes for 36 files with zero diagnostics; lint and the twenty-page static build
+pass. Existing optional renderer chunk warnings remain visible.
+
+The rebuilt route's first full local matrix records 47 passed checks, six
+inapplicable desktop-only skips, and one WebKit desktop timeout in the driver's
+scroll-into-view command. All nine new axe/reflow cases pass, with zero serious
+or critical findings. The trace shows that the CTA had already passed visible,
+enabled, and stable checks; no click was dispatched. A separate diagnostic finds
+responsive JavaScript, a fully visible hit-testable anchor, and working native
+pointer navigation before scene readiness. It does not establish a definitive
+application cause for the intermittent inspector stall.
+
+The corrected test requires full viewport visibility and click({ scroll: 'none' }).
+This pinned Playwright option retains normal actionability and hit-target checks.
+It changes the driver step, not the site's behavior or the assertion. The final
+affected matrix records 12 passed checks, six inapplicable skips, and zero failures:
+native scrolling in all nine configurations, plus actual rendering, idle rest,
+zero console/page errors, and context-loss recovery in all three desktop engines.
+The other 36 green checks are unchanged. Together these cover all 48 applicable
+prototype checks without retries. The hosted PR pipeline will run the complete
+application matrix and all eighteen mobile Lighthouse runs; results are pending.
+
+Initial focused checks also exposed a real desktop deep-link failure during
+inherited smooth fragment scrolling. Immediate native anchors on this route fix
+it. The first reading-position test incorrectly assumed the timeline was onscreen
+at the section bookmark; it now enters that timeline before changing preferences.
+A test closure was corrected to pass its expected position into the browser.
+Failure traces are retained in test-results/experience-initial,
+experience-corrected, experience-matrix, and experience-rebuild-matrix. No retry,
+skip, or threshold was added to suppress a failing applicable behavior.
+
+One local type/build attempt collided on Astro's generated temporary file because
+both wrote it concurrently. Sequential type checking and building succeed. The
+rebuild's initial unchecked-index type errors were resolved before the passing
+final check. The two source materials compile into optimized WebP files; their
+PNG sources and exact prompt sidecars are absent from dist. Provenance scan:
+seven raster assets, zero missing metadata.
+
+Visual acceptance remains open. Both independent full reviews have disposition
+rebuild. The first found flat desktop materials, an unclear project opening, and
+mobile action overlap. The focal rebuild added original chrome/reflection maps,
+real gap geometry, lower transmission cost, and preserved readable HTML. The
+second review resolves mobile clearance but still rejects the live desktop
+materials, close enclosure, arrival caption, and navigation clearance. The static
+94.2% comparison applies only to the still. It does not certify the live scene.
+Both reports are retained as docs/experience/visual-review.initial.md and
+visual-review.md. Current required captures/videos are under
+.impeccable/review/experience; previous captures remain under .research.
+
+The documentation handoff records the actual prototype in
+docs/experience/design-record.md and preserves canonical DESIGN.md and
+.impeccable/design.json. This snapshot is for a hosted comparison. It is not ready
+for integration or production. A further material strategy requires the owner's
+decision after the second rebuild verdict, as required by Impeccable.
+
+## Experience study: evidence checkpoint
 
 On 2026-10-23 the owner authorized a storyboard and isolated motion prototype.
 The desktop/mobile storyboard, three opening concepts, and a supporting mobile
 comparison are prepared in docs/experience and .impeccable/mocks/experience.
 All four generated PNGs have exact prompt sidecars and embedded provenance.
 The concepts were inspected; their image-generated text is a visual reference,
-not production UI or evidence of working motion. Selection remains pending.
+not production UI or evidence of working motion. The owner subsequently selected B.
 
 The live public TestPulse index and all thirteen suite summaries were inspected.
 The selected caldiy-api-v2 booking-lifecycle observations were rechecked against
@@ -16,10 +76,10 @@ the exact public JSON. Three dated Passed/Failed/Passed observations share commi
 payload digest and source are retained in docs/experience/testpulse-evidence.json.
 The 50-run metrics window and 81-observation detailed timeline remain distinct.
 
-This checkpoint changes no application code, assets served by the website,
-dependencies, build settings, or deployment configuration. The production checks
-below remain evidence for the unchanged application. No prototype behavior or
-performance has been claimed, and production replacement is not part of this step.
+This earlier checkpoint changed no application code, dependencies, build settings,
+or deployment configuration. The production checks below remain historical
+evidence for the unchanged public homepage. Production replacement is outside
+the selected prototype's scope.
 
 ## Current source
 

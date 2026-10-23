@@ -385,3 +385,108 @@ This source approval does not claim the corrected checks or current mobile
 performance have passed. The parent owns affected type/lint/build checks,
 browser verification, captures, and performance acceptance for the changed
 mobile path. No browser or broad check was launched by this reviewer.
+
+## Pass Through prototype: technical source review
+
+Date: 2026-10-23. Baseline: `40a24f16ec037658fb13d5509dd1ba59573f480a`.
+Scope: the isolated `/experience` preview, including its committed prototype
+files and final working-tree delta. The approved brief and storyboard define
+the direction; this review covers source correctness, lifecycle, resource
+handling, evidence provenance, and test quality.
+
+**Technical source verdict: approve for isolated preview.** No unresolved
+Critical or Required source finding remains in the reviewed blobs. This is not
+visual acceptance or authorization to merge or release to production. The
+visual review still requires a desktop rebuild; full-tree CI and mobile
+Lighthouse remain pending on the draft PR.
+
+### Reviewed identities
+
+| File | Git blob |
+| --- | --- |
+| `src/pages/experience.astro` | `aa6cf9659b0127e38f575b026be9f2945861fcf0` |
+| `src/scripts/experience-motion.ts` | `25a693f6989ac74d6812c7c7e82296d838adb511` |
+| `src/components/experience/PassageIsland.tsx` | `914dc21877a6385ecce7c8e853df0972c6197b10` |
+| `src/components/experience/PassageCanvas.tsx` | `77fd3e47502939dc081ea58f95393dae2a7cf65c` |
+| `src/data/experience-history.ts` | `c3e8ab4d9d6967c36f9b50bdef924bfa767086aa` |
+| `tests/experience.spec.ts` | `e708b021a08a1927bd84d7f2fae2084cf6f46784` |
+| `lighthouserc.cjs` | `f88d6396f7722f8ebc356fbb0c9c031862f11351` |
+| `docs/experience/testpulse-evidence.json` | `2f0c1cfe7885685c4fb89aace406d4603d14d64e` |
+
+The source material assets reviewed are `passage-chrome-surface.png` blob
+`bd14495e45af4a72d8cf0728cc43fbb8ca85a88d` and
+`passage-studio-reflection.png` blob
+`d2188cbc5ec6024fda9e374bacc44dc05938ab60`, with retained generation provenance.
+They are conceptual rendering assets, separate from the QA observations.
+
+### Evidence and runtime boundaries
+
+The retained raw TestPulse export has SHA-256
+`7eef058c1467af41eae32480a367e142f24c44758be46a96866be354e55380a9`, matching
+the evidence manifest. Its selected booking-lifecycle observations are runs
+1220, 1224, and 1364, with pass, fail, and pass statuses on the same recorded
+commit. The page preserves their timestamps and unknown retry counts, and
+distinguishes the 81-observation detail timeline from the 50-run metric window.
+It does not infer a repair, root cause, or retry from this sequence. This is
+verification against the retained public snapshot, not a fresh live-source
+verification.
+
+The complete evidence, work link, resume link, and comparison links remain
+semantic static HTML. Native scrolling and fragment navigation do not depend
+on scene readiness. The original homepage is unchanged, and the preview is
+marked `noindex`. Reduce Motion, no JavaScript, unavailable WebGL, import
+failure, and context loss retain the readable fallback.
+
+Astro generates WebP assets and passes only their URLs to the island. The
+desktop and motion media boundary precedes hydration; a second eligibility
+check precedes the dynamic Canvas import. Pending activation settles scrolling
+for 150 ms, while offscreen, hidden-document, and media changes deactivate
+immediately. Timers, observers, listeners, stale imports, and the invalidation
+hook have cleanup paths. Mobile has no live Canvas.
+
+The rebuilt scene uses demand rendering, maximum DPR 1.25, two transmission
+materials with 256-pixel targets and two samples, and no continuous capture
+loop. Color and data textures are separate owned clones; cached loader sources
+are left intact, and the clones are disposed on unmount. The installed rendering
+helpers own their transmission targets and restore the supplied environment.
+No dependency or runtime data-fetch boundary was added.
+
+### Resolved concerns and verification limits
+
+The initial reading-position concern is resolved: JavaScript now owns the
+opening's extra motion height, captures the evidence position before changing
+it, and restores that position on live preference or desktop-boundary changes.
+CSS media queries no longer resize that extra height before the capture. Once
+revealed, the evidence remains revealed across reconfiguration.
+
+The retained rebuilt matrix had 47 passes, six inapplicable desktop-only skips,
+and one WebKit native-scroll failure. That failure stopped inside Playwright's
+inspector auto-scroll before dispatching the CTA click; it did not establish an
+application root cause. The retained geometry diagnostic found the CTA fully
+visible, with its anchor as the hit target and `data-ready=false`. Native
+pointer activation reached `#evidence` with its top at 64 pixels. Locator and
+WebGL-unavailable diagnostic cases also reached the target.
+
+The final native-navigation test first requires full viewport intersection,
+then uses the supported [`scroll: 'none'` click option](https://github.com/microsoft/playwright/blob/main/docs/src/api/params.md#input-scroll).
+It retains actionability and hit testing, real pointer activation, and the
+fragment and viewport assertions, without a scene-readiness wait. The prior
+failure artifacts remain evidence of the intermittent inspector stall. The
+renderer test additionally requires zero console errors and page errors, so
+successful draw calls cannot conceal a shader or runtime failure.
+
+The parent reports the final affected matrix completed in 44.1 seconds with
+12 passes, six inapplicable skips, and zero failures across 18 registrations.
+It reran native navigation in all nine engine/viewport combinations and the
+strengthened actual-renderer test in all three desktop engines. The other
+36 registrations from the rebuilt matrix were unchanged and green; this was
+an affected rerun, not a new complete 54-registration run. The parent also
+reports type checking of 36 files with zero diagnostics, lint, and the 20-page
+build passing. There were no retries or threshold changes. This reviewer did
+not launch a browser or repeat these checks.
+
+Technical approval leaves the visual rebuild disposition in force. Mobile
+action clearance is resolved in the visual report, while desktop materials,
+slot treatment, and navigation remain below the selected composition. Full-tree
+CI, mobile Lighthouse, and final preview acceptance are separate outstanding
+gates. No production merge or release is authorized by this report.
