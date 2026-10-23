@@ -87,19 +87,5 @@
     ],
     "repository": "https://github.com/Mohanad49/jmeter_performance_testing_report",
     "report": null
-  },
-  {
-    "id": "ebay-selenium",
-    "legacyId": 10,
-    "title": "Search and refinement automation",
-    "category": "Web",
-    "description": "Selenium/Java search scenarios with page objects, external test data, and an HTML execution report.",
-    "stack": [
-      "Java",
-      "Selenium",
-      "JSON fixtures"
-    ],
-    "repository": "https://github.com/Mohanad49/ebay-web-automation",
-    "report": null
   }
 ]

@@ -52,7 +52,7 @@
     },
     {
       "source": "/project/10",
-      "destination": "/work#ebay-selenium",
+      "destination": "https://github.com/Mohanad49/ebay-web-automation",
       "permanent": true
     },
     {

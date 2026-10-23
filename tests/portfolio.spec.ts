@@ -3,7 +3,7 @@ import AxeBuilder from '@axe-core/playwright';
 import { createHash } from 'node:crypto';
 
 const routes = ['/', '/work', '/work/testpulse', '/work/caldiy', '/work/llm-evaluation'];
-const resumeDigest = '1053c4a9375885e7a248291bb2f76b4c93f348d9618f6422da8d8333f2208aee';
+const resumeDigest = '683ede439d00f58b2323c78629635ea674558fee1f5e1cce9d7132d7ae47735d';
 
 test('every main route has a readable heading, working images, and direct contact', async ({ page }) => {
   const errors: string[] = [];
@@ -46,8 +46,8 @@ test('navigation exposes selected work, approach, profile, and contact', async (
 
 test('framework filters preserve source links and bookmark visibility', async ({ page }) => {
   await page.goto('/work');
-  await expect(page.locator('.framework-item:visible')).toHaveCount(7);
-  for (const [category, count] of [['Web', 3], ['API', 2], ['Mobile', 1], ['Performance', 1]] as const) {
+  await expect(page.locator('.framework-item:visible')).toHaveCount(6);
+  for (const [category, count] of [['Web', 2], ['API', 2], ['Mobile', 1], ['Performance', 1]] as const) {
     await page.getByRole('radio', { name: new RegExp(`^${category}`) }).check();
     await expect(page.locator('.framework-item:visible')).toHaveCount(count);
     await expect(page).toHaveURL(new RegExp(`type=${category}`));
@@ -107,7 +107,7 @@ test('all routes retain their content without JavaScript', async ({ browser, bas
   const page = await context.newPage();
   for (const route of routes) { await page.goto(route); await expect(page.locator('h1')).toBeVisible(); await expect(page.getByRole('link', { name: 'mohanned.3262@gmail.com' })).toHaveAttribute('href', /^mailto:/); }
   await page.goto('/work');
-  await expect(page.locator('.framework-item:visible')).toHaveCount(7);
+  await expect(page.locator('.framework-item:visible')).toHaveCount(6);
   await expect(page.getByRole('form', { name: 'Filter frameworks' })).toBeHidden();
   await page.goto('/#About');
   await expect(page.locator('#About')).toBeInViewport();
