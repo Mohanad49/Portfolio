@@ -25,12 +25,34 @@ export default function InspectionIsland() {
     if (!element) return;
     const media = matchMedia('(min-width: 1024px) and (prefers-reduced-motion: no-preference)');
     let intersects = false;
-    const update = () => { const active = intersects && media.matches && !document.hidden; setVisible(active); if (!active) setReady(false); };
-    const observer = new IntersectionObserver(([entry]) => { intersects = entry?.isIntersecting ?? false; update(); }, { rootMargin: '120px' });
+    let active = false;
+    let activationTimer: number | undefined;
+    const update = () => {
+      window.clearTimeout(activationTimer);
+      if (!intersects || !media.matches || document.hidden) {
+        active = false;
+        setVisible(false);
+        setReady(false);
+      } else if (!active) {
+        // A bookmark can pass the scene without the visitor stopping to inspect it.
+        activationTimer = window.setTimeout(() => {
+          if (intersects && media.matches && !document.hidden) { active = true; setVisible(true); }
+        }, 150);
+      }
+    };
+    const scrolling = () => { if (intersects && !active) update(); };
+    const observer = new IntersectionObserver(entries => { intersects = entries.at(-1)?.isIntersecting ?? false; update(); }, { rootMargin: '120px' });
     observer.observe(element);
     media.addEventListener('change', update);
     document.addEventListener('visibilitychange', update);
-    return () => { observer.disconnect(); media.removeEventListener('change', update); document.removeEventListener('visibilitychange', update); };
+    window.addEventListener('scroll', scrolling, { passive: true });
+    return () => {
+      window.clearTimeout(activationTimer);
+      observer.disconnect();
+      media.removeEventListener('change', update);
+      document.removeEventListener('visibilitychange', update);
+      window.removeEventListener('scroll', scrolling);
+    };
   }, []);
 
   useEffect(() => {
