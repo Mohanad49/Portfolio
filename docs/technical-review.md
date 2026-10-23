@@ -313,3 +313,75 @@ direct Contact transit avoids the unnecessary Canvas startup while settled
 Approach activation, interaction, reduced-motion teardown, context-loss
 fallback, and the unchanged bookmark assertion still pass. No browser or broad
 check was launched by this reviewer.
+
+## Owner feedback: updated evidence, curation, and shared reveals
+
+Review date: 2026-10-23. **Approve the source delta.** No unresolved Critical,
+Required, Optional, or Nit findings. Scope is technical correctness, lifecycle,
+testing, architecture, security, and performance implications. Visual acceptance
+remains with its owner. Reviewed against
+`9d676e5aa5ef39035656b4a405eb35a946ba9e04`.
+
+Exact reviewed blobs:
+
+| File | Blob SHA |
+| --- | --- |
+| `docs/briefs/home.md` | `58263fedd175e35a510604ca3cd927b79ea427d5` |
+| `docs/evidence.md` | `6bed89a49114e2177c0a3be0e4d1e8fb314b4b6e` |
+| `public/resume.pdf` | `a338caf9004f4d2aa3197a7d1501f33678457097` |
+| `src/components/About.astro` | `bf98f6426f8af3d68a6466876407165a23f7aa73` |
+| `src/components/SelectedWork.astro` | `7731922ea9b22b073b89d33b6308f052db9b5fd3` |
+| `src/data/frameworks.json` | `b4d51e55241012450679d0a301edc0fdaea63f33` |
+| `src/data/legacy-routes.json` | `e18722e098d830c1d01da0d7f666fd85c40ce206` |
+| `src/data/profile.json` | `054aeea339d29776e37f2d40f9fac200f5e01670` |
+| `src/pages/index.astro` | `84b6f8696c275ac177b26fabc854228ffdfd0c10` |
+| `src/pages/work/index.astro` | `f9ad737ab2e962416a7de5d3a18b6f08476b2195` |
+| `src/scripts/motion.ts` | `0f8ad2d3d78f80fb1709305a206b0e9d974b16e0` |
+| `tests/portfolio.spec.ts` | `b338297c9c0b6cb5776c4c08833f53a800ba4d67` |
+| `vercel.json` | `b65c5b22de0d1d8179e96ec365b2f0674d249385` |
+
+The separate `.research/github-profile` repository was reviewed against
+`570f1bf22fe06f9b06332fb76954a07daba8e045`; its reviewed `README.md` blob is
+`e3ac39496684978d7ab8a501343450bc8ede34e5`. Its factual delta uses the same
+owner-confirmed 5,000+ authored cases and 600+ defects, qualifies 85% as
+admin-portal regression coverage, and removes the eBay row from the curated
+table. This review makes no additional employment-evidence claim beyond the
+owner-confirmed scope.
+
+The portfolio metric values and evidence ledger agree. The degree project has
+an explicit Graduation Project label. The published PDF's independently computed
+SHA-256 is `683ede439d00f58b2323c78629635ea674558fee1f5e1cce9d7132d7ae47735d`,
+exactly matching the supplied identity. The download test retains byte identity
+and the descriptive filename assertion. Six curated frameworks remain across
+four categories, with filter counts of two Web, two API, one Mobile, and one
+Performance framework. Both the static legacy mapping and Vercel preserve
+`/project/10` as the selected external GitHub destination.
+
+### Resolved, Required: preserve once-only reveals through reconfiguration
+
+The initial motion patch recreated every reveal after a desktop breakpoint or
+motion-preference change. A completed element could therefore be faded again
+after returning to the top. `once: true` belongs to each ScrollTrigger instance;
+[context reversion](https://gsap.com/docs/v3/GSAP/gsap.context()/) destroys those
+instances rather than preserving their completion history.
+
+The corrected source keeps a per-page WeakSet of completed or initially visible
+targets. Context reversion still clears spatial motion immediately for Reduce
+Motion, while reconfiguration skips those targets and leaves unplayed content
+below the viewport eligible. The strengthened regression completes a reveal,
+returns to the top, crosses the desktop breakpoint, changes motion preference
+both ways, and revisits while requiring full opacity. It also checks completed
+transform cleanup and live Reduce Motion recovery. Both media listeners have
+matching cleanup, and persisted page transitions retain their existing policy.
+
+The shared reveal path now runs on mobile through the existing deferred GSAP
+import. Hero parallax and inspection progress remain desktop-only, and the 3D
+island's separate desktop and motion-preference boundary is unchanged. No new
+dependency, runtime data boundary, secret, or continuous mobile Canvas work is
+introduced. Transform and opacity styles clear on completion; the unscripted
+page retains its complete content.
+
+This source approval does not claim the corrected checks or current mobile
+performance have passed. The parent owns affected type/lint/build checks,
+browser verification, captures, and performance acceptance for the changed
+mobile path. No browser or broad check was launched by this reviewer.

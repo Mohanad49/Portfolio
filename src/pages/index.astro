@@ -14,7 +14,7 @@ import About from '../components/About.astro';
   <About />
 </BaseLayout>
 <script>
-  const motionMedia = matchMedia('(min-width: 761px) and (prefers-reduced-motion: no-preference)');
+  const motionMedia = matchMedia('(prefers-reduced-motion: no-preference)');
   let started = false;
   const start = () => {
     if (!motionMedia.matches || started) return;

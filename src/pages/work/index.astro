@@ -8,7 +8,7 @@ const projects = await getProjects();
 const frameworks = (await getCollection('frameworks')).sort((a, b) => a.data.legacyId - b.data.legacyId);
 const categories = ['All', 'Web', 'API', 'Mobile', 'Performance'];
 ---
-<BaseLayout title="Work & test frameworks | Mohanad Yehia" description="QA case studies and seven test frameworks across web, API, mobile, and performance testing. Source code, reports, scope, and decisions.">
+<BaseLayout title="Work & test frameworks | Mohanad Yehia" description="QA case studies and six test frameworks across web, API, mobile, and performance testing. Source code, reports, scope, and decisions.">
   <header class="work-heading"><a class="back-link" href="/"><Icon class="back-icon" /> Home</a><h1>Selected work.<br />The deeper cuts.</h1><p>Systems I’ve tested, tools I’ve built, and the evidence worth opening.</p></header>
   <section class="case-index" aria-labelledby="selected-heading"><h2 id="selected-heading">Three case studies</h2>{projects.map(project => <a class="case-index-link" href={`/work/${project.data.slug}`}><span class="case-name">{project.data.title}<span>{project.data.eyebrow}</span></span><Icon /></a>)}</section>
   <section class="framework-archive section-space" id="frameworks" aria-labelledby="framework-heading">

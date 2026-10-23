@@ -38,6 +38,21 @@ static artwork, content, and links remain complete without that enhancement.
 Measured accessibility and performance requirements remain acceptance gates.
 The mobile composition adapts typography, crops, and motion deliberately.
 
+## Owner feedback on 2026-10-23
+
+Use the owner's confirmed Blue Ribbon totals: 5,000+ cases and 600+ defects.
+Identify the degree project explicitly as Graduation Project. Curate six testing
+frameworks; the one-flow eBay exercise stays on GitHub and leaves the portfolio.
+
+Make the existing evidence reveals legible on desktop and mobile: text and proof
+move into focus over 0.8 seconds from 18% opacity with 28px of displacement.
+Keep the desktop hero's material composition and restrained image movement as the
+focal scene. Reveal only below-viewport content, once, so bookmarks do not fade the
+current reading position. Clear completed styles, preserve a complete unscripted
+page, and remove spatial motion when Reduce Motion is enabled. Use existing GSAP,
+loaded after the initial render, with no new dependency, mobile Canvas, or blur.
+The desktop-only 3D policy remains intentional and unchanged.
+
 ## Grounded visual sources
 
 Seven grounded systems were considered within the approved material direction:

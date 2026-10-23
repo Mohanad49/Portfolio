@@ -1,6 +1,7 @@
 # Content evidence ledger
 
-Verified on 2026-10-22. This record supports portfolio copy; it is not a claim
+Project sources verified on 2026-10-22; employment metrics refreshed on 2026-10-23.
+This record supports portfolio copy; it is not a claim
 that historical test runs were repeated for the new website.
 
 ## Source precedence
@@ -25,9 +26,12 @@ local copy verification. Public copy links to the retained source commits.
 
 ### Professional experience
 
-- Blue Ribbon: 22+ modules, 2,500+ authored cases, 500+ defects driven to resolution,
+- Blue Ribbon: 22+ modules, 5,000+ authored cases, 600+ defects driven to resolution,
   and 85% automated regression coverage of the admin portal, as stated in the
   supplied resume. Do not generalize 85% to the complete platform or mobile app.
+  The owner explicitly confirmed the updated case and defect totals on 2026-10-23.
+  The local DOCX and PDF already contain those totals. The published PDF is an exact
+  copy, SHA-256 683ede439d00f58b2323c78629635ea674558fee1f5e1cce9d7132d7ae47735d.
 - Atos: 90+ cases across 25 user stories; internship and PDPC project involvement
   retain their stated role and dates. Do not imply sole ownership of the programme.
 - Employer art is conceptual. Internal screenshots, production data, and private

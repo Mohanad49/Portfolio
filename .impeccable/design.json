@@ -194,8 +194,18 @@
       },
       {
         "name": "content-entrance",
-        "value": ".85s",
-        "purpose": "Single entrance for data-reveal elements, triggered at top 92%."
+        "value": ".8s",
+        "purpose": "Once-only below-viewport evidence reveal on desktop and mobile, triggered at top 92%; completed styles clear."
+      },
+      {
+        "name": "content-entrance-opacity",
+        "value": ".18",
+        "purpose": "Visible starting opacity for the owner's requested fade, with an opaque unscripted and reduced-motion default."
+      },
+      {
+        "name": "content-entrance-displacement",
+        "value": "28px",
+        "purpose": "Bounded vertical displacement for below-viewport evidence; already-visible reading content stays steady."
       },
       {
         "name": "entrance-ease",
@@ -228,7 +238,7 @@
         "value": "760px"
       },
       {
-        "name": "dom-motion-min",
+        "name": "hero-motion-min",
         "value": "761px"
       },
       {
