@@ -13,5 +13,5 @@
 - [x] Add resume, metadata, social previews, 404, and legacy compatibility.
 - [x] Pass focused checks and technical source review.
 - [x] Complete Impeccable visual review and design documentation.
-- [ ] Verify preview, replace production, and retain rollback evidence.
-- [ ] Smoke-test the live site and report final verification.
+- [x] Verify preview, replace production, and retain rollback evidence.
+- [x] Smoke-test the live site and report final verification.

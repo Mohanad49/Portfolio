@@ -2,10 +2,12 @@
 
 ## Current source
 
-Current application source: a2c56c2 on codex/qa-portfolio. Deployment configuration
-includes f55bfd4. The follow-up changes scene activation and the resume response
-filename; the approved layouts, artwork, content, tests, and dependency graph are
-unchanged. The original checkout is unchanged.
+Verified release head: 398525e5c1bd0f69c1719dc6880fff9426557233. The production
+merge b5c5cb860b42d6048b57e2492c02b113701f7c89 has the identical Git tree
+fb4a0c20ac8a90bf6dd1d424e4773dafdbca40cc. Application source includes a2c56c2
+and deployment configuration includes f55bfd4. The final record-only commit changes
+no application, asset, test, dependency, build, or deployment configuration. The
+original checkout is unchanged.
 This is the shared record for Git, visual review, and technical review.
 
 ## Completed verification
@@ -29,12 +31,13 @@ This is the shared record for Git, visual review, and technical review.
 | Keyboard | Chromium/Firefox Tab; macOS WebKit Option-Tab | Skip link and visible focus verified |
 | Bundle requests | Normal mobile/tablet and all reduced-motion states | No React renderer, island, or Canvas module requested |
 | Desktop Canvas deferral | Chromium, Firefox, WebKit | Canvas module absent at the top, requested near Approach |
-| Technical source review | Commit 9355bab, five review axes | Approved; four findings resolved |
+| Technical source review | Commit 9355bab and narrow material, CI, header, and activation follow-ups | Approved; blocking findings resolved |
 | Transmission material | Final scene in all three desktop engines | Input, reset, live preferences, real context loss pass; no console or page errors |
-| Mobile Lighthouse | Three production-build runs per main route | Home median 99; other four routes 100; all thresholds passed |
+| Mobile Lighthouse | Three production-build runs per main route | Latest hosted median 100 on all five routes; all thresholds passed |
 | Hosted Ubuntu matrix | Three engines, three viewport sizes, actual software WebGL2 | 115 passed, 12 inapplicable desktop-only skips, 0 failures, 0 retries |
 | Hosted performance | Fifteen mobile production-build runs | All median performance, LCP, and CLS gates passed |
-| Hosted preview | Vercel deployment 7266432783 | Routes, filters and reload, metadata, 404, legacy links, exact resume verified |
+| Hosted preview | Retained previews, latest deployment 7267058226 | Routes, filters/reload, metadata, 404, legacy links, exact resume, Contact transit, and scene controls verified |
+| Public production | Vercel deployment 7267170763 | 23 HTTP checks and 8 applicable live browser checks passed |
 | Design documentation | DESIGN.md and .impeccable/design.json | Actual tokens, ten component previews, sidecar schema and CSS validated |
 
 | Route | Median performance | Median LCP | Median CLS |
@@ -125,10 +128,37 @@ Retained evidence: .research/bookmark-transit-before.json,
 and .research/resume-fix-ci-artifacts. Both narrow source deltas are approved in
 docs/technical-review.md. The scene's materials and visual composition are unchanged.
 
-## Remaining release gates
+## Release outcome
 
-- Passing hosted checks for the follow-up source and preview validation.
-- Merge the follow-up, confirm production headers/downloads, and finish live smoke.
+All required gates are complete. Final hosted run
+https://github.com/Mohanad49/Portfolio/actions/runs/39878256527 passed 115 checks,
+with twelve inapplicable desktop-only skips, zero unexpected failures, zero flaky
+results, and no retries. All fifteen mobile Lighthouse runs passed. Each of the
+five routes has a median performance score of 100, median LCP ranges from 1.356 to
+1.584 seconds, and the largest median CLS is 0.017927. These are production-build
+lab measurements, not field Core Web Vitals or physical-device certification.
+The artifacts are in .research/final-followup-artifacts; parsed values are in
+.research/final-followup-summary.json.
+
+Authenticated preview 7267058226 confirmed Contact in the viewport with no canvas,
+then settled Approach activation, keyboard adjustment, and reset. One initial
+browser inspection command timed out during cold scene initialization; the
+subsequent state and controls passed. The approved composition and material
+values remain unchanged. No new aesthetic review was opened.
+
+PR 2 merged as b5c5cb8. Production deployment 7267170763 succeeded at
+2026-10-23 00:36:31 UTC and serves https://myehia.vercel.app. All 23 public HTTP
+checks passed, including thirteen permanent redirects, canonical metadata,
+security headers, 404, search assets, and the exact PDF with its explicit
+descriptive attachment filename. Final public Chromium desktop/mobile smoke
+passed eight applicable checks and skipped two desktop-only cases on mobile.
+It covers routes, images, direct contact, archive filtering and reload, strict
+resume bytes and filename, legacy bookmarks, real scene input, preference
+transitions, and actual context-loss fallback. Retained records are
+.research/live-http.json and .research/live-browser-verification.json, with final
+public captures in .research/live-desktop.png and .research/live-mobile.png.
+The previous production source and immutable deployment remain recoverable;
+see docs/release.md.
 
 The deferred 3D chunk exceeds Vite's general 500 kB warning. The warning threshold
 was not raised. Its mobile request exclusion and deferred desktop behavior passed
