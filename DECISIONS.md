@@ -125,3 +125,25 @@ already at the current reading position, clear completed styles, and retain live
 Reduce Motion cleanup and history restoration. No dependency or mobile Canvas is
 added. The static artwork below 1024px remains an intentional performance choice,
 not an inference about iPhone or Safari capability.
+
+## D-014: An experience study before broader motion integration
+
+The owner approved the recommended next step: storyboard the opening and
+TestPulse on desktop/mobile, then prototype the strongest sequence against the
+current site. Keep the established material identity and factual copy, while
+allowing a more expressive interaction. The study is separate from production.
+
+Three composition probes compare an opening fan, a short advance through a
+material slot, and a specimen travelling between sections. The slot is the
+working recommendation, pending the image-concept approval required by this
+project. Do not treat approval of the study's scope as approval of an unseen comp.
+
+Use the current public TestPulse export for the second sequence. The selected
+Cal.diy API booking-lifecycle history includes passed and failed observations at
+one commit; retain the actual dates, unknown retry counts, and snapshot boundary.
+Do not substitute synthetic red/green cells for the real evidence.
+
+After selection, implement only the study in an isolated preview and measure
+mobile comfort and rendering cost. Keep the existing acceptance thresholds and
+one shared verification record. Integration and production replacement are
+separate decisions after the prototype comparison.

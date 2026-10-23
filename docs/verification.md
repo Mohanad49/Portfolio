@@ -1,5 +1,26 @@
 # Verification record
 
+## Experience study: preimplementation checkpoint
+
+On 2026-10-23 the owner authorized a storyboard and isolated motion prototype.
+The desktop/mobile storyboard, three opening concepts, and a supporting mobile
+comparison are prepared in docs/experience and .impeccable/mocks/experience.
+All four generated PNGs have exact prompt sidecars and embedded provenance.
+The concepts were inspected; their image-generated text is a visual reference,
+not production UI or evidence of working motion. Selection remains pending.
+
+The live public TestPulse index and all thirteen suite summaries were inspected.
+The selected caldiy-api-v2 booking-lifecycle observations were rechecked against
+the exact public JSON. Three dated Passed/Failed/Passed observations share commit
+5c0869a1ddaf9aedc8f05d3d0cccc8c7b4dcc3a2, with unknown retry counts. The
+payload digest and source are retained in docs/experience/testpulse-evidence.json.
+The 50-run metrics window and 81-observation detailed timeline remain distinct.
+
+This checkpoint changes no application code, assets served by the website,
+dependencies, build settings, or deployment configuration. The production checks
+below remain evidence for the unchanged application. No prototype behavior or
+performance has been claimed, and production replacement is not part of this step.
+
 ## Current source
 
 Owner-feedback application source: 5387919, including the content increment b0e89e6.

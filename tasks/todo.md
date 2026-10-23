@@ -25,3 +25,15 @@
 - [x] Enable visible desktop/mobile reveals with reduced-motion support.
 - [x] Verify visual changes and publish the matching GitHub profile copy.
 - [x] Pass hosted checks, deploy, and verify the live updates.
+
+## Experience study on 2026-10-23
+
+- [x] Confirm the opening-to-TestPulse scope and retain the current visual world.
+- [x] Storyboard desktop/mobile progression and complete fallback states.
+- [x] Verify a real public TestPulse history for the proposed evidence sequence.
+- [x] Produce three opening composition concepts with exact prompt sidecars.
+- [x] Review the mobile concept study and show the complete selection artifact.
+- [ ] Receive composition approval or explicit delegation before UI code.
+- [ ] Build one isolated motion prototype and compare it with the current site.
+- [ ] Verify behavior, runtime cost, and visual finish at the prototype's scope.
+- [ ] Present the comparison and integration recommendation without changing production.
