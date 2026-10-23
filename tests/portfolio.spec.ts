@@ -128,6 +128,35 @@ test('reduced motion keeps the complete fallback and omits the scene', async ({ 
   expect(sceneRequests).toEqual([]);
 });
 
+test('scroll reveals become fully readable and respect live motion preferences', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.goto('/');
+  const copy = page.locator('.about-copy');
+  await expect.poll(() => copy.evaluate(element => Number(getComputedStyle(element).opacity))).toBeLessThan(.5);
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await expect.poll(() => page.locator('[data-reveal]').evaluateAll(elements => elements.every(element => {
+    const style = getComputedStyle(element);
+    return style.opacity === '1' && style.transform === 'none';
+  }))).toBe(true);
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await expect.poll(() => copy.evaluate(element => Number(getComputedStyle(element).opacity))).toBeLessThan(.5);
+  await copy.scrollIntoViewIfNeeded();
+  await expect(copy).toBeInViewport();
+  await expect(copy).toHaveCSS('opacity', '1');
+  await expect(copy).toHaveCSS('transform', 'none');
+  const viewport = page.viewportSize();
+  if (!viewport) throw new Error('The motion test requires a viewport.');
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
+  await page.setViewportSize({ width: viewport.width < 761 ? 1000 : 600, height: viewport.height });
+  await expect(copy).toHaveCSS('opacity', '1');
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await expect(copy).toHaveCSS('opacity', '1');
+  await copy.scrollIntoViewIfNeeded();
+  await expect(copy).toHaveCSS('opacity', '1');
+  await expect(page.getByRole('link', { name: 'The full resume' })).toBeVisible();
+});
+
 test('WebGL failure preserves artwork and working content', async ({ page }) => {
   await page.addInitScript(() => {
     const original = HTMLCanvasElement.prototype.getContext;
