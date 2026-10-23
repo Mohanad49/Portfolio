@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+---
+<BaseLayout title="Page not found | Mohanad Yehia" noindex>
+  <section class="not-found"><p class="error-code" aria-hidden="true">404</p><h1>That page isn’t here.</h1><p>The link may have moved. You can return to the portfolio or find a project in the work archive.</p><div><a class="text-link" href="/">Back to the portfolio <Icon /></a><a class="text-link" href="/work">Open the work archive <Icon /></a></div></section>
+</BaseLayout>
+<style>
+  .not-found { padding: 4rem var(--page-gutter) 7rem; }
+  .error-code { font-family: var(--font-display); color: var(--color-amber); font-size: clamp(7rem, 19vw, 19rem); line-height: 1; letter-spacing: -.04em; }
+  h1 { font-size: clamp(2rem, 4.5vw, 5rem); margin-top: 2rem; }
+  .not-found > p:not(.error-code) { max-width: 45ch; color: var(--color-muted); font-size: 1.1rem; margin-top: 1.5rem; }
+  .not-found > div { display: flex; flex-wrap: wrap; gap: 2rem; margin-top: 2.5rem; }
+</style>

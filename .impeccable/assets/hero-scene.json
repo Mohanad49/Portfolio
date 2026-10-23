@@ -1,0 +1,15 @@
+{
+  "id": "hero-scene",
+  "path": "assets/plates/hero-scene.png",
+  "width": 1751,
+  "height": 898,
+  "promptPath": ".impeccable/assets/hero-scene.prompt.txt",
+  "generatedSource": "/Users/yehiaabozid/.codex/generated_images/01a16129-9ba2-79a1-b5f8-18e140d632a1/exec-3da393a8-e099-4b1c-96c1-918ea2b4634e.png",
+  "limitation": "Native output is below the 2304 x 1179 minimum. A single resolution retry returned 1752 x 898. No scaling applied.",
+  "tool": "image_gen.imagegen",
+  "background": "opaque",
+  "reference": ".impeccable/build/crops/hero-scene.png",
+  "score": "unscored",
+  "status": "needs_parent_review",
+  "prompt": "Use the provided crop as the approved visual reference and recreate it as a clean production asset at the target aspect ratio. This is a designed illustration plate. Output the same drawing, same style, same line weight and shading. Preserve silhouette, composition, perspective, palette (#171515, #2f2517, #543822), lighting, material, and texture exactly. Remove every piece of UI text, label, caption, button, and interface chrome that is not part of the artwork itself. Remove letterboxing, borders, card corners, drop shadows, and any layout background that the page will draw in code. Do not add objects. Do not change the concept. Do not restyle. The artwork fills the whole frame edge to edge at the same scale as the reference; no margins, no border, no background band. Region: Full-bleed cinematic inspection sculpture: horizontal offset dark-chrome slabs, translucent amber glass, warm edge illumination and a subtly reflective graphite floor. All website text, navigation and buttons are removed from the artwork. Native HTML text is a separate layer..\n\nInput image role: approved crop used only as the visual reference. Regenerate as new image pixels, preserving the sculpture's exact position, silhouette, horizontal proportions, camera, lighting, and graphite background. The solid dark rectangles in the reference are UI text masks, not artwork. Remove all mask rectangles and reconstruct a continuous clean dark graphite scene behind them, including the large upper rectangle, the two top bars, and the lower-left rectangular masks. No website text, buttons, navigation, borders, or blank rectangular panels. Request native output at 2304 x 1184 pixels or larger at this same approximately 1.954:1 landscape aspect. Do not upscale the reference or return reference pixels. Opaque PNG."
+}

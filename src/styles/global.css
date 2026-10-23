@@ -1,0 +1,48 @@
+@import '@fontsource-variable/alexandria';
+@import '@fontsource-variable/manrope';
+@import 'tailwindcss';
+
+@theme {
+  --color-graphite: #171515;
+  --color-ink: #f8f2e9;
+  --color-muted: #b3ada4;
+  --color-amber: #ffc368;
+  --font-display: 'Alexandria Variable', sans-serif;
+  --font-sans: 'Manrope Variable', sans-serif;
+}
+
+:root {
+  color-scheme: dark;
+  --page-gutter: clamp(1.25rem, 3.58vw, 5rem);
+  --line: #49433b;
+  --surface: #1d1a17;
+  scrollbar-color: #81705a #171515;
+  accent-color: var(--color-amber);
+  caret-color: var(--color-amber);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 2rem; }
+body { margin: 0; background: var(--color-graphite); color: var(--color-ink); font: 400 1rem/1.65 var(--font-sans); -webkit-font-smoothing: antialiased; overflow-wrap: anywhere; }
+::selection { background: var(--color-amber); color: #171515; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; }
+button, a { -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: 2px solid var(--color-amber); outline-offset: 6px; }
+img { display: block; max-width: 100%; }
+h1, h2, h3, p { margin: 0; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; line-height: 1.05; letter-spacing: -.04em; text-wrap: balance; }
+p { text-wrap: pretty; }
+.section-space { padding-block: clamp(4rem, 8vw, 9rem); }
+.section-label { font-size: .9rem; color: var(--color-muted); }
+.text-link { display: inline-flex; align-items: center; gap: .8rem; min-height: 44px; border-bottom: 1px solid currentColor; font-weight: 600; }
+.text-link:hover { color: var(--color-amber); }
+.text-link svg { transition: transform .25s; }
+.text-link:hover svg { transform: translateX(4px); }
+.legacy-anchor { position: absolute; top: 0; left: 0; width: 1px; height: 1px; pointer-events: none; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+[hidden] { display: none !important; }
+table, dd, .framework-number, .case-number { font-variant-numeric: tabular-nums; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}

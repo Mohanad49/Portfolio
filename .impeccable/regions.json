@@ -1,0 +1,162 @@
+{
+  "regions": [
+    {
+      "id": "brand",
+      "kind": "text",
+      "grid": "A0:B0",
+      "box": {
+        "x": 0.032552083333333336,
+        "y": 0.0224609375,
+        "w": 0.13541666666666666,
+        "h": 0.033203125
+      },
+      "snap": false,
+      "note": "Mohanad Yehia identity in warm white sans type"
+    },
+    {
+      "id": "navigation",
+      "kind": "text",
+      "grid": "H0:J0",
+      "box": {
+        "x": 0.7096354166666666,
+        "y": 0.0283203125,
+        "w": 0.2584635416666667,
+        "h": 0.0263671875
+      },
+      "snap": false,
+      "note": "Work Approach About Contact, four quiet navigation links"
+    },
+    {
+      "id": "headline",
+      "kind": "text",
+      "grid": "A1:I3",
+      "box": {
+        "x": 0.03125,
+        "y": 0.1005859375,
+        "w": 0.80078125,
+        "h": 0.248046875
+      },
+      "snap": false,
+      "note": "Complex systems. Clear evidence. Very large two-line warm white grotesque headline"
+    },
+    {
+      "id": "role",
+      "kind": "text",
+      "grid": "A4:C4",
+      "box": {
+        "x": 0.035807291666666664,
+        "y": 0.4482421875,
+        "w": 0.21484375,
+        "h": 0.03125
+      },
+      "snap": false,
+      "note": "Software QA Engineer"
+    },
+    {
+      "id": "introduction",
+      "kind": "text",
+      "grid": "A4:C5",
+      "box": {
+        "x": 0.035807291666666664,
+        "y": 0.4892578125,
+        "w": 0.22135416666666666,
+        "h": 0.0478515625
+      },
+      "snap": false,
+      "note": "Production QA across web, mobile, API, and data. Two lines of readable muted body type"
+    },
+    {
+      "id": "work-action",
+      "kind": "control",
+      "grid": "A5:B6",
+      "box": {
+        "x": 0.035807291666666664,
+        "y": 0.568359375,
+        "w": 0.13541666666666666,
+        "h": 0.0615234375
+      },
+      "snap": false,
+      "note": "Amber Explore the work link button with dark readable text"
+    },
+    {
+      "id": "resume-action",
+      "kind": "control",
+      "grid": "B5:C6",
+      "box": {
+        "x": 0.181640625,
+        "y": 0.568359375,
+        "w": 0.08919270833333333,
+        "h": 0.0615234375
+      },
+      "snap": false,
+      "note": "Resume link in a transparent dark button with a fine light border"
+    },
+    {
+      "id": "hero-scene",
+      "kind": "plate",
+      "grid": "A0:J7",
+      "box": {
+        "x": 0.0,
+        "y": 0.0,
+        "w": 1.0,
+        "h": 0.767578125
+      },
+      "snap": false,
+      "bleed": true,
+      "note": "Full-bleed cinematic inspection sculpture: horizontal offset dark-chrome slabs, translucent amber glass, warm edge illumination and a subtly reflective graphite floor. All website text, navigation and buttons are removed from the artwork. Native HTML text is a separate layer."
+    },
+    {
+      "id": "work-label",
+      "kind": "text",
+      "grid": "A8:B8",
+      "box": {
+        "x": 0.035807291666666664,
+        "y": 0.794921875,
+        "w": 0.1171875,
+        "h": 0.02734375
+      },
+      "snap": false,
+      "note": "Selected work in small muted sans"
+    },
+    {
+      "id": "project-title",
+      "kind": "text",
+      "grid": "A8:D9",
+      "box": {
+        "x": 0.035807291666666664,
+        "y": 0.833984375,
+        "w": 0.302734375,
+        "h": 0.1005859375
+      },
+      "snap": false,
+      "note": "TestPulse in large warm white bold type"
+    },
+    {
+      "id": "project-summary",
+      "kind": "text",
+      "grid": "A9:D9",
+      "box": {
+        "x": 0.035807291666666664,
+        "y": 0.9384765625,
+        "w": 0.341796875,
+        "h": 0.0283203125
+      },
+      "snap": false,
+      "note": "Test observability & flake detection"
+    },
+    {
+      "id": "project-art",
+      "kind": "plate",
+      "grid": "E8:J9",
+      "box": {
+        "x": 0.4010416666666667,
+        "y": 0.767578125,
+        "w": 0.5989583333333334,
+        "h": 0.232421875
+      },
+      "snap": false,
+      "bleed": true,
+      "note": "A close editorial detail of offset amber glass and dark chrome inspection layers, no UI or text, used as conceptual TestPulse cover artwork rather than a report screenshot"
+    }
+  ]
+}

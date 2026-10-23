@@ -1,0 +1,124 @@
+{
+  "name": "Mohanad Yehia",
+  "role": "Software QA Engineer",
+  "headline": [
+    "Complex systems.",
+    "Clear evidence."
+  ],
+  "introduction": "Production QA across web, mobile, API, and data.",
+  "location": "Cairo, Egypt",
+  "email": "mohanned.3262@gmail.com",
+  "linkedin": "https://www.linkedin.com/in/mohanad49/",
+  "github": "https://github.com/Mohanad49",
+  "resume": "/resume.pdf",
+  "portrait": "/Photo1.jpeg",
+  "bio": "I'm a Software QA Engineer with production QA ownership at Blue Ribbon and enterprise testing experience through an Atos internship. My work connects test design, investigation, automation, and the evidence behind a release decision.",
+  "metrics": [
+    {
+      "value": "22+",
+      "label": "platform modules",
+      "scope": "Blue Ribbon production platform"
+    },
+    {
+      "value": "2,500+",
+      "label": "test cases authored",
+      "scope": "Blue Ribbon"
+    },
+    {
+      "value": "500+",
+      "label": "defects driven to resolution",
+      "scope": "Blue Ribbon"
+    },
+    {
+      "value": "85%",
+      "label": "automated regression coverage",
+      "scope": "Blue Ribbon admin portal"
+    }
+  ],
+  "experience": [
+    {
+      "company": "Blue Ribbon",
+      "role": "Software QA Engineer",
+      "period": "Jul 2025 - Present",
+      "summary": "End-to-end QA for a production club-management platform spanning a Flutter mobile app, multi-tenant admin portal, REST API, PostgreSQL, payments, and ERP integration.",
+      "highlights": [
+        "Tested cross-module journeys including wallet and payments, dining, bookings, academies, access control, and CRM notifications.",
+        "Led testing through the first production launch and legacy-system migration, using SQL verification to investigate backend issues and data integrity.",
+        "Built Selenium/Python automation, then migrated the admin-portal framework to Playwright/TypeScript with traces, video, and release-triggered CI.",
+        "Evaluated Appium before adopting Maestro for reusable mobile flows across authentication, wallet, dining, and booking journeys."
+      ]
+    },
+    {
+      "company": "Atos",
+      "role": "Software Testing Intern",
+      "period": "Jul 2026 - Sep 2026",
+      "summary": "Training and project testing on MCIT's Personal Data Protection Centre platform, working with the senior QA team through the sprint cadence.",
+      "highlights": [
+        "Authored 90+ test cases across 25 user stories covering roles, integration gates, document eligibility, fees, and payment paths.",
+        "Built a Bruno collection for Submit Inquiry covering four requestor types and seven negative or validation scenarios.",
+        "Reported an unhandled 500 exposing internal CRM names and error codes mapped to the wrong entity type.",
+        "Executed the Regularization suite against staging and logged defects in Azure DevOps."
+      ]
+    },
+    {
+      "company": "ENPPI",
+      "role": "IT Intern",
+      "period": "Aug 2024 - Sep 2024",
+      "summary": "Completed a 120-hour IT training programme involving Oracle Forms, ASP.NET MVC, networking, system administration, and internal documentation.",
+      "highlights": []
+    },
+    {
+      "company": "MBG Developments",
+      "role": "Software Engineer Intern",
+      "period": "Jul 2024 - Aug 2024",
+      "summary": "Prepared and executed 20+ SAP S/4HANA Sales and Distribution test cases across master data and transactional flows for 5+ departments.",
+      "highlights": []
+    }
+  ],
+  "approach": [
+    {
+      "title": "Find the risk",
+      "description": "Read the business flow, identify the costly failure, and make the assumptions explicit.",
+      "evidence": "Payments and cross-module journeys at Blue Ribbon; scheduling boundaries in Cal.diy."
+    },
+    {
+      "title": "Follow the evidence",
+      "description": "Check the interface, API, and stored data against the same expected behavior.",
+      "evidence": "API contracts, booking lifecycle checks, SQL verification, and reproduced defect reports."
+    },
+    {
+      "title": "Automate with intent",
+      "description": "Put repeatable checks at the useful layer and retain traces when something fails.",
+      "evidence": "Playwright, Maestro, API suites, and release-triggered CI."
+    },
+    {
+      "title": "Keep the limits visible",
+      "description": "Separate a passing check from a justified quality decision.",
+      "evidence": "Unchanged accessibility failures, flake evidence, and a judge excluded from gates."
+    }
+  ],
+  "education": {
+    "institution": "German University in Cairo",
+    "degree": "B.Sc. Computer Science and Engineering",
+    "period": "Sep 2021 - Jul 2026",
+    "project": "Car Price Prediction Using Machine Learning Techniques",
+    "projectSummary": "Processed a 3M-record dataset, benchmarked five models, and deployed a Streamlit prediction app."
+  },
+  "credentials": [
+    {
+      "name": "ISTQB Certified Tester, Foundation Level",
+      "detail": "CTFL 4.0, 2026",
+      "image": "/certs/istqb-ctfl.svg"
+    },
+    {
+      "name": "Machine Learning Specialization",
+      "detail": "DeepLearning.AI / Stanford University, Coursera",
+      "image": "/certs/ml-specialization.jpg"
+    }
+  ],
+  "languages": [
+    "Arabic: native",
+    "English: C1",
+    "German: A2"
+  ]
+}

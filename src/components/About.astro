@@ -1,0 +1,35 @@
+---
+import { Image } from 'astro:assets';
+import { getProfile } from '../lib/content';
+import Icon from './Icon.astro';
+import portrait from '../../assets/profile/mohanad-yehia.jpeg';
+const profile = await getProfile();
+---
+<section class="about section-space" id="about" aria-labelledby="about-title">
+  <span id="About" class="legacy-anchor" aria-hidden="true"></span>
+  <figure class="portrait" data-reveal><Image src={portrait} alt="Mohanad Yehia standing at a lectern beside the Egyptian flag." format="webp" quality={85} widths={[480, 768, 1024]} sizes="(min-width: 900px) 38vw, 100vw" loading="lazy" /><figcaption>Mohanad Yehia <span>Cairo, Egypt</span></figcaption></figure>
+  <div class="about-copy" data-reveal>
+    <h2 id="about-title">Mohanad Yehia.<br />Software QA Engineer.</h2>
+    <p class="bio">{profile.bio}</p>
+    <a class="text-link" href="/resume.pdf" download="Mohanad_Yehia_Software_QA_Engineer.pdf">The full resume <Icon name="download" /></a>
+    <div class="education"><h3>{profile.education.degree}</h3><p>{profile.education.institution}<br />{profile.education.period}</p><p class="education-project">{profile.education.project}. {profile.education.projectSummary}</p></div>
+    <ul class="credentials" aria-label="Credentials">{profile.credentials.map(credential => <li><h3>{credential.name}</h3><p>{credential.detail}</p></li>)}</ul>
+    <p class="languages">{profile.languages.join(' · ')}</p>
+  </div>
+</section>
+<style>
+  .about { position: relative; padding-inline: var(--page-gutter); border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr 1.25fr; gap: 10%; align-items: start; }
+  .portrait { margin: 0; }
+  .portrait img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 41%; }
+  figcaption { display: flex; justify-content: space-between; gap: 1rem; font-size: .8rem; margin-top: 1rem; color: var(--color-muted); }
+  h2 { font-size: clamp(2rem, 3.2vw, 3.6rem); }
+  .bio { font-size: 1.1rem; color: #d5cec4; margin: 2rem 0 1.5rem; max-width: 60ch; }
+  .education { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--line); }
+  h3 { font-family: var(--font-sans); letter-spacing: -.02em; line-height: 1.5; font-size: 1rem; font-weight: 700; }
+  .education > p, .credentials p { margin-top: .4rem; font-size: .85rem; color: var(--color-muted); }
+  .education .education-project { font-size: .9rem; color: #d5cec4; margin-top: 1.2rem; }
+  .credentials { list-style: none; margin: 2rem 0 0; padding: 0; }
+  .credentials li { border-top: 1px solid var(--line); padding-block: 1.4rem; }
+  .languages { color: var(--color-muted); font-size: .8rem; margin-top: 1rem; }
+  @media (max-width: 900px) { .about { grid-template-columns: 1fr; gap: 3rem; } .portrait { max-width: 560px; } h2 { font-size: clamp(2rem, 5vw, 3.2rem); } .education { margin-top: 2.5rem; } }
+</style>

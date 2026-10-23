@@ -1,0 +1,392 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-22T23:44:01Z",
+  "title": "Design System: Mohanad Yehia Software QA Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "graphite": {
+        "role": "neutral",
+        "displayName": "Graphite",
+        "canonical": "#171515",
+        "tonalRamp": [
+          "oklch(15% 0.00322 17.43)",
+          "oklch(26% 0.00322 17.43)",
+          "oklch(38% 0.00322 17.43)",
+          "oklch(49% 0.00322 17.43)",
+          "oklch(61% 0.00322 17.43)",
+          "oklch(72% 0.00322 17.43)",
+          "oklch(84% 0.00322 17.43)",
+          "oklch(95% 0.00322 17.43)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Warm White",
+        "canonical": "#f8f2e9",
+        "tonalRamp": [
+          "oklch(15% 0.01358 78.26)",
+          "oklch(26% 0.01358 78.26)",
+          "oklch(38% 0.01358 78.26)",
+          "oklch(49% 0.01358 78.26)",
+          "oklch(61% 0.01358 78.26)",
+          "oklch(72% 0.01358 78.26)",
+          "oklch(84% 0.01358 78.26)",
+          "oklch(95% 0.01358 78.26)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted Stone",
+        "canonical": "#b3ada4",
+        "tonalRamp": [
+          "oklch(15% 0.01444 78.24)",
+          "oklch(26% 0.01444 78.24)",
+          "oklch(38% 0.01444 78.24)",
+          "oklch(49% 0.01444 78.24)",
+          "oklch(61% 0.01444 78.24)",
+          "oklch(72% 0.01444 78.24)",
+          "oklch(84% 0.01444 78.24)",
+          "oklch(95% 0.01444 78.24)"
+        ]
+      },
+      "amber": {
+        "role": "primary",
+        "displayName": "Amber",
+        "canonical": "#ffc368",
+        "tonalRamp": [
+          "oklch(15% 0.12812 75.97)",
+          "oklch(26% 0.12812 75.97)",
+          "oklch(38% 0.12812 75.97)",
+          "oklch(49% 0.12812 75.97)",
+          "oklch(61% 0.12812 75.97)",
+          "oklch(72% 0.12812 75.97)",
+          "oklch(84% 0.12812 75.97)",
+          "oklch(95% 0.12812 75.97)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Warm Rule",
+        "canonical": "#49433b",
+        "tonalRamp": [
+          "oklch(15% 0.01552 75.15)",
+          "oklch(26% 0.01552 75.15)",
+          "oklch(38% 0.01552 75.15)",
+          "oklch(49% 0.01552 75.15)",
+          "oklch(61% 0.01552 75.15)",
+          "oklch(72% 0.01552 75.15)",
+          "oklch(84% 0.01552 75.15)",
+          "oklch(95% 0.01552 75.15)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Raised Graphite",
+        "canonical": "#1d1a17",
+        "tonalRamp": [
+          "oklch(15% 0.00742 67.43)",
+          "oklch(26% 0.00742 67.43)",
+          "oklch(38% 0.00742 67.43)",
+          "oklch(49% 0.00742 67.43)",
+          "oklch(61% 0.00742 67.43)",
+          "oklch(72% 0.00742 67.43)",
+          "oklch(84% 0.00742 67.43)",
+          "oklch(95% 0.00742 67.43)"
+        ]
+      },
+      "body-copy": {
+        "role": "neutral",
+        "displayName": "Reading Stone",
+        "canonical": "#d5cec4",
+        "tonalRamp": [
+          "oklch(15% 0.01572 77.06)",
+          "oklch(26% 0.01572 77.06)",
+          "oklch(38% 0.01572 77.06)",
+          "oklch(49% 0.01572 77.06)",
+          "oklch(61% 0.01572 77.06)",
+          "oklch(72% 0.01572 77.06)",
+          "oklch(84% 0.01572 77.06)",
+          "oklch(95% 0.01572 77.06)"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Assay Paper",
+        "canonical": "#e9e0d4",
+        "tonalRamp": [
+          "oklch(15% 0.01890 75.31)",
+          "oklch(26% 0.01890 75.31)",
+          "oklch(38% 0.01890 75.31)",
+          "oklch(49% 0.01890 75.31)",
+          "oklch(61% 0.01890 75.31)",
+          "oklch(72% 0.01890 75.31)",
+          "oklch(84% 0.01890 75.31)",
+          "oklch(95% 0.01890 75.31)"
+        ]
+      },
+      "paper-ink": {
+        "role": "neutral",
+        "displayName": "Paper Ink",
+        "canonical": "#252019",
+        "tonalRamp": [
+          "oklch(15% 0.01486 76.20)",
+          "oklch(26% 0.01486 76.20)",
+          "oklch(38% 0.01486 76.20)",
+          "oklch(49% 0.01486 76.20)",
+          "oklch(61% 0.01486 76.20)",
+          "oklch(72% 0.01486 76.20)",
+          "oklch(84% 0.01486 76.20)",
+          "oklch(95% 0.01486 76.20)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Measured desktop hero headline; use its documented flowing and compact variants at smaller widths."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Representative section heading from the approach; other editorial surfaces use the documented optical size adjustments."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Approach-step heading; archive framework headings use the nearby documented clamp."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Ordinary page copy and the inherited reading base for controls."
+      },
+      "body-reading": {
+        "displayName": "Body Reading",
+        "purpose": "Long-form case-study prose in the reading column capped at 47rem."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Supporting metadata, captions, and evidence context below headings."
+      },
+      "action": {
+        "displayName": "Action",
+        "purpose": "Measured desktop hero actions; the component previews use the implemented flowing-layout variant."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "action-state-duration",
+        "value": ".2s",
+        "purpose": "Background and color changes in hero actions, navigation, and the contact email."
+      },
+      {
+        "name": "arrow-and-disclosure-duration",
+        "value": ".25s",
+        "purpose": "Editorial link arrows and experience-disclosure plus rotation."
+      },
+      {
+        "name": "hero-line-entrance",
+        "value": ".9s",
+        "purpose": "GSAP hero-line entrance, only at min-width 761px with no reduced-motion preference."
+      },
+      {
+        "name": "hero-line-stagger",
+        "value": ".08s",
+        "purpose": "Spacing between the two hero-line entrances."
+      },
+      {
+        "name": "content-entrance",
+        "value": ".85s",
+        "purpose": "Single entrance for data-reveal elements, triggered at top 92%."
+      },
+      {
+        "name": "entrance-ease",
+        "value": "expo.out",
+        "purpose": "Observed GSAP easing for hero and revealed content."
+      },
+      {
+        "name": "hero-image-scrub",
+        "value": ".6s",
+        "purpose": "GSAP scrub for the slow hero image displacement; no continuous scene render loop."
+      },
+      {
+        "name": "reduced-motion-duration",
+        "value": ".01ms",
+        "purpose": "Global reduced-motion animation and transition duration; scrolling becomes immediate."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "compact-max",
+        "value": "600px"
+      },
+      {
+        "name": "editorial-stack-max",
+        "value": "760px"
+      },
+      {
+        "name": "dom-motion-min",
+        "value": "761px"
+      },
+      {
+        "name": "reading-and-portrait-stack-max",
+        "value": "900px"
+      },
+      {
+        "name": "hero-flow-max",
+        "value": "1000px"
+      },
+      {
+        "name": "inspection-static-max",
+        "value": "1023px"
+      },
+      {
+        "name": "inspection-enhancement-min",
+        "value": "1024px"
+      },
+      {
+        "name": "header-type-cap-min",
+        "value": "1800px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Action",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Hero work action, shown with its actual flowing-layout sizing. The gradient is source CSS, not a synthesized tonal ramp.",
+      "html": "<a class=\"ds-primary\" href=\"/#work\">Explore the work</a>",
+      "css": ".ds-primary { display: inline-flex; justify-content: center; align-items: center; border-radius: .6rem; font-family: var(--font-sans, 'Manrope Variable', sans-serif); font-size: .9rem; font-weight: 600; line-height: 1.2; min-height: 48px; padding: .85rem 1.2rem; text-decoration: none; transition: background .2s, color .2s; background: linear-gradient(145deg, #ffd17d, #f4a938); color: #17110a; } .ds-primary:hover { background: #ffda98; } .ds-primary:focus-visible { outline: 2px solid var(--color-amber, #ffc368); outline-offset: 6px; } @media (prefers-reduced-motion: reduce) { .ds-primary { transition-duration: .01ms; animation-duration: .01ms; } }"
+    },
+    {
+      "name": "Secondary Action",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Bordered resume action with the actual flowing-layout sizing and dark transparent fill.",
+      "html": "<a class=\"ds-secondary\" href=\"/resume.pdf\" download=\"Mohanad_Yehia_Software_QA_Engineer.pdf\">Resume</a>",
+      "css": ".ds-secondary { display: inline-flex; justify-content: center; align-items: center; border-radius: .6rem; font-family: var(--font-sans, 'Manrope Variable', sans-serif); font-size: .9rem; font-weight: 600; line-height: 1.2; min-height: 48px; padding: .85rem 1.2rem; text-decoration: none; transition: background .2s, color .2s; color: var(--color-ink, #f8f2e9); background: #19171470; border: 1px solid #b1a492; } .ds-secondary:hover { background: #393027; } .ds-secondary:focus-visible { outline: 2px solid var(--color-amber, #ffc368); outline-offset: 6px; } @media (prefers-reduced-motion: reduce) { .ds-secondary { transition-duration: .01ms; animation-duration: .01ms; } }"
+    },
+    {
+      "name": "Copy Email Action",
+      "kind": "button",
+      "refersTo": "copy-email",
+      "description": "Visual preview of the clipboard-supported contact action. The live site owns clipboard execution and its status announcement.",
+      "html": "<button class=\"ds-copy\" type=\"button\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M9 9h11v11H9zM15 5V3H3v12h2\" /></svg><span>Copy email</span></button>",
+      "css": ".ds-copy { display: flex; align-items: center; gap: .7rem; border: 0; background: transparent; color: var(--color-muted, #b3ada4); padding: .75rem 0 .75rem 1rem; font: 400 1rem/1.65 var(--font-sans, 'Manrope Variable', sans-serif); cursor: pointer; } .ds-copy:hover { color: var(--color-ink, #f8f2e9); } .ds-copy:focus-visible { outline: 2px solid var(--color-amber, #ffc368); outline-offset: 6px; } @media (max-width: 760px) { .ds-copy { padding-left: 0; } }"
+    },
+    {
+      "name": "Inspection Reset Action",
+      "kind": "button",
+      "refersTo": "inspection-controls",
+      "description": "Transparent reset action from the native inspection control strip. The live scene restores 22% separation; no invented hover fill is added to this preview.",
+      "html": "<button class=\"ds-reset\" type=\"button\">Reset</button>",
+      "css": ".ds-reset { background: transparent; border: 0; color: var(--color-ink, #f8f2e9); min-height: 44px; padding: .5rem; font: 400 .8rem/1.65 var(--font-sans, 'Manrope Variable', sans-serif); cursor: pointer; } .ds-reset:focus-visible { outline: 2px solid var(--color-amber, #ffc368); outline-offset: 6px; }"
+    },
+    {
+      "name": "Editorial Text Link",
+      "kind": "button",
+      "refersTo": "text-link",
+      "description": "Ruled content action with the source inline SVG arrow and hover displacement.",
+      "html": "<a class=\"ds-text-link\" href=\"/work/testpulse\">Read the case study <svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 12h15m-6-6 6 6-6 6\" /></svg></a>",
+      "css": ".ds-text-link { display: inline-flex; align-items: center; gap: .8rem; min-height: 44px; border-bottom: 1px solid currentColor; color: var(--color-ink, #f8f2e9); font: 600 1rem/1.65 var(--font-sans, 'Manrope Variable', sans-serif); text-decoration: none; } .ds-text-link:hover { color: var(--color-amber, #ffc368); } .ds-text-link svg { transition: transform .25s; } .ds-text-link:hover svg { transform: translateX(4px); } .ds-text-link:focus-visible { outline: 2px solid var(--color-amber, #ffc368); outline-offset: 6px; } @media (prefers-reduced-motion: reduce) { .ds-text-link svg { transition-duration: .01ms; animation-duration: .01ms; } }"
+    },
+    {
+      "name": "Main Navigation",
+      "kind": "nav",
+      "refersTo": "navigation",
+      "description": "Always-visible text navigation, using the source desktop spacing and compact wrapping behavior. Work demonstrates the current-page state.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Main navigation\"><a href=\"/#work\" aria-current=\"page\">Work</a><a href=\"/#approach\">Approach</a><a href=\"/#about\">About</a><a href=\"/#contact\">Contact</a></nav>",
+      "css": ".ds-nav { display: flex; gap: 3.1vw; align-items: center; font: 400 1.3vw/1.65 var(--font-sans, 'Manrope Variable', sans-serif); color: #d0c9bf; } .ds-nav a { padding: .2rem 0; color: inherit; text-decoration: none; transition: color .2s; } .ds-nav a:hover, .ds-nav a[aria-current] { color: var(--color-amber, #ffc368); } .ds-nav a:focus-visible { outline: 2px solid var(--color-amber, #ffc368); outline-offset: 6px; } @media (min-width: 1800px) { .ds-nav { font-size: 1.35rem; } } @media (max-width: 1000px) { .ds-nav { font-size: .86rem; gap: 1.8rem; } .ds-nav a { min-height: 44px; display: inline-flex; align-items: center; } } @media (max-width: 600px) { .ds-nav { width: 100%; justify-content: space-between; flex-wrap: wrap; gap: .25rem 1rem; font-size: .86rem; } .ds-nav a { display: flex; align-items: center; min-height: 44px; } } @media (prefers-reduced-motion: reduce) { .ds-nav a { transition-duration: .01ms; animation-duration: .01ms; } }"
+    },
+    {
+      "name": "Archive Radio Filter",
+      "kind": "input",
+      "refersTo": "filter-option",
+      "description": "Native radio options and actual archive counts. Selection changes text and the bottom rule; filtering the archive belongs to the live site.",
+      "html": "<fieldset class=\"ds-filters\"><legend class=\"ds-filter-legend\">Testing discipline</legend><label class=\"ds-filter\"><input type=\"radio\" name=\"ds-discipline\" value=\"All\" checked><span>All<span class=\"ds-count\">7</span></span></label><label class=\"ds-filter\"><input type=\"radio\" name=\"ds-discipline\" value=\"Web\"><span>Web<span class=\"ds-count\">3</span></span></label><label class=\"ds-filter\"><input type=\"radio\" name=\"ds-discipline\" value=\"API\"><span>API<span class=\"ds-count\">2</span></span></label><label class=\"ds-filter\"><input type=\"radio\" name=\"ds-discipline\" value=\"Mobile\"><span>Mobile<span class=\"ds-count\">1</span></span></label><label class=\"ds-filter\"><input type=\"radio\" name=\"ds-discipline\" value=\"Performance\"><span>Performance<span class=\"ds-count\">1</span></span></label></fieldset>",
+      "css": ".ds-filters { border: 0; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: .5rem 2rem; font: 400 1rem/1.65 var(--font-sans, 'Manrope Variable', sans-serif); } .ds-filter-legend { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; } .ds-filter { position: relative; cursor: pointer; } .ds-filter input { position: absolute; width: 1px; height: 1px; opacity: 0; } .ds-filter > span { min-height: 44px; display: inline-flex; align-items: center; border-bottom: 2px solid transparent; padding-block: .5rem; color: var(--color-muted, #b3ada4); } .ds-filter input:checked + span { color: var(--color-amber, #ffc368); border-color: var(--color-amber, #ffc368); } .ds-filter input:focus-visible + span { outline: 2px solid var(--color-amber, #ffc368); outline-offset: 5px; } .ds-count { margin-left: .4rem; font-size: .7rem; } @media (max-width: 760px) { .ds-filters { gap: .3rem 1.3rem; } }"
+    },
+    {
+      "name": "Inspection Separation Range",
+      "kind": "input",
+      "refersTo": "inspection-controls",
+      "description": "Native range from the desktop-only scene controls. The source geometry and source WebGL support gates remain documented in DESIGN.md; this preview has no rendering runtime.",
+      "html": "<div class=\"ds-inspection-controls\"><label class=\"ds-inspection-label\" for=\"ds-inspection-spread\">Separate layers<input class=\"ds-range\" id=\"ds-inspection-spread\" type=\"range\" min=\"0\" max=\"100\" value=\"22\"></label></div>",
+      "css": ".ds-inspection-controls { color-scheme: dark; display: flex; align-items: end; gap: 1.5rem; padding: 1rem 1.2rem; background: #171411; border: 1px solid var(--line, #49433b); color: var(--color-ink, #f8f2e9); font: 400 .8rem/1.65 var(--font-sans, 'Manrope Variable', sans-serif); } .ds-inspection-label { flex: 1; } .ds-range { display: block; width: 100%; min-height: 44px; accent-color: var(--color-amber, #ffc368); cursor: pointer; } .ds-range:focus-visible { outline: 2px solid var(--color-amber, #ffc368); outline-offset: 6px; }"
+    },
+    {
+      "name": "Evidence Panel",
+      "kind": "card",
+      "refersTo": "evidence-dark",
+      "description": "Rectangular, warm-bordered evidence surface using the shipped LLM agreement panel. Its numerical scope and limitation remain visible.",
+      "html": "<section class=\"ds-evidence\" aria-labelledby=\"ds-evidence-title\"><h2 id=\"ds-evidence-title\">Measure the judge, too.</h2><dl class=\"ds-judge-results\"><div><dt>Raw agreement</dt><dd>82%</dd></div><div><dt>95% confidence interval</dt><dd>69–91%</dd></div><div><dt>Cohen’s kappa</dt><dd>0.51</dd></div></dl><p class=\"ds-evidence-note\">45 blind human labels. The refusal judge is excluded from CI gates; these results do not validate the other judges.</p></section>",
+      "css": ".ds-evidence { padding: clamp(1.5rem, 3.5vw, 4rem); background: #252019; border: 1px solid #4b3d2b; color: var(--color-ink, #f8f2e9); font: 400 1rem/1.65 var(--font-sans, 'Manrope Variable', sans-serif); } .ds-evidence h2 { font-family: var(--font-display, 'Alexandria Variable', sans-serif); font-size: clamp(1.8rem, 3vw, 3.3rem); font-weight: 600; line-height: 1.05; letter-spacing: -.04em; text-wrap: balance; margin: 0 0 2rem; } .ds-judge-results { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin: 0; font-variant-numeric: tabular-nums; } .ds-judge-results dt { font-size: .8rem; color: #d5cec4; } .ds-judge-results dd { font-family: var(--font-display, 'Alexandria Variable', sans-serif); font-size: clamp(2.2rem, 4vw, 4.5rem); letter-spacing: -.04em; margin: .6rem 0 0; color: var(--color-amber, #ffc368); } .ds-evidence-note { margin: 1.5rem 0 0; font-size: .9rem; max-width: 75ch; } @media (max-width: 760px) { .ds-judge-results { grid-template-columns: 1fr; gap: 1.5rem; } }"
+    },
+    {
+      "name": "Experience Disclosure",
+      "kind": "custom",
+      "refersTo": "experience-disclosure",
+      "description": "Native details row with the first role open. Its inline plus rotates and becomes amber in the open state; useful context remains under the role.",
+      "html": "<details class=\"ds-experience\" open><summary><span class=\"ds-company\">Blue Ribbon</span><span class=\"ds-job-role\">Software QA Engineer<span>Jul 2025 - Present</span></span><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 5v14M5 12h14\" /></svg></summary><div class=\"ds-job-body\"><p>End-to-end QA for a production club-management platform spanning a Flutter mobile app, multi-tenant admin portal, REST API, PostgreSQL, payments, and ERP integration.</p></div></details>",
+      "css": ".ds-experience { border-block: 1px solid var(--line, #49433b); color: var(--color-ink, #f8f2e9); font: 400 1rem/1.65 var(--font-sans, 'Manrope Variable', sans-serif); } .ds-experience summary { display: grid; grid-template-columns: 1fr 1.6fr 24px; align-items: center; gap: 2rem; padding-block: 1.8rem; cursor: pointer; list-style: none; } .ds-experience summary::-webkit-details-marker { display: none; } .ds-company { font-family: var(--font-display, 'Alexandria Variable', sans-serif); font-size: clamp(1.4rem, 2vw, 2.3rem); letter-spacing: -.04em; } .ds-job-role { font-size: 1rem; } .ds-job-role > span { display: block; font-size: .8rem; color: var(--color-muted, #b3ada4); margin-top: .3rem; } .ds-experience summary svg { transition: transform .25s; } .ds-experience[open] summary svg { transform: rotate(45deg); color: var(--color-amber, #ffc368); } .ds-job-body { padding: 0 3rem 2.5rem calc(38.45% + .4rem); max-width: 80rem; color: #d5cec4; } .ds-job-body p { margin: 0; max-width: 65ch; } .ds-experience summary:focus-visible { outline: 2px solid var(--color-amber, #ffc368); outline-offset: 6px; } @media (max-width: 600px) { .ds-experience summary { grid-template-columns: 1fr 24px; gap: .8rem; padding-block: 1.5rem; } .ds-company { font-size: 1.5rem; } .ds-job-role { grid-column: 1; font-size: .9rem; } .ds-experience summary svg { grid-column: 2; grid-row: 1 / span 2; } .ds-job-body { padding: 0 0 1.8rem; font-size: .95rem; } } @media (prefers-reduced-motion: reduce) { .ds-experience summary svg { transition-duration: .01ms; animation-duration: .01ms; } }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Exhibition plinth and inspection monograph",
+    "overview": "Matte graphite makes room for warm white typography, quiet controls, and precisely lit inspection materials. The system pairs an exhibition's large visual statements with a monograph's patient reading rhythm. Offset dark chrome and transparent amber layers give the abstract subject a physical form.\n\nEditorial layouts vary with their content: open project entries, ruled framework rows, attributed numerical evidence, long-form reading columns, and the owner's real portrait. Conceptual imagery is identified as artwork. Readable text and controls stay in HTML, with a complete static experience beneath optional motion and 3D.",
+    "keyCharacteristics": [
+      "Matte graphite, warm white, and a controlled amber accent.",
+      "Alexandria display typography paired with Manrope reading text.",
+      "Rectangular editorial surfaces, fine rules, and generous section spacing.",
+      "Optical depth concentrated in the inspection artwork and live study.",
+      "Semantic controls, visible focus, and complete static alternatives."
+    ],
+    "rules": [
+      {
+        "name": "The Controlled Light Rule",
+        "body": "Amber identifies illumination, emphasis, or an interactive state; graphite and warm neutrals retain the largest visual fields.",
+        "section": "colors"
+      },
+      {
+        "name": "The Evidence State Rule",
+        "body": "Results retain readable words and scope alongside color. The light Cal.diy audit uses its observed retained-failure red locally; that one evidence treatment does not add a global accent family.",
+        "section": "colors"
+      },
+      {
+        "name": "The Reading Contrast Rule",
+        "body": "Warm White carries headings and strong emphasis; Reading Stone carries sustained dark-surface prose; Muted Stone carries secondary context.",
+        "section": "typography"
+      },
+      {
+        "name": "The Optical Scale Rule",
+        "body": "Use the observed role and responsive behavior for the surface. This implementation has optical size adjustments, not one universal modular type ratio.",
+        "section": "typography"
+      },
+      {
+        "name": "The Material Depth Rule",
+        "body": "Reserve optical richness for the inspection object; keep reading surfaces and controls structurally clear with tone and rules.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Complete Still Rule",
+        "body": "Artwork and content remain complete before enhancement. Demand-rendered 3D updates on pointer, layer-control, or scroll changes and yields to the static artwork outside its supported conditions.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do use graphite and warm neutrals as the largest fields, with amber carrying illumination or useful state.",
+      "Do use the actual Alexandria and Manrope families and preserve the distinction between display, reading, and supporting text.",
+      "Do vary editorial structure with the content, using ruled rows, reading columns, and evidence panels where they serve the material.",
+      "Do retain visible keyboard focus, readable selected states, semantic controls, and a complete static composition.",
+      "Do keep the real portrait and identify conceptual inspection imagery as artwork.",
+      "Do keep result labels, numerical scope, and evidence limitations readable beside their visual emphasis."
+    ],
+    "donts": [
+      "Don't extend the approved Selected work label into a new system of decorative eyebrows or arbitrary indices.",
+      "Don't replace the inspection materials with generic glowing objects or fake report interfaces.",
+      "Don't add elevated shadows to reading panels or turn the varied editorial content into one repeated card template.",
+      "Don't use amber alone to communicate a result or selected state.",
+      "Don't require animation, WebGL, or clipboard support to reach the content, resume, or contact information.",
+      "Don't treat synthesized preview tonal ramps as source tokens or approved new surface colors."
+    ]
+  }
+}
