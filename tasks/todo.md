@@ -23,5 +23,5 @@
 - [x] Remove eBay from curated work and preserve its original project URL.
 - [x] Identify the graduation project in About.
 - [x] Enable visible desktop/mobile reveals with reduced-motion support.
-- [ ] Verify visual changes and publish the matching GitHub profile copy.
-- [ ] Pass hosted checks, deploy, and verify the live updates.
+- [x] Verify visual changes and publish the matching GitHub profile copy.
+- [x] Pass hosted checks, deploy, and verify the live updates.

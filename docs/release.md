@@ -61,3 +61,43 @@ The Vercel configuration pins pnpm 11.17.0 explicitly because an unversioned cus
 pnpm install command can select an older build-image binary. Node 24 is pinned by
 the package engine range. All application routes are static, with no runtime API,
 external font requests, contact-form backend, or application secrets.
+
+## 2026-10-23: owner-feedback update
+
+PR 3 updates Blue Ribbon to the owner's confirmed 5,000+ authored cases and
+600+ defects driven to resolution, publishes the exact existing updated resume,
+labels the graduation project, and curates six frameworks by removing the small
+eBay exercise. Its repository remains unchanged and /project/10 permanently
+redirects directly to that repository. The matching GitHub profile update is
+published in Mohanad49/Mohanad49 as d9b50823bac4901fa9d7ea1a71f7efd42a54fc11.
+The original Word and PDF resumes were already current and remain unchanged.
+
+The owner selected stronger lightweight scroll reveals on desktop and mobile.
+The existing GSAP implementation now supports both, preserves completed reveals,
+and respects live Reduce Motion changes. Hero parallax and the 3D scene retain
+their desktop boundaries. Mobile artwork remains a complete static alternative;
+this is the chosen rendering policy, not a claim that an iPhone cannot run WebGL.
+
+Independent source review approves the final blobs and independent Impeccable
+visual review has disposition ship. Hosted run 39966751784 passes 124 checks,
+with twelve inapplicable skips, no failures, no flaky results, and no retries.
+All 54 axe scans and fifteen mobile Lighthouse runs meet acceptance. Median
+performance is 99 for home and 100 for the other four routes, LCP stays below
+1.590 seconds, and CLS stays below 0.018. These are production-build lab results.
+Authenticated preview deployment 7280247522 was checked before release.
+
+PR 3 merged at 14:19:59 UTC as 0f5638d898249ee02cbb02c5546d607f5aa8902c.
+Its tree exactly matches tested head df538af65df788ac52ba666a8ab08ceeda4a62ce.
+Production deployment 7280563239 succeeded at 14:20:19 UTC, with immutable URL
+https://portfolio-it7q4fh5n-mohanad49s-projects.vercel.app. The public alias serves
+the update. All 23 live HTTP checks and ten applicable desktop/mobile browser
+checks pass, including the current PDF digest, descriptive download filename,
+updated figures, archive filters, permanent redirects, and visible scroll reveals.
+The detailed shared results and retained capture paths are in docs/verification.md.
+
+The immediately previous production deployment remains the rollback point:
+7267224653, source 9d676e5aa5ef39035656b4a405eb35a946ba9e04,
+https://portfolio-ouub2jk5y-mohanad49s-projects.vercel.app. Promote that retained
+deployment in the existing Vercel project if recovery is needed; do not reset or
+force-push main. The original template deployment and recovery tag also remain.
+The final audit-only commit records this outcome without application changes.

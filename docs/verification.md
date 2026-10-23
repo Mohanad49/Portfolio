@@ -21,8 +21,57 @@ the six-framework archive. Real motion samples and videos are retained under
 .research/owner-feedback. The mobile capture records zero Canvas requests and a
 complete reveal to opacity 1; desktop also completes after its sampled interval.
 The updated source and GitHub profile copy are independently approved in
-docs/technical-review.md. Visual finish, hosted acceptance, and live publication
-verification for this increment remain pending.
+docs/technical-review.md. The profile update is published as commit
+d9b50823bac4901fa9d7ea1a71f7efd42a54fc11 in Mohanad49/Mohanad49. Its README
+Git blob is e3ac39496684978d7ab8a501343450bc8ede34e5. The eBay repository is
+unchanged; only its curated archive/profile listings were removed.
+
+Hosted run https://github.com/Mohanad49/Portfolio/actions/runs/39966751784
+passed at PR head df538af65df788ac52ba666a8ab08ceeda4a62ce. It records 124
+passed browser checks, twelve inapplicable desktop-only skips, zero failures,
+zero flaky results, and no retries. All 54 axe scans have zero serious or critical
+findings. Type checks, lint, build, and all fifteen mobile Lighthouse runs pass.
+Artifacts and exact values are retained in .research/owner-feedback-ci-artifacts
+and .research/owner-feedback-ci-summary.json.
+
+| Route | Runs | Median performance | Median LCP | Median CLS |
+| --- | --- | --- | --- | --- |
+| / | 3 | 99 | 1.590 s | 0.000563 |
+| /work | 3 | 100 | 1.357 s | 0.000753 |
+| /work/testpulse | 3 | 100 | 1.356 s | 0.017927 |
+| /work/caldiy | 3 | 100 | 1.358 s | 0.000800 |
+| /work/llm-evaluation | 3 | 100 | 1.356 s | 0.000774 |
+
+These are mobile production-build lab measurements, not field Core Web Vitals
+or certification on the owner's physical iPhone. Authenticated preview deployment
+7280247522 serves https://portfolio-cnaxr54xj-mohanad49s-projects.vercel.app.
+Its metrics, graduation label, six-framework archive, and Web/All filter transitions
+were checked in the existing signed-in browser session. The bounded independent
+visual review has disposition ship, with no blocking finding. Its eight captures,
+motion recordings, and explicit emulation limit are recorded in docs/visual-review.md.
+
+PR 3 merged as 0f5638d898249ee02cbb02c5546d607f5aa8902c at 14:19:59 UTC on
+2026-10-23. Its Git tree d0761026727d84a89423cb1ca0257f60b3ba2d9a exactly
+matches the tested PR head. Production deployment 7280563239 succeeded at
+14:20:19 UTC. Its immutable URL is
+https://portfolio-it7q4fh5n-mohanad49s-projects.vercel.app, and the public alias
+https://myehia.vercel.app serves the update.
+
+All 23 live HTTP checks pass, including the new metrics and graduation label,
+six-framework archive, thirteen exact redirects, security/metadata/search assets,
+404, and the current PDF digest with the descriptive attachment filename. The
+targeted public Chromium desktop/mobile suite passes ten applicable checks with
+two inapplicable desktop-only skips, zero failures, zero flaky results, and no
+retries. It covers routes/images/contact, filters, exact downloads, visible reveals
+and live motion preferences, desktop scene controls, and legacy bookmarks.
+Results are retained in .research/owner-feedback-live-http.json and
+.research/owner-feedback-live-browser.json. Final public desktop/mobile metrics
+captures are .research/owner-feedback/live-{desktop,mobile}-metrics.png.
+
+The final audit commit changes only this record, the release/checklist records,
+and the independent visual report. It does not change application source, assets,
+tests, dependencies, build settings, or deployment configuration. These verified
+results remain the shared acceptance evidence for the unchanged application tree.
 
 The remaining sections retain the original release's dated evidence, including
 its previous PDF identity and seven-framework count. They are historical results.
