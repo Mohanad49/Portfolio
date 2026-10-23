@@ -247,3 +247,69 @@ type/lint validation and the hosted Ubuntu run. The earlier run's 114 passes,
 one failure, and 12 documented inapplicable skips remain a failed result until
 the new run completes. Release acceptance requires retained results for the
 approved source with no unexpected failures, flaky results, or runner errors.
+
+## Resume download header follow-up
+
+Review date: 2026-10-23. **Approve the source delta.** No Critical, Required,
+Optional, or Nit findings. Reviewed against merged source
+`9f1e9fb7a464c98145e67b7c97617ca66ee56673`; the exact reviewed `vercel.json`
+blob is `db45cf7e11f8a90256f7f01611a4dcbe19d7652a`.
+
+The existing `/resume.pdf` header rule now sets
+`Content-Disposition: attachment; filename="Mohanad_Yehia_Software_QA_Engineer.pdf"`.
+[Vercel documents](https://vercel.com/docs/project-configuration/vercel-json#headers)
+this path-specific response-header configuration for static files.
+[MDN documents](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Disposition)
+that the header's filename takes precedence over the HTML download filename.
+The quoted ASCII value matches all three authored resume links and the existing
+strict `suggestedFilename()` assertion. It contains no path, control character,
+or untrusted interpolation. This adds no runtime resource handling, and retains
+the existing PDF cache policy and shared security headers.
+
+This is source approval only. The parent owns preview and live confirmation that
+the deployed response sends the intended disposition and the unchanged desktop
+and mobile download tests pass with the expected PDF bytes. No broad check or
+browser was launched by this reviewer, and the prior live filename failures
+remain unresolved until the deployed fix passes those checks.
+
+## Scene activation during bookmark navigation
+
+Review date: 2026-10-23. **Approve the source delta.** No Critical, Required,
+Optional, or Nit findings. Reviewed against
+`f55bfd4bd62b55e6191135176a04940776f3fa8d`; the exact reviewed
+`src/components/InspectionIsland.tsx` blob is
+`fcb5797cc8437e99e5a864015a524afe8a41aa12`.
+
+The failed legacy Contact check in CI run `39876869771` last sampled a zero
+viewport ratio at trace time 26179 ms, then produced no new assertion sample
+before its timeout at 33670 ms. The trace also records software GPU stalls and
+a long screencast gap. Its post-timeout screenshot shows Contact, which does
+not establish that an earlier observer sample was incorrect. The retained
+`.research/bookmark-transit-before.json` separately demonstrates an unnecessary
+Canvas request and mount at 498 ms while smooth navigation passes Approach,
+followed by unmount before the final Contact position.
+
+The correction defers only inactive-scene activation until 150 ms without
+scrolling. It resets that bounded timer on passive scroll events, rechecks
+intersection, media preference, and document visibility before activation,
+and preserves immediate deactivation. A scene already active is not restarted
+or delayed by scroll. The effect owns and clears its timer and removes every
+listener on cleanup. The observer consumes its latest entry, accounting for
+[queued intersection changes](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#intersection_change_callbacks).
+The existing asynchronous import cancellation and Canvas disposal paths remain
+in effect. No new dependency or external data boundary is introduced.
+
+The motion startup retains its guard against restoring scroll on initial
+configuration. The installed GSAP refresh code was inspected; it temporarily
+changes scroll behavior while measuring and restores the recorded position.
+The observed smooth transit does not establish that refresh needs alteration.
+The correction therefore stays within scene activation, with global scrolling
+and the strict viewport assertion unchanged.
+
+This source verdict does not establish hosted recovery. The parent owns the
+affected type/lint/build checks, three-engine desktop bookmark and lifecycle
+suite, and before/after transit measurement. The required evidence is that
+direct Contact transit avoids the unnecessary Canvas startup while settled
+Approach activation, interaction, reduced-motion teardown, context-loss
+fallback, and the unchanged bookmark assertion still pass. No browser or broad
+check was launched by this reviewer.

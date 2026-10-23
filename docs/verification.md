@@ -2,9 +2,10 @@
 
 ## Current source
 
-Application and test configuration: commit 213871f on codex/qa-portfolio.
-The final documentation commit changes no application, asset, test, dependency,
-build, or deployment configuration. The original checkout is unchanged.
+Current application source: a2c56c2 on codex/qa-portfolio. Deployment configuration
+includes f55bfd4. The follow-up changes scene activation and the resume response
+filename; the approved layouts, artwork, content, tests, and dependency graph are
+unchanged. The original checkout is unchanged.
 This is the shared record for Git, visual review, and technical review.
 
 ## Completed verification
@@ -91,9 +92,43 @@ Live design hooks ran on edited files. Their colored-shadow finding was fixed by
 removing that shadow. No rule suppressions were added and no duplicate detector
 run was performed.
 
+## Production follow-up
+
+The complete pre-release head baa1b95 passed hosted run
+https://github.com/Mohanad49/Portfolio/actions/runs/39874771959:
+115 browser checks passed, twelve inapplicable desktop-only skips, no failures,
+no flaky results, and all fifteen mobile Lighthouse runs passed. Its five median
+scores are 99, 100, 100, 100, and 100; LCP spans 1.356 to 1.586 seconds and CLS is
+below 0.018. Artifacts and the parsed summary remain in .research/release-artifacts
+and .research/release-summary.json.
+
+PR 1 merged as 9f1e9fb and Vercel production deployment 7266800739 replaced the
+public alias. The initial live HTTP smoke passed all 23 checks. Desktop/mobile
+browser smoke passed routes, content, images, and archive filters, but failed both
+strict resume filename checks. Vercel's default inline header named the correct
+PDF resume.pdf. The explicit response header is independently source-approved;
+authenticated preview deployment 7266858801 downloads the descriptive filename
+and its bytes match the supplied SHA-256 digest.
+
+The follow-up CI run 39876869771 passed 114 browser checks, skipped twelve
+inapplicable cases, and failed the unchanged desktop Chromium legacy Contact
+bookmark assertion. It remains a failed run. The trace and 90-frame capture
+identified transient renderer startup while smooth scrolling passes Approach.
+The activation fix avoids that startup without changing the assertion or global
+scrolling. Local before/after captures reach scrollY 5727; renderer requests fall
+from one to zero and canvas frames from fifteen to zero. The affected suite then
+passed all thirteen checks across Chromium, Firefox, and WebKit, covering strict
+bookmarks, real interaction, live preferences, actual context loss, WebGL failure,
+and real Chromium history restoration. Type checks, lint, and build also pass.
+Retained evidence: .research/bookmark-transit-before.json,
+.research/bookmark-transit-after.json, .research/scene-entry-browser-verification.json,
+and .research/resume-fix-ci-artifacts. Both narrow source deltas are approved in
+docs/technical-review.md. The scene's materials and visual composition are unchanged.
+
 ## Remaining release gates
 
-- Production replacement and live smoke verification.
+- Passing hosted checks for the follow-up source and preview validation.
+- Merge the follow-up, confirm production headers/downloads, and finish live smoke.
 
 The deferred 3D chunk exceeds Vite's general 500 kB warning. The warning threshold
 was not raised. Its mobile request exclusion and deferred desktop behavior passed

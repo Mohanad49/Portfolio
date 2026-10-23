@@ -218,7 +218,7 @@ The live inspection study uses dark metal exterior layers and transmitting amber
 
 **The Complete Still Rule.** Artwork and content remain complete before enhancement. Demand-rendered 3D updates on pointer, layer-control, or scroll changes and yields to the static artwork outside its supported conditions.
 
-DOM motion uses small entrances and slow image displacement. The hero lines enter over `.9s`, revealed content over `.85s`, and scroll movement uses a `.6s` scrub. These enhancements require a width of at least `761px` and no reduced-motion preference. Global reduced-motion styles disable smooth scrolling and reduce CSS transitions and animations to `.01ms`.
+DOM motion uses small entrances and slow image displacement. The hero lines enter over `.9s`, revealed content over `.85s`, and scroll movement uses a `.6s` scrub. These enhancements require a width of at least `761px` and no reduced-motion preference. Global reduced-motion styles disable smooth scrolling and reduce CSS transitions and animations to `.01ms`. Initial 3D activation waits for `150ms` of settled scrolling within its observation area; leaving that area immediately restores the static artwork.
 
 ## Shapes
 
