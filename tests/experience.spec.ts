@@ -103,9 +103,11 @@ test('the study keeps accessible semantics and narrow reflow', async ({ page }) 
 test('artwork moves on scroll, returns intact, and rests without a renderer', async ({ page }, testInfo) => {
   const errors: string[] = [];
   const rendererRequests: string[] = [];
+  const artworkRequests: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
   page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
   page.on('request', request => { if (/PassageCanvas|PassageIsland|\/client\.[^/]+\.js/.test(request.url())) rendererRequests.push(request.url()); });
+  page.on('request', request => { if (/passage-(material|upper|lower).*\.webp/.test(request.url())) artworkRequests.push(request.url()); });
   await page.goto('/experience');
   await expect(page.locator('.passage-opening')).toHaveClass(/has-passage-motion/);
   const desktop = (testInfo.project.use.viewport?.width ?? 0) >= 1024;
@@ -118,6 +120,9 @@ test('artwork moves on scroll, returns intact, and rests without a renderer', as
   if (desktop) {
     const source = await upper.evaluate((image: HTMLImageElement) => image.currentSrc);
     expect(await page.evaluate(url => performance.getEntriesByName(url).length, source)).toBe(1);
+    expect(artworkRequests.filter(url => /passage-(upper|lower)/.test(url))).toEqual([]);
+  } else {
+    expect(artworkRequests.filter(url => url.includes('passage-material'))).toEqual([]);
   }
   const pose = () => upper.evaluate(element => new DOMMatrixReadOnly(getComputedStyle(element).transform).toString());
   const initial = await pose();
