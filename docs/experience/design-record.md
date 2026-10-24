@@ -2,259 +2,324 @@
 
 ## Overview
 
-This is a descriptive record of the isolated `/experience` snapshot, extending
-the existing **Exhibition plinth and inspection monograph** identity. The owner
-selected **B: Pass Through** on 2026-10-23. Selection authorizes this prototype
-and its compact mobile treatment, not production integration or a new global
-design system. The original homepage and production remain outside this change.
+Documentation snapshot: 2026-10-24, Cairo. This record describes the isolated
+`/experience` prototype within the existing **Exhibition plinth and inspection
+monograph** identity. The owner selected **B: Pass Through** on 2026-10-23, then
+viewed and rejected the hosted renderer and explicitly authorized preserving B
+as cinematic artwork. D-017 in `DECISIONS.md` and
+`.impeccable/experience-selection.json` record that treatment decision. It is
+settled for this prototype. Production integration remains unauthorized.
 
-**Current visual disposition: `rebuild`.** Both full finish reviews returned
-`rebuild`; the latest followed a focal desktop scene rebuild. In
-`docs/experience/visual-review.md`, the static plate and mobile treatment retain
-the selected material character, and mobile action clearance is resolved. The
-live desktop scene still falls below the approved comp: broad pale faces and
-opaque-looking gold planes replace dark chrome and visibly transparent amber;
-the opening reads as widely separated planes rather than a dense passage; the
-arrival caption crosses a bright slab; and a pale edge intrudes behind About
-and Contact. These findings are unresolved, not design rules to reproduce.
+Desktop now preserves the exact continuous, text-free B plate and advances
+through native scrolling toward its existing aperture. Mobile retains the
+approved transparent upper and lower cutouts. Text, actions, and the TestPulse
+evidence remain HTML. There is no prototype React island, canvas, material-map
+loader, or React Three Fiber scene. The original homepage retains its separate
+inspection renderer and is outside this change.
 
-The next material strategy awaits owner decision after a concrete hosted
-comparison. This record does not choose that strategy or approve the present
-live finish. The recorded static comparison score of 94.2% applies to the still
-composition; it does not close the live scene finding. The earlier 95.26% hero
-gate likewise does not validate the rebuilt live renderer.
+**Latest visual disposition: scoped `ship`.** The full layered-artwork review
+in `docs/experience/visual-review.md` initially returned `fix`; its exact initial
+text is preserved in `docs/experience/visual-review.layered.initial.md`. The
+appended scoped verdict resolves those three named findings:
 
-Canonical `DESIGN.md` and `.impeccable/design.json` are preserved. Values below
-describe local code, including rejected output settings; they are not promoted
-to normative frontmatter or canonical sidecar tokens. The canonical sidecar's
-synthesized OKLCH ramps remain non-normative swatch previews, not new colors for
-this prototype.
-
-### Snapshot and evidence checked
-
-The checkout's HEAD was `29fa87b4ad896e1489a26a1beb7606e3eab62383` when recorded.
-The prototype includes working-tree changes, so HEAD alone does not identify
-this snapshot. Source fingerprints are retained below.
-
-| Evidence read in this documentation pass | What it establishes |
+| Finding from the full review | Scoped result |
 | --- | --- |
-| `PRODUCT.md`, `AGENTS.md`, `DESIGN.md`, `.impeccable/design.json` | Existing identity, source-of-truth boundaries, typography, palette, and ownership. |
-| `docs/briefs/experience.md`, `.impeccable/surfaces/src-pages-experience-astro.md`, `docs/experience/storyboard.md` | Selected direction, local interaction scope, first viewport, responsive intent, and factual limits. |
-| `src/pages/experience.astro`, `src/styles/global.css`, `src/layouts/BaseLayout.astro` | Semantic page, actual local styling, inherited shell, actions, and static content. |
-| `src/scripts/experience-motion.ts`, `src/lib/inspection-state.ts`, `src/components/experience/PassageCanvas.tsx`, `src/components/experience/PassageIsland.tsx` | Timeline values, scene inputs, rendering ownership, and fallback conditions implemented in source. |
-| `src/data/experience-history.ts`, `docs/experience/testpulse-evidence.json` | Frozen observations and their scope, without a new live-data verification. |
-| The asset and concept sidecars listed under Shapes | Recorded generation provenance, approval scope, and the assets actually referenced by the page. |
-| `.research/experience-study/before-rebuild/visual-review.md`, `docs/experience/visual-review.md` | First and second full visual reviews, both with `rebuild`; the second records resolved mobile clearance and remaining desktop findings. |
-| `.impeccable/review/experience/capture-manifest.json` | Retained capture inventory, dimensions, full-page flags, and capture time `2026-10-23T19:30:25.534Z`. |
+| Moving project summary crosses the foreground beam | Resolved. Start, middle, and end captures retain the caption inside the dark aperture. The reviewer reports approximately 8:1 contrast from adjacent end-pose samples. |
+| Moving introduction meets an illuminated slab | Resolved. The middle/end introduction uses existing warm-white ink; the reviewer reports approximately 7.45 to 8.27:1 at the previously problematic area. |
+| Lower boundary is absent or too thin at 729/tablet widths | Resolved. The 729×797 and 834×1112 captures again show a substantial lower amber boundary with project-title clearance; the 390-wide composition is retained. |
 
-The latest review cites desktop live start/middle/end, mobile live
-start/middle/end, static responsive, evidence, and WebGL-failure PNGs. They are
-retained under `.impeccable/review/experience/`, with the matching desktop and
-mobile captures also identified by the manifest. This documentation pass read
-the review and manifest; it did not reopen images, inspect video, run a browser,
-or run technical checks. It does not certify visual quality, motion smoothness,
-physical iPhone behavior, runtime correctness, accessibility, performance, or
-launch readiness.
+The basis is the full layered review plus the appended resolution of these
+three fixes. This is not a new independent review of every surface. The static
+hero and final comparison scores (`0.9419` and `0.942`) support static fidelity;
+they do not prove temporal smoothness or replace the scoped moving-pose review.
+The two renderer reviews remain historical rejection evidence in
+`docs/experience/visual-review.initial.md` and
+`docs/experience/visual-review.renderer.md`; they do not describe the current
+artwork implementation.
+
+The final delivery correction reuses the same optimized artwork, geometry,
+and timeline. Retained visual captures precede that correction. The handoff
+reports type/lint/build passing at this source and the earlier recovered 54-pass
+visual-fix behavior matrix. The later exact-source delivery and performance
+results are recorded in `docs/verification.md`; this design snapshot does not
+independently certify those checks.
+This pass ran no browser, tests, detector, or performance measurement and did not
+inspect video. Physical iPhone smoothness, launch readiness, and a production
+release are not certified.
+
+Canonical `DESIGN.md` and `.impeccable/design.json` are unchanged. This ordinary
+extension records local values without promoting them into global tokens or
+regenerating canonical previews. The sidecar's synthesized OKLCH ramps remain
+non-normative swatch previews, not source colors for this prototype.
+
+### Evidence checked and retained metadata drift
+
+| Evidence read | Authority or limit |
+| --- | --- |
+| `PRODUCT.md`, `AGENTS.md`, `DESIGN.md`, `.impeccable/design.json` | Existing identity, factual boundaries, palette, typography, and workflow ownership. |
+| `docs/briefs/experience.md`, `.impeccable/surfaces/src-pages-experience-astro.md`, `.impeccable/experience-selection.json`, `DECISIONS.md` D-017, `docs/experience/storyboard.md` | Owner-selected B and subsequent artwork strategy, isolated scope, first viewport, and responsive intent. |
+| `src/pages/experience.astro`, `src/scripts/experience-motion.ts`, `src/data/experience-history.ts` | Current semantic page, actual local type/geometry/reading fields, native-scroll timeline, responsive image delivery, and frozen observation data. |
+| `.impeccable/build/spec.json`, `.impeccable/build/state.json` | Measured 1536×1024 comp, ten region records, retained static gates, phase history, and older annotations. |
+| `docs/experience/visual-review.layered.initial.md`, `docs/experience/visual-review.md`, the historical renderer reports | Full layered review and its three resolved findings, with superseded renderer failures retained explicitly. |
+| `.impeccable/review/experience/capture-manifest.json` | Sixteen named PNG records, static/moving dimensions, full-page flags, treatment `cinematic-layered-artwork`, capture time `2026-10-23T21:27:02.336Z`. |
+| The artwork and concept sidecars under Shapes; `docs/experience/testpulse-evidence.json` | Generated-art provenance and approval scope; recorded observation provenance, not a new live-export audit. |
+
+The scoped reviewer reopened all sixteen required PNGs. This documentation
+pass read that review and the manifest without repeating the image inspection.
+The manifest retains 1536×1024 comp, 1440 desktop, 1280 full, 834 tablet,
+729-wide, 390-wide, live start/middle/end, evidence, and static-fallback records.
+Its historical `webgl-fallback.png` filename now identifies an artwork capture;
+WebGL is no longer a dependency of this route. The desktop/mobile manifest
+entries report zero canvas elements and no renderer requests for that captured
+build, not fresh request validation of the later picture-source correction.
+
+The build state now closes the review phase and records
+`finish.disposition: ship`, corresponding to the scoped visual verdict dated
+2026-10-24 in Cairo. Its note keeps delivery/performance verification pending.
+Existing metadata drift remains in the measured spec's optional-3D plate note
+and the detector's project-title/summary annotations. The full reviewer accepted
+that lettering and ink as semantic, readable adaptations. The current source,
+explicit owner decision, and appended scoped verdict establish the treatment
+and visual disposition. The older annotations neither reinstate the renderer
+nor authorize changing readable HTML to match a blurred or low-contrast sample.
 
 ## Colors
 
-The page inherits graphite (`#171515`), warm white (`#f8f2e9`), muted stone
-(`#b3ada4`), amber (`#ffc368`), the warm rule (`#49433b`), and reading stone
-(`#d5cec4`) from the established identity. These references do not replace the
-canonical definitions.
+The prototype inherits graphite (`#171515`), warm white (`#f8f2e9`), muted stone
+(`#b3ada4`), amber (`#ffc368`), warm rules (`#49433b`), and reading stone
+(`#d5cec4`) from the established system. The opening's local values are:
 
-| Prototype-local value | Actual use and scope |
+| Value | Actual use |
 | --- | --- |
-| `#161514` | Opening section field. |
-| `linear-gradient(#141312e6, #14131200)` | Local header reading-field gradient. |
-| `linear-gradient(145deg, #ffd17d, #f4a938)`; hover `#ffda98`; text `#17110a` | Primary work action, retaining the existing action treatment. |
-| `#19171470`; border `#b1a492`; hover `#393027` | Resume action, retaining the existing secondary treatment. |
-| `#d2c6b5`; failed observation `#f0a091` | SVG status strokes. Explicit Passed/Failed words, tick/cross shapes, dates, and run IDs accompany the tint. This is a local evidence treatment, not a new global accent family. |
-| Metal `#e2e5e8`; amber glass `#ffcf86`; attenuation `#e89728` | Current live material inputs. Their rejected visible finish is recorded in Overview; these are not approved palette additions. |
-| Directional lights `#fff3de` and `#ffc368` | Current live scene lighting inputs, not page colors. |
+| `#161514` | Opening field. Chrome, amber volume, and reflected light are part of the original conceptual raster. |
+| `linear-gradient(#141312e6, #14131200)` | Header reading field, scoped to a body containing this prototype. |
+| `linear-gradient(90deg, #111110f2, #111110b8 30%, #11111000 68%)` | Localized left reading shade. It leaves the right-hand material visible instead of dimming the entire image. |
+| `#b3ada4` to `#f8f2e9` | Desktop introduction moves from supporting ink to the existing warm-white ink over `.35` of the scroll timeline. The project summary retains muted ink within the aperture. |
+| `linear-gradient(145deg, #ffd17d, #f4a938)`; hover `#ffda98`; text `#17110a` | Existing primary action treatment. |
+| `#19171470`; border `#b1a492`; hover `#393027` | Existing outlined Resume treatment. |
+| `#d2c6b5`; failed stroke `#f0a091` | Local SVG status colors, paired with tick/cross shapes and explicit Passed/Failed text. The failure tint does not create a global accent family. |
+
+There is no new material-color palette, tonal scale, light rig, or shader
+parameter set for this route.
 
 ## Typography
 
-Alexandria Variable remains the display family; Manrope Variable remains the body
-and control family, each with the inherited sans-serif fallback. Base text uses
-the inherited `400 1rem/1.65`. Headings inherit close tracking (`-.04em`) and
-balanced wrapping. The prototype uses local optical sizing rather than replacing
-the canonical ramp.
+Alexandria Variable remains the display family; Manrope Variable remains the
+body/control family, each with its established sans-serif fallback. Inherited
+body text uses `400 1rem/1.65`; headings retain close tracking (`-.04em`). Local
+optical sizes remain specific to this composition.
 
-| Role | Desktop source | Responsive source |
+| Role | Desktop | Responsive variants |
 | --- | --- | --- |
-| Opening statement | `7.95vw`, weight `700`, line height `.9`, horizontal scale `.93` | At widths up to `1023px`: `clamp(2.3rem, 8.3vw, 5rem)`, line height `1`; up to `600px`: `clamp(2rem, 9.1vw, 3.5rem)`; at least `1800px`: `9rem`. |
-| Role / introduction | `1.82vw` / `1.48vw`, line height `1.3` | Up to `1023px`: `1.25rem` / `1rem`, introduction line height `1.5`; up to `600px`: `1.1rem` / `.95rem`. |
-| Opening actions | `1.25vw`, weight `600` | Up to `1023px`: `.9rem`; up to `600px`: `.85rem`; at least `1800px`: `1.2rem`. |
-| Decorative slot title | `5.7vw`, weight `700`, line height `1`, horizontal scale `.95` | Up to `1023px`: `clamp(3rem, 10vw, 6rem)`; up to `600px`: `3.3rem`. It is real HTML marked `aria-hidden`; the following TestPulse heading is semantic. |
-| Semantic TestPulse heading | `clamp(4rem, 8vw, 9rem)` | Up to `1023px`: `clamp(3rem, 11vw, 6rem)`; up to `600px`: `3.3rem`. |
-| Observation status | `600 clamp(1.5rem, 2.8vw, 3rem)/1.2` in Alexandria | Up to `600px`: `1.7rem`. Run IDs, timestamps, and commit code use tabular numerals. |
-| Evidence explanation | `1.075rem`, maximum `56ch` | Up to `600px`: `1rem`. Scope note is `.85rem`. |
+| Opening statement | `7.95vw`, weight `700`, line height `.9`, horizontal scale `.93` | Below `1024px`: `clamp(2.3rem, 8.3vw, 5rem)`, line height `1`; up to `600px`: `clamp(2rem, 9.1vw, 3.5rem)`; at least `1800px`: `9rem`. |
+| Role / introduction | `1.82vw` / `1.48vw`, line height `1.3` | Below `1024px`: `1.25rem` / `1rem`, introduction line height `1.5`; up to `600px`: `1.1rem` / `.95rem`; at least `1800px`: `2rem` / `1.5rem`. |
+| Opening actions | `1.25vw`, weight `600` | Below `1024px`: `.9rem`; up to `600px`: `.85rem`; at least `1800px`: `1.2rem`. |
+| Slot title / summary | Title `5.7vw`, weight `700`, line height `1`, horizontal scale `.95`; summary `1.48vw`, line height `1.3` | Below `1024px`: title `clamp(3rem, 10vw, 6rem)`, summary hidden; up to `600px`: title `3.3rem`; at least `1800px`: summary `1.5rem`. |
+| Semantic TestPulse heading | `clamp(4rem, 8vw, 9rem)` | Below `1024px`: `clamp(3rem, 11vw, 6rem)`; up to `600px`: `3.3rem`. |
+| Observation status | `600 clamp(1.5rem, 2.8vw, 3rem)/1.2` in Alexandria | Up to `600px`: `1.7rem`. Run IDs, dates, and commit code use tabular numerals. |
+| Evidence explanation / scope note | `1.075rem`, maximum `56ch` / `.85rem` | Explanation becomes `1rem` up to `600px`. |
+
+The crisp slot lettering is real HTML with `aria-hidden` on its decorative
+wrapper. The following TestPulse heading is semantic and readable in document
+order. Generated lettering and blur are not embedded in the runtime artwork.
 
 ## Layout
 
-The opening uses a full-width, clipped, isolated frame (`100svh`, minimum
-`720px`; minimum `740px` below `1024px`). Without motion enhancement, that frame
-remains a static opening. The inherited fluid gutter remains
-`clamp(1.25rem, 3.58vw, 5rem)`.
+The opening frame is full width, isolated, and clipped, with `height: 100svh`
+and minimum height `720px` (`740px` below `1024px`). The inherited page gutter
+remains `clamp(1.25rem, 3.58vw, 5rem)`. Unscripted and reduced-motion markup
+retains this static frame without the enhanced scroll region.
 
-With motion enabled, the script sets opening height/minimum pairs to
-`200svh` / `1440px` on desktop and `145svh` / `1073px` below `1024px`. A CSS
-sticky frame at `top: 0` occupies that native scroll region. These are source
-values, not a measured physical-device travel guarantee.
+Desktop artwork is one uncut `3 / 2` field, centered with `left/top: 50%` and
+`translate(-50%, -50%)`. Its width is `max(100%, 150svh, 1080px)`. The full
+plate fills that field; its push origin is `76% 69%`. No artificial horizontal
+split, new camera angle, or reconstructed material surface is introduced.
 
-Desktop copy sits in the left field: headline top `6.7vw`, left `3.2%`; role
-top `26.3vw`; introduction top `29.15vw`; actions top `34.9vw`, left `3.5%`
-and `18.1%`. The slot title starts at left `66.4%`, top `62.5%`. Their reading
-clearance in the live scene remains a review finding.
+Desktop headline starts at top `6.7vw`, left `3.2%`. Role and introduction
+start at `26.3vw` and `29.15vw`, left `3.5%`. Actions start at `34.9vw`, with
+work/resume left positions `3.5%` / `18.1%`, widths `13.67%` / `8.99%`, and
+height `4.16vw` with a `44px` minimum. Slot title starts at left `66.4%`, top
+`62.5%`; summary starts at `calc(62.5% + 5.7vw + .35rem)`.
 
-At `1023px` and below, the header returns to flow, the two material cutouts
-replace the full plate, and intro/conclusion/comparison grids stack. Cutout
-width is `165%`, left `3%`; upper/lower offsets are `41%` / `76%`. At `600px`
-and below, width becomes `215%`, left `-12%`, with offsets `43%` / `72%`.
-The action row sits at `35%` in that compact composition. The latest review
-records its action clearance as resolved.
+With motion active, the opening uses `200svh` / minimum `1440px` on desktop
+and `145svh` / minimum `1073px` below `1024px`. Its frame becomes CSS sticky at
+`top: 0`; scrolling itself remains native. The source targets approximately one
+additional desktop viewport and `.45` of a mobile viewport, subject to minimum
+heights. These source values are not a physical-device travel measurement.
 
-Evidence uses a two-column intro and conclusion with `8%` gaps. The three
-observations use three columns, a `2rem` gap, and a thin connecting rule. At
-`600px` and below they become a vertical list with `2.5rem` gaps and a vertical
-connector. No hover is required to read a result. Work links target `#evidence`
-directly; Resume remains a direct download. Comparison links point to `/` and
-`https://myehia.vercel.app/`.
+Above `600px` and below `1024px`, the header returns to flow and the compact
+artwork field uses:
+
+- Cutout width `min(165vw, 123svh)`, left `3%`.
+- `--passage-upper-top: max(41%, calc(38% + 4rem))`, keeping the upper assembly
+  below the action region.
+- `--passage-slot-top: max(73%, calc(var(--passage-upper-top) + min(46.2vw, 34.44svh)))`.
+- Both lower-cutout top and project-title top reference that reserved slot. The
+  assets' alpha margins determine their visible edges; CSS top is not a claimed
+  measured edge position.
+
+At widths up to `600px`, the established portrait crop remains: cutout width
+`215%`, left `-12%`, upper/lower tops `43%` / `72%`, project title top `70%`,
+and action row top `35%`. Compact actions use at least `48px` height with
+`.85rem 1.2rem` padding, changing to `.75rem 1rem` on the smallest layout.
+
+Evidence intro, conclusion, and comparison use two columns with `8%` gaps,
+stacking below `1024px`. Three observations use three columns and `2rem` gaps;
+below `601px` they become a vertical list with `2.5rem` gaps and a vertical
+connector. Work targets `#evidence` directly, Resume remains a direct download,
+and comparison links point to `/` and `https://myehia.vercel.app/`.
 
 ## Elevation & Depth
 
-Page structure retains flat fields and fine rules, with no local CSS box-shadow
-vocabulary. Rich depth belongs to the artwork and optional scene. The static
-plate, mobile cutouts, and live geometry are separate implementations; approval
-of one does not establish parity in the others.
+Flat page fields, one-pixel rules, and space retain the editorial structure;
+there is no local CSS box-shadow vocabulary. The conceptual image supplies the
+chrome, transparent amber, reflected detail, and physical depth. Desktop motion
+pushes into that existing image aperture; it does not claim simulated optical
+transmission. Mobile moves two independently generated alpha cutouts.
 
-### Current live scene inputs
+### Reading fields
 
-`PassageCanvas.tsx` creates five rounded slabs (`8 × .22 × 3.7`, radius `.035`,
-smoothness `3`) at base heights `[2.8, 1.6, .4, -1.8, -3]`. Even-index slabs use
-metal; odd-index slabs use transmission. The current open-plane arrangement is
-one of the rejected visual results.
+The localized shade starts at opacity `0`, except desktop frames with a minimum
+aspect ratio of `8 / 5`, which start at `.65`. During the desktop timeline it
+reaches `.9`. Its gradient fades to transparency by `68%` of the horizontal
+field. The introduction transitions to existing warm-white ink, and title and
+summary move upward into the aperture. These source treatments correspond to
+the three resolved reading/enclosure findings; the measured contrast figures in
+Overview belong to the scoped review, not a fresh calculation in this pass.
 
-| Input | Current source value |
+### Local motion values
+
+GSAP and ScrollTrigger own the DOM timeline. There is no shared scene-progress
+bridge in this prototype. Trigger is the opening; start is `top top`, end is
+`bottom bottom`, scrub is `.2`, with refresh invalidation. The sequence is
+reversible through native scrolling. Timeline positions and durations below
+are relative choreography, not a forced viewing time.
+
+| Target | Implemented motion |
 | --- | --- |
-| Metal surface | Generated color map repeated `3 × 2`; the same texture is cloned as a no-color-space bump/roughness map; bump scale `.025`; metalness `1`; roughness `.45`; environment-map intensity `2`. |
-| Amber material | Transmission `1`; roughness `.045`; thickness `.3`; attenuation distance `4`; IOR `1.35`; clearcoat `1`; chromatic aberration `.004`; anisotropic blur `.01`; distortion and temporal distortion `0`; resolution `256`; samples `2`. |
-| Environment | Generated PNG reflection texture, sRGB with equirectangular reflection mapping; environment intensity `2`. It is not documented as an HDR capture or a measured physical material. |
-| Lights | Ambient intensity `.25`; directional intensities `2` and `1.2`. |
-| Renderer | `frameloop="demand"`; pixel ratio `[1, 1.25]`; FOV `35`; antialiasing; transparent canvas; low-power preference. These settings do not certify actual runtime cost. |
-
-### Local motion values and ownership
-
-GSAP owns DOM transforms and normalized progress. ScrollTrigger uses
-`start: 'top top'`, `end: 'bottom bottom'`, `scrub: .2`, and refresh invalidation.
-The sequence is reversible through native scrolling; timeline durations below
-describe relative choreography, not an enforced viewing time.
-
-| Target | Source motion |
-| --- | --- |
-| Scene input | Progress `0` to `1`, duration `1`, linear ease, forwarded through `setInspectionProgress`. |
-| Desktop fallback plate | Scale `1.13`, horizontal travel `-3%`, origin `72% 55%`, duration `1`, linear ease. |
-| Upper mobile cutout | Vertical travel `-12%` at widths up to `600px`, otherwise `-4%`; horizontal travel `4%`; rotation `2deg`; duration `1`. This shorter upper travel retains the resolved mobile clearance. |
-| Lower mobile cutout | Vertical travel `65%` below `1024px` (`55%` desktop branch); horizontal travel `-3%`; rotation `-2deg`; duration `1`. |
-| Slot title / subtitle | Start `.15`, duration `.8`; desktop title travels `-35%` horizontally and scales to `1.35`; mobile title keeps its horizontal position and scales to `1.15`; subtitle travels `-30%` horizontally and `30px` vertically. |
+| Desktop continuous plate | Scale to `1.22`, duration `1`, linear ease, start `0`; existing aperture retained at the `76% 69%` origin. |
+| Desktop reading shade | Opacity to `.9`, duration `1`, linear ease, start `0`. |
+| Desktop introduction | Color to `#f8f2e9`, duration `.35`, linear ease, start `0`. |
+| Upper compact cutout | Vertical travel `-12%` up to `600px`, otherwise `-4%`; horizontal travel `4%`; rotation `2deg`; duration `1`, start `0`. |
+| Lower compact cutout | Vertical travel `65%`, horizontal travel `-3%`, rotation `-2deg`; duration `1`, start `0`. A `55%` desktop branch remains in code but its compact-art field is hidden on desktop. |
+| Slot title | Start `.15`, duration `.8`; desktop `xPercent: -35`, `y: -50px`, scale `1.35`; compact layout no horizontal/vertical displacement, scale `1.15`. |
+| Slot summary | Start `.15`, duration `.8`; `xPercent: -30`; desktop `y: -35px`, compact `y: 0`. Summary is hidden in the compact layout. |
 | Opening statement | Start `.2`, duration `.6`; vertical travel `-60px` desktop or `-16px` compact; opacity `.85`. |
-| Evidence observations | Once-only reveal from opacity `.18` and `20px` vertical displacement; duration `.7s`; stagger `.14s`; `expo.out`; trigger `top 85%`; completed opacity/transform styles clear. Already reached history is retained as revealed. |
-| Canvas entrance / action states | Canvas opacity transition `.4s`; action background/color transitions `.2s`; inherited reduced-motion CSS reduces transitions and animations to `.01ms`. |
+| Observations | Once-only reveal from opacity `.18` and `20px` displacement; `.7s` duration, `.14s` stagger, `expo.out`, trigger `top 85%`; completed opacity/transform styles clear. This reveal is time-based after its scroll trigger, not part of the scrubbing plate push. |
+| Interaction feedback | Existing action background/color transitions `.2s`; inherited text-link arrow transform `.25s`. Global reduced-motion CSS reduces transitions/animations to `.01ms`. |
 
-React Three Fiber owns the scene and camera. It reads the shared progress,
-invalidated by the setter, with opening progress capped at `min(scroll / .7, 1)`.
-The camera travels from `(2.4, 2.6, 9.2)` to `(2.4, 1, 7.1)` while its look-at
-point moves from `(.4, .2, -1)` to `(.7, .2, -1)`. Layer separation expands with
-that input; GSAP does not independently animate those scene transforms.
-
-On preference/desktop-threshold changes, source reverts its GSAP context, resets
-scene progress, and adjusts scroll if necessary to retain the evidence's reading
-position. Pagehide cleanup excludes persisted history entries. This records the
-implementation intent, not successful history-restoration or interruption tests.
+Source defers motion import through `requestIdleCallback` with timeout `1200ms`,
+or a zero-delay timeout fallback. Reduced motion prevents initial import; a
+preference change can load it later. Context reversion handles media changes.
+Already-reached history remains revealed, and source adjusts scroll when needed
+to retain evidence position during reconfiguration. Non-persisted pagehide
+reverts context and removes listeners. These are source mechanisms, not new
+interruption, restoration, or device-test certifications.
 
 ## Shapes
 
-Evidence remains open and rectangular, with one-pixel structural rules. Opening
-actions retain the existing `.6rem` radius. Status circles contain functional
-tick/cross SVGs plus explicit status text; they are not arbitrary decorative
-indices. The five live slabs' rounded physical edges do not establish a new
-radius for page containers.
+Reading regions remain rectangular and open, with fine structural rules. The
+existing action radius is `.6rem`. Functional status circles contain inline
+SVG tick/cross shapes alongside explicit status text; they are not decorative
+indices. Artwork silhouettes and alpha margins remain in the selected rasters,
+not CSS card shapes.
 
-### Asset provenance
+### Asset provenance and viewport delivery
 
-All five implementation rasters below are recorded as generated conceptual
-artwork using built-in `image_gen`. They are not employer artifacts or test
-report captures. JSON provenance and exact prompt text are retained separately
-from the public runtime assets.
+Only the three implementation rasters below are referenced by the prototype.
+All are recorded as built-in `image_gen` conceptual artwork derived from B,
+not employer artifacts or report captures. Exact prompts and provenance remain
+outside public runtime assets.
 
-| Source asset | Provenance records | Local use |
+| Source artwork | Provenance companions | Current usage |
 | --- | --- | --- |
-| `assets/plates/passage-material.png` | `.impeccable/assets/passage-material.json`, `.impeccable/assets/passage-material.prompt.txt` | Complete text-free desktop still, referenced to the selected Pass Through comp. Astro produces WebP variants at widths `640`, `1024`, `1536`, quality `85`. |
-| `assets/plates/passage-upper.png` | `.impeccable/assets/passage-upper.json`, `.impeccable/assets/passage-upper.prompt.txt` | Transparent upper chrome/amber mobile cutout, referenced to the selected comp. WebP variants `640`, `1024`, quality `85`. |
-| `assets/plates/passage-lower.png` | `.impeccable/assets/passage-lower.json`, `.impeccable/assets/passage-lower.prompt.txt` | Transparent lower chrome/amber mobile cutout, referenced to the selected comp. WebP variants `640`, `1024`, quality `85`. |
-| `assets/materials/passage-chrome-surface.png` | `.impeccable/assets/passage-chrome-surface.json`, `.impeccable/assets/passage-chrome-surface.prompt.txt` | Generated brushed-metal sample for the focal scene rebuild; page supplies a `1024px` WebP, quality `90`, to the loader. |
-| `assets/materials/passage-studio-reflection.png` | `.impeccable/assets/passage-studio-reflection.json`, `.impeccable/assets/passage-studio-reflection.prompt.txt` | Generated studio reflection panorama for the rebuild; page supplies a `1536px` WebP, quality `90`, to the loader. |
+| `assets/plates/passage-material.png` | `.impeccable/assets/passage-material.json`, `.impeccable/assets/passage-material.prompt.txt` | Complete text-free desktop plate. Astro WebP variants `640`, `1024`, `1536`, quality `85`; one continuous field. |
+| `assets/plates/passage-upper.png` | `.impeccable/assets/passage-upper.json`, `.impeccable/assets/passage-upper.prompt.txt` | Transparent upper mobile assembly. WebP variants `640`, `1024`, quality `85`. |
+| `assets/plates/passage-lower.png` | `.impeccable/assets/passage-lower.json`, `.impeccable/assets/passage-lower.prompt.txt` | Transparent lower mobile assembly. WebP variants `640`, `1024`, quality `85`. |
 
-The selected desktop concept is `.impeccable/mocks/experience/pass-through.png`,
-with `.png.json` and `.prompt.txt` companions. Its sidecar records explicit owner
-approval on 2026-10-23. The middle composition in
-`.impeccable/mocks/experience/mobile-study.png` supplies the brief's compact
-mobile treatment. That comparison board's `.png.json` remains `approved: false`;
-its use in the selected brief does not turn every option on the board into an
-approved design or a working-motion claim.
+Selected desktop concept: `.impeccable/mocks/experience/pass-through.png`, with
+its `.png.json` approval and `.prompt.txt` companions. The sidecar records owner
+approval on 2026-10-23. The middle composition of
+`.impeccable/mocks/experience/mobile-study.png` supplies the compact treatment
+specified by the brief; its comparison-board sidecar remains `approved: false`.
+That flag does not override the selected brief or approve every alternative on
+the board. D-017 and the selection record authorize the current artwork strategy.
+
+Build-time `getImage` prepares the same WebP variants listed above. Each
+native `picture` places its real `srcSet.attribute` only on an active-media
+`source` with `type="image/webp"`: the desktop plate uses
+`min-width: 1024px`, while both compact cutouts use `width < 1024px`. The
+complementary conditions cover fractional widths at the breakpoint. Desktop
+source `sizes` is `max(100vw, 150svh)`; compact sources use `100vw`.
+
+Every child `img` now has only the inert inline 1×1 data-SVG `src`, with the
+original artwork's width/height attributes and asynchronous decoding. This
+replaces the prior real-image fallback after the delivery check observed WebKit
+fetching it speculatively even when `currentSrc` selected an empty media source.
+Keeping real optimized URLs on the active `source` is intended to avoid those
+inactive-art requests, including without JavaScript. Focused WebKit confirmation
+and the final delivery matrix remain in progress at this snapshot.
+
+Desktop plate and upper compact image are eager with high fetch priority; the
+lower compact image is eager. Prioritizing the upper cutout addresses the actual
+mobile LCP artwork identified in the handoff. Source PNGs, optimized rasters,
+decoded artwork content, CSS composition, and motion values are retained. No
+new performance result for this final source is recorded here.
 
 ## Components
 
-| Owner | Responsibility in this snapshot | Fallback boundary |
-| --- | --- | --- |
-| `experience.astro` | Semantic statement, role, actions, real TestPulse heading, chronological evidence list, scope explanation, comparison links, and raster placement. It passes `noindex` to the shared shell. | Text and links are static HTML. Without JavaScript, the desktop plate or compact cutouts remain with ordinary document flow. Missing artwork does not remove semantic content; successful raster loading is not certified here. |
-| `BaseLayout.astro`, shared Header and Contact | Existing identity/navigation, global fonts/styles, direct contact and resume access. | Reuses the incumbent semantic shell. Prototype-local header positioning is restricted to a body containing the passage opening. |
-| `experience-motion.ts` | Lazy-loaded GSAP/ScrollTrigger choreography, native-scroll progress, one-time evidence reveal, preference/viewport reconfiguration. | Page defers loading while reduced motion is requested. No matching motion preference means no sticky sequence enhancement. The script import failure is caught, leaving the static markup. |
-| `PassageIsland.tsx` | Desktop activation, WebGL2 probe, lazy scene import, ready/failure state, error boundary, visibility/media listeners. Initial activation waits `150ms` for settled scrolling in its observation area. | Requires width at least `1024px`, no reduced-motion preference, intersection, visible document, and successful WebGL2. Leaving those conditions unmounts the active canvas and clears ready. Import/render/context failure leaves the static plate. |
-| `PassageCanvas.tsx` | Texture loading/cloning, five-layer materials, lighting/environment, demand-rendered scene, camera and layer transforms, lifecycle callbacks. | Error callback/boundary returns control to the plate. Cloned textures have disposal cleanup in source; resource correctness was not tested in this pass. |
-| `inspection-state.ts` | Shared normalized scroll value and an invalidation callback. | Source resets progress during configuration and cleanup; this is a bridge, not an independent animation owner. |
+| Owner | Responsibility and fallback boundary |
+| --- | --- |
+| `experience.astro` | Semantic opening/evidence/comparison content, three artwork sources and viewport media choices, CSS reading fields and responsive geometry, immediate actions, `noindex` flag. No renderer imports or hydration island. Static HTML and artwork remain when JavaScript is unavailable; missing images do not remove semantic evidence or actions. |
+| `experience-motion.ts` | GSAP native-scroll timeline, compact cutout transforms, desktop push/shade/ink, one-time observation reveal, media reconfiguration and cleanup. A failed optional import leaves static markup; reduced motion keeps the unenhanced composition. |
+| `src/layouts/BaseLayout.astro`, shared Header and Contact | Existing shell, identity/navigation, fonts/styles, contact and resume access. Prototype header placement is scoped to the passage page. The shared homepage renderer is unaffected. |
+| `experience-history.ts` | Frozen chronological observation data consumed by the static evidence list. It supplies facts rather than a decorative mock dashboard or live polling. |
 
-The canvas and cutouts are decorative and do not capture focus or gestures.
-The duplicate slot lettering is hidden from accessibility APIs; the semantic
-TestPulse section remains readable. Opening links have at least `44px` height,
-or `48px` in the compact flow treatment, with inherited visible keyboard focus.
+Artwork wrappers are decorative and do not capture focus or gestures. The
+slot title is a visual duplicate; the later semantic TestPulse heading and
+complete evidence remain in reading order. Inherited visible focus uses a
+`2px` amber outline with `6px` offset. Main actions and text links retain their
+source minimum target heights; result meaning never depends on color alone.
+The historical WebGL-failure capture does not imply a current WebGL requirement.
 
-The source history shows runs `1220` Passed, `1224` Failed, and `1364` Passed at
+The history remains runs `1220` Passed, `1224` Failed, and `1364` Passed at
 commit `5c0869a`, with dates/times displayed in Cairo. The frozen export is dated
 2026-10-23. These are three selected observations from an 81-observation detail
-timeline; the metrics window is 50 runs. Retry counts remain unknown. The
-sequence supports same-commit inconsistency, not a cause, immediate retries,
-repair, or a live-stream claim.
+timeline; the metrics window is 50 runs. Retry counts remain unknown. Their
+same-commit inconsistency supports an instability signal, not root cause,
+immediate retries, repair, or a live-stream claim.
 
 ## Do's and Don'ts
 
-These are snapshot boundaries inherited from the approved brief and recorded
-reviews, not an expansion of the canonical design rules.
+These are local boundaries from the selected brief, source, and retained review.
+They do not replace or expand the canonical design rules.
 
-- **Do** retain the selected identity, conceptual-art labeling, direct actions,
-  complete semantic evidence, and resolved compact mobile action clearance.
-- **Do** retain both full `rebuild` reviews and distinguish their static and live
-  evidence when presenting the hosted comparison.
-- **Do** keep the next material strategy subject to owner decision after that
-  concrete hosted comparison.
-- **Don't** canonize the rejected pale live faces, opaque-looking amber, open
-  shelving topology, or arrival reading-field collisions as approved style.
-- **Don't** treat a static diff score, source settings, or browser emulation as
-  proof of live material quality, smoothness, or physical iPhone behavior.
-- **Don't** infer technical acceptance or launch authorization from completion
-  of this documentation record.
+- **Do** retain B's continuous material field, real alpha cutouts, semantic text,
+  immediate actions, and complete still content.
+- **Do** retain the localized reading shade, upward title/summary handoff,
+  warm-white introduction, and reserved midwidth aperture that correspond to
+  the three resolved visual findings.
+- **Do** keep the full review, scoped resolution, historical renderer rejection,
+  and pending delivery/performance verification distinguishable.
+- **Don't** restore an artificial split seam or infer new viewing angles or
+  physical optics from the artwork push.
+- **Don't** promote abandoned renderer parameters, generated lettering, or
+  screenshot-diff color samples into canonical source tokens.
+- **Don't** treat the scoped visual `ship` as proof of physical iPhone smoothness,
+  passing performance, launch readiness, or production integration approval.
 
 ### Preserved canonical and snapshot fingerprints
 
+HEAD at source inspection: `ee578bf8c6d44afef309e40e45896a1a80e082e7`.
+Working-tree changes are part of this snapshot; HEAD alone is not its identity.
 SHA-256 values at documentation time:
 
 | File | SHA-256 |
 | --- | --- |
 | `DESIGN.md` | `5b54f2dd6a31ceac9209d1455d521c569d85af305bbcd2c136c8c5dbfbf32145` |
 | `.impeccable/design.json` | `38eab0b557cd0d35778fa8dae1f132ce09d832781d73ff915b3ed9a3965b9345` |
-| `src/pages/experience.astro` | `c26988826786197aea55a710ae8d981fbc676d3ebc1853faeac0eb4166220721` |
-| `src/scripts/experience-motion.ts` | `ed9b4d22eeefb059758cc92e2b1074eec686abbfa7f106e29facc6eb4a1b6b74` |
-| `src/components/experience/PassageCanvas.tsx` | `5249fc0dba9e1b98b34c219fa35d497ffade574dfe58b1631221809365ca4095` |
-| `src/components/experience/PassageIsland.tsx` | `8995b31bff3097000ce5ba30b9b7bb8a66429e5cc0cbfb5f27d9edafa9e97919` |
-| `docs/experience/visual-review.md` | `f33b9832749478992b5a2733eed0ea2bc3392db162a5f809ace9a5befbae949d` |
+| `src/pages/experience.astro` | `c726e915917a59f8ad517d1b5991ad3e5bf62a62f4803c3b24ec80afb2d35453` |
+| `src/scripts/experience-motion.ts` | `9d769fb69297ef57b4c75263ad7eecbf984b75ccc08a5e4089191c750a7bf4eb` |
+| `src/data/experience-history.ts` | `36e7733d2a27ec56421aa912e4476aad7235231aff18eaf95a932bff2adcf085` |
+| `docs/experience/visual-review.md` | `08531ef6e95f2e68e5ce0d2ef2edd5008875f476fd4172c17183776fe1ce1fd0` |
+| `.impeccable/review/experience/capture-manifest.json` | `df3b51c663eab69317b964213a204b4f8b55cacc569b1236a3d217704eb96874` |

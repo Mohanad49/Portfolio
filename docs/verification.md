@@ -1,6 +1,6 @@
 # Verification record
 
-## Layered artwork prototype: active checkpoint
+## Layered artwork prototype: active checkpoint, 2026-10-24
 
 The owner rejected the hosted renderer at 6a46f0b and authorized preserving the
 approved B artwork with cinematic layers. D-017 and the surface brief record
@@ -9,32 +9,82 @@ text-free plate; its mobile cutouts and actual TestPulse evidence are retained.
 The prototype-only React/WebGL components and abandoned material maps are removed.
 The homepage, its standalone renderer, and production remain unchanged.
 
-Application commit 70aff97 passes sequential type checking across 34 files with
-zero diagnostics, lint, and the twenty-page static build. Existing optional
-homepage renderer chunk warnings remain visible. The complete affected matrix
-passes all 54 checks across Chromium, Firefox, and WebKit at desktop, tablet, and
-mobile sizes. There are no skips, retries, failures, or flaky results. This covers
-native forward/reverse scrolling, immediate work access, evidence bookmarks,
-reading-position retention, live preferences, no-JavaScript/WebGL-unavailable
-paths, one-resource artwork loading, and idle rest without a renderer. All nine
-axe/reflow cases have zero serious or critical findings. The retained report is
-.research/experience-study/layered-browser.json.
+Application commit 8731f42 contains the final application blobs:
+page 34a7e7fbf82d94b77cc270ae3177425b315b455d,
+motion 7379acbc1fe5c1c43f1b33ae3ddd00fa24f64c39, and test
+884ccbbb25c239e978696048e30c80e72cb8a53e. Sequential type checking across
+34 files has zero diagnostics; lint and the twenty-page static build pass.
+Existing optional homepage renderer chunk warnings remain visible. The complete
+affected matrix passes all 54 checks across Chromium, Firefox, and WebKit at
+desktop, tablet, and mobile sizes. There are no skips, retries, failures, or flaky
+results. This covers native forward/reverse scrolling, immediate work access,
+evidence bookmarks, reading-position retention, live preferences,
+no-JavaScript/WebGL-unavailable paths, active-viewport artwork loading, and idle
+rest without a renderer. All nine axe/reflow cases have zero serious or critical
+findings. The final report is
+.research/experience-study/source-final-browser.json, started at
+2026-10-24T11:06:11.422Z and completed in 70.392 seconds. Earlier passing reports
+remain retained as historical checkpoints.
 
-One batched visual inspection and one correction/confirmation are complete. The
-first split-image motion exposed a visible seam; the desktop artwork now remains
-continuous. The 729px actual in-app viewport also reserves the title slot below
-the upper cutout. Current captures and motion samples are retained under
-.impeccable/review; the initial layer attempt and rejected renderer stay archived
-under .research/experience-study. The matching static comparison is 94.2%, with
-no forced gate. Provenance scan: five rasters, zero missing. Fresh full visual
-review, source review, performance measurements, and hosted checks are pending.
+One batched visual inspection and one correction/confirmation preceded the fresh
+independent full review. That review returned fix for a caption crossing the
+foreground beam, introduction contrast during motion, and the missing lower
+boundary at 729/tablet widths. One correction batch moved the project text inside
+the aperture, brought the introduction to existing warm-white ink during the
+push, and restored the compact lower boundary. The same reviewer reopened all
+sixteen required captures and resolved all three named findings with a scoped
+ship verdict. The full review plus scoped resolution is in
+docs/experience/visual-review.md; the initial review is preserved separately.
+This is not a new independent review of every surface after the fixes.
+
+Current captures and motion samples are retained under .impeccable/review; the
+initial split-image attempt and rejected renderer remain archived under
+.research/experience-study. The matching static comparison is 94.2%, with no
+forced gate. Provenance scan: five rasters, zero missing. The design documenter
+records the completed implementation in docs/experience/design-record.md;
+canonical DESIGN.md and .impeccable/design.json hashes are unchanged. Technical
+source review approves these exact blobs for the isolated preview, with no
+unresolved Critical or Required finding. The fractional media-query gap is
+resolved. Neither review authorizes production integration.
+
+The first local artwork measurement passed performance and layout stability but
+failed the unchanged LCP gate: median performance 96, LCP 2556.6769 ms, and CLS
+0.000123753. The upper mobile artwork was the LCP element, with lazy loading and
+approximately 1201 ms load delay in the attribution. Eager loading and a high
+fetch priority address that discovery delay. A subsequent network assertion
+exposed unused upper/lower downloads in WebKit desktop: 53 passes and one failure
+in delivery-initial-browser.json. Although currentSrc selected the inert image,
+the real fallback URLs still generated requests. The final markup places actual
+optimized WebP URLs only on active picture sources, with an inert SVG fallback
+and complementary media queries. The full 54-pass result above verifies this
+correction without retries or weakened assertions. Rendering uses the same
+artwork, geometry, and timeline as the accepted captures.
+
+Three production-build mobile Lighthouse runs on the final source score 98, 98,
+and 98. LCP is 2266.5714, 2259.6771, and 2255.5207 ms; median 2259.6771 ms. Each
+CLS value is 0.000123753. All unchanged thresholds pass. Reports and the parsed
+summary are retained under .research/experience-study/lighthouse-source-final
+and lighthouse-source-final-summary.json. The prior failing reports and the
+intermediate priority measurements remain retained. A local headless Chromium
+sample of the unchanged motion path reports zero canvas elements or errors and
+approximately 46 KB of encoded JavaScript on desktop, tablet, and mobile. Its
+16.7 ms median animation-frame sample is a lab observation, not physical iPhone
+or field smoothness certification.
+
+The earlier artwork CI run 40025575891 at ee578bf completed successfully:
+178 passed, twelve inapplicable skips, zero failures or flaky results, and all
+eighteen Lighthouse measurements. Its /experience median was 98, LCP
+2234.6564 ms, and CLS 0.0001249505. That run preceded the three visual fixes and
+final delivery correction, so it does not certify the final source. Its parsed
+summary and artifacts are retained under .research/experience-study. The new
+hosted run and final preview smoke check are pending.
 
 The rejected snapshot's hosted run 40016674543 completed its full browser matrix:
 172 passed, eighteen inapplicable skips, zero failures, zero flaky results, and
 no retries. The workflow concluded cancelled during performance collection after
 eleven of eighteen Lighthouse reports. The job annotation confirms the 25-minute
 execution limit was exceeded. Browser installation alone took 18 minutes and
-53 seconds. Increase the job allowance to 35 minutes so the existing browser and
+53 seconds. The job allowance is now 35 minutes so the existing browser and
 performance checks can finish; no test, retry, metric, or threshold is relaxed.
 The cancelled run is not a green full pipeline. Artifacts and the parsed
 summary are retained in .research/experience-study/ci-artifacts and
@@ -97,7 +147,7 @@ second review resolves mobile clearance but still rejects the live desktop
 materials, close enclosure, arrival caption, and navigation clearance. The static
 94.2% comparison applies only to the still. It does not certify the live scene.
 Both reports are retained as docs/experience/visual-review.initial.md and
-visual-review.md. Current required captures/videos are under
+visual-review.renderer.md. Current required captures/videos are under
 .impeccable/review/experience; previous captures remain under .research.
 
 The documentation handoff records the actual prototype in

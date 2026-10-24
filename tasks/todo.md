@@ -40,6 +40,6 @@
 - [ ] Verify the hosted preview and eighteen mobile Lighthouse measurements.
 - [x] Resolve the desktop material strategy after the owner's comparison decision.
 - [x] Replace the rejected renderer with the approved cinematic layered artwork.
-- [ ] Verify the changed layered motion and obtain a fresh full visual review.
-- [ ] Reach accepted visual finish before integration.
+- [x] Verify the changed layered motion and obtain a fresh full visual review.
+- [x] Reach accepted visual finish before integration.
 - [ ] Present the comparison and integration recommendation without changing production.
