@@ -724,3 +724,26 @@ their correction history. Final hosted CI and preview verification are still
 pending; this addendum does not authorize production integration or release.
 The reviewer consumed the existing result files and appended only this report,
 without starting another check, browser, review, or workflow.
+
+## Hosted acceptance results
+
+Date: 2026-10-24. The parent reports successful GitHub run `40089079924` at
+`38ea3bedd90cbf8c90a373c9f4b4f2aa63d25ffe`, completing all steps in 8m53s.
+Application commit `8731f42` retains the approved source blobs above. Retained
+`ci-summary-40089079924.json` and `ci-artifacts-40089079924` record 190 browser
+registrations: 178 passes, 12 established inapplicable `portfolio.spec.ts` skips,
+and zero failures, flaky results, or retries. All 54 experience checks apply
+and pass. All 18 Lighthouse runs completed, and all six routes met the unchanged
+median gates. `/experience/` has median performance 99, LCP 1959.1771 ms, and
+CLS 0.000124950481895; the homepage has performance 99 and LCP 1587.72575 ms.
+The other four routes score 100 with median LCP from 1355.96625 to 1356.94485 ms.
+Every route's median CLS is below 0.1.
+
+Vercel Preview deployment `7297844824` succeeded at the same commit. The parent's
+browser smoke at 729x797 and 1440x1000 confirmed active artwork, `noindex`, native
+scroll motion, the evidence fragment at 64 px, comparison navigation to the
+homepage, and resume link/download-filename attributes. This smoke does not add
+a PDF-transfer or physical-iPhone verification claim. Hosted CI and preview
+verification are now complete within that scope. Technical approval remains
+for the isolated prototype only; production integration and release are outside
+this approval. This note records supplied results without a new check or review.

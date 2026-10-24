@@ -76,8 +76,65 @@ The earlier artwork CI run 40025575891 at ee578bf completed successfully:
 eighteen Lighthouse measurements. Its /experience median was 98, LCP
 2234.6564 ms, and CLS 0.0001249505. That run preceded the three visual fixes and
 final delivery correction, so it does not certify the final source. Its parsed
-summary and artifacts are retained under .research/experience-study. The new
-hosted run and final preview smoke check are pending.
+summary and artifacts are retained under .research/experience-study.
+
+Final hosted run [40089079924](https://github.com/Mohanad49/Portfolio/actions/runs/40089079924)
+at 38ea3bedd90cbf8c90a373c9f4b4f2aa63d25ffe succeeds in 8 minutes and 53 seconds.
+All type, lint, build, browser, performance, and artifact-upload steps pass. The
+190 browser registrations contain 178 passes, twelve established inapplicable
+portfolio.spec.ts skips, zero failures, zero flaky results, and zero retries.
+All 54 experience registrations are applicable and pass. The browser matrix
+completes in 211.908 seconds. All eighteen production-build mobile Lighthouse
+measurements complete and every unchanged median gate passes:
+
+| Route | Runs | Median performance | Median LCP | Median CLS |
+| --- | --- | --- | --- | --- |
+| / | 3 | 99 | 1.588 s | 0.000563 |
+| /work/ | 3 | 100 | 1.356 s | 0.000753 |
+| /work/testpulse/ | 3 | 100 | 1.356 s | 0.017927 |
+| /work/caldiy/ | 3 | 100 | 1.356 s | 0.000800 |
+| /work/llm-evaluation/ | 3 | 100 | 1.357 s | 0.000774 |
+| /experience/ | 3 | 99 | 1.959 s | 0.000125 |
+
+The exact parsed results and downloaded reports are retained under
+.research/experience-study/ci-summary-40089079924.json and
+ci-artifacts-40089079924. These remote-runner measurements are production-build
+lab results, not visitor field data. The final audit follow-up changes only
+documentation, so it consumes this verified application/test/configuration tree
+without repeating identical checks.
+
+Vercel Preview deployment 7297844824 succeeded at application commit 8731f42 plus
+review-record commit 38ea3be. Its immutable comparison route is
+https://portfolio-5c4dn4unn-mohanad49s-projects.vercel.app/experience.
+The existing authorized browser session opens it without an authentication
+interruption. At its actual 729x797 viewport, the upper and lower WebPs load,
+the unused desktop picture selects the inert image, motion initializes, and a
+native scroll changes the upper transform. Explore the work reaches #evidence
+with its heading approximately 64 pixels below the viewport top and all three
+observations present. View the current version opens the unchanged homepage.
+The resume retains its public PDF URL and descriptive download filename; its
+bytes are unchanged from the earlier hash-verified download. The prototype is
+noindex, follow and has been left open for comparison. No new physical-device
+or download claim is made by this hosted smoke check.
+
+At the temporary 1440x1000 hosted desktop viewport, the full approved plate loads
+and both compact images select their inert fallback. Native scrolling advances
+the plate to its 1.22 scale, with zero canvas elements. The viewport override was
+then reset to the actual 729x797 browser size. A footer-link automation attempt
+failed in the in-app browser's click resolution after that reset; it did not
+establish a site defect or verify footer pointer activation. Direct navigation
+to the already exposed #top fragment returns to scroll position zero. These
+limits are retained separately from the passing local and hosted browser suite.
+
+GitHub still records Production deployment 7280653313 at
+40a24f16ec037658fb13d5509dd1ba59573f480a. The original checkout is clean. PR #4
+remains an open draft, with no homepage integration or production change.
+
+The handoff recommends this artwork treatment for the opening because it retains
+the approved material finish while providing bounded desktop and compact mobile
+scroll motion. It does not claim a fully rendered 3D passage. The actual built
+desktop capture and tested immutable preview are ready for owner comparison;
+integration remains a separate decision.
 
 The rejected snapshot's hosted run 40016674543 completed its full browser matrix:
 172 passed, eighteen inapplicable skips, zero failures, zero flaky results, and
@@ -94,7 +151,8 @@ Those measurements apply to the rejected renderer snapshot, not the new treatmen
 
 The rejected hosted preview's work fragment, comparison navigation, and current
 resume download were checked in the authenticated browser. The downloaded PDF's
-SHA-256 matches the current public resume. New preview verification is pending.
+SHA-256 matches the current public resume. The new preview smoke check is
+recorded above.
 
 ## Rejected renderer: comparison checkpoint
 
