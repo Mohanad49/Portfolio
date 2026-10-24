@@ -385,3 +385,365 @@ This source approval does not claim the corrected checks or current mobile
 performance have passed. The parent owns affected type/lint/build checks,
 browser verification, captures, and performance acceptance for the changed
 mobile path. No browser or broad check was launched by this reviewer.
+
+## Pass Through prototype: technical source review
+
+Date: 2026-10-23. Baseline: `40a24f16ec037658fb13d5509dd1ba59573f480a`.
+Scope: the isolated `/experience` preview, including its committed prototype
+files and final working-tree delta. The approved brief and storyboard define
+the direction; this review covers source correctness, lifecycle, resource
+handling, evidence provenance, and test quality.
+
+**Technical source verdict: approve for isolated preview.** No unresolved
+Critical or Required source finding remains in the reviewed blobs. This is not
+visual acceptance or authorization to merge or release to production. The
+visual review still requires a desktop rebuild; full-tree CI and mobile
+Lighthouse remain pending on the draft PR.
+
+### Reviewed identities
+
+| File | Git blob |
+| --- | --- |
+| `src/pages/experience.astro` | `aa6cf9659b0127e38f575b026be9f2945861fcf0` |
+| `src/scripts/experience-motion.ts` | `25a693f6989ac74d6812c7c7e82296d838adb511` |
+| `src/components/experience/PassageIsland.tsx` | `914dc21877a6385ecce7c8e853df0972c6197b10` |
+| `src/components/experience/PassageCanvas.tsx` | `77fd3e47502939dc081ea58f95393dae2a7cf65c` |
+| `src/data/experience-history.ts` | `c3e8ab4d9d6967c36f9b50bdef924bfa767086aa` |
+| `tests/experience.spec.ts` | `e708b021a08a1927bd84d7f2fae2084cf6f46784` |
+| `lighthouserc.cjs` | `f88d6396f7722f8ebc356fbb0c9c031862f11351` |
+| `docs/experience/testpulse-evidence.json` | `2f0c1cfe7885685c4fb89aace406d4603d14d64e` |
+
+The source material assets reviewed are `passage-chrome-surface.png` blob
+`bd14495e45af4a72d8cf0728cc43fbb8ca85a88d` and
+`passage-studio-reflection.png` blob
+`d2188cbc5ec6024fda9e374bacc44dc05938ab60`, with retained generation provenance.
+They are conceptual rendering assets, separate from the QA observations.
+
+### Evidence and runtime boundaries
+
+The retained raw TestPulse export has SHA-256
+`7eef058c1467af41eae32480a367e142f24c44758be46a96866be354e55380a9`, matching
+the evidence manifest. Its selected booking-lifecycle observations are runs
+1220, 1224, and 1364, with pass, fail, and pass statuses on the same recorded
+commit. The page preserves their timestamps and unknown retry counts, and
+distinguishes the 81-observation detail timeline from the 50-run metric window.
+It does not infer a repair, root cause, or retry from this sequence. This is
+verification against the retained public snapshot, not a fresh live-source
+verification.
+
+The complete evidence, work link, resume link, and comparison links remain
+semantic static HTML. Native scrolling and fragment navigation do not depend
+on scene readiness. The original homepage is unchanged, and the preview is
+marked `noindex`. Reduce Motion, no JavaScript, unavailable WebGL, import
+failure, and context loss retain the readable fallback.
+
+Astro generates WebP assets and passes only their URLs to the island. The
+desktop and motion media boundary precedes hydration; a second eligibility
+check precedes the dynamic Canvas import. Pending activation settles scrolling
+for 150 ms, while offscreen, hidden-document, and media changes deactivate
+immediately. Timers, observers, listeners, stale imports, and the invalidation
+hook have cleanup paths. Mobile has no live Canvas.
+
+The rebuilt scene uses demand rendering, maximum DPR 1.25, two transmission
+materials with 256-pixel targets and two samples, and no continuous capture
+loop. Color and data textures are separate owned clones; cached loader sources
+are left intact, and the clones are disposed on unmount. The installed rendering
+helpers own their transmission targets and restore the supplied environment.
+No dependency or runtime data-fetch boundary was added.
+
+### Resolved concerns and verification limits
+
+The initial reading-position concern is resolved: JavaScript now owns the
+opening's extra motion height, captures the evidence position before changing
+it, and restores that position on live preference or desktop-boundary changes.
+CSS media queries no longer resize that extra height before the capture. Once
+revealed, the evidence remains revealed across reconfiguration.
+
+The retained rebuilt matrix had 47 passes, six inapplicable desktop-only skips,
+and one WebKit native-scroll failure. That failure stopped inside Playwright's
+inspector auto-scroll before dispatching the CTA click; it did not establish an
+application root cause. The retained geometry diagnostic found the CTA fully
+visible, with its anchor as the hit target and `data-ready=false`. Native
+pointer activation reached `#evidence` with its top at 64 pixels. Locator and
+WebGL-unavailable diagnostic cases also reached the target.
+
+The final native-navigation test first requires full viewport intersection,
+then uses the supported [`scroll: 'none'` click option](https://github.com/microsoft/playwright/blob/main/docs/src/api/params.md#input-scroll).
+It retains actionability and hit testing, real pointer activation, and the
+fragment and viewport assertions, without a scene-readiness wait. The prior
+failure artifacts remain evidence of the intermittent inspector stall. The
+renderer test additionally requires zero console errors and page errors, so
+successful draw calls cannot conceal a shader or runtime failure.
+
+The parent reports the final affected matrix completed in 44.1 seconds with
+12 passes, six inapplicable skips, and zero failures across 18 registrations.
+It reran native navigation in all nine engine/viewport combinations and the
+strengthened actual-renderer test in all three desktop engines. The other
+36 registrations from the rebuilt matrix were unchanged and green; this was
+an affected rerun, not a new complete 54-registration run. The parent also
+reports type checking of 36 files with zero diagnostics, lint, and the 20-page
+build passing. There were no retries or threshold changes. This reviewer did
+not launch a browser or repeat these checks.
+
+Technical approval leaves the visual rebuild disposition in force. Mobile
+action clearance is resolved in the visual report, while desktop materials,
+slot treatment, and navigation remain below the selected composition. Full-tree
+CI, mobile Lighthouse, and final preview acceptance are separate outstanding
+gates. No production merge or release is authorized by this report.
+
+## Continuous artwork prototype: source delta review
+
+Date: 2026-10-24. Reviewed range:
+`6a46f0be197b2b3d2cb5cbb866ee06c413bcf17b` through
+`4a2784ba429fc91c1ea9fe24418bef11c071e026`, including application commit
+`70aff97b980c09fc3cb3b971ff67abc4a44d0209`. The current brief, storyboard,
+D-017, verification record, and retained browser report supplied the scope and
+verification context. This review covers source and CI semantics only.
+
+**Findings: no unresolved Critical or Required source blocker. Technical source
+approval applies to the isolated preview.** The owner-authorized artwork
+treatment replaces the rejected renderer; fresh visual acceptance, current
+performance measurements, and hosted verification remain separate gates. This
+report does not authorize a production merge or release.
+
+### Exact reviewed blobs
+
+| File | Git blob |
+| --- | --- |
+| `src/pages/experience.astro` | `a779ce2f3e64ebc9d4a7aaaa452b99a833e5dfaf` |
+| `src/scripts/experience-motion.ts` | `15b25608834657aaf5ea7beb0574e8f6876479cc` |
+| `tests/experience.spec.ts` | `92ea5c8f295bc4efdf0dfec9f56f64806149982a` |
+| `.github/workflows/quality.yml` | `d7f14d1fc182a32335b3a01e8eb1a827947515e3` |
+| `docs/briefs/experience.md` (working tree) | `fe74938041fa7d22933b848ab7bb205d43b59d3a` |
+| `docs/experience/storyboard.md` (working tree) | `0be4b126459a59d4d13d9df62047d30f0b16ff4a` |
+| `DECISIONS.md` (working tree, D-017) | `5298b5ef0aca274ab6621212781934ccb26e860a` |
+| `docs/verification.md` (working tree) | `33f08abc035ef8b2f123270b24986634f6d9cfda` |
+
+The selected artwork remains `assets/plates/passage-material.png` blob
+`e9e41d11794aee115b2bf1d91c45716b4027e1b1`, with upper and lower cutouts
+`024a9a223d19830017eee9c51ec9272f818202b8` and
+`fdd4597d74c8294458b08cd5470306f55047c662`. The earlier evidence-data review
+continues to apply: `experience-history.ts` remains
+`c3e8ab4d9d6967c36f9b50bdef924bfa767086aa` and its manifest remains
+`2f0c1cfe7885685c4fb89aace406d4603d14d64e`.
+
+### Correctness, lifecycle, and resource handling
+
+The source removes `PassageIsland.tsx`, `PassageCanvas.tsx`, both abandoned
+material maps, and their sidecars. There are no remaining source imports of
+those components or maps. The experience motion module no longer imports or
+writes the shared inspection state. The homepage's inspection components,
+animation module, dependency declarations, and lockfile are unchanged in this
+range. Dependencies still needed by that homepage are correctly retained.
+
+Desktop uses one complete image element with bounded scale and reading-shade
+changes. Mobile keeps the existing alpha cutouts with bounded transforms. The
+decorative layers cannot capture pointer input, and semantic content, native
+fragment actions, the resume link, and the evidence record remain in HTML.
+Removing the prototype renderer also removes its import, texture, transmission
+target, context-loss, and renderer-lifecycle responsibilities from this route.
+No replacement renderer, dependency, data request, or continuous animation loop
+was introduced.
+
+GSAP remains tied to native scroll. Its context reverts on preference or desktop
+boundary changes and on nonpersisted page exit; the media listeners have matching
+cleanup. JavaScript still owns extra opening height and retains the evidence
+position when reconfiguring it. Completed history reveals remain complete.
+Reduce Motion and no-JavaScript states retain the complete readable study.
+
+### Regression evidence and CI allowance
+
+The retained `.research/experience-study/layered-browser.json` has SHA-256
+`33d95778a06f721073b781d9dd2bc04c73bfae24ec0f72e0df3633532d2ae852`.
+Its six tests run in each of nine engine/viewport configurations: 54 expected
+passes, zero skips, unexpected failures, or flaky results, and every retry index
+is zero. Duration is 87.3 seconds. This review consumed the report without
+rerunning it.
+
+Replacing the removed feature's desktop-only renderer test with artwork motion
+coverage is appropriate to the new implementation. The replacement requires
+loaded artwork, a changed pose after native wheel input, stable styles at rest,
+an exact return to the initial pose, no Canvas or renderer requests, and zero
+console errors or page errors. The other tests retain native forward/reverse
+scrolling, immediate CTA activation, deep links, live preference and reading
+position behavior, no-JavaScript and WebGL-unavailable paths, serious/critical
+axe findings, and narrow reflow. The selected desktop image must have one
+resource-timing entry; that assertion is not a transfer-byte or mobile
+performance measurement. The verification record reports type checking of
+34 files with zero diagnostics, lint, and the 20-page build passing.
+
+The workflow delta changes only the job allowance from 25 to 35 minutes. The
+parent supplied GitHub's annotation, "The job has exceeded the maximum execution
+time of 25m0s". Retained installation log timestamps independently span
+20:07:28.539 to 20:26:21.191 UTC, approximately 18 minutes 53 seconds. The parsed
+summary for run `40016674543` records 172 browser passes, 18 inapplicable skips,
+zero failures or flaky results, and only 11 of 18 Lighthouse reports before
+cancellation during performance collection. This supports a bounded job-time
+increase. Browser/test timeouts, retries, tested scope, acceptance thresholds,
+permissions, event triggers, and artifact retention are unchanged.
+
+That cancelled run and the earlier performance measurements belong to the
+rejected renderer snapshot. They do not establish a green pipeline or a current
+performance result for this artwork treatment. Fresh full visual review,
+performance measurements, and hosted checks remain pending. This reviewer
+opened no browser or screenshot, ran no tests or workflow, and changed only
+this technical report.
+
+## Final motion corrections and responsive artwork delivery
+
+Date: 2026-10-24. Scope: the working-tree source delta over
+`4a2784ba429fc91c1ea9fe24418bef11c071e026` in the three files below.
+
+| File | Reviewed Git blob |
+| --- | --- |
+| `src/pages/experience.astro` | `dcd77dd28e9414fc1bf104a4b279139a1b5671da` |
+| `src/scripts/experience-motion.ts` | `7379acbc1fe5c1c43f1b33ae3ddd00fa24f64c39` |
+| `tests/experience.spec.ts` | `884ccbbb25c239e978696048e30c80e72cb8a53e` |
+
+**Technical source verdict: approve for isolated preview, with the Optional
+boundary note below. No Critical or Required source blocker was found.** This
+does not clear the pending delivery matrix, performance gate, hosted checks,
+physical-device acceptance, or production authorization.
+
+The bounded title/subtitle offsets and introduction color transition use the
+existing scroll timeline and context cleanup. Tablet cutout positioning remains
+decorative and absolute. These changes add no listener, loop, dependency, state
+boundary, or layout-height owner. The visual reviewer reports the three named
+corrections resolved; this source review did not rescore them.
+
+The delivery correction retains the same decoded artwork, responsive variants,
+dimensions, and styles. The mobile upper image is eager with high fetch priority;
+the lower image is eager with ordinary priority. Each picture places its inactive
+data source before the optimized image, so native source selection can suppress
+the unused artwork without JavaScript. The built HTML preserves that ordering,
+the percent-encoded source, intrinsic dimensions, and loading/priority attributes.
+Responsive source selection remains native when the viewport changes.
+
+The constant one-pixel SVG has no script, external resource reference, or user
+input. Its namespace declaration is not a resource request. The repository's
+Vercel headers, Astro configuration, and shared layout declare no CSP that would
+block `data:` images; no policy is weakened by this patch. Any additional hosted
+policy remains part of hosted verification.
+
+### Optional: close the fractional media-query interval
+
+The inactive sources use `max-width: 1023px` for the full plate and
+`min-width: 1024px` for the cutouts. A fractional CSS viewport width strictly
+between those values satisfies neither query, allowing all three pictures to
+select real artwork. The nine integer viewport configurations do not cover that
+zoom/resize edge. If zero inactive downloads is required across fractional
+widths, use complementary range queries aligned with the corresponding CSS
+visibility rule. This is a narrow resource issue, not an observed functional
+failure in the supplied matrix.
+
+### Retained results and open acceptance gate
+
+The pre-delivery visual-fix matrix in `layered-final-browser.json` records
+54 passes, zero skips, unexpected failures, or flaky results, and retry index
+zero for all registrations. It does not verify the later delivery patch or
+the latest network assertions. Those assertions extend the existing motion
+test with no unused cutout requests on desktop and no full-plate request on
+mobile; the renderer exclusion, motion, reverse, idle, and error checks remain.
+
+The retained pre-priority Lighthouse reports identify `.passage-upper` as LCP
+with lazy loading and no high-priority hint. One report attributes approximately
+1201 ms to load delay. Median LCP is 2556.6769 ms, exceeding the unchanged
+2499 ms gate, despite median performance 96 and CLS approximately 0.000124.
+This failing measurement remains visible. Eager loading and priority directly
+address its discovery finding, but only new measurements can establish whether
+the gate now passes. The delivery-focused full matrix, three Lighthouse runs,
+and lint after the latest test edit are pending at this review checkpoint.
+No browser, screenshot, workflow, test, or Lighthouse run was started by this
+reviewer; only this report was edited.
+
+## Active artwork sources: delivery correction and query resolution
+
+Date: 2026-10-24. The corrected page blob is
+`34a7e7fbf82d94b77cc270ae3177425b315b455d` for
+`src/pages/experience.astro`. It supersedes the delivery markup in page blob
+`dcd77dd28e9414fc1bf104a4b279139a1b5671da` above. The reviewed motion and test
+blobs remain `7379acbc1fe5c1c43f1b33ae3ddd00fa24f64c39` and
+`884ccbbb25c239e978696048e30c80e72cb8a53e`.
+
+**Technical source verdict: approve for isolated preview. The Optional
+fractional-width finding is resolved, with no new Critical or Required source
+blocker.** Runtime and performance acceptance of this exact markup remain
+separate gates until their new results are available.
+
+The retained `delivery-initial-browser.json` records 53 passes and one failure
+in the WebKit desktop artwork test. The empty SVG was selected, but the browser
+still requested the real upper and lower WebPs exposed on the fallback image.
+This is a real resource-loading failure in the earlier pattern; a selected
+`currentSrc` alone did not establish that unused requests were absent.
+
+The correction obtains WebP variants at build time using `getImage`, places
+their `srcSet.attribute` values only on the active picture sources, and gives
+each fallback image only the inert SVG. There is no real URL or `srcset` on
+those fallback images. The inspected generated HTML contains the intended
+640/1024/1536 desktop widths and 640/1024 cutout widths, original image dimensions,
+empty alternative text, eager loading, high priority for the plate and upper
+cutout, and asynchronous decoding. The lower cutout retains ordinary priority.
+It introduces no client code, data fetch, listener, or dependency.
+
+The compact source condition is now `width < 1024px`, matching its CSS visibility
+rule and complementing desktop `min-width: 1024px`. This removes the previous
+fractional interval and keeps selection aligned with layout on resize. The
+inert SVG and repository CSP assessment above remain applicable.
+
+The parent reports type checking of 34 files with zero diagnostics, lint, and
+build passing. Focused WebKit verification, the final 54-registration matrix,
+and three current-source Lighthouse runs are pending at this checkpoint. An
+earlier priority pattern's improved measurements do not certify this replacement
+markup. The original LCP and WebKit failures remain retained. No browser or
+duplicate check was launched by this reviewer, and only this report was edited.
+
+## Exact-source local acceptance results
+
+Date: 2026-10-24. The retained final results apply to page blob
+`34a7e7fbf82d94b77cc270ae3177425b315b455d`, motion blob
+`7379acbc1fe5c1c43f1b33ae3ddd00fa24f64c39`, and test blob
+`884ccbbb25c239e978696048e30c80e72cb8a53e` reviewed above.
+
+`source-final-browser.json` records 54 passes across all nine engine/viewport
+configurations, with zero skips, failures, flaky results, or retries. It started
+at 2026-10-24T11:06:11.422Z and completed in 70.392 seconds. All nine axe/reflow
+registrations passed. This includes the strict unused-artwork request assertions
+that exposed the earlier WebKit failure.
+
+`lighthouse-source-final-summary.json` records three current-source mobile runs
+for `/experience/`: performance scores 98/98/98, LCP values
+2266.5714/2259.6771/2255.5207 ms, and CLS 0.0001237531567993509 in every run.
+Median LCP is 2259.6771 ms. The unchanged median gates pass: performance at least
+90, LCP at most 2499 ms, and CLS at most 0.0999. The parent also reports types,
+lint, and build passing at these identities, matching canonical design
+fingerprints, and a clean whitespace diff check.
+
+**The reviewed source now has passing local affected browser and performance
+acceptance.** The original LCP and WebKit failures above remain retained with
+their correction history. Final hosted CI and preview verification are still
+pending; this addendum does not authorize production integration or release.
+The reviewer consumed the existing result files and appended only this report,
+without starting another check, browser, review, or workflow.
+
+## Hosted acceptance results
+
+Date: 2026-10-24. The parent reports successful GitHub run `40089079924` at
+`38ea3bedd90cbf8c90a373c9f4b4f2aa63d25ffe`, completing all steps in 8m53s.
+Application commit `8731f42` retains the approved source blobs above. Retained
+`ci-summary-40089079924.json` and `ci-artifacts-40089079924` record 190 browser
+registrations: 178 passes, 12 established inapplicable `portfolio.spec.ts` skips,
+and zero failures, flaky results, or retries. All 54 experience checks apply
+and pass. All 18 Lighthouse runs completed, and all six routes met the unchanged
+median gates. `/experience/` has median performance 99, LCP 1959.1771 ms, and
+CLS 0.000124950481895; the homepage has performance 99 and LCP 1587.72575 ms.
+The other four routes score 100 with median LCP from 1355.96625 to 1356.94485 ms.
+Every route's median CLS is below 0.1.
+
+Vercel Preview deployment `7297844824` succeeded at the same commit. The parent's
+browser smoke at 729x797 and 1440x1000 confirmed active artwork, `noindex`, native
+scroll motion, the evidence fragment at 64 px, comparison navigation to the
+homepage, and resume link/download-filename attributes. This smoke does not add
+a PDF-transfer or physical-iPhone verification claim. Hosted CI and preview
+verification are now complete within that scope. Technical approval remains
+for the isolated prototype only; production integration and release are outside
+this approval. This note records supplied results without a new check or review.

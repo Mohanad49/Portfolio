@@ -1,0 +1,59 @@
+{
+  "title": "How should the opening move?",
+  "question": "Choose the opening sequence to prototype next. The brand stays fixed; the desktop/mobile storyboard and evidence accompany these concepts in chat.",
+  "options": [
+    {
+      "id": "unfold",
+      "label": "A: Unfold",
+      "thesis": "Open the inspection object into a mechanical fan.",
+      "palette": [
+        "#171515",
+        "#f8f2e9",
+        "#ffc368"
+      ],
+      "materials": [
+        "dark chrome",
+        "transparent amber glass"
+      ],
+      "viewport": "Large type on the left; a fan opens across the right and aligns with TestPulse. Mobile uses a compact vertical fan.",
+      "risk": "The mechanism is easy to understand, but can suggest a hardware product.",
+      "comp": ".impeccable/mocks/experience/unfold.png"
+    },
+    {
+      "id": "pass-through",
+      "label": "B: Pass Through",
+      "kicker": "RECOMMENDED",
+      "thesis": "Enter the work through a short opening between material layers.",
+      "palette": [
+        "#171515",
+        "#f8f2e9",
+        "#ffc368"
+      ],
+      "materials": [
+        "dark chrome",
+        "transparent amber glass"
+      ],
+      "viewport": "A close viewing slot reveals TestPulse beyond the object. Mobile uses a much shorter material reveal within a portrait-safe field.",
+      "risk": "Strongest departure from the current site; comfort and smoothness need proof on phones.",
+      "comp": ".impeccable/mocks/experience/pass-through.png"
+    },
+    {
+      "id": "follow",
+      "label": "C: Follow",
+      "thesis": "Keep one travelling specimen as the anchor between sections.",
+      "palette": [
+        "#171515",
+        "#f8f2e9",
+        "#ffc368"
+      ],
+      "materials": [
+        "dark chrome",
+        "transparent amber glass"
+      ],
+      "viewport": "A compact object travels into TestPulse while the page stays editorial. Mobile moves the specimen down the portrait composition.",
+      "risk": "Most continuity with the current design; may remain too conservative for the requested leap.",
+      "comp": ".impeccable/mocks/experience/follow.png"
+    }
+  ],
+  "steer": true
+}

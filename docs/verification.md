@@ -1,5 +1,240 @@
 # Verification record
 
+## Layered artwork prototype: active checkpoint, 2026-10-24
+
+The owner rejected the hosted renderer at 6a46f0b and authorized preserving the
+approved B artwork with cinematic layers. D-017 and the surface brief record
+that treatment. The new /experience opening advances through its continuous
+text-free plate; its mobile cutouts and actual TestPulse evidence are retained.
+The prototype-only React/WebGL components and abandoned material maps are removed.
+The homepage, its standalone renderer, and production remain unchanged.
+
+Application commit 8731f42 contains the final application blobs:
+page 34a7e7fbf82d94b77cc270ae3177425b315b455d,
+motion 7379acbc1fe5c1c43f1b33ae3ddd00fa24f64c39, and test
+884ccbbb25c239e978696048e30c80e72cb8a53e. Sequential type checking across
+34 files has zero diagnostics; lint and the twenty-page static build pass.
+Existing optional homepage renderer chunk warnings remain visible. The complete
+affected matrix passes all 54 checks across Chromium, Firefox, and WebKit at
+desktop, tablet, and mobile sizes. There are no skips, retries, failures, or flaky
+results. This covers native forward/reverse scrolling, immediate work access,
+evidence bookmarks, reading-position retention, live preferences,
+no-JavaScript/WebGL-unavailable paths, active-viewport artwork loading, and idle
+rest without a renderer. All nine axe/reflow cases have zero serious or critical
+findings. The final report is
+.research/experience-study/source-final-browser.json, started at
+2026-10-24T11:06:11.422Z and completed in 70.392 seconds. Earlier passing reports
+remain retained as historical checkpoints.
+
+One batched visual inspection and one correction/confirmation preceded the fresh
+independent full review. That review returned fix for a caption crossing the
+foreground beam, introduction contrast during motion, and the missing lower
+boundary at 729/tablet widths. One correction batch moved the project text inside
+the aperture, brought the introduction to existing warm-white ink during the
+push, and restored the compact lower boundary. The same reviewer reopened all
+sixteen required captures and resolved all three named findings with a scoped
+ship verdict. The full review plus scoped resolution is in
+docs/experience/visual-review.md; the initial review is preserved separately.
+This is not a new independent review of every surface after the fixes.
+
+Current captures and motion samples are retained under .impeccable/review; the
+initial split-image attempt and rejected renderer remain archived under
+.research/experience-study. The matching static comparison is 94.2%, with no
+forced gate. Provenance scan: five rasters, zero missing. The design documenter
+records the completed implementation in docs/experience/design-record.md;
+canonical DESIGN.md and .impeccable/design.json hashes are unchanged. Technical
+source review approves these exact blobs for the isolated preview, with no
+unresolved Critical or Required finding. The fractional media-query gap is
+resolved. Neither review authorizes production integration.
+
+The first local artwork measurement passed performance and layout stability but
+failed the unchanged LCP gate: median performance 96, LCP 2556.6769 ms, and CLS
+0.000123753. The upper mobile artwork was the LCP element, with lazy loading and
+approximately 1201 ms load delay in the attribution. Eager loading and a high
+fetch priority address that discovery delay. A subsequent network assertion
+exposed unused upper/lower downloads in WebKit desktop: 53 passes and one failure
+in delivery-initial-browser.json. Although currentSrc selected the inert image,
+the real fallback URLs still generated requests. The final markup places actual
+optimized WebP URLs only on active picture sources, with an inert SVG fallback
+and complementary media queries. The full 54-pass result above verifies this
+correction without retries or weakened assertions. Rendering uses the same
+artwork, geometry, and timeline as the accepted captures.
+
+Three production-build mobile Lighthouse runs on the final source score 98, 98,
+and 98. LCP is 2266.5714, 2259.6771, and 2255.5207 ms; median 2259.6771 ms. Each
+CLS value is 0.000123753. All unchanged thresholds pass. Reports and the parsed
+summary are retained under .research/experience-study/lighthouse-source-final
+and lighthouse-source-final-summary.json. The prior failing reports and the
+intermediate priority measurements remain retained. A local headless Chromium
+sample of the unchanged motion path reports zero canvas elements or errors and
+approximately 46 KB of encoded JavaScript on desktop, tablet, and mobile. Its
+16.7 ms median animation-frame sample is a lab observation, not physical iPhone
+or field smoothness certification.
+
+The earlier artwork CI run 40025575891 at ee578bf completed successfully:
+178 passed, twelve inapplicable skips, zero failures or flaky results, and all
+eighteen Lighthouse measurements. Its /experience median was 98, LCP
+2234.6564 ms, and CLS 0.0001249505. That run preceded the three visual fixes and
+final delivery correction, so it does not certify the final source. Its parsed
+summary and artifacts are retained under .research/experience-study.
+
+Final hosted run [40089079924](https://github.com/Mohanad49/Portfolio/actions/runs/40089079924)
+at 38ea3bedd90cbf8c90a373c9f4b4f2aa63d25ffe succeeds in 8 minutes and 53 seconds.
+All type, lint, build, browser, performance, and artifact-upload steps pass. The
+190 browser registrations contain 178 passes, twelve established inapplicable
+portfolio.spec.ts skips, zero failures, zero flaky results, and zero retries.
+All 54 experience registrations are applicable and pass. The browser matrix
+completes in 211.908 seconds. All eighteen production-build mobile Lighthouse
+measurements complete and every unchanged median gate passes:
+
+| Route | Runs | Median performance | Median LCP | Median CLS |
+| --- | --- | --- | --- | --- |
+| / | 3 | 99 | 1.588 s | 0.000563 |
+| /work/ | 3 | 100 | 1.356 s | 0.000753 |
+| /work/testpulse/ | 3 | 100 | 1.356 s | 0.017927 |
+| /work/caldiy/ | 3 | 100 | 1.356 s | 0.000800 |
+| /work/llm-evaluation/ | 3 | 100 | 1.357 s | 0.000774 |
+| /experience/ | 3 | 99 | 1.959 s | 0.000125 |
+
+The exact parsed results and downloaded reports are retained under
+.research/experience-study/ci-summary-40089079924.json and
+ci-artifacts-40089079924. These remote-runner measurements are production-build
+lab results, not visitor field data. The final audit follow-up changes only
+documentation, so it consumes this verified application/test/configuration tree
+without repeating identical checks.
+
+Vercel Preview deployment 7297844824 succeeded at application commit 8731f42 plus
+review-record commit 38ea3be. Its immutable comparison route is
+https://portfolio-5c4dn4unn-mohanad49s-projects.vercel.app/experience.
+The existing authorized browser session opens it without an authentication
+interruption. At its actual 729x797 viewport, the upper and lower WebPs load,
+the unused desktop picture selects the inert image, motion initializes, and a
+native scroll changes the upper transform. Explore the work reaches #evidence
+with its heading approximately 64 pixels below the viewport top and all three
+observations present. View the current version opens the unchanged homepage.
+The resume retains its public PDF URL and descriptive download filename; its
+bytes are unchanged from the earlier hash-verified download. The prototype is
+noindex, follow and has been left open for comparison. No new physical-device
+or download claim is made by this hosted smoke check.
+
+At the temporary 1440x1000 hosted desktop viewport, the full approved plate loads
+and both compact images select their inert fallback. Native scrolling advances
+the plate to its 1.22 scale, with zero canvas elements. The viewport override was
+then reset to the actual 729x797 browser size. A footer-link automation attempt
+failed in the in-app browser's click resolution after that reset; it did not
+establish a site defect or verify footer pointer activation. Direct navigation
+to the already exposed #top fragment returns to scroll position zero. These
+limits are retained separately from the passing local and hosted browser suite.
+
+GitHub still records Production deployment 7280653313 at
+40a24f16ec037658fb13d5509dd1ba59573f480a. The original checkout is clean. PR #4
+remains an open draft, with no homepage integration or production change.
+
+The handoff recommends this artwork treatment for the opening because it retains
+the approved material finish while providing bounded desktop and compact mobile
+scroll motion. It does not claim a fully rendered 3D passage. The actual built
+desktop capture and tested immutable preview are ready for owner comparison;
+integration remains a separate decision.
+
+The rejected snapshot's hosted run 40016674543 completed its full browser matrix:
+172 passed, eighteen inapplicable skips, zero failures, zero flaky results, and
+no retries. The workflow concluded cancelled during performance collection after
+eleven of eighteen Lighthouse reports. The job annotation confirms the 25-minute
+execution limit was exceeded. Browser installation alone took 18 minutes and
+53 seconds. The job allowance is now 35 minutes so the existing browser and
+performance checks can finish; no test, retry, metric, or threshold is relaxed.
+The cancelled run is not a green full pipeline. Artifacts and the parsed
+summary are retained in .research/experience-study/ci-artifacts and
+ci-summary-40016674543.json. Its local three-run /experience measurement had median
+performance 97, LCP 2.409 s, and CLS 0.000124; one individual LCP was 2.707 s.
+Those measurements apply to the rejected renderer snapshot, not the new treatment.
+
+The rejected hosted preview's work fragment, comparison navigation, and current
+resume download were checked in the authenticated browser. The downloaded PDF's
+SHA-256 matches the current public resume. The new preview smoke check is
+recorded above.
+
+## Rejected renderer: comparison checkpoint
+
+The owner selected B: Pass Through on 2026-10-23. Application source a697113
+and test configuration 8125cf0 implement the isolated /experience route on
+codex/qa-portfolio. The homepage and production are unchanged. Type checking
+passes for 36 files with zero diagnostics; lint and the twenty-page static build
+pass. Existing optional renderer chunk warnings remain visible.
+
+The rebuilt route's first full local matrix records 47 passed checks, six
+inapplicable desktop-only skips, and one WebKit desktop timeout in the driver's
+scroll-into-view command. All nine new axe/reflow cases pass, with zero serious
+or critical findings. The trace shows that the CTA had already passed visible,
+enabled, and stable checks; no click was dispatched. A separate diagnostic finds
+responsive JavaScript, a fully visible hit-testable anchor, and working native
+pointer navigation before scene readiness. It does not establish a definitive
+application cause for the intermittent inspector stall.
+
+The corrected test requires full viewport visibility and click({ scroll: 'none' }).
+This pinned Playwright option retains normal actionability and hit-target checks.
+It changes the driver step, not the site's behavior or the assertion. The final
+affected matrix records 12 passed checks, six inapplicable skips, and zero failures:
+native scrolling in all nine configurations, plus actual rendering, idle rest,
+zero console/page errors, and context-loss recovery in all three desktop engines.
+The other 36 green checks are unchanged. Together these cover all 48 applicable
+prototype checks without retries. The hosted PR pipeline will run the complete
+application matrix and all eighteen mobile Lighthouse runs; results are pending.
+
+Initial focused checks also exposed a real desktop deep-link failure during
+inherited smooth fragment scrolling. Immediate native anchors on this route fix
+it. The first reading-position test incorrectly assumed the timeline was onscreen
+at the section bookmark; it now enters that timeline before changing preferences.
+A test closure was corrected to pass its expected position into the browser.
+Failure traces are retained in test-results/experience-initial,
+experience-corrected, experience-matrix, and experience-rebuild-matrix. No retry,
+skip, or threshold was added to suppress a failing applicable behavior.
+
+One local type/build attempt collided on Astro's generated temporary file because
+both wrote it concurrently. Sequential type checking and building succeed. The
+rebuild's initial unchecked-index type errors were resolved before the passing
+final check. The two source materials compile into optimized WebP files; their
+PNG sources and exact prompt sidecars are absent from dist. Provenance scan:
+seven raster assets, zero missing metadata.
+
+Visual acceptance remains open. Both independent full reviews have disposition
+rebuild. The first found flat desktop materials, an unclear project opening, and
+mobile action overlap. The focal rebuild added original chrome/reflection maps,
+real gap geometry, lower transmission cost, and preserved readable HTML. The
+second review resolves mobile clearance but still rejects the live desktop
+materials, close enclosure, arrival caption, and navigation clearance. The static
+94.2% comparison applies only to the still. It does not certify the live scene.
+Both reports are retained as docs/experience/visual-review.initial.md and
+visual-review.renderer.md. Current required captures/videos are under
+.impeccable/review/experience; previous captures remain under .research.
+
+The documentation handoff records the actual prototype in
+docs/experience/design-record.md and preserves canonical DESIGN.md and
+.impeccable/design.json. This snapshot is for a hosted comparison. It is not ready
+for integration or production. A further material strategy requires the owner's
+decision after the second rebuild verdict, as required by Impeccable.
+
+## Experience study: evidence checkpoint
+
+On 2026-10-23 the owner authorized a storyboard and isolated motion prototype.
+The desktop/mobile storyboard, three opening concepts, and a supporting mobile
+comparison are prepared in docs/experience and .impeccable/mocks/experience.
+All four generated PNGs have exact prompt sidecars and embedded provenance.
+The concepts were inspected; their image-generated text is a visual reference,
+not production UI or evidence of working motion. The owner subsequently selected B.
+
+The live public TestPulse index and all thirteen suite summaries were inspected.
+The selected caldiy-api-v2 booking-lifecycle observations were rechecked against
+the exact public JSON. Three dated Passed/Failed/Passed observations share commit
+5c0869a1ddaf9aedc8f05d3d0cccc8c7b4dcc3a2, with unknown retry counts. The
+payload digest and source are retained in docs/experience/testpulse-evidence.json.
+The 50-run metrics window and 81-observation detailed timeline remain distinct.
+
+This earlier checkpoint changed no application code, dependencies, build settings,
+or deployment configuration. The production checks below remain historical
+evidence for the unchanged public homepage. Production replacement is outside
+the selected prototype's scope.
+
 ## Current source
 
 Owner-feedback application source: 5387919, including the content increment b0e89e6.

@@ -1,0 +1,43 @@
+{
+  "source": "https://testpulse-eight.vercel.app/data/suite-0.json",
+  "exportGeneratedAt": "2026-10-23T08:12:11.869191+00:00",
+  "checkedOn": "2026-10-23",
+  "payloadSha256": "7eef058c1467af41eae32480a367e142f24c44758be46a96866be354e55380a9",
+  "suite": "caldiy-api-v2",
+  "testId": "::tests.api.test_bookings::test_booking_lifecycle",
+  "metricsWindow": 50,
+  "availableTimelineObservations": 81,
+  "classification": [
+    "same-commit"
+  ],
+  "observations": [
+    {
+      "runId": 1220,
+      "startedAt": "2026-09-14T09:22:01.130320+00:00",
+      "commit": "5c0869a1ddaf9aedc8f05d3d0cccc8c7b4dcc3a2",
+      "status": "passed",
+      "retryCount": null
+    },
+    {
+      "runId": 1224,
+      "startedAt": "2026-09-14T09:31:25.423954+00:00",
+      "commit": "5c0869a1ddaf9aedc8f05d3d0cccc8c7b4dcc3a2",
+      "status": "failed",
+      "retryCount": null
+    },
+    {
+      "runId": 1364,
+      "startedAt": "2026-09-21T09:02:13.068837+00:00",
+      "commit": "5c0869a1ddaf9aedc8f05d3d0cccc8c7b4dcc3a2",
+      "status": "passed",
+      "retryCount": null
+    }
+  ],
+  "boundaries": [
+    "Frozen public CI export, not a live stream.",
+    "Three selected observations, not three immediate retries.",
+    "Retry counts are unknown.",
+    "Same-commit inconsistency does not identify root cause.",
+    "The 50-run metrics window differs from the full 81-observation detail timeline."
+  ]
+}

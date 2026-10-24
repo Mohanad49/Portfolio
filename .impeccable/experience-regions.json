@@ -1,0 +1,14 @@
+{
+  "regions": [
+    { "id": "passage-material", "kind": "plate", "grid": "A0:J9", "note": "The complete chrome and amber inspection artwork and graphite field. Remove all lettering and controls from this plate. An actual optional 3D scene later enhances this still, while mobile moves two separately generated material cutouts." },
+    { "id": "brand", "kind": "text", "grid": "A0:C0", "note": "Mohanad Yehia, warm-white installed brand face." },
+    { "id": "navigation", "kind": "text", "grid": "G0:J0", "note": "Work Approach About Contact." },
+    { "id": "headline", "kind": "text", "grid": "A1:G2", "note": "Complex systems. Clear evidence. Two lines; retain the established Alexandria face." },
+    { "id": "role", "kind": "text", "grid": "A4:C4", "note": "Software QA Engineer." },
+    { "id": "introduction", "kind": "text", "grid": "A4:C5", "note": "Production QA across web, mobile, API, and data." },
+    { "id": "work-action", "kind": "control", "grid": "A5:B5", "note": "Explore the work, amber action." },
+    { "id": "resume-action", "kind": "control", "grid": "B5:C5", "note": "Resume, quiet outlined action." },
+    { "id": "project-title", "kind": "text", "grid": "G6:J6", "note": "TestPulse, readable HTML in the material opening, not rasterized or blurred." },
+    { "id": "project-summary", "kind": "text", "grid": "G7:J7", "note": "Test observability & flake detection." }
+  ]
+}
