@@ -25,18 +25,53 @@ test('the study presents the frozen evidence and clear comparison actions', asyn
   await expect(page.locator('.passage-resume')).toHaveAttribute('download', 'Mohanad_Yehia_Software_QA_Engineer.pdf');
 });
 
-test('one TestPulse heading grows into the work before native scrolling resumes', async ({ page }) => {
+test('one TestPulse heading grows into the work before native scrolling resumes', async ({ page }, testInfo) => {
   await page.goto('/experience');
   await expect(page.locator('.passage-opening')).toHaveClass(/has-passage-motion/);
+  await page.evaluate(() => document.fonts.ready);
+  const activeArtwork = page.locator((page.viewportSize()?.width ?? 0) >= 1024 ? '.passage-plate' : '.passage-upper, .passage-lower');
+  for (const image of await activeArtwork.all()) {
+    await expect.poll(() => image.evaluate((element: HTMLImageElement) => element.complete && element.naturalWidth > 1)).toBe(true);
+    await image.evaluate((element: HTMLImageElement) => element.decode());
+  }
   const title = page.getByRole('heading', { level: 2, name: 'TestPulse', exact: true });
   await expect(title).toHaveCount(1);
   await expect(page.locator('.passage-arrival')).toBeHidden();
   const range = await page.locator('.passage-opening').evaluate(element => ({ top: element.getBoundingClientRect().top + scrollY, travel: element.clientHeight - document.querySelector<HTMLElement>('.passage-frame')!.offsetHeight }));
   const widths: number[] = [];
-  for (const progress of [.25, .75, .92, 1]) {
-    await page.evaluate(top => window.scrollTo({ top, behavior: 'instant' }), range.top + range.travel * progress);
-    await page.waitForTimeout(350);
-    widths.push(await title.evaluate(element => element.getBoundingClientRect().width));
+  const samples: { progress: number; requestedScroll: number; scroll: number; width: number }[] = [];
+  let previousWidth = await title.evaluate(element => element.getBoundingClientRect().width);
+  try {
+    for (const progress of [.25, .75, .92, 1]) {
+      const requestedScroll = range.top + range.travel * progress;
+      await page.evaluate(top => window.scrollTo({ top, behavior: 'instant' }), requestedScroll);
+      await expect.poll(() => page.evaluate(top => Math.abs(scrollY - top), requestedScroll)).toBeLessThanOrEqual(1);
+      const sample = { progress, requestedScroll, scroll: await page.evaluate(() => scrollY), width: previousWidth };
+      samples.push(sample);
+      await expect.poll(async () => {
+        sample.width = await title.evaluate(element => element.getBoundingClientRect().width);
+        return sample.width;
+      }).toBeGreaterThan(previousWidth + .2);
+      // Sample a settled rendered pose instead of assuming a fixed frame budget.
+      const width = await title.evaluate(element => new Promise<number>(resolve => {
+        let previous = element.getBoundingClientRect().width;
+        let stableFrames = 0;
+        function sampleFrame() {
+          const current = element.getBoundingClientRect().width;
+          stableFrames = Math.abs(current - previous) < .01 ? stableFrames + 1 : 0;
+          previous = current;
+          if (stableFrames >= 3) resolve(current);
+          else requestAnimationFrame(sampleFrame);
+        }
+        requestAnimationFrame(sampleFrame);
+      }));
+      expect(width).toBeGreaterThan(previousWidth + .2);
+      sample.width = width;
+      widths.push(width);
+      previousWidth = width;
+    }
+  } finally {
+    await testInfo.attach('arrival-scroll-samples', { body: JSON.stringify(samples), contentType: 'application/json' });
   }
   for (let index = 1; index < widths.length; index++) expect(widths[index]!).toBeGreaterThan(widths[index - 1]! + .2);
   await expectFullyInViewport(title);
