@@ -90,3 +90,23 @@ and limitations. Preserve the evidence boundaries in PRODUCT.md.
 
 One verification record represents the current source tree. Git/review workflows
 reuse its results. Rerun affected checks and screenshots after changes.
+
+## Accepted full-site extension, D-019
+
+The owner accepted the D-018 opening and requested its motion character across
+the homepage, archive, and case studies. Continue in the existing isolated
+checkout and draft PR. Adopt the accepted opening on the preview root and keep
+/experience as the focused study. Production is not replaced during this step.
+
+Preserve the five-owner table. Impeccable owns this same-world motion extension.
+Existing selected compositions and rasters are reused; no new concept tournament
+or image generation is needed. Factual copy is unchanged. Case-study writing and
+imagegen remain inactive unless a concrete content or asset gap appears.
+
+Sequence: share and verify the opening; integrate the full homepage; implement
+content-specific chapter motion, case entries/evidence/reading/navigation, and
+archive continuity; run affected checks and current performance measurements;
+complete the existing independent finish and source handoffs; document the built
+system; validate the complete hosted preview. Reuse passing evidence for unchanged
+source. Native CSS cross-document transitions are progressive navigation effects,
+not another motion library or workflow.

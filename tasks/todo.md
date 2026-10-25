@@ -50,3 +50,13 @@
 - [x] Verify full hero fade, continuous growth, release continuity, and fallbacks.
 - [x] Complete bounded visual finish, technical review, and design documentation.
 - [x] Publish and verify the revised isolated preview with passing acceptance checks.
+
+## Full portfolio motion extension, D-019
+
+- [ ] Share the accepted opening and preserve its complete fallback behavior.
+- [ ] Integrate it into the full homepage without duplicating TestPulse.
+- [ ] Choreograph the remaining homepage chapters and dynamic material field.
+- [ ] Extend the archive and all three case-study pages.
+- [ ] Verify behavior, accessibility, responsive states, and performance.
+- [ ] Complete visual/source review and finished design documentation.
+- [ ] Publish and smoke-test the complete preview, keeping production separate.

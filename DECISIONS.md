@@ -237,3 +237,35 @@ references: https://gsap.com/docs/v3/Plugins/ScrollTrigger/ and
 https://gsap.com/docs/v3/GSAP/gsap.context()/.
 Apply this refinement to the isolated /experience preview; production integration
 remains a separate decision.
+
+## D-019: Carry the accepted opening through the full portfolio
+
+On 2026-10-25 the owner accepted D-018 and requested a similarly memorable full
+website, including the case studies. Promote that opening to the preview homepage
+and extend the existing world through content-specific chapter motion. Keep the
+focused /experience study, source facts, and production recovery point.
+
+This extends approved surfaces and materials, rather than selecting a new world.
+The prior image approvals and explicit D-018 acceptance remain visual authority.
+No new raster concept or material rebuild is needed. Impeccable owns the motion
+thesis, implementation, visual review, and documentation. The case-study writer
+is inactive because facts and narratives are unchanged; imagegen is inactive
+because existing approved assets suffice. Git and technical source review retain
+their existing separate responsibilities. No extra workflow is activated.
+
+Focal moment: accepted Pass Through. Continuity: distinct Cal.diy contention,
+LLM comparison, production trace, inspection, portrait, and contact sequences.
+Feedback: native navigation, project links, filters, disclosures, and contact
+remain direct. Budget: bounded GSAP timelines, native CSS document transitions,
+and the existing on-demand Approach renderer. No smooth-scroll replacement,
+client router, perpetual background loop, or additional animation dependency.
+
+Case-study entrances share the material language; prose remains steady. Preserve
+static content, Reduce Motion, focus, bookmarks, history, resource cleanup,
+responsive reflow, and enlarged text. Reuse the existing acceptance thresholds
+and one current-source verification record. Full visual/source reviews precede
+preview completion. Production replacement remains a separate decision.
+
+Reference inspection: https://landonorris.com/ supplies a pacing reference, not
+assets or product content. Implementation references are GSAP ScrollTrigger and
+MDN's native cross-document View Transition API documentation.
