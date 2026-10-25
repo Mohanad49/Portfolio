@@ -154,6 +154,20 @@ test('enlarged compact text flows without overlapping the opening controls', asy
     await page.setViewportSize({ width, height: 844 });
     await page.goto('/experience');
     await page.addStyleTag({ content: 'html { font-size: 200%; }' });
+    await page.evaluate(() => document.fonts.ready);
+    await expect(page.locator('#passage-title')).toHaveCSS('font-size', '64px');
+    const words = await page.locator('#passage-title').evaluate(element => [...element.querySelectorAll('span')].flatMap(span => {
+      const text = span.firstChild;
+      if (!text || text.nodeType !== Node.TEXT_NODE) return [];
+      return [...(text.textContent ?? '').matchAll(/\S+/g)].map(match => {
+        const range = document.createRange();
+        range.setStart(text, match.index);
+        range.setEnd(text, match.index + match[0].length);
+        return { word: match[0], fragments: range.getClientRects().length };
+      });
+    }));
+    expect(words).toHaveLength(4);
+    for (const word of words) expect(word.fragments, word.word).toBe(1);
     const selectors = ['#passage-title', '.passage-role', '.passage-introduction', '.passage-actions', '.passage-project-title', '.passage-project-summary'];
     const bounds = await page.locator('.passage-stage').evaluate((_, items) => items.map(selector => {
       const rect = document.querySelector(selector)!.getBoundingClientRect();
