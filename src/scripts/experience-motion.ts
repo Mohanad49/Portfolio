@@ -72,7 +72,7 @@ export function initExperienceMotion() {
       sequence.fromTo('.passage-arrival', { autoAlpha: 0 }, { autoAlpha: 1, duration: .3 }, .55);
       sequence.from('.passage-arrival-content', { y: 24, duration: .3 }, .55);
       if (!historyRevealed && history.getBoundingClientRect().top > innerHeight * .9) {
-        gsap.from('.observation', { opacity: .18, y: 20, duration: .7, stagger: .14, clearProps: 'opacity,transform', ease: 'expo.out', onComplete: () => { historyRevealed = true; }, scrollTrigger: { trigger: history, start: 'top 85%', once: true } });
+        gsap.from('.observation', { opacity: 0, y: 20, duration: .7, stagger: .14, clearProps: 'opacity,transform', ease: 'expo.out', onComplete: () => { historyRevealed = true; }, scrollTrigger: { trigger: history, start: 'top 85%', once: true } });
       } else historyRevealed = true;
     });
     if (arrivingAtBookmark) syncBookmark();

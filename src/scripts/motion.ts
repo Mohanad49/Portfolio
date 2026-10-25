@@ -33,10 +33,10 @@ export function initMotion() {
       }
 
       for (const element of document.querySelectorAll('[data-reveal]')) {
-        once(element, { y: 28, opacity: .18 });
+        once(element, element.querySelector('a, button, input, summary') ? { y: 28 } : { y: 28, opacity: 0 });
       }
       for (const element of document.querySelectorAll('.chapter-title, .case-prose h2, .case-evidence h2')) {
-        once(element, { y: 42, clipPath: 'inset(0 0 100% 0)' });
+        once(element, element.querySelector('a, button, input, summary') ? { y: 42 } : { y: 42, clipPath: 'inset(0 0 100% 0)' });
       }
 
       for (const field of document.querySelectorAll('.material-field')) {
@@ -80,7 +80,7 @@ export function initMotion() {
       });
 
       for (const step of document.querySelectorAll('.approach-steps li')) {
-        once(step, { x: -22, opacity: .3 });
+        once(step, { x: -22, opacity: 0 });
       }
       if (desktop.matches && document.querySelector('#approach')) {
         ScrollTrigger.create({ trigger: '#approach', start: 'top bottom', end: 'bottom top', onUpdate: self => setInspectionProgress(self.progress) });
@@ -95,11 +95,14 @@ export function initMotion() {
       for (const rule of document.querySelectorAll('.evidence-rule')) {
         once(rule, { scaleX: 0, duration: 1.15 });
       }
-      for (const row of document.querySelectorAll('.judge-results > div, .strategy-list > div, .case-index-link, .framework-item')) {
-        once(row, { y: 24, opacity: .35 });
+      for (const row of document.querySelectorAll('.judge-results > div, .strategy-list > div')) {
+        once(row, { y: 24, opacity: 0 });
+      }
+      for (const row of document.querySelectorAll('.case-index-link, .framework-item')) {
+        once(row, { y: 24 });
       }
       for (const next of document.querySelectorAll('.next-case > a, .archive-link-action')) {
-        once(next, { x: -28, opacity: .3 });
+        once(next, { x: -28 });
       }
 
       const progress = document.querySelector('.reading-progress');

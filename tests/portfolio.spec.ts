@@ -135,14 +135,16 @@ test('scroll reveals become fully readable and respect live motion preferences',
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.goto('/');
   const copy = page.locator('.about-copy');
-  await expect.poll(() => copy.evaluate(element => Number(getComputedStyle(element).opacity))).toBeLessThan(.5);
+  await expect.poll(() => copy.evaluate(element => getComputedStyle(element).transform)).not.toBe('none');
+  await expect(copy).toHaveCSS('opacity', '1');
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await expect.poll(() => page.locator('[data-reveal]').evaluateAll(elements => elements.every(element => {
     const style = getComputedStyle(element);
     return style.opacity === '1' && style.transform === 'none';
   }))).toBe(true);
   await page.emulateMedia({ reducedMotion: 'no-preference' });
-  await expect.poll(() => copy.evaluate(element => Number(getComputedStyle(element).opacity))).toBeLessThan(.5);
+  await expect.poll(() => copy.evaluate(element => getComputedStyle(element).transform)).not.toBe('none');
+  await expect(copy).toHaveCSS('opacity', '1');
   await copy.scrollIntoViewIfNeeded();
   await expect(copy).toBeInViewport();
   await expect(copy).toHaveCSS('opacity', '1');
@@ -223,6 +225,22 @@ test('all public routes have zero serious or critical axe findings', async ({ pa
     const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
     await testInfo.attach(`axe-${route.replaceAll('/', '-') || 'home'}`, { body: JSON.stringify(results, null, 2), contentType: 'application/json' });
     expect(results.violations.filter(item => item.impact === 'serious' || item.impact === 'critical')).toEqual([]);
+  }
+});
+
+test('motion-enabled routes keep waiting reveals and source links accessible', async ({ page }, testInfo) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  for (const route of [...routes, '/experience']) {
+    await page.goto(route);
+    if (route === '/experience') await expect(page.locator('.passage-opening')).toHaveClass(/has-passage-motion/);
+    else await expect.poll(() => page.locator('.ambient-warm').evaluate((element: HTMLElement) => element.style.transform)).not.toBe('');
+    const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
+    await testInfo.attach(`axe-motion-${route.replaceAll('/', '-') || 'home'}`, { body: JSON.stringify(results, null, 2), contentType: 'application/json' });
+    expect(results.violations.filter(item => item.impact === 'serious' || item.impact === 'critical')).toEqual([]);
+    expect(await page.locator('.framework-item, .case-index-link, .next-case > a, .about-copy, .chapter-title:has(a)').evaluateAll(elements => elements.every(element => {
+      const style = getComputedStyle(element);
+      return style.opacity === '1' && style.clipPath === 'none';
+    }))).toBe(true);
   }
 });
 
