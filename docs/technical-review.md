@@ -882,3 +882,26 @@ verification record contains the exact source identities and supplied results.
 Fresh full visual review and hosted acceptance remain pending, and production
 integration remains outside scope. This note records supplied results only;
 no new source review, runtime check, or workflow was performed.
+
+### Supplied hosted completion status
+
+Date: 2026-10-25. [The verification record](verification.md) owns the current
+results. Approved source blobs are unchanged. GitHub run `40145616153` succeeded
+at `186ef7970751fa19cf42c95be167793c3c48ab5a` (application `563096e`), with the
+verify job completing in 7m46s: 199 browser registrations, 187 passes, 12
+established inapplicable `portfolio.spec.ts` skips, and zero failures, flaky
+results, or retries. All 63 experience checks pass. All 18 Lighthouse measurements
+completed and all six routes pass the unchanged median gates; experience scores
+99 with LCP 1956.3218 ms and CLS approximately 0.00012495048. Retained evidence is
+`ci-artifacts-40145616153` and `ci-summary-40145616153.json` under the study folder.
+
+[Vercel Preview 7306339845](https://portfolio-f6xmmxsd7-mohanad49s-projects.vercel.app/experience)
+succeeded at the same checkpoint. The parent's desktop/mobile smoke confirms
+single-heading growth, complete hero fade and introduction, native release,
+bookmark placement, comparison navigation, download/noindex attributes, and
+empty error logs. Fresh full visual review reports ship; the design record is
+complete with canonical hashes unchanged. Hosted acceptance is complete for the
+isolated prototype. The parent reports a clean original checkout and production
+still at deployment `7280653313`, source `40a24f1`. Physical-iPhone behavior is
+not certified, and production integration remains outside this approval. This
+note records supplied results only, without new review, checks, or workflow.

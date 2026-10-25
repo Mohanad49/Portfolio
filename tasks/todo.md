@@ -48,5 +48,5 @@
 
 - [x] Replace the decorative duplicate with one heading and a complete work arrival.
 - [x] Verify full hero fade, continuous growth, release continuity, and fallbacks.
-- [ ] Complete bounded visual finish, technical review, and design documentation.
-- [ ] Publish and verify the revised isolated preview with passing acceptance checks.
+- [x] Complete bounded visual finish, technical review, and design documentation.
+- [x] Publish and verify the revised isolated preview with passing acceptance checks.

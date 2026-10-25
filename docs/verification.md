@@ -97,8 +97,53 @@ all 24 required captures. It confirms the complete single-heading transformation
 hero disappearance, explanatory arrival, and settled release, with no material
 fixes. Videos were not played, and the verdict does not certify temporal or
 physical-device smoothness. D-017 review history is retained below that report.
-Completed design documentation and hosted verification remain pending. This is
-still an isolated preview, not production integration.
+The completed design record describes the actual D-018 DOM, local values,
+progress ownership, measured travel, lifecycle, and fallbacks. DESIGN.md and
+.impeccable/design.json retain their recorded canonical hashes. Historical spec
+and static-diff annotations are documented without unrelated repair.
+
+Preview deployment 7306339845 succeeds at checkpoint
+186ef7970751fa19cf42c95be167793c3c48ab5a. The immutable preview is
+https://portfolio-f6xmmxsd7-mohanad49s-projects.vercel.app/experience.
+The in-app browser smoke checks native scrolling at 1280x720 and 390x844.
+Desktop title width grows from 314.316 to 579.004 CSS pixels; all five hero
+opacities reach zero with hidden visibility, and the arrival reaches opacity 1.
+At scroll 1008 the title top is 86.398; after 80 more pixels its top is 6.398,
+with unchanged width and one heading. Mobile widths progress from 227.466 through
+276.909 to 332.674 pixels. Both compact images load, no canvas is present, and
+all five hero opacities reach zero. The work shortcut lands the evidence marker
+at 64.063 pixels. The noindex/download attributes, comparison navigation, return,
+and restored opening are verified; recorded browser errors are empty.
+Hosted screenshots and the smoke record are retained as hosted-arrival.jpg,
+hosted-mobile-arrival.jpg, and .research/experience-study/hosted-arrival-smoke.json.
+Viewport overrides were reset, and the preview remains open at its beginning.
+
+Hosted quality [run 40145616153](https://github.com/Mohanad49/Portfolio/actions/runs/40145616153)
+succeeds at checkpoint 186ef7970751fa19cf42c95be167793c3c48ab5a, with its verify
+job completing in 7 minutes 46 seconds. All check, lint, build, browser,
+performance, and upload steps pass. The 199 browser registrations contain
+187 passes and twelve established inapplicable portfolio.spec.ts skips, with
+zero failures, flaky results, or retries. All 63 experience checks apply and
+pass. The browser matrix starts at 2026-10-25T00:11:20.528Z and completes in
+177.272 seconds. All eighteen mobile Lighthouse runs complete, and every
+unchanged median gate passes:
+
+| Route | Runs | Median performance | Median LCP, ms | Median CLS |
+| --- | --- | --- | --- | --- |
+| / | 3 | 100 | 1585.324 | 0.000563 |
+| /experience/ | 3 | 99 | 1956.322 | 0.000125 |
+| /work/ | 3 | 100 | 1356.795 | 0.000753 |
+| /work/testpulse/ | 3 | 100 | 1356.151 | 0.017927 |
+| /work/caldiy/ | 3 | 100 | 1354.854 | 0.000800 |
+| /work/llm-evaluation/ | 3 | 100 | 1357.215 | 0.000774 |
+
+The run metadata, complete artifacts, and parsed summary are retained as
+ci-run-40145616153.json, ci-artifacts-40145616153, and ci-summary-40145616153.json
+under .research/experience-study. Final documentation consumes this exact
+application tree without repeating its checks. This remains an isolated draft
+preview, not production integration. Production deployment 7280653313 remains at
+40a24f16ec037658fb13d5509dd1ba59573f480a, and the original checkout is clean.
+The temporary local preview was stopped after hosted verification.
 
 ## Layered artwork prototype: previous checkpoint, 2026-10-24
 
