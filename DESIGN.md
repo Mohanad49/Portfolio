@@ -14,7 +14,7 @@ colors:
 typography:
   display:
     fontFamily: "'Alexandria Variable', sans-serif"
-    fontSize: "9.96vw"
+    fontSize: "7.95vw"
     fontWeight: 700
     lineHeight: 0.9
     letterSpacing: "-0.04em"
@@ -67,8 +67,8 @@ components:
     textColor: "#17110a"
     typography: "{typography.action}"
     rounded: "{rounded.action}"
-    height: "4.1vw"
-    width: "13.54%"
+    height: "4.16vw"
+    width: "13.67%"
   button-primary-hover:
     backgroundColor: "#ffda98"
     textColor: "#17110a"
@@ -77,8 +77,8 @@ components:
     textColor: "{colors.ink}"
     typography: "{typography.action}"
     rounded: "{rounded.action}"
-    height: "4.1vw"
-    width: "8.92%"
+    height: "4.16vw"
+    width: "8.99%"
   button-secondary-hover:
     backgroundColor: "#393027"
   text-link:
@@ -127,17 +127,18 @@ components:
 
 Matte graphite makes room for warm white typography, quiet controls, and precisely lit inspection materials. The system pairs an exhibition's large visual statements with a monograph's patient reading rhythm. Offset dark chrome and transparent amber layers give the abstract subject a physical form.
 
-Editorial layouts vary with their content: open project entries, ruled framework rows, attributed numerical evidence, long-form reading columns, and the owner's real portrait. Conceptual imagery is identified as artwork. Readable text and controls stay in HTML, with a complete static experience beneath optional motion and 3D.
+Editorial layouts vary with their content: open project entries, ruled framework rows, attributed numerical evidence, long-form reading columns, and the owner's real portrait. Conceptual imagery is identified as artwork. Readable text and controls stay in HTML, with a complete static experience beneath optional motion and 3D. The accepted Pass Through opening now leads the homepage; its continuous project arrival extends into content-specific chapter motion, material-framed case entrances, and a quiet reading body.
 
 **Key Characteristics:**
 
 - Matte graphite, warm white, and a controlled amber accent.
 - Alexandria display typography paired with Manrope reading text.
 - Rectangular editorial surfaces, fine rules, and generous section spacing.
-- Optical depth concentrated in the inspection artwork and live study.
+- Optical depth carried by actual inspection materials and the local live study.
+- Bounded native-scroll choreography, with steady prose and direct actions.
 - Semantic controls, visible focus, and complete static alternatives.
 
-This record extracts the completed source, primarily `src/styles/global.css`, the homepage components, `src/pages/work/index.astro`, and `src/pages/work/[slug].astro`. The approved world is recorded in `docs/briefs/home.md`; its first-viewport composition stays there. The completed visual disposition is recorded in `docs/visual-review.md`.
+This record extracts application commit `d3e334ea22cbb3c7f9f4315bd182bb2c44c81b14`, primarily `src/styles/global.css`, `src/components/PassThrough.astro`, `src/scripts/experience-motion.ts`, `src/scripts/motion.ts`, and the work routes. The current surface contracts are `docs/briefs/home.md`, `docs/briefs/case-studies.md`, and `docs/briefs/archive.md`; their compositions stay there. The D-019 extraction and source references are in `docs/experience/full-site-design-record.md`, the completed visual disposition is in `docs/experience/full-site-visual-review.md`, and current measurements and hosted status belong to `docs/verification.md`.
 
 ## Colors
 
@@ -176,12 +177,12 @@ The eight-step OKLCH ramps in `.impeccable/design.json` are synthesized swatch p
 
 ### Hierarchy
 
-- **Display:** the frontmatter's display role belongs to the desktop hero. Its existing horizontal compression (`scaleX(.93)`) is specific to that measured composition. At the flowing layout it uses `clamp(2rem, 9.96vw, 6.2rem)`; compact screens use `clamp(2rem, 10vw, 4.5rem)` with a more open line height (`1.05`).
-- **Headline:** the frontmatter records the approach heading as a representative section role. Other implemented section headings use content-specific clamps. Case-study titles use `clamp(2.8rem, 8vw, 9rem)` and the archive title uses `clamp(2.5rem, 7.5vw, 8.5rem)`.
+- **Display:** the frontmatter's display role belongs to the desktop Pass Through opening. Its horizontal compression (`scaleX(.93)`) stays specific to that composition, and type caps at `9rem` from `1800px`. Below `1024px`, the title flows with `clamp(2.3rem, 8.3vw, 5rem)` and line height (`1`); at `600px` and below, it uses `clamp(2rem, 9.1vw, 3.5rem)`. Its two semantic spans may wrap, preserving the rem-based lower bound at enlarged text sizes. TestPulse is one linked heading throughout the opening and arrival, with its own horizontal compression (`scaleX(.95)`).
+- **Headline:** the frontmatter records the approach heading as a representative section role. Other implemented section headings use content-specific clamps. Case-study titles use `clamp(2.8rem, 7.5vw, 8rem)` with a compact variant (`clamp(2.6rem, 10vw, 4.4rem)`); the archive title uses `clamp(2.5rem, 7.5vw, 8.5rem)`.
 - **Title:** the frontmatter records the approach-step heading. Archive framework titles use the nearby observed clamp `clamp(1.35rem, 2vw, 2.2rem)`. Global headings balance their lines, with semibold weight and close tracking.
 - **Body:** the base body role serves ordinary copy. Supporting homepage descriptions sometimes step to `1.1rem`. Long-form case studies use the separate reading role and an upper column width (`47rem`); shorter descriptions commonly stop around `60ch` to `65ch`.
 - **Label:** captions and explanatory metadata use the small Manrope role, with local variants from `.75rem` to `.9rem`. Useful context sits below its heading. The owner-approved Selected work label is a retained surface-specific exception, not a general eyebrow pattern.
-- **Action:** the desktop hero action role follows the measured viewport. At widths up to `1000px`, action type becomes `.9rem` and the action has a minimum height (`48px`). Other links inherit body type with stronger weight.
+- **Action:** the desktop opening action role follows the measured viewport and caps at `1.2rem` from `1800px`. Below `1024px`, action type becomes `.9rem` and the action has a minimum height (`48px`); at `600px` and below, type becomes `.85rem`. Other links inherit body type with stronger weight.
 
 ### Named Rules
 
@@ -193,13 +194,15 @@ The eight-step OKLCH ramps in `.impeccable/design.json` are synthesized swatch p
 
 The shared fluid page gutter and section padding are the normative spacing tokens above. Recurring gaps use the recorded half-rem through four-rem measures, with optical exceptions in individual components. There is no shared fixed-width wrapper around the entire page.
 
-Desktop compositions use unequal columns and open edges: featured-work copy uses two columns, secondary work uses a `1.1fr / 1fr` split, the approach uses `1fr / 1.1fr`, the portrait section uses `1fr / 1.25fr`, and contact uses `1.4fr / 1fr`. The case-study reading layout centers a `17rem` sidebar beside a flexible column capped at `47rem`, separated by `clamp(3rem, 9vw, 11rem)`.
+Desktop compositions use unequal columns and open edges: the TestPulse arrival uses two equal columns, later work uses a `1.1fr / 1fr` split, the approach uses `1fr / 1.1fr`, the portrait section uses `1fr / 1.25fr`, and contact uses `1.4fr / 1fr`. The case-study reading layout centers a `17rem` sidebar beside a flexible column capped at `47rem`, separated by `clamp(3rem, 9vw, 11rem)`.
 
 Responsive changes are content-specific:
 
-- At `1000px` and below, the hero, featured-work introduction, and header return to normal flow. Hero artwork becomes a cropped lower visual field, while actions become padded controls.
+- Below `1024px`, the opening title, role, introduction, actions, and linked project return to normal flow; the header becomes relative, the arrival stacks, and separate upper/lower rasters frame the project. The stage uses a minimum scene height (`max(100svh, 740px)`) and side padding capped at `min(var(--page-gutter), 5vw)`. If enlarged content exceeds that minimum by more than `2px`, the opening keeps its complete flowing composition instead of enabling the sticky sequence.
+- At `1000px` and below, the shared header adopts its smaller identity, navigation, and touch-target sizing.
 - At `900px` and below, portrait and reading layouts stack, the case sidebar stops sticking, and production metrics change from four columns to two.
 - At `760px` and below, featured copy, secondary projects, archive rows, and contact stack. Archive action links move into a row.
+- At `760px` and below, case/archive material fields become relative, unmasked `12rem` fields after the entry copy; their desktop absolute composition does not occupy the reading column.
 - At `600px` and below, the header places the identity above a wrapping visible navigation row. Disclosures reflow, metrics fit available width, and the TestPulse strategy comparison becomes a definition list.
 - The inspection study becomes static and stacked at `1023px` and below. Live 3D requires at least `1024px`, no reduced-motion preference, visibility, and working WebGL2.
 - At `1800px` and above, header identity and navigation type stop growing with viewport units.
@@ -218,7 +221,15 @@ The live inspection study uses dark metal exterior layers and transmitting amber
 
 **The Complete Still Rule.** Artwork and content remain complete before enhancement. Demand-rendered 3D updates on pointer, layer-control, or scroll changes and yields to the static artwork outside its supported conditions.
 
-DOM motion brings the existing evidence into focus. Below-viewport content reveals once over `.8s`, from `.18` opacity and `28px` of displacement, on desktop and mobile. Completed styles clear, and content already at the reading position stays steady. The desktop hero lines enter over `.9s`; image displacement uses a `.6s` scrub. Only these hero effects require at least `761px`. Every DOM enhancement respects reduced motion. Global reduced-motion styles disable smooth scrolling and reduce CSS transitions and animations to `.01ms`. Initial 3D activation still requires at least `1024px` and `150ms` of settled scrolling within its observation area; leaving that area immediately restores the static artwork.
+GSAP owns DOM choreography in two scoped contexts. The opening has a native-scroll sequence with a `.2s` scrub; its desktop plate advances while the compact path separates the upper and lower rasters. The hero title, role, introduction, and actions leave completely, while the same linked TestPulse heading and descriptor move into the arrival. The evidence approaches before the sticky frame releases. The opening is reversible and does not replace native scrolling.
+
+Shared below-viewport entrances run once over `.85s` with `power3.out`, starting at `top 92%`. Ordinary groups use `28px` of vertical displacement; linked groups use transforms alone. Noninteractive groups may start at zero opacity, and noninteractive chapter/evidence/reading headings may use a `42px` reveal with an inset mask. Completed transforms, opacity, and clip styles clear. Content already above the `92%` threshold stays steady, including restored reading positions. There is no low-opacity waiting state for linked groups.
+
+Actual upper/lower rasters move in opposite directions through material fields with a `.45s` scrub. Ambient warm/silver light follows total document progress with a `.7s` scrub. Cal.diy contention bars, the LLM agreement line, and the production trace use separate `.35s` scrub ranges; the portrait settles with `.45s`. Evidence rules reveal once over `1.15s`. Case prose remains steady while its headings and rules reveal; a `2px` top progress line tracks the reading region directly. These relationships are scroll-bound, with no continuous idle loop. Their literal source ranges remain in the D-019 design record.
+
+The shared layout opts into native cross-document view transitions in inline head CSS, with a reduced-motion opt-out. The root leaves over `.18s` by `-8px`, enters over `.38s` from `12px`, and named project groups use `.42s` with `cubic-bezier(.16, 1, .3, 1)`. This is progressive enhancement around ordinary document navigation.
+
+Live preference changes revert and reconfigure both GSAP contexts. Global reduced-motion styles disable smooth scrolling and reduce CSS transitions and animations to `.01ms`; pages with the Pass Through opening already use immediate scrolling. Opening resize and stage-size changes settle over `150ms` before one geometry/reading-position transaction and a shared layout refresh. Contexts and listeners clean up on non-persisted page exits and remain available for persisted history restores. Initial 3D activation still requires at least `1024px` and `150ms` of settled scrolling within its observation area; leaving that area or hiding the document immediately restores the static artwork.
 
 ## Shapes
 
@@ -232,7 +243,7 @@ The real portrait has a deliberate crop (`4 / 5`), with its face placement retai
 
 Quiet, legible actions with the strongest fill reserved for the hero's primary action.
 
-- **Primary:** an amber gradient (`145deg`, `#ffd17d` to `#f4a938`) with dark text; hover becomes `#ffda98`. Desktop size follows the frontmatter; the flowing layout uses padding (`.85rem 1.2rem`) and a minimum height (`48px`).
+- **Primary:** an amber gradient (`145deg`, `#ffd17d` to `#f4a938`) with dark text; hover becomes `#ffda98`. Desktop size follows the frontmatter, with a minimum height (`44px`); below `1024px`, the flowing layout uses padding (`.85rem 1.2rem`) and a minimum height (`48px`). At `600px` and below, padding becomes `.75rem 1rem`.
 - **Secondary:** transparent dark fill, a fine warm border (`#b1a492`), and Warm White text. Hover fills with the recorded secondary hover color.
 - **Focus:** a shared amber outline (`2px`) with an offset (`6px`). Color and background transitions last `.2s`.
 - **Copy email:** a transparent, muted icon-and-text action. Hover brightens it. The live component reveals it only when clipboard support exists and announces its result in a status region.
@@ -265,6 +276,16 @@ Native details and summary elements form ruled editorial rows. The first job sta
 ### Layered Inspection Study
 
 The study is a captioned conceptual object, supported by a real static artwork image. Its desktop enhancement renders on demand with a bounded pixel ratio (`1` to `1.5`), transmission resolution (`512`), and samples (`6`). It loads near the viewport, pauses out of view or when the document is hidden, and falls back when WebGL is unavailable. The scene communicates material and inspection, while actual evidence remains in semantic content.
+
+### Pass Through and Shared Material Fields
+
+The homepage and focused `/experience` study share the same opening component and motion initializer. There is one real linked TestPulse heading, not a decorative duplicate. Work and resume actions are available at rest; fading opening controls use `autoAlpha`, so hidden actions leave keyboard focus. Static and reduced-motion defaults keep the full composition and evidence readable.
+
+The chapter, case, archive, and closing fields reuse the approved upper/lower raster pair. They are decorative, noninteractive, clipped fields with perspective and opposite material travel. Case/archive fields occupy the entry's right side on wide screens, while the closing field is subdued behind contact. Their light, masking, and opacity remain material-specific rather than becoming control effects.
+
+### Cases and Archive Continuation
+
+Case entrances keep title, context, summary, report/source actions, and stack before the material field's compact position. Named project text connects the homepage, archive rows, case titles, and next-case links through native document transitions. Case reading preserves its semantic sidebar disclosure, evidence source, stable prose, and measured heading/rule reveals. Archive case rows and framework rows settle by translation alone; native radio filtering, textual counts, URL state, and direct source/report actions remain the interaction.
 
 ## Do's and Don'ts
 

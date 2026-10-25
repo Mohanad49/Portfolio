@@ -10,5 +10,10 @@
     "approvedOn": "2026-10-23",
     "reason": "The owner rejected the hosted renderer as visibly unlike B and explicitly authorized preserving the cinematic layered artwork if it could not match.",
     "boundary": "Retain B composition, native scrolling, semantic text, and the existing homepage inspection scene. Prototype only."
+  },
+  "fullSiteExtension": {
+    "decision": "D-019",
+    "approvedOn": "2026-10-25",
+    "scope": "Reuse the accepted opening on the full portfolio preview and extend its motion character through the homepage, archive, and case studies. Production replacement remains a separate owner decision."
   }
 }

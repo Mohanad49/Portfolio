@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-22T23:44:01Z",
+  "generatedAt": "2026-10-25T09:20:18Z",
   "title": "Design System: Mohanad Yehia Software QA Portfolio",
   "extensions": {
     "colorMeta": {
@@ -143,7 +143,7 @@
     "typographyMeta": {
       "display": {
         "displayName": "Display",
-        "purpose": "Measured desktop hero headline; use its documented flowing and compact variants at smaller widths."
+        "purpose": "Desktop Pass Through headline, with the documented flowing compact clamps and rem-based lower bound for enlarged text."
       },
       "headline": {
         "displayName": "Headline",
@@ -167,7 +167,7 @@
       },
       "action": {
         "displayName": "Action",
-        "purpose": "Measured desktop hero actions; the component previews use the implemented flowing-layout variant."
+        "purpose": "Desktop Pass Through actions, with padded flowing controls below 1024px and the compact 600px variant."
       }
     },
     "shadows": [],
@@ -175,7 +175,7 @@
       {
         "name": "action-state-duration",
         "value": ".2s",
-        "purpose": "Background and color changes in hero actions, navigation, and the contact email."
+        "purpose": "Background and color changes in opening actions, navigation, and the contact email."
       },
       {
         "name": "arrow-and-disclosure-duration",
@@ -183,49 +183,104 @@
         "purpose": "Editorial link arrows and experience-disclosure plus rotation."
       },
       {
-        "name": "hero-line-entrance",
-        "value": ".9s",
-        "purpose": "GSAP hero-line entrance, only at min-width 761px with no reduced-motion preference."
-      },
-      {
-        "name": "hero-line-stagger",
-        "value": ".08s",
-        "purpose": "Spacing between the two hero-line entrances."
+        "name": "opening-scrub",
+        "value": ".2s",
+        "purpose": "Native-scroll catch-up for the shared Pass Through opening; its choreography uses relative timeline units rather than a fixed playback duration."
       },
       {
         "name": "content-entrance",
-        "value": ".8s",
-        "purpose": "Once-only below-viewport evidence reveal on desktop and mobile, triggered at top 92%; completed styles clear."
+        "value": ".85s",
+        "purpose": "Once-only shared entrance at top 92%; already-visible or revealed content stays steady and completed transform, opacity, and clip styles clear."
       },
       {
         "name": "content-entrance-opacity",
-        "value": ".18",
-        "purpose": "Visible starting opacity for the owner's requested fade, with an opaque unscripted and reduced-motion default."
+        "value": "0",
+        "purpose": "Noninteractive waiting groups may fade from zero without visibility hiding. Linked groups remain fully opaque and use transforms alone."
       },
       {
         "name": "content-entrance-displacement",
         "value": "28px",
-        "purpose": "Bounded vertical displacement for below-viewport evidence; already-visible reading content stays steady."
+        "purpose": "Shared vertical entrance for below-viewport data-reveal groups, including transform-only linked groups."
       },
       {
         "name": "entrance-ease",
-        "value": "expo.out",
-        "purpose": "Observed GSAP easing for hero and revealed content."
+        "value": "power3.out",
+        "purpose": "Default easing for shared once-only entrances."
       },
       {
-        "name": "hero-image-scrub",
-        "value": ".6s",
-        "purpose": "GSAP scrub for the slow hero image displacement; no continuous scene render loop."
+        "name": "heading-reveal-displacement",
+        "value": "42px",
+        "purpose": "Shared chapter, case-prose, and evidence heading entrance; headings containing controls use translation alone."
+      },
+      {
+        "name": "heading-reveal-mask",
+        "value": "inset(0 0 100% 0)",
+        "purpose": "Initial mask only for shared heading entrances without links or controls; cleared when the entrance completes."
+      },
+      {
+        "name": "material-and-portrait-scrub",
+        "value": ".45s",
+        "purpose": "Catch-up for the opposing upper/lower material travel and the real portrait settle, over their separate source ranges."
+      },
+      {
+        "name": "diagram-and-trace-scrub",
+        "value": ".35s",
+        "purpose": "Catch-up for Cal.diy contention bars, the LLM agreement treatment, and the production trace; each retains its own content range."
+      },
+      {
+        "name": "ambient-light-scrub",
+        "value": ".7s",
+        "purpose": "Bounded warm/silver light change from document start to max scroll; no idle loop."
+      },
+      {
+        "name": "evidence-rule-entrance",
+        "value": "1.15s",
+        "purpose": "Once-only scaleX reveal of case evidence rules."
+      },
+      {
+        "name": "recorded-observation-entrance",
+        "value": ".7s",
+        "purpose": "TestPulse recorded observations enter once at top 85% with expo.out when not already at the reading position."
+      },
+      {
+        "name": "recorded-observation-stagger",
+        "value": ".14s",
+        "purpose": "Spacing between the shared opening component's recorded observations."
+      },
+      {
+        "name": "document-group-duration",
+        "value": ".42s",
+        "purpose": "Native document-transition group timing, including matching project names across the homepage, archive, cases, and next-case links."
+      },
+      {
+        "name": "document-exit-duration",
+        "value": ".18s",
+        "purpose": "Root page-out transition to zero opacity and translateY(-8px), using ease-out."
+      },
+      {
+        "name": "document-entry-duration",
+        "value": ".38s",
+        "purpose": "Root page-in transition from zero opacity and translateY(12px)."
+      },
+      {
+        "name": "document-entry-ease",
+        "value": "cubic-bezier(.16, 1, .3, 1)",
+        "purpose": "Native transition groups and root page-in easing."
       },
       {
         "name": "scene-entry-settle",
         "value": "150ms",
-        "purpose": "Initial 3D activation waits for settled scrolling within its observation area; exit immediately restores static artwork."
+        "purpose": "Initial 3D activation waits for settled scrolling within its observation area; exit or hidden document restores static artwork."
+      },
+      {
+        "name": "opening-resize-settle",
+        "value": "150ms",
+        "purpose": "Opening window/stage resize debounce before geometry, reading-position restoration, and the shared layout event."
       },
       {
         "name": "reduced-motion-duration",
         "value": ".01ms",
-        "purpose": "Global reduced-motion animation and transition duration; scrolling becomes immediate."
+        "purpose": "Global reduced-motion animation and transition duration; scrolling becomes immediate and native document transitions opt out."
       }
     ],
     "breakpoints": [
@@ -238,16 +293,16 @@
         "value": "760px"
       },
       {
-        "name": "hero-motion-min",
-        "value": "761px"
-      },
-      {
         "name": "reading-and-portrait-stack-max",
         "value": "900px"
       },
       {
-        "name": "hero-flow-max",
+        "name": "header-compact-max",
         "value": "1000px"
+      },
+      {
+        "name": "opening-desktop-min",
+        "value": "1024px"
       },
       {
         "name": "inspection-static-max",
@@ -347,12 +402,13 @@
   ],
   "narrative": {
     "northStar": "Exhibition plinth and inspection monograph",
-    "overview": "Matte graphite makes room for warm white typography, quiet controls, and precisely lit inspection materials. The system pairs an exhibition's large visual statements with a monograph's patient reading rhythm. Offset dark chrome and transparent amber layers give the abstract subject a physical form.\n\nEditorial layouts vary with their content: open project entries, ruled framework rows, attributed numerical evidence, long-form reading columns, and the owner's real portrait. Conceptual imagery is identified as artwork. Readable text and controls stay in HTML, with a complete static experience beneath optional motion and 3D.",
+    "overview": "Matte graphite makes room for warm white typography, quiet controls, and precisely lit inspection materials. The system pairs an exhibition's large visual statements with a monograph's patient reading rhythm. Offset dark chrome and transparent amber layers give the abstract subject a physical form.\n\nEditorial layouts vary with their content: open project entries, ruled framework rows, attributed numerical evidence, long-form reading columns, and the owner's real portrait. Conceptual imagery is identified as artwork. Readable text and controls stay in HTML, with a complete static experience beneath optional motion and 3D. The accepted Pass Through opening now leads the homepage; its continuous project arrival extends into content-specific chapter motion, material-framed case entrances, and a quiet reading body.",
     "keyCharacteristics": [
       "Matte graphite, warm white, and a controlled amber accent.",
       "Alexandria display typography paired with Manrope reading text.",
       "Rectangular editorial surfaces, fine rules, and generous section spacing.",
-      "Optical depth concentrated in the inspection artwork and live study.",
+      "Optical depth carried by actual inspection materials and the local live study.",
+      "Bounded native-scroll choreography, with steady prose and direct actions.",
       "Semantic controls, visible focus, and complete static alternatives."
     ],
     "rules": [
