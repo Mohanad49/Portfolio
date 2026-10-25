@@ -203,3 +203,37 @@ and its abandoned maps. Keep the homepage's standalone inspection scene intact.
 This resolves the implementation strategy, not visual acceptance. Archive the
 rejected build/captures, perform a fresh full finish review of the new treatment,
 and update the isolated preview. Production integration remains outside scope.
+
+## D-018: One TestPulse heading from aperture to work section
+
+The owner accepts the artwork treatment but identifies a broken handoff: the
+decorative TestPulse grows, stops, and is followed by a second TestPulse heading.
+Replace the duplicate with one real linked heading that grows into the complete
+work introduction. Fade the hero title, role, description, and buttons fully as
+the material field advances and clears. Release the sticky frame only after the
+TestPulse introduction is complete, then continue into its existing evidence.
+
+Focal moment: the material aperture becomes the work itself. Continuity: the
+same heading and descriptor retain their identity throughout, with existing
+approved explanatory copy introducing the project. Feedback: work/resume access
+is immediate at rest; hidden hero controls leave keyboard focus when faded.
+Budget: a bounded native-scroll timeline, transforms and opacity, no renderer,
+new asset, dependency, forced snap, or custom scrolling. Reverse scrolling must
+restore the complete opening. Static and Reduce Motion paths remain complete.
+The opening's extra travel uses measured pixel height, updated with resize in
+the same reading-position transaction. Layout containers opt out of the global
+reduced-motion transition shortcut so padding and margins settle immediately.
+The evidence approaches from below during the final part of the transformation,
+avoiding an empty viewport between the introduction and actual observations.
+The enhanced arrival wrapper starts hidden while its layout changes from static
+flow to the pinned scene. GSAP reveals that wrapper, with a separate small copy
+translation, so initialization cannot move a visible layout box into the opening.
+Static and reduced-motion styles keep the wrapper visible without enhancement.
+
+Impeccable owns the choreography and finish. The newly installed official
+gsap-scrolltrigger skill supplies API guidance only. The inspected timeline and
+transitions.dev skills stay inactive, with no second motion system. Official
+references: https://gsap.com/docs/v3/Plugins/ScrollTrigger/ and
+https://gsap.com/docs/v3/GSAP/gsap.context()/.
+Apply this refinement to the isolated /experience preview; production integration
+remains a separate decision.

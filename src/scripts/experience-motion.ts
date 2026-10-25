@@ -3,54 +3,98 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 export function initExperienceMotion() {
   const opening = document.querySelector<HTMLElement>('.passage-opening');
+  const frame = document.querySelector<HTMLElement>('.passage-frame');
+  const stage = document.querySelector<HTMLElement>('.passage-stage');
   const history = document.querySelector<HTMLElement>('.run-history');
-  if (!opening || !history) return;
+  const evidence = document.querySelector<HTMLElement>('.evidence-study');
+  const anchor = document.querySelector<HTMLElement>('#evidence');
+  const title = document.querySelector<HTMLElement>('.passage-project-title');
+  const summary = document.querySelector<HTMLElement>('.passage-project-summary');
+  const titleDestination = document.querySelector<HTMLElement>('.passage-title-destination');
+  const summaryDestination = document.querySelector<HTMLElement>('.passage-summary-destination');
+  if (!opening || !frame || !stage || !history || !evidence || !anchor || !title || !summary || !titleDestination || !summaryDestination) return;
   gsap.registerPlugin(ScrollTrigger);
   const motion = matchMedia('(prefers-reduced-motion: no-preference)');
   const desktop = matchMedia('(min-width: 1024px)');
   let context: gsap.Context | undefined;
+  let sequence: gsap.core.Timeline | undefined;
   let historyRevealed = false;
+  let configured = false;
+  let resizeTimer: number | undefined;
+
+  function destination(element: HTMLElement, target: HTMLElement, compression = 1) {
+    const rect = target.getBoundingClientRect();
+    const origin = element.offsetParent?.getBoundingClientRect();
+    const ratio = Math.min(parseFloat(getComputedStyle(target).fontSize) / parseFloat(getComputedStyle(element).fontSize), rect.width / (element.offsetWidth * compression));
+    return { x: rect.left - (origin?.left ?? 0) - element.offsetLeft, y: rect.top - (origin?.top ?? 0) - element.offsetTop, scaleX: ratio * compression, scaleY: ratio };
+  }
+
+  function bookmarkOffset(target: HTMLElement) {
+    return parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) + parseFloat(getComputedStyle(target).scrollMarginTop);
+  }
+
+  function syncBookmark() {
+    if (location.hash !== '#evidence' || !motion.matches || !anchor) return;
+    window.scrollTo({ top: anchor.getBoundingClientRect().top + scrollY - bookmarkOffset(anchor), behavior: 'instant' });
+    ScrollTrigger.update();
+    sequence?.progress(sequence.scrollTrigger?.progress ?? 1);
+  }
 
   function configure() {
-    if (!opening || !history) return;
-    const evidence = document.querySelector<HTMLElement>('#evidence');
-    const before = evidence?.getBoundingClientRect().top;
-    const retainEvidence = before !== undefined && before < innerHeight * .75;
+    if (!opening || !frame || !stage || !history || !evidence || !anchor || !title || !summary || !titleDestination || !summaryDestination) return;
+    const before = evidence.getBoundingClientRect().top;
+    const retainEvidence = before < innerHeight * .75;
+    const arrivingAtBookmark = !configured && location.hash === '#evidence' && Math.abs(anchor.getBoundingClientRect().top - bookmarkOffset(anchor)) < 4;
     if (history.getBoundingClientRect().top < innerHeight * .9) historyRevealed = true;
     context?.revert();
     context = undefined;
-    opening.style.setProperty('--passage-height', desktop.matches ? '200svh' : '145svh');
-    opening.style.setProperty('--passage-min-height', desktop.matches ? '1440px' : '1073px');
+    sequence = undefined;
+    opening.style.setProperty('--passage-height', `${stage.offsetHeight * (desktop.matches ? 2.4 : 2.2)}px`);
     opening.classList.toggle('has-passage-motion', motion.matches);
     if (motion.matches) context = gsap.context(() => {
-      const sequence = gsap.timeline({ scrollTrigger: { trigger: opening, start: 'top top', end: 'bottom bottom', scrub: .2, invalidateOnRefresh: true } });
+      sequence = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: opening, start: 'top top', end: () => `+=${opening.offsetHeight - frame.offsetHeight}`, scrub: .2, invalidateOnRefresh: true } });
       if (desktop.matches) {
-        sequence.to('.passage-plate', { scale: 1.22, duration: 1, ease: 'none' }, 0);
-        sequence.to('.passage-shade', { opacity: .9, duration: 1, ease: 'none' }, 0);
-        sequence.to('.passage-introduction', { color: '#f8f2e9', duration: .35, ease: 'none' }, 0);
+        sequence.to('.passage-plate', { scale: 3.6, duration: 1 }, 0);
+        sequence.to('.passage-shade', { opacity: 1, duration: .4 }, 0);
       }
-      sequence.to('.passage-upper', { yPercent: () => innerWidth <= 600 ? -12 : -4, xPercent: 4, rotate: 2, duration: 1, ease: 'none' }, 0);
-      sequence.to('.passage-lower', { yPercent: desktop.matches ? 55 : 65, xPercent: -3, rotate: -2, duration: 1, ease: 'none' }, 0);
-      sequence.to('.passage-peek-title', { xPercent: desktop.matches ? -35 : 0, y: desktop.matches ? -50 : 0, scale: desktop.matches ? 1.35 : 1.15, duration: .8, ease: 'none' }, .15);
-      sequence.to('.passage-peek-summary', { xPercent: -30, y: desktop.matches ? -35 : 0, duration: .8, ease: 'none' }, .15);
-      sequence.to('#passage-title', { y: desktop.matches ? -60 : -16, opacity: .85, duration: .6, ease: 'none' }, .2);
+      sequence.to('.passage-upper', { yPercent: -120, xPercent: 4, rotate: 2, duration: 1 }, 0);
+      sequence.to('.passage-lower', { yPercent: 140, xPercent: -3, rotate: -2, duration: 1 }, 0);
+      sequence.to('.passage-artwork, .passage-mobile', { autoAlpha: 0, duration: .5 }, .25);
+      sequence.to('.passage-introduction', { color: '#f8f2e9', duration: .2 }, 0);
+      sequence.to('#passage-title', { autoAlpha: 0, y: -80, duration: .55 }, .05);
+      sequence.to('.passage-role, .passage-introduction, .passage-actions a', { autoAlpha: 0, y: -36, duration: .5 }, .05);
+      sequence.to(title, { scaleX: () => destination(title, titleDestination, .95).scaleX, scaleY: () => destination(title, titleDestination, .95).scaleY, duration: 1 }, 0);
+      sequence.to(title, { x: () => destination(title, titleDestination, .95).x, y: () => destination(title, titleDestination, .95).y, duration: .9, ease: 'power2.inOut' }, .1);
+      sequence.to(summary, { x: () => destination(summary, summaryDestination).x, y: () => destination(summary, summaryDestination).y, scaleX: () => destination(summary, summaryDestination).scaleX, scaleY: () => destination(summary, summaryDestination).scaleY, duration: .9, ease: 'power2.inOut' }, .1);
+      sequence.to(summary, { autoAlpha: 1, duration: .3 }, .55);
+      sequence.fromTo('.passage-arrival', { autoAlpha: 0 }, { autoAlpha: 1, duration: .3 }, .55);
+      sequence.from('.passage-arrival-content', { y: 24, duration: .3 }, .55);
       if (!historyRevealed && history.getBoundingClientRect().top > innerHeight * .9) {
         gsap.from('.observation', { opacity: .18, y: 20, duration: .7, stagger: .14, clearProps: 'opacity,transform', ease: 'expo.out', onComplete: () => { historyRevealed = true; }, scrollTrigger: { trigger: history, start: 'top 85%', once: true } });
       } else historyRevealed = true;
     });
-    if (retainEvidence && evidence && before !== undefined) {
+    if (arrivingAtBookmark) syncBookmark();
+    else if (retainEvidence) {
       const adjustment = evidence.getBoundingClientRect().top - before;
       if (Math.abs(adjustment) > .5) window.scrollBy({ top: adjustment, behavior: 'instant' });
     }
+    configured = true;
+  }
+  function resize() {
+    window.clearTimeout(resizeTimer);
+    resizeTimer = window.setTimeout(configure, 150);
   }
   configure();
   motion.addEventListener('change', configure);
-  desktop.addEventListener('change', configure);
+  window.addEventListener('resize', resize);
+  window.addEventListener('hashchange', syncBookmark);
   function cleanup(event: PageTransitionEvent) {
     if (event.persisted) return;
     context?.revert();
+    window.clearTimeout(resizeTimer);
     motion.removeEventListener('change', configure);
-    desktop.removeEventListener('change', configure);
+    window.removeEventListener('resize', resize);
+    window.removeEventListener('hashchange', syncBookmark);
     window.removeEventListener('pagehide', cleanup);
   }
   window.addEventListener('pagehide', cleanup);

@@ -16,8 +16,10 @@ const day = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', y
 const clock = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Africa/Cairo' });
 ---
 <BaseLayout title="Pass Through | Mohanad Yehia" description="An isolated study of inspection, motion, and the evidence behind TestPulse." noindex>
-  <section class="passage-opening" aria-labelledby="passage-title">
+ <div class="experience-story">
+  <div class="passage-opening">
     <div class="passage-frame">
+     <div class="passage-stage">
       <div class="passage-artwork" aria-hidden="true">
         <div class="passage-plates">
           <picture>
@@ -41,14 +43,16 @@ const clock = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-dig
       <p class="passage-role">Software QA Engineer</p>
       <p class="passage-introduction">Production QA across web, mobile,<br />API, and data.</p>
       <div class="passage-actions"><a class="passage-work" href="#evidence">Explore the work</a><a class="passage-resume" href="/resume.pdf" download="Mohanad_Yehia_Software_QA_Engineer.pdf">Resume</a></div>
-      <div class="passage-peek" aria-hidden="true"><span class="passage-peek-title">TestPulse</span><p class="passage-peek-summary">Test observability &amp; flake detection</p></div>
+      <div class="passage-project"><h2 class="passage-project-title" id="evidence-title"><a href="/work/testpulse">TestPulse</a></h2><p class="passage-project-summary">Test observability &amp; flake detection</p></div>
+     </div>
+     <div class="passage-arrival">
+       <div class="passage-arrival-landmarks" aria-hidden="true"><span class="passage-title-destination"></span><span class="passage-summary-destination"></span></div>
+       <div class="passage-arrival-content"><h3>A red test deserves<br />a better explanation.</h3><p>A CI history that distinguishes inconsistent tests from new regressions. Multiple runners, a shared evidence model, and the reason behind every flake classification.</p></div>
+     </div>
     </div>
-  </section>
-  <section class="evidence-study" id="evidence" aria-labelledby="evidence-title">
-    <div class="evidence-intro">
-      <div><h2 id="evidence-title"><a href="/work/testpulse">TestPulse</a></h2><p>Test observability &amp; flake detection</p></div>
-      <h3>A red test deserves<br />a better explanation.</h3>
-    </div>
+  </div>
+  <div class="passage-evidence-target" id="evidence" aria-hidden="true"></div>
+  <section class="evidence-study" aria-labelledby="evidence-title">
     <div class="evidence-sequence">
       <div class="evidence-question"><p>A failure is one observation.<br />History changes the question.</p><p class="test-identity">{experienceHistory.suite}<br /><code>{experienceHistory.test}</code></p></div>
       <ol class="run-history" aria-label="Three recorded observations in chronological order">
@@ -63,6 +67,7 @@ const clock = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-dig
       <div class="evidence-conclusion"><h3>Same commit.<br />Different outcomes.</h3><div><p>These observations share the same code revision. That supports an instability signal. It does not identify the cause or show that the test has been repaired.</p><p class="snapshot-boundary">Recorded CI snapshot, exported {day.format(new Date(experienceHistory.exportedAt))}. Three selected observations; retry counts are unknown.</p><div class="evidence-actions"><a class="text-link" href="/work/testpulse">Read the case study <Icon /></a><a class="text-link" href="https://testpulse-eight.vercel.app/">Open dashboard <Icon name="external" /></a></div></div></div>
     </div>
   </section>
+ </div>
   <aside class="experience-comparison" aria-labelledby="comparison-title"><h2 id="comparison-title">Compare the experience.</h2><div><p>This preview explores the opening and TestPulse. The inspection artwork is conceptual; the run history comes from a recorded public export.</p><a class="text-link" href="/">View the current version <Icon /></a><a class="comparison-production" href="https://myehia.vercel.app/">Open production <Icon name="external" /></a></div></aside>
 </BaseLayout>
 <script>
@@ -78,10 +83,12 @@ const clock = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-dig
 <style>
   :global(html:has(.passage-opening)) { scroll-behavior: auto; }
   :global(body:has(.passage-opening) .site-header) { position: absolute; inset: 0 0 auto; background: linear-gradient(#141312e6, #14131200); }
-  .passage-opening { position: relative; background: #161514; }
-  .passage-opening.has-passage-motion { height: var(--passage-height); min-height: var(--passage-min-height); }
-  .has-passage-motion .passage-frame { position: sticky; top: 0; }
-  .passage-frame { position: relative; width: 100%; height: 100svh; min-height: 720px; isolation: isolate; overflow: clip; }
+  .experience-story { --passage-scene-height: max(100svh, 720px); --passage-arrival-size: clamp(4.5rem, 10.5vw, 10rem); --passage-evidence-overlap: 30svh; }
+  .passage-opening { position: relative; background: var(--color-graphite); }
+  .passage-opening.has-passage-motion { height: var(--passage-height); }
+  .has-passage-motion .passage-frame { position: sticky; top: 0; height: var(--passage-scene-height); }
+  .passage-frame { position: relative; width: 100%; isolation: isolate; overflow: clip; }
+  .passage-stage { position: relative; height: var(--passage-scene-height); isolation: isolate; }
   .passage-artwork { position: absolute; inset: 0; z-index: -3; overflow: clip; pointer-events: none; }
   .passage-plates { position: absolute; left: 50%; top: 50%; width: max(100%, 150svh, 1080px); aspect-ratio: 3 / 2; transform: translate(-50%, -50%); }
   .passage-plate { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; transform-origin: 76% 69%; }
@@ -97,15 +104,24 @@ const clock = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-dig
   .passage-work:hover { background: #ffda98; }
   .passage-resume { left: 18.1%; width: 8.99%; background: #19171470; border: 1px solid #b1a492; }
   .passage-resume:hover { background: #393027; }
-  .passage-peek { display: contents; }
-  .passage-peek-title { position: absolute; left: 66.4%; top: 62.5%; z-index: 0; display: block; width: max-content; font-family: var(--font-display); font-weight: 700; font-size: 5.7vw; line-height: 1; letter-spacing: -.04em; transform: scaleX(.95); transform-origin: left top; }
-  .passage-peek-summary { position: absolute; left: 66.4%; top: calc(62.5% + 5.7vw + .35rem); z-index: 0; color: var(--color-muted); font-size: 1.48vw; line-height: 1.3; white-space: nowrap; }
-  .evidence-study { padding: clamp(4rem, 8vw, 9rem) var(--page-gutter); scroll-margin-top: 2rem; }
-  .evidence-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 8%; align-items: end; }
-  .evidence-intro h2 { font-size: clamp(4rem, 8vw, 9rem); }
-  .evidence-intro > div > p { color: var(--color-muted); margin-top: 1.3rem; font-size: 1.1rem; }
-  .evidence-intro h3 { font-size: clamp(2rem, 3.7vw, 4rem); }
-  .evidence-sequence { margin-top: clamp(4rem, 8vw, 8rem); border-top: 1px solid var(--line); padding-top: 3rem; }
+  .passage-project { display: contents; }
+  .passage-project-title { position: absolute; left: 66.4%; top: 62.5%; z-index: 0; display: block; width: max-content; font-family: var(--font-display); font-weight: 700; font-size: 5.7vw; line-height: 1; letter-spacing: -.04em; transform: scaleX(.95); transform-origin: left top; }
+  .passage-project-summary { position: absolute; left: 66.4%; top: calc(62.5% + 5.7vw + .35rem); z-index: 0; color: var(--color-muted); font-size: 1.48vw; line-height: 1.3; white-space: nowrap; transform-origin: left top; }
+  .passage-arrival { padding: clamp(3rem, 6vw, 6rem) var(--page-gutter); pointer-events: none; transition-property: none; }
+  .passage-arrival-landmarks { display: none; }
+  .has-passage-motion .passage-arrival { position: absolute; top: clamp(5rem, 12svh, 9rem); left: var(--page-gutter); right: var(--page-gutter); padding: 0; visibility: hidden; }
+  .has-passage-motion .passage-arrival-landmarks { display: block; }
+  .passage-title-destination { display: block; height: var(--passage-arrival-size); font-size: var(--passage-arrival-size); }
+  .passage-summary-destination { display: block; height: 1.5em; margin-top: 1.2rem; font-size: 1.125rem; }
+  .has-passage-motion .passage-arrival-content { margin-top: clamp(3rem, 10svh, 7rem); }
+  .passage-arrival-content { display: grid; grid-template-columns: 1fr 1fr; gap: 8%; align-items: start; pointer-events: auto; transition-property: none; }
+  .passage-arrival-content h3 { font-size: clamp(2rem, 3.7vw, 4rem); }
+  .passage-arrival-content > p { max-width: 47ch; color: var(--color-muted); font-size: clamp(1rem, 1.45vw, 1.4rem); line-height: 1.6; }
+  .passage-evidence-target { position: relative; height: 1px; scroll-margin-top: 2rem; pointer-events: none; }
+  .has-passage-motion + .passage-evidence-target { top: calc(4rem - var(--passage-scene-height)); }
+  .evidence-study { position: relative; z-index: 1; padding: 0 var(--page-gutter) clamp(4rem, 8vw, 9rem); transition-property: none; }
+  .has-passage-motion ~ .evidence-study { margin-top: calc(-1 * var(--passage-evidence-overlap)); }
+  .evidence-sequence { border-top: 1px solid var(--line); padding-top: 3rem; }
   .evidence-question { display: flex; justify-content: space-between; gap: 2rem; align-items: end; }
   .evidence-question > p:first-child { font-size: clamp(1.5rem, 2.4vw, 2.5rem); line-height: 1.4; }
   .test-identity { font-size: .9rem; color: var(--color-muted); }
@@ -136,7 +152,7 @@ const clock = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-dig
   @media (min-width: 1800px) {
     h1 { font-size: 9rem; }
     .passage-role { font-size: 2rem; }
-    .passage-introduction, .passage-peek-summary { font-size: 1.5rem; }
+    .passage-introduction, .passage-project-summary { font-size: 1.5rem; }
     .passage-actions a { font-size: 1.2rem; }
   }
   @media (min-width: 1024px) and (min-aspect-ratio: 8 / 5) {
@@ -144,7 +160,8 @@ const clock = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-dig
   }
   @media (width < 1024px) {
     :global(body:has(.passage-opening) .site-header) { position: relative; }
-    .passage-frame { min-height: 740px; --passage-upper-top: max(41%, calc(38% + 4rem)); --passage-slot-top: max(73%, calc(var(--passage-upper-top) + min(46.2vw, 34.44svh))); }
+    .experience-story { --passage-scene-height: max(100svh, 740px); --passage-arrival-size: clamp(4.5rem, 13vw, 7rem); --passage-evidence-overlap: 25svh; }
+    .passage-stage { --passage-upper-top: max(41%, calc(38% + 4rem)); --passage-slot-top: max(73%, calc(var(--passage-upper-top) + min(46.2vw, 34.44svh))); }
     .passage-artwork { display: none; }
     .passage-mobile { display: block; position: absolute; inset: 0; z-index: -1; overflow: clip; }
     .passage-mobile img { position: absolute; width: min(165vw, 123svh); max-width: none; height: auto; left: 3%; }
@@ -155,17 +172,18 @@ const clock = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-dig
     .passage-introduction { top: 31%; left: var(--page-gutter); font-size: 1rem; line-height: 1.5; }
     .passage-actions { display: flex; flex-wrap: wrap; gap: .8rem; position: absolute; top: 38%; left: var(--page-gutter); right: var(--page-gutter); }
     .passage-actions a { position: static; width: auto; height: auto; min-height: 48px; padding: .85rem 1.2rem; font-size: .9rem; }
-    .passage-peek-title { left: var(--page-gutter); top: var(--passage-slot-top); font-size: clamp(3rem, 10vw, 6rem); }
-    .passage-peek-summary { display: none; }
-    .evidence-intro { grid-template-columns: 1fr; gap: 2rem; }
-    .evidence-intro h2 { font-size: clamp(3rem, 11vw, 6rem); }
-    .evidence-intro h3 { font-size: 2.4rem; }
+    .passage-project-title { left: var(--page-gutter); top: var(--passage-slot-top); font-size: clamp(3rem, 10vw, 6rem); }
+    .passage-project-summary { left: var(--page-gutter); top: calc(var(--passage-slot-top) + clamp(3rem, 10vw, 6rem) + .8rem); font-size: .95rem; white-space: normal; width: calc(100% - 2 * var(--page-gutter)); }
+    .has-passage-motion .passage-project-summary { opacity: 0; }
+    .passage-arrival-content { grid-template-columns: 1fr; gap: 2rem; }
+    .passage-arrival-content h3 { font-size: 2.4rem; }
     .evidence-question { display: block; }
     .test-identity { margin-top: 1.5rem; }
     .evidence-conclusion { grid-template-columns: 1fr; gap: 1.8rem; }
     .experience-comparison { grid-template-columns: 1fr; gap: 1.5rem; }
   }
   @media (max-width: 600px) {
+    .experience-story { --passage-arrival-size: clamp(3.5rem, 19.8vw, 5.25rem); }
     h1 { font-size: clamp(2rem, 9.1vw, 3.5rem); }
     .passage-role { top: 19%; font-size: 1.1rem; }
     .passage-introduction { top: 25%; font-size: .95rem; }
@@ -174,12 +192,12 @@ const clock = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-dig
     .passage-mobile img { width: 215%; left: -12%; }
     .passage-upper { top: 43%; }
     .passage-lower { top: 72%; }
-    .passage-peek-title { top: 70%; font-size: 3.3rem; }
-    .evidence-study { padding-block: 3.5rem; }
-    .evidence-intro h2 { font-size: 3.3rem; }
-    .evidence-intro > div > p { font-size: .95rem; }
-    .evidence-intro h3 { font-size: 1.9rem; }
-    .evidence-sequence { margin-top: 3rem; padding-top: 2rem; }
+    .passage-project-title { top: 70%; font-size: 3.3rem; }
+    .passage-project-summary { top: calc(70% + 3.3rem + .8rem); }
+    .passage-summary-destination { font-size: .95rem; }
+    .passage-arrival-content { gap: 1.6rem; }
+    .passage-arrival-content h3 { font-size: 1.9rem; }
+    .evidence-sequence { padding-top: 2rem; }
     .evidence-question > p:first-child { font-size: 1.4rem; }
     .test-identity { font-size: .8rem; }
     .run-history { grid-template-columns: 1fr; gap: 2.5rem; margin-top: 2.5rem; }
