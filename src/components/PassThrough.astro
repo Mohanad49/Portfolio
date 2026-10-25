@@ -1,0 +1,211 @@
+---
+import { getImage } from 'astro:assets';
+import Icon from './Icon.astro';
+import { experienceHistory } from '../data/experience-history';
+import passageMaterial from '../../assets/plates/passage-material.png';
+import passageUpper from '../../assets/plates/passage-upper.png';
+import passageLower from '../../assets/plates/passage-lower.png';
+interface Props { home?: boolean; }
+const { home = false } = Astro.props;
+const inactiveArtwork = "data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1'%20height='1'/%3E";
+const [desktopArtwork, upperArtwork, lowerArtwork] = await Promise.all([
+  getImage({ src: passageMaterial, widths: [640, 1024, 1536], format: 'webp', quality: 85 }),
+  getImage({ src: passageUpper, widths: [640, 1024], format: 'webp', quality: 85 }),
+  getImage({ src: passageLower, widths: [640, 1024], format: 'webp', quality: 85 }),
+]);
+const day = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'Africa/Cairo' });
+const clock = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Africa/Cairo' });
+---
+ <div class="experience-story">
+  <div class="passage-opening" id={home ? "home" : undefined}>
+    {home && <span id="Home" class="legacy-anchor" aria-hidden="true"></span>}
+    <div class="passage-frame">
+     <div class="passage-stage">
+      <div class="passage-artwork" aria-hidden="true">
+        <div class="passage-plates">
+          <picture>
+            <source media="(min-width: 1024px)" type="image/webp" srcset={desktopArtwork.srcSet.attribute} sizes="max(100vw, 150svh)" />
+            <img class="passage-plate" src={inactiveArtwork} alt="" width={passageMaterial.width} height={passageMaterial.height} loading="eager" fetchpriority="high" decoding="async" />
+          </picture>
+        </div>
+        <div class="passage-shade"></div>
+      </div>
+      <h1 id="passage-title"><span>Complex systems.</span><span>Clear evidence.</span></h1>
+      <p class="passage-role">Software QA Engineer</p>
+      <p class="passage-introduction">Production QA across web, mobile,<br />API, and data.</p>
+      <div class="passage-actions"><a class="passage-work" href={home ? "#work" : "#evidence"}>Explore the work</a><a class="passage-resume" href="/resume.pdf" download="Mohanad_Yehia_Software_QA_Engineer.pdf">Resume</a></div>
+      <div class="passage-project">
+      <div class="passage-mobile" aria-hidden="true">
+        <picture>
+          <source media="(width < 1024px)" type="image/webp" srcset={upperArtwork.srcSet.attribute} sizes="100vw" />
+          <img class="passage-upper" src={inactiveArtwork} alt="" width={passageUpper.width} height={passageUpper.height} loading="eager" fetchpriority="high" decoding="async" />
+        </picture>
+        <div class="passage-lower-anchor"><picture>
+          <source media="(width < 1024px)" type="image/webp" srcset={lowerArtwork.srcSet.attribute} sizes="100vw" />
+          <img class="passage-lower" src={inactiveArtwork} alt="" width={passageLower.width} height={passageLower.height} loading="eager" decoding="async" />
+        </picture></div>
+      </div>
+<h2 class="passage-project-title" id="evidence-title"><a href="/work/testpulse">TestPulse</a></h2><p class="passage-project-summary">Test observability &amp; flake detection</p></div>
+     </div>
+     <div class="passage-arrival">
+       <div class="passage-arrival-landmarks" aria-hidden="true"><span class="passage-title-destination"></span><span class="passage-summary-destination"></span></div>
+       <div class="passage-arrival-content"><h3>A red test deserves<br />a better explanation.</h3><p>A CI history that distinguishes inconsistent tests from new regressions. Multiple runners, a shared evidence model, and the reason behind every flake classification.</p></div>
+     </div>
+    </div>
+  </div>
+  <div class="passage-evidence-target" id="evidence" aria-hidden="true">{home && <><span id="work" class="passage-bookmark"></span><span id="Portofolio" class="passage-bookmark"></span></>}</div>
+  <section class="evidence-study" aria-labelledby="evidence-title">
+    <div class="evidence-sequence">
+      <div class="evidence-question"><p>A failure is one observation.<br />History changes the question.</p><p class="test-identity">{experienceHistory.suite}<br /><code>{experienceHistory.test}</code></p></div>
+      <ol class="run-history" aria-label="Three recorded observations in chronological order">
+        {experienceHistory.observations.map(observation => <li class:list={['observation', { 'observation--failed': observation.status === 'failed' }]}>
+          <span class="observation-symbol" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="29" />{observation.status === 'passed' ? <path d="m19 32 9 9 18-20" /> : <path d="m22 22 20 20m0-20-20 20" />}</svg></span>
+          <p class="observation-status">{observation.status === 'passed' ? 'Passed' : 'Failed'}</p>
+          <p class="observation-run">Run {observation.runId}</p>
+          <time datetime={observation.startedAt}>{day.format(new Date(observation.startedAt))}<span>{clock.format(new Date(observation.startedAt))}</span></time>
+        </li>)}
+      </ol>
+      <div class="shared-commit"><span>Same commit</span><code title={experienceHistory.commit}>{experienceHistory.commit.slice(0, 7)}</code><span>Times shown in Cairo</span></div>
+      <div class="evidence-conclusion"><h3>Same commit.<br />Different outcomes.</h3><div><p>These observations share the same code revision. That supports an instability signal. It does not identify the cause or show that the test has been repaired.</p><p class="snapshot-boundary">Recorded CI snapshot, exported {day.format(new Date(experienceHistory.exportedAt))}. Three selected observations; retry counts are unknown.</p><div class="evidence-actions"><a class="text-link" href="/work/testpulse">Read the case study <Icon /></a><a class="text-link" href="https://testpulse-eight.vercel.app/">Open dashboard <Icon name="external" /></a></div></div></div>
+    </div>
+  </section>
+ </div>
+<script>
+  const load = () => { void import('../scripts/experience-motion').then(module => module.initExperienceMotion()).catch(() => {}); };
+  if (matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+    if ('requestIdleCallback' in window) window.requestIdleCallback(load, { timeout: 1200 });
+    else setTimeout(load, 0);
+  } else {
+    const media = matchMedia('(prefers-reduced-motion: no-preference)');
+    media.addEventListener('change', () => { if (media.matches) load(); }, { once: true });
+  }
+</script>
+<style>
+  :global(html:has(.passage-opening)) { scroll-behavior: auto; }
+  :global(body:has(.passage-opening) .site-header) { position: absolute; inset: 0 0 auto; background: linear-gradient(#141312e6, #14131200); }
+  .experience-story { --passage-scene-height: max(100svh, 720px); --passage-arrival-size: clamp(4.5rem, 10.5vw, 10rem); --passage-evidence-overlap: 30svh; }
+  .passage-opening { position: relative; background: var(--color-graphite); }
+  .passage-opening.has-passage-motion { height: var(--passage-height); }
+  .has-passage-motion .passage-frame { position: sticky; top: 0; height: var(--passage-scene-height); }
+  .passage-frame { position: relative; width: 100%; isolation: isolate; overflow: clip; }
+  .passage-stage { position: relative; height: var(--passage-scene-height); isolation: isolate; }
+  .passage-artwork { position: absolute; inset: 0; z-index: -3; overflow: clip; pointer-events: none; }
+  .passage-plates { position: absolute; left: 50%; top: 50%; width: max(100%, 150svh, 1080px); aspect-ratio: 3 / 2; transform: translate(-50%, -50%); }
+  .passage-plate { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; transform-origin: 76% 69%; }
+  .passage-shade { position: absolute; inset: 0; background: linear-gradient(90deg, #111110f2, #111110b8 30%, #11111000 68%); opacity: 0; }
+  .passage-mobile { display: none; }
+  h1 { position: absolute; top: 6.7vw; left: 3.2%; font-size: 7.95vw; line-height: .9; font-weight: 700; transform: scaleX(.93); transform-origin: left top; }
+  h1 span { display: block; white-space: nowrap; }
+  .passage-role { position: absolute; top: 26.3vw; left: 3.5%; font-size: 1.82vw; line-height: 1.3; letter-spacing: -.035em; }
+  .passage-introduction { position: absolute; top: 29.15vw; left: 3.5%; font-size: 1.48vw; line-height: 1.3; color: var(--color-muted); letter-spacing: -.025em; }
+  .passage-actions { display: contents; }
+  .passage-actions a { position: absolute; top: 34.9vw; display: inline-flex; justify-content: center; align-items: center; height: 4.16vw; min-height: 44px; border-radius: .6rem; font-size: 1.25vw; font-weight: 600; transition: background .2s, color .2s; }
+  .passage-work { left: 3.5%; width: 13.67%; background: linear-gradient(145deg, #ffd17d, #f4a938); color: #17110a; }
+  .passage-work:hover { background: #ffda98; }
+  .passage-resume { left: 18.1%; width: 8.99%; background: #19171470; border: 1px solid #b1a492; }
+  .passage-resume:hover { background: #393027; }
+  .passage-project { display: contents; }
+  .passage-project-title { position: absolute; left: 66.4%; top: 62.5%; z-index: 0; display: block; width: max-content; font-family: var(--font-display); font-weight: 700; font-size: 5.7vw; line-height: 1; letter-spacing: -.04em; transform: scaleX(.95); transform-origin: left top; }
+  .passage-project-summary { position: absolute; left: 66.4%; top: calc(62.5% + 5.7vw + .35rem); z-index: 0; color: var(--color-muted); font-size: 1.48vw; line-height: 1.3; white-space: nowrap; transform-origin: left top; }
+  .passage-arrival { padding: clamp(3rem, 6vw, 6rem) var(--page-gutter); pointer-events: none; transition-property: none; }
+  .passage-arrival-landmarks { display: none; }
+  .has-passage-motion .passage-arrival { position: absolute; top: clamp(5rem, 12svh, 9rem); left: var(--page-gutter); right: var(--page-gutter); padding: 0; visibility: hidden; }
+  .has-passage-motion .passage-arrival-landmarks { display: block; }
+  .passage-title-destination { display: block; height: var(--passage-arrival-size); font-size: var(--passage-arrival-size); }
+  .passage-summary-destination { display: block; height: 1.5em; margin-top: 1.2rem; font-size: 1.125rem; }
+  .has-passage-motion .passage-arrival-content { margin-top: clamp(3rem, 10svh, 7rem); }
+  .passage-arrival-content { display: grid; grid-template-columns: 1fr 1fr; gap: 8%; align-items: start; pointer-events: auto; transition-property: none; }
+  .passage-arrival-content h3 { font-size: clamp(2rem, 3.7vw, 4rem); }
+  .passage-arrival-content > p { max-width: 47ch; color: var(--color-muted); font-size: clamp(1rem, 1.45vw, 1.4rem); line-height: 1.6; }
+  .passage-bookmark { position: absolute; inset: 0 auto auto 0; width: 1px; height: 1px; scroll-margin-top: 2rem; }
+  .passage-project-title { view-transition-name: project-testpulse; }
+  .passage-evidence-target { position: relative; height: 1px; scroll-margin-top: 2rem; pointer-events: none; }
+  .has-passage-motion + .passage-evidence-target { top: calc(4rem - var(--passage-scene-height)); }
+  .evidence-study { position: relative; z-index: 1; padding: 0 var(--page-gutter) clamp(4rem, 8vw, 9rem); transition-property: none; }
+  .has-passage-motion ~ .evidence-study { margin-top: calc(-1 * var(--passage-evidence-overlap)); }
+  .evidence-sequence { border-top: 1px solid var(--line); padding-top: 3rem; }
+  .evidence-question { display: flex; justify-content: space-between; gap: 2rem; align-items: end; }
+  .evidence-question > p:first-child { font-size: clamp(1.5rem, 2.4vw, 2.5rem); line-height: 1.4; }
+  .test-identity { font-size: .9rem; color: var(--color-muted); }
+  code { font-size: .9em; font-variant-numeric: tabular-nums; }
+  .run-history { position: relative; list-style: none; padding: 0; margin: 4rem 0 2rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+  .run-history::before { content: ''; position: absolute; left: 2rem; right: calc(33.333% - .5rem); top: 2rem; height: 1px; background: var(--line); }
+  .observation { position: relative; }
+  .observation-symbol { display: block; width: 4rem; height: 4rem; background: var(--color-graphite); }
+  .observation-symbol svg { width: 100%; height: 100%; stroke: #d2c6b5; stroke-width: 1.5; }
+  .observation--failed .observation-symbol svg { stroke: #f0a091; }
+  .observation-status { margin-top: 1.5rem; font: 600 clamp(1.5rem, 2.8vw, 3rem)/1.2 var(--font-display); letter-spacing: -.04em; }
+  .observation-run { margin-top: .8rem; font-variant-numeric: tabular-nums; }
+  time { display: block; color: var(--color-muted); font-size: .85rem; margin-top: .4rem; font-variant-numeric: tabular-nums; }
+  time span { display: block; margin-top: .2rem; }
+  .shared-commit { display: flex; align-items: center; gap: 1rem; padding-block: 1.3rem; border-block: 1px solid var(--line); color: var(--color-muted); font-size: .85rem; }
+  .shared-commit code { color: var(--color-ink); font-size: 1rem; }
+  .shared-commit > span:last-child { margin-left: auto; }
+  .evidence-conclusion { display: grid; grid-template-columns: 1fr 1fr; gap: 8%; margin-top: 4rem; }
+  .evidence-conclusion h3 { font-size: clamp(2rem, 3.5vw, 3.8rem); }
+  .evidence-conclusion p { color: #d5cec4; max-width: 56ch; font-size: 1.075rem; }
+  .evidence-conclusion .snapshot-boundary { font-size: .85rem; color: var(--color-muted); margin-top: 1.3rem; }
+  .evidence-actions { display: flex; flex-wrap: wrap; gap: 1rem 2rem; margin-top: 2rem; }
+  .evidence-actions :global(svg) { width: 20px; height: 20px; }
+  @media (min-width: 1800px) {
+    h1 { font-size: 9rem; }
+    .passage-role { font-size: 2rem; }
+    .passage-introduction, .passage-project-summary { font-size: 1.5rem; }
+    .passage-actions a { font-size: 1.2rem; }
+  }
+  @media (min-width: 1024px) and (min-aspect-ratio: 8 / 5) {
+    .passage-shade { opacity: .65; }
+  }
+  @media (width < 1024px) {
+    :global(body:has(.passage-opening) .site-header) { position: relative; }
+    .experience-story { --passage-scene-height: max(100svh, 740px); --passage-arrival-size: clamp(4.5rem, 13vw, 7rem); --passage-evidence-overlap: 25svh; }
+    .passage-stage { --copy-title-size: clamp(2.3rem, 8.3vw, 5rem); --role-size: 1.25rem; --intro-size: 1rem; --role-top: calc(var(--passage-scene-height) * .25); --intro-top: calc(var(--passage-scene-height) * .31); --actions-top: calc(var(--passage-scene-height) * .38); --passage-upper-top: max(calc(var(--passage-scene-height) * .41), calc(var(--passage-scene-height) * .38 + 4rem)); --passage-slot-top: max(calc(var(--passage-scene-height) * .73), calc(var(--passage-upper-top) + min(46.2vw, 34.44svh))); --passage-lower-top: var(--passage-slot-top); --action-height: max(48px, calc(.9rem * 1.65 + 1.7rem)); display: flex; flex-direction: column; height: auto; min-height: var(--passage-scene-height); padding: 1.8rem var(--page-gutter) 0; }
+    .passage-artwork { display: none; }
+    h1 { position: relative; top: auto; left: auto; font-size: var(--copy-title-size); line-height: 1; max-width: 100%; }
+    h1 span { white-space: normal; }
+    .passage-role { position: relative; top: auto; left: auto; font-size: var(--role-size); margin-top: max(1.25rem, calc(var(--role-top) - 1.8rem - 2 * var(--copy-title-size))); }
+    .passage-introduction { position: relative; top: auto; left: auto; font-size: var(--intro-size); line-height: 1.5; margin-top: max(1rem, calc(var(--intro-top) - var(--role-top) - var(--role-size) * 1.3)); }
+    .passage-actions { display: flex; position: relative; top: auto; left: auto; right: auto; flex-wrap: wrap; gap: .8rem; margin-top: max(1rem, calc(var(--actions-top) - var(--intro-top) - var(--intro-size) * 3)); }
+    .passage-actions a { position: static; width: auto; height: auto; min-height: 48px; padding: .85rem 1.2rem; font-size: .9rem; }
+    .passage-project { display: block; position: relative; isolation: isolate; margin-top: max(2rem, calc(var(--passage-slot-top) - var(--actions-top) - var(--action-height))); min-height: calc(var(--passage-scene-height) - var(--passage-slot-top)); }
+    .passage-project-title { position: relative; left: auto; top: auto; font-size: clamp(3rem, 10vw, 6rem); max-width: 100%; }
+    .passage-project-summary { position: relative; left: auto; top: auto; font-size: .95rem; white-space: normal; width: auto; margin-top: .8rem; }
+    .has-passage-motion .passage-project-summary { opacity: 0; }
+    .passage-mobile { display: block; position: absolute; inset: auto calc(-1 * var(--page-gutter)) 0; top: calc(var(--passage-upper-top) - var(--passage-slot-top)); z-index: -1; overflow: clip; }
+    .passage-mobile img { position: absolute; top: 0; width: min(165vw, 123svh); max-width: none; height: auto; left: 3%; }
+    .passage-lower-anchor { position: absolute; inset: auto 0 0; height: calc(var(--passage-scene-height) - var(--passage-lower-top)); }
+    .passage-arrival-content { grid-template-columns: 1fr; gap: 2rem; }
+    .passage-arrival-content h3 { font-size: 2.4rem; }
+    .evidence-question { display: block; }
+    .test-identity { margin-top: 1.5rem; }
+    .evidence-conclusion { grid-template-columns: 1fr; gap: 1.8rem; }
+  }
+  @media (max-width: 600px) {
+    .experience-story { --passage-arrival-size: clamp(3.5rem, 19.8vw, 5.25rem); }
+    .passage-stage { --copy-title-size: clamp(2rem, 9.1vw, 3.5rem); --role-size: 1.1rem; --intro-size: .95rem; --role-top: calc(var(--passage-scene-height) * .19); --intro-top: calc(var(--passage-scene-height) * .25); --actions-top: calc(var(--passage-scene-height) * .35); --passage-upper-top: calc(var(--passage-scene-height) * .43); --passage-slot-top: calc(var(--passage-scene-height) * .70); --passage-lower-top: calc(var(--passage-scene-height) * .72); --action-height: max(48px, 2.9025rem); }
+    .passage-actions { gap: .6rem; }
+    .passage-actions a { font-size: .85rem; padding: .75rem 1rem; }
+    .passage-mobile img { width: 215%; left: -12%; }
+    .passage-project-title { font-size: 3.3rem; }
+    .passage-summary-destination { font-size: .95rem; }
+    .passage-arrival-content { gap: 1.6rem; }
+    .passage-arrival-content h3 { font-size: 1.9rem; }
+    .evidence-sequence { padding-top: 2rem; }
+    .evidence-question > p:first-child { font-size: 1.4rem; }
+    .test-identity { font-size: .8rem; }
+    .run-history { grid-template-columns: 1fr; gap: 2.5rem; margin-top: 2.5rem; }
+    .run-history::before { width: 1px; height: auto; left: 1.5rem; right: auto; top: 1.5rem; bottom: 1.5rem; }
+    .observation { padding-left: 5rem; min-height: 6rem; }
+    .observation-symbol { position: absolute; top: .1rem; left: 0; width: 3rem; height: 3rem; }
+    .observation-status { margin-top: 0; font-size: 1.7rem; }
+    .observation-run { margin-top: .5rem; font-size: .9rem; }
+    time { font-size: .8rem; }
+    time span { display: inline; margin-left: .7rem; }
+    .shared-commit { flex-wrap: wrap; gap: .5rem 1rem; font-size: .8rem; }
+    .shared-commit > span:last-child { margin-left: 0; flex-basis: 100%; }
+    .evidence-conclusion { margin-top: 2.5rem; }
+    .evidence-conclusion h3 { font-size: 2rem; }
+    .evidence-conclusion p { font-size: 1rem; }
+    .evidence-actions { gap: 1rem; }
+  }
+</style>

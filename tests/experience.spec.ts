@@ -148,6 +148,23 @@ test('the study keeps accessible semantics and narrow reflow', async ({ page }) 
   }
 });
 
+test('enlarged compact text flows without overlapping the opening controls', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  for (const width of [320, 390]) {
+    await page.setViewportSize({ width, height: 844 });
+    await page.goto('/experience');
+    await page.addStyleTag({ content: 'html { font-size: 200%; }' });
+    const selectors = ['#passage-title', '.passage-role', '.passage-introduction', '.passage-actions', '.passage-project-title', '.passage-project-summary'];
+    const bounds = await page.locator('.passage-stage').evaluate((_, items) => items.map(selector => {
+      const rect = document.querySelector(selector)!.getBoundingClientRect();
+      return { top: rect.top, bottom: rect.bottom };
+    }), selectors);
+    for (let index = 1; index < bounds.length; index++) expect(bounds[index]!.top).toBeGreaterThanOrEqual(bounds[index - 1]!.bottom - 1);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
+    await expect(page.locator('.passage-project-summary')).toHaveCSS('opacity', '1');
+  }
+});
+
 test('artwork moves on scroll, returns intact, and rests without a renderer', async ({ page }, testInfo) => {
   const errors: string[] = [];
   const rendererRequests: string[] = [];

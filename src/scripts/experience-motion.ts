@@ -34,7 +34,7 @@ export function initExperienceMotion() {
   }
 
   function syncBookmark() {
-    if (location.hash !== '#evidence' || !motion.matches || !anchor) return;
+    if (!['#evidence', '#work', '#Portofolio'].includes(location.hash) || !motion.matches || !anchor) return;
     window.scrollTo({ top: anchor.getBoundingClientRect().top + scrollY - bookmarkOffset(anchor), behavior: 'instant' });
     ScrollTrigger.update();
     sequence?.progress(sequence.scrollTrigger?.progress ?? 1);
@@ -44,14 +44,16 @@ export function initExperienceMotion() {
     if (!opening || !frame || !stage || !history || !evidence || !anchor || !title || !summary || !titleDestination || !summaryDestination) return;
     const before = evidence.getBoundingClientRect().top;
     const retainEvidence = before < innerHeight * .75;
-    const arrivingAtBookmark = !configured && location.hash === '#evidence' && Math.abs(anchor.getBoundingClientRect().top - bookmarkOffset(anchor)) < 4;
+    const arrivingAtBookmark = !configured && ['#evidence', '#work', '#Portofolio'].includes(location.hash) && Math.abs(anchor.getBoundingClientRect().top - bookmarkOffset(anchor)) < 4;
     if (history.getBoundingClientRect().top < innerHeight * .9) historyRevealed = true;
     context?.revert();
     context = undefined;
     sequence = undefined;
     opening.style.setProperty('--passage-height', `${stage.offsetHeight * (desktop.matches ? 2.4 : 2.2)}px`);
-    opening.classList.toggle('has-passage-motion', motion.matches);
-    if (motion.matches) context = gsap.context(() => {
+    const compactFits = desktop.matches || stage.offsetHeight <= parseFloat(getComputedStyle(stage).minHeight) + 2;
+    const enhanced = motion.matches && compactFits;
+    opening.classList.toggle('has-passage-motion', enhanced);
+    if (enhanced) context = gsap.context(() => {
       sequence = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: opening, start: 'top top', end: () => `+=${opening.offsetHeight - frame.offsetHeight}`, scrub: .2, invalidateOnRefresh: true } });
       if (desktop.matches) {
         sequence.to('.passage-plate', { scale: 3.6, duration: 1 }, 0);
@@ -85,12 +87,20 @@ export function initExperienceMotion() {
     resizeTimer = window.setTimeout(configure, 150);
   }
   configure();
+  let stageHeight = stage.offsetHeight;
+  const stageObserver = new ResizeObserver(() => {
+    if (stage.offsetHeight === stageHeight) return;
+    stageHeight = stage.offsetHeight;
+    resize();
+  });
+  stageObserver.observe(stage);
   motion.addEventListener('change', configure);
   window.addEventListener('resize', resize);
   window.addEventListener('hashchange', syncBookmark);
   function cleanup(event: PageTransitionEvent) {
     if (event.persisted) return;
     context?.revert();
+    stageObserver.disconnect();
     window.clearTimeout(resizeTimer);
     motion.removeEventListener('change', configure);
     window.removeEventListener('resize', resize);
