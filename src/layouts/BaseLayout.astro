@@ -3,10 +3,12 @@ import { getImage } from 'astro:assets';
 import { getProfile } from '../lib/content';
 import Header from '../components/Header.astro';
 import Contact from '../components/Contact.astro';
+import AmbientField from '../components/AmbientField.astro';
+import MotionLoader from '../components/MotionLoader.astro';
 import heroScene from '../../assets/plates/hero-scene.png';
 import '../styles/global.css';
-interface Props { title?: string; description?: string; home?: boolean; noindex?: boolean; }
-const { title = 'Mohanad Yehia | Software QA Engineer', description = 'Software QA across web, mobile, API, and data. Explore production experience, test frameworks, and evidence-backed QA case studies.', home = false, noindex = false } = Astro.props;
+interface Props { title?: string; description?: string; home?: boolean; noindex?: boolean; motion?: boolean; }
+const { title = 'Mohanad Yehia | Software QA Engineer', description = 'Software QA across web, mobile, API, and data. Explore production experience, test frameworks, and evidence-backed QA case studies.', home = false, noindex = false, motion = false } = Astro.props;
 const profile = await getProfile();
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const social = await getImage({ src: heroScene, width: 1200, height: 630, fit: 'cover', format: 'webp', quality: 85 });
@@ -17,6 +19,10 @@ const person = { '@context': 'https://schema.org', '@type': 'Person', name: prof
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style is:inline>
+      @view-transition { navigation: auto; }
+      @media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }
+    </style>
     <meta name="theme-color" content="#171515" />
     <title>{title}</title>
     <meta name="description" content={description} />
@@ -34,9 +40,11 @@ const person = { '@context': 'https://schema.org', '@type': 'Person', name: prof
     {noindex && <meta name="robots" content="noindex, follow" />}
     <script type="application/ld+json" set:html={JSON.stringify(person).replace(/</g, '\\u003c')} />
   </head>
-  <body>
+  <body class:list={{ 'portfolio-surface': motion }}>
+    {motion && <AmbientField />}
     <Header home={home} />
     <main id="main" tabindex="-1"><slot /></main>
-    <Contact profile={profile} />
+    <Contact profile={profile} material={motion} />
+    {motion && <MotionLoader />}
   </body>
 </html>

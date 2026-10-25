@@ -1,0 +1,20 @@
+<script>
+  if (document.body.classList.contains('portfolio-surface')) {
+    const media = matchMedia('(prefers-reduced-motion: no-preference)');
+    let started = false;
+    const start = () => {
+      if (!media.matches || started) return;
+      started = true;
+      void import('../scripts/motion').then(module => module.initMotion()).catch(() => { started = false; });
+    };
+    media.addEventListener('change', start);
+    if ('requestIdleCallback' in window) requestIdleCallback(start, { timeout: 1500 });
+    else setTimeout(start, 100);
+    function cleanup(event: PageTransitionEvent) {
+      if (event.persisted) return;
+      media.removeEventListener('change', start);
+      window.removeEventListener('pagehide', cleanup);
+    }
+    window.addEventListener('pagehide', cleanup);
+  }
+</script>

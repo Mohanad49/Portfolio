@@ -1,0 +1,33 @@
+---
+import { Image } from 'astro:assets';
+import upper from '../../assets/plates/passage-upper.png';
+import lower from '../../assets/plates/passage-lower.png';
+interface Props { variant?: 'chapter' | 'case' | 'archive' | 'closing'; }
+const { variant = 'chapter' } = Astro.props;
+---
+<div class:list={['material-field', `material-field--${variant}`]} aria-hidden="true">
+  <Image class="material-upper" src={upper} alt="" format="webp" quality={85} widths={[640, 1024]} sizes="(min-width: 1024px) 75vw, 120vw" loading="lazy" />
+  <Image class="material-lower" src={lower} alt="" format="webp" quality={85} widths={[640, 1024]} sizes="(min-width: 1024px) 75vw, 120vw" loading="lazy" />
+</div>
+<style>
+  .material-field { position: relative; height: clamp(12rem, 26vw, 27rem); overflow: clip; isolation: isolate; pointer-events: none; contain: paint; }
+  .material-field img { position: absolute; width: 110%; max-width: none; height: auto; left: 10%; transform-origin: center; }
+  .material-upper { top: -20%; transform: perspective(1200px) rotateY(-9deg) rotateZ(-5deg); }
+  .material-lower { top: 48%; transform: perspective(1200px) rotateY(7deg) rotateZ(-5deg); }
+  .material-field--case, .material-field--archive { position: absolute; inset: 0 -18% 0 38%; height: auto; z-index: -1; opacity: .8; mask-image: linear-gradient(90deg, transparent, #000 38%); }
+  .material-field--case .material-upper, .material-field--archive .material-upper { top: 7%; }
+  .material-field--case .material-lower, .material-field--archive .material-lower { top: 57%; }
+  .material-field--closing { position: absolute; inset: 0 -10% 0 55%; height: auto; z-index: -1; opacity: .22; mask-image: linear-gradient(90deg, transparent, #000 45%); }
+  .material-field--closing .material-upper { top: -6%; }
+  .material-field--closing .material-lower { top: 58%; }
+  @media (max-width: 760px) {
+    .material-field { height: 12rem; }
+    .material-field img { width: 160%; left: -10%; }
+    .material-upper { top: -15%; }
+    .material-lower { top: 58%; }
+    .material-field--case, .material-field--archive { position: relative; inset: auto; height: 12rem; margin: 2rem calc(-1 * var(--page-gutter)) -2rem; opacity: 1; mask-image: none; }
+    .material-field--case .material-upper, .material-field--archive .material-upper { top: -10%; }
+    .material-field--case .material-lower, .material-field--archive .material-lower { top: 58%; }
+    .material-field--closing { position: absolute; inset: 20% -15% 0 20%; height: auto; opacity: .12; mask-image: linear-gradient(90deg, transparent, #000); }
+  }
+</style>

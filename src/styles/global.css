@@ -23,6 +23,12 @@
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 2rem; }
 body { margin: 0; background: var(--color-graphite); color: var(--color-ink); font: 400 1rem/1.65 var(--font-sans); -webkit-font-smoothing: antialiased; overflow-wrap: anywhere; }
+.portfolio-surface { position: relative; isolation: isolate; }
+::view-transition-group(*) { animation-duration: .42s; animation-timing-function: cubic-bezier(.16, 1, .3, 1); }
+::view-transition-old(root) { animation: .18s ease-out both page-out; }
+::view-transition-new(root) { animation: .38s cubic-bezier(.16, 1, .3, 1) both page-in; }
+@keyframes page-out { to { opacity: 0; transform: translateY(-8px); } }
+@keyframes page-in { from { opacity: 0; transform: translateY(12px); } }
 ::selection { background: var(--color-amber); color: #171515; }
 a { color: inherit; text-decoration: none; }
 button { font: inherit; cursor: pointer; }
