@@ -35,9 +35,16 @@ one visual pipeline with independent assessment. Technical review is separate.
 6. Add a workflow only for a concrete responsibility gap and document its boundary.
 
 Inactive: design-taste and other design-direction skills, image-to-code, Vercel
-React best practices, web-design-guidelines, GSAP skills, Three.js fundamentals,
+React best practices, web-design-guidelines, general GSAP workflows, Three.js fundamentals,
 separate planning/incremental/TDD/review orchestrators, browser-testing-with-devtools.
 The latter requires a separate MCP setup; use available browser tools and CI tests.
+
+For the owner's continuous TestPulse transition request, gsap-scrolltrigger is
+an implementation reference for scroll ranges, refresh, and cleanup only.
+Impeccable still owns composition, choreography, acceptance, and documentation.
+gsap-timeline and transitions-dev were inspected but remain inactive: the first
+duplicates the selected reference, and the second targets component transitions.
+No new animation library, motion-token system, or parallel design workflow.
 
 ## Technical contract
 

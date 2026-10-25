@@ -3,6 +3,9 @@
 Status: B selected; the owner authorized the cinematic layered treatment after
 rejecting the hosted live renderer on 2026-10-23. Isolated prototype only.
 Owner request confirmed on 2026-10-23. Baseline: 40a24f16ec037658fb13d5509dd1ba59573f480a.
+This document retains the concept-stage choices and projected beats. D-018 in
+DECISIONS.md and the completed design record govern the implemented continuous
+arrival, including its measured travel and full hero fade.
 
 ## The job
 
@@ -59,9 +62,11 @@ roughly 15 to 20 seconds including TestPulse; no timer enforces that duration.
 | Inspection, 40-70% | B uses one short advance through an open slot. A unfolds around its edge; C follows the compact object. | B opens the slot as a mask and moves the layers through a much shorter depth range. A opens a compact vertical fan; C moves the specimen down the composition. | Looking beneath the surface reveals more useful information. |
 | Handoff, 70-100% | TestPulse appears in the material opening and resolves to a readable section with evidence links. | The project title and evidence replace the material field in normal document order. | The visual idea now connects to an actual QA project. |
 
-Keep the opening's additional scroll distance bounded: target at most about one
-extra desktop viewport and half an extra mobile viewport beyond the natural
-content. This is a prototype target to measure, not a reason to compress copy.
+The initial storyboard targeted about one extra desktop viewport and half an
+extra mobile viewport. The D-018 continuous arrival instead measures the scene
+in pixels: its opening is 2.4 scene heights on desktop and 2.2 on compact screens.
+After subtracting the pinned scene, travel is 1.4 and 1.2 scene heights. The
+completed design record documents these current values and their limitations.
 Work/Resume links bypass the sequence immediately. Deep links begin in their
 readable destination, without forcing the visitor back through the opening.
 

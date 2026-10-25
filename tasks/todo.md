@@ -43,3 +43,10 @@
 - [x] Verify the changed layered motion and obtain a fresh full visual review.
 - [x] Reach accepted visual finish before integration.
 - [x] Present the comparison and integration recommendation without changing production.
+
+## Continuous TestPulse arrival
+
+- [x] Replace the decorative duplicate with one heading and a complete work arrival.
+- [x] Verify full hero fade, continuous growth, release continuity, and fallbacks.
+- [ ] Complete bounded visual finish, technical review, and design documentation.
+- [ ] Publish and verify the revised isolated preview with passing acceptance checks.

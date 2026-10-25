@@ -42,3 +42,16 @@ owns the native-scroll DOM timeline. This prototype loads no WebGL scene or Reac
 island. The current homepage's separate interactive inspection scene is retained.
 No additional animation dependency. The existing production acceptance thresholds
 remain. Evaluate actual motion work in addition to mobile Lighthouse measurements.
+
+## Continuous arrival, owner refinement
+
+Keep the approved first viewport and artwork. One actual linked TestPulse heading
+must grow continuously from the aperture into the full work introduction. The
+hero heading, role, subtitle, and actions fade completely; the materials advance
+and clear before native scrolling resumes through the evidence. The work title
+can exceed the general display-size floor as this sequence's explicit focal type.
+No duplicate visible title, second entrance, new material generation, or renderer.
+Use the existing approved TestPulse description to explain the project on arrival.
+GSAP ScrollTrigger is an API reference under Impeccable, not another workflow.
+Default/static content, immediate work navigation, reduced motion, reverse scroll,
+live preferences, and responsive geometry must remain complete.

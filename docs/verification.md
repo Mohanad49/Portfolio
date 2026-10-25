@@ -1,6 +1,106 @@
 # Verification record
 
-## Layered artwork prototype: active checkpoint, 2026-10-24
+## Continuous TestPulse arrival: active checkpoint, 2026-10-25
+
+D-018 records the owner's request to remove the broken handoff between a growing
+decorative label and a second TestPulse section title. The prototype now uses one
+real linked heading throughout. The hero title, role, subtitle, and actions fade
+completely; the materials advance and clear; the heading and descriptor become
+the full work introduction. Existing approved project copy explains TestPulse.
+The real evidence approaches from below before sticky release, without another
+title entrance. The established first view, facts, images, dependencies, homepage,
+and production are preserved.
+
+Application commit 563096e90f1bd0a300e2e23460a7edd39caa6364 contains the current
+source blobs: page aeb16f2c39d4e03a40dfa10a924cdf43d2154c9c,
+motion 3a67322cdfdc51cd574f9af94f2017f3877bf825, and test
+d57a9a5e1ea9e8e6ee1d46bbce8a8542dd4f6036. Type checking across 34 files has zero
+diagnostics; lint and the twenty-page production build pass. The existing optional
+homepage renderer chunk warning remains visible. The complete affected matrix
+passes all 63 checks across Chromium, Firefox, and WebKit at desktop, tablet, and
+mobile sizes, without skips, retries, failures, or flaky results. It starts at
+2026-10-25T00:00:04.666Z and completes in 67.667 seconds. Retained report:
+.research/experience-study/arrival-final-source-browser.json. The earlier two
+63-pass checkpoints remain retained separately.
+
+The new regression samples four scroll positions, including 92% and 100%, and
+requires continued title growth, one heading, a fully visible arrival, every hero
+element hidden at completion, stable title size and an 80-pixel native position
+change on release, then a complete reverse to the opening. Existing checks cover
+bookmarks, immediate actions, static and unavailable-WebGL paths, live motion
+preferences, tablet-to-phone reading retention, loaded active artwork only, idle
+rest, and errors. All nine axe/reflow cases have zero serious or critical findings.
+
+Independent technical review caught a compact fallback defect outside the original
+assertions: the unique project descriptor was transparent without active motion.
+Its initial hidden state now applies only to the enhanced timeline. No JavaScript,
+initial Reduce Motion, and live Reduce Motion each explicitly require descriptor
+opacity 1 in all nine configurations. The source reviewer resolves the Required
+finding at the corrected blobs. The current 63-pass result includes this correction.
+
+Earlier failures remain retained. The first 14 registrations had ten passes and
+four failures: an empty arrival layout intercepted mobile clicks, and structural
+padding/margin transitions moved the reading position after Reduce Motion cleanup.
+The layout now passes pointer input through its empty area, while visible copy
+remains selectable. Its structural transitions are explicitly disabled so layout
+changes settle inside the existing reading-position transaction. The diagnostic
+rules out a proposed native-scroll-anchoring explanation and records the delayed
+padding and margin values instead.
+
+The following 63-registration run had 58 passes and five failures: two exact
+IntersectionObserver ratio comparisons returned 0.99999976158 for a fully visible
+transformed heading, and all three tablet-to-phone reading checks failed. The
+heading assertion now checks all four actual viewport bounds with a half CSS
+pixel rounding tolerance; it still requires complete visibility. Removing an
+unnecessary focus side effect did not fix the resize issue, and the affected
+nine-check run retained those three failures. The actual cause was extra travel
+expressed in svh, which changed the document height before JavaScript could
+compensate. Travel now uses measured pixel height and reconfigures on debounced
+resize. The affected three checks and the full final matrix pass. Failure reports
+and diagnostics remain under .research/experience-study/arrival-* and
+test-results/arrival-*. No retry, skip, or acceptance gate was relaxed.
+
+The builder completed one batched inspection and one correction/confirmation.
+The batch brought evidence into the end viewport and made the explanatory copy
+arrive earlier. Final static and moving captures, native-scroll videos, and their
+manifest are under .impeccable/review. The comparison remains 94% against B, with
+the existing approved typography and semantic-text adaptations. Provenance scan:
+five rasters, zero missing. All 24 current PNGs were opened for validity after
+the required technical corrections. The current manifest is dated
+2026-10-24T23:59:15.900Z. No further builder aesthetic pass was started.
+
+Three initial production-build mobile Lighthouse runs failed the unchanged
+performance and CLS gates: all scores were 80, with CLS 0.3843770739. LCP passed
+at 2264.5541, 2255.9163, and 2255.4751 ms. The attributed shift was the arrival
+wrapper moving from static flow into its pinned position before it was hidden.
+The enhanced wrapper now starts hidden during that layout change, and the
+existing timeline reveals it from 55% to 85%; only its copy child translates.
+The default static wrapper stays visible. New assertions check its hidden enhanced
+start, complete arrival, and visible no-JavaScript/initial/live Reduce Motion states.
+The failing reports remain in lighthouse-arrival and lighthouse-arrival-summary.json
+under .research/experience-study.
+
+All three corrected mobile Lighthouse runs score 98. LCP values are 2262.0677,
+2256.4436, and 2255.8537 ms, median 2256.4436 ms. Each CLS is 0.0001237532.
+All unchanged gates pass. Reports and the parsed summary are retained as
+lighthouse-arrival-corrected and lighthouse-arrival-corrected-summary.json.
+The local headless post-load sample records zero errors or canvas elements,
+46,899 encoded JavaScript bytes with motion, and 1,467 with initial Reduce Motion.
+Each 39-frame sample has a median interval of 16.7 ms. The desktop p90 is 33.3 ms;
+tablet and mobile p90 values are 16.7 and 16.8 ms. This bounded lab sample is not
+physical iPhone, GPU, or field smoothness certification. Data is retained in
+arrival-runtime-profile.json.
+
+Technical source review approves the current blobs with no unresolved Critical
+or Required finding. The fresh full D-018 visual review returns ship after opening
+all 24 required captures. It confirms the complete single-heading transformation,
+hero disappearance, explanatory arrival, and settled release, with no material
+fixes. Videos were not played, and the verdict does not certify temporal or
+physical-device smoothness. D-017 review history is retained below that report.
+Completed design documentation and hosted verification remain pending. This is
+still an isolated preview, not production integration.
+
+## Layered artwork prototype: previous checkpoint, 2026-10-24
 
 The owner rejected the hosted renderer at 6a46f0b and authorized preserving the
 approved B artwork with cinematic layers. D-017 and the surface brief record

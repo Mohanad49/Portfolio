@@ -747,3 +747,138 @@ a PDF-transfer or physical-iPhone verification claim. Hosted CI and preview
 verification are now complete within that scope. Technical approval remains
 for the isolated prototype only; production integration and release are outside
 this approval. This note records supplied results without a new check or review.
+
+## D-018: continuous TestPulse arrival source review
+
+Date: 2026-10-24. Scope: the working-tree delta over `371ae38`, using D-018
+and the current experience brief. Technical review only; no aesthetic scoring.
+
+| Reviewed file | Git blob |
+| --- | --- |
+| `src/pages/experience.astro` | `6bad7224264ea68825134ef281529270f9c1eb34` |
+| `src/scripts/experience-motion.ts` | `ba858786084069df161c9e479018940a22b4d713` |
+| `tests/experience.spec.ts` | `a0540d821f1c66a12ef971c21b91bcc083ec0a4e` |
+| `DECISIONS.md` (D-018) | `7707b6ecbc681083513e50f099f41338644facce` |
+| `docs/briefs/experience.md` | `8218cbc6b4b92494f2a2d36dfab52ed538391f50` |
+
+**Required, P2 (resolved below): restore the unique descriptor in compact static and Reduce
+Motion layouts.** The compact `.passage-project-summary` rule unconditionally
+sets `opacity: 0`. Its only restoration is the normal-motion timeline's
+`autoAlpha: 1` tween. The previous visible descriptor in `.evidence-intro` was
+removed, so no JavaScript, initial Reduce Motion, live Reduce Motion reversion,
+or motion-import failure leaves a visible copy of "Test observability & flake
+detection" on compact viewports. Scope its initial hidden state to active motion
+or provide its visible static layout, and assert that state in the static and
+Reduce Motion regression coverage. This conflicts with D-018's complete fallback
+contract. Source approval was held for this correction at those reviewed blobs.
+No Critical finding or other confirmed Required source blocker was found.
+
+The remaining structure uses one linked TestPulse heading and one descriptor,
+with a single native-scroll arrival timeline and a separate once-only history
+reveal. `autoAlpha` removes faded hero controls from ordinary focus navigation.
+Measured pixel travel, debounced resize, context reversion, evidence-position
+compensation, timer cancellation, and matching resize/hash/media listener
+cleanup address the changed lifecycle. The empty arrival wrapper cannot
+intercept clicks. Structural layout transitions are explicitly disabled.
+The optimized active-source artwork delivery, homepage, public evidence,
+dependencies, and renderer exclusion remain unchanged.
+
+The consumed `arrival-final-browser.json` records 63 passes across seven checks
+in all nine engine/viewport configurations, zero skips, failures, flaky results,
+or retries, and a duration of 78.659 seconds from
+2026-10-24T13:02:13.156Z. All nine axe/reflow cases pass. These tests do not check
+the descriptor's static opacity and therefore do not clear the Required finding.
+The four-edge viewport helper's 0.5 CSS-pixel allowance addresses retained
+IntersectionObserver precision evidence while preserving full geometric bounds;
+it does not relax evidence, request-exclusion, or reading-position assertions.
+The earlier click interception and tablet reading failures remain retained,
+with the affected three-engine resize checks passing after measured travel.
+The parent reports 34-file type checking with zero diagnostics, lint, and the
+20-page build passing. Current performance/profile work, visual confirmation,
+fresh full visual review, and hosted acceptance of D-018 remain separate gates.
+PR 4 remains draft and production integration is outside this review. Only this
+report was edited; no browser, workflow, or duplicate check was launched.
+
+### Required finding resolved: scoped hidden state
+
+Date: 2026-10-24. The narrow correction was reviewed at page blob
+`2645581ebb116a7088d800da42f0cfcdecd2bfd4`, unchanged motion blob
+`ba858786084069df161c9e479018940a22b4d713`, and test blob
+`0d2ef8977eb90ad517f8a668e9a4cba8a4238faa`.
+
+Compact base styles now leave the unique descriptor visible. Only
+`.has-passage-motion .passage-project-summary` starts at zero opacity; context
+reversion and removal of that class restore the static state. The existing
+no-JavaScript, initial Reduce Motion/axe, and live Reduce Motion tests now
+explicitly require descriptor opacity 1. The correction adds no duplicate
+element, layout-height change, asset, or lifecycle responsibility.
+
+**Current technical source verdict: approve for the isolated prototype. The
+Required P2 finding is resolved; no Critical or Required source blocker remains
+at these corrected blobs.** The parent reports 34-file type checking with zero
+diagnostics, lint, and the 20-page build passing sequentially. The current
+63-check run in `arrival-reviewed-browser.json` remains pending at this source
+checkpoint. Earlier results above belong to their recorded identities. Current
+performance, visual, hosted, and physical-device acceptance remain separate;
+production integration remains outside scope. This resolution used source
+inspection only, with no duplicate runtime check or application edit.
+
+### Startup wrapper correction: source approval, measurements pending
+
+Date: 2026-10-25. This bounded D-018 correction was reviewed at these blobs:
+
+| File | Git blob |
+| --- | --- |
+| `src/pages/experience.astro` | `aeb16f2c39d4e03a40dfa10a924cdf43d2154c9c` |
+| `src/scripts/experience-motion.ts` | `3a67322cdfdc51cd574f9af94f2017f3877bf825` |
+| `tests/experience.spec.ts` | `d57a9a5e1ea9e8e6ee1d46bbce8a8542dd4f6036` |
+| `DECISIONS.md` | `cb8b343c5d3e6dbaf2f2e874411c82c469a31998` |
+
+**Technical source verdict: approve for the isolated prototype. No new Critical
+or Required source blocker was found.** Enhanced-only `visibility: hidden`
+targets the wrapper's visible relocation when its layout becomes absolute.
+Visibility preserves measurable destination geometry. The existing timeline
+reveals the wrapper with `fromTo` autoAlpha from progress .55 to .85, while only
+the copy child translates. The destination markers do not translate. Context
+reversion and removal of the enhancement class restore the visible static and
+Reduce Motion states. No new asset, dependency, listener, or loop is introduced.
+
+The regression now checks the hidden enhanced start, full wrapper opacity on
+arrival, and visible wrapper states without JavaScript and with initial/live
+Reduce Motion. The previously consumed descriptor-corrected run is now confirmed:
+`arrival-reviewed-browser.json` records 63 passes, no skips, failures, flaky
+results, or retries, starting 2026-10-24T13:16:49.169Z and taking 85.145 seconds.
+That result belongs to the preceding descriptor-correction identities.
+
+The parent retains the separate pre-wrapper Lighthouse failure: all three runs
+score 80 with CLS approximately 0.384377; LCP around 2256 ms passes its gate.
+The source change addresses the identified startup state, but does not establish
+passing CLS without new measurement. The parent reports sequential check, lint,
+and build passing at the current blobs. The new current-source matrix and
+performance results remain pending, with visual, hosted, and physical-device
+acceptance separate. Production integration remains outside scope. Only this
+report was edited; no browser, runtime check, or extra workflow was launched.
+
+### Supplied current-source acceptance results
+
+Date: 2026-10-25. At the startup-correction blobs recorded above,
+`arrival-final-source-browser.json` reports 63 passes, zero skips, failures,
+flaky results, or retries, starting 2026-10-25T00:00:04.666Z and completing in
+67.667486 seconds. All nine axe/reflow cases pass.
+
+The three exact-source mobile Lighthouse runs score 98/98/98, with LCP
+2262.0677/2256.4436/2255.8537 ms and CLS 0.0001237531567993509 in every run.
+Median LCP is 2256.4436 ms; all unchanged performance, LCP, and CLS gates pass.
+Reports are retained in `lighthouse-arrival-corrected` with parsed results in
+`lighthouse-arrival-corrected-summary.json`. The previous score-80/CLS-0.384377
+failure remains separately retained.
+
+The supplied bounded post-load `arrival-runtime-profile.json` records zero
+errors or Canvas elements, 46,899 encoded JavaScript bytes versus 1,467 with
+Reduce Motion, and 39 requestAnimationFrame samples per device. Median sample
+interval is 16.7 ms; desktop/tablet/mobile p90 values are 33.3/16.7/16.8 ms.
+These samples do not certify physical-iPhone or field performance. The single
+verification record contains the exact source identities and supplied results.
+Fresh full visual review and hosted acceptance remain pending, and production
+integration remains outside scope. This note records supplied results only;
+no new source review, runtime check, or workflow was performed.
