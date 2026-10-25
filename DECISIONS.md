@@ -269,3 +269,11 @@ preview completion. Production replacement remains a separate decision.
 Reference inspection: https://landonorris.com/ supplies a pacing reference, not
 assets or product content. Implementation references are GSAP ScrollTrigger and
 MDN's native cross-document View Transition API documentation.
+
+Completion: the preview now carries the accepted opening through the homepage,
+archive, and all three cases. The fresh visual review's sole enlarged-text
+finding is resolved; technical findings and the final hosted checks are complete.
+The canonical design pair describes the implemented motion system. Current
+evidence, exact source identities, measurements, and review scopes are recorded
+in docs/verification.md and the separate review records. Production replacement
+remains an owner decision after reviewing this complete preview.

@@ -905,3 +905,250 @@ isolated prototype. The parent reports a clean original checkout and production
 still at deployment `7280653313`, source `40a24f1`. Physical-iPhone behavior is
 not certified, and production integration remains outside this approval. This
 note records supplied results only, without new review, checks, or workflow.
+
+## D-019: full-site motion source review
+
+Date: 2026-10-25. Reviewed against
+`6cf7369c1a610acb859e83519d39a5426503f5fb`, including committed changes through
+`c68903339eb9e187eb65c49d97725bd029f56f59` and the working-tree source below.
+AGENTS.md, D-019, tasks/plan.md, and the home, archive, and case-study briefs
+define the remit. This is technical source review, with visual direction fixed.
+
+**Status: complete. Final technical source approval for the exact application
+and verification commits is recorded at the end of this D-019 section.** Earlier
+pending checkpoints and ranked findings below are historical, with their
+resolutions and evidence preserved.
+
+### Reviewed source identities
+
+| File | Git blob |
+| --- | --- |
+| `src/components/PassThrough.astro` | `d2f9a4caf01203d9bdfae1d38a3a2b5a0ba5b658` |
+| `src/components/MotionLoader.astro` | `e06e97f09bfc92d868add41b37615efa3cbbd82b` |
+| `src/components/MaterialField.astro` | `72428f00bbe2735bff9381a352035a391b9fdc04` |
+| `src/components/AmbientField.astro` | `08b5b08b57324b42b18bf26bc09360045095eb87` |
+| `src/components/About.astro` | `8cad4f611d67367d942f5040d7219adbe905a998` |
+| `src/components/Approach.astro` | `e23394b29cc4a31ad7b08ea6e3aef585a2a4aab8` |
+| `src/components/CaseEvidence.astro` | `9dffc7563f37cbd6a7bc13903213ca587f7aae76` |
+| `src/components/Contact.astro` | `6d107668ddddd5e2a2ae0a8ee18438c99d0d930f` |
+| `src/components/Experience.astro` | `29586e3e34de021aad55467116472fff2fa62f27` |
+| `src/components/SelectedWork.astro` | `84f6a5f83f19103706dbc54641eaf9401f3cbf0c` |
+| `src/layouts/BaseLayout.astro` | `246cda639fd475bc4a852fe9fc00a2362d1a1f8f` |
+| `src/pages/index.astro` | `9a56cedb32400e6592718a6668d3118a0cbe4123` |
+| `src/pages/experience.astro` | `70987cd8dd334394b9b1550f0ec359273feaa7b9` |
+| `src/pages/work/index.astro` | `4c1053435af65e163c12f155840873f8925cb4fa` |
+| `src/pages/work/[slug].astro` | `73fa5edea6f7c6297a0026d36505cb8b7068fd5e` |
+| `src/scripts/experience-motion.ts` | `49a67e46bebd18ab129749c6a6c110f378686a4f` |
+| `src/scripts/motion.ts` | `cc7d89012067a3bf786a47e6e060e0e134d8d159` |
+| `src/styles/global.css` | `e1c01dff13d83a1a726d4223ec2c85edd69d39ce` |
+| `tests/experience.spec.ts` | `e5fcf0958c3dee1e2f6d2465ccf1ca64bd13fe43` |
+| `tests/history.spec.ts` | `b6750b94bdfc2f22899c1c0eb5c9cd4ba457d972` |
+| `tests/portfolio.spec.ts` | `121ef512b7d0bc0079bc0388c09f6bc0aaf19a45` |
+| `tests/journey.spec.ts` | `5693c3e4d4f77467fac8b89d3a6e054e2043a143` |
+
+The obsolete `Hero.astro` is removed. Its raster remains used by social metadata.
+Dependency declarations and the lockfile have no delta against the baseline.
+
+### Ranked findings
+
+**Required, P2, resolved in source: refresh downstream geometry after opening
+configuration.** The opening and shared motion modules initialize independently.
+Previously, general motion could measure chapter triggers against the static
+opening before the opening module changed its height. CSS sticky does not supply
+GSAP pinning's automatic global refresh. ResizeObserver-only stage changes could
+leave the same stale geometry. `experience-motion.ts` now dispatches the existing
+`portfolio:layout` event after height, reading-position compensation, and
+configured-state changes; `motion.ts` refreshes the shared ScrollTriggers. The
+new journey regression deliberately holds the opening bundle until general
+motion initializes, releases it, and tests the winner bar near both ends of the
+actual shifted section. Runtime confirmation of the correction is pending.
+
+**Optional, P3: measure ordinary chapter travel after opening setup.** The
+ordinary forward/reverse test in `tests/journey.spec.ts` measures its figure
+range immediately after navigation, before requiring the opening enhancement
+class. Await that configuration before measuring coordinates, so delayed loading
+cannot make this test use the static document's range. The separate held-import
+test should continue exercising the deliberately reversed load order.
+
+**Optional, P3: reject the inert SVG in active-artwork assertions.** The artwork
+test in `tests/experience.spec.ts` accepts `complete && naturalWidth > 0`.
+The one-pixel fallback also meets this condition. In particular, the mobile
+branch could miss a broken active source while still passing motion and unused
+request checks. Require the expected active WebP source family, or a width above
+one for these known rasters, to establish actual artwork delivery.
+
+### Architecture and verification boundary
+
+The accepted opening is shared by the root and focused study. Contact's material
+field is opt-in, preserving the study's desktop request boundary. Native links,
+filters, disclosures, content, and evidence remain HTML; native view transitions
+have early inline head opt-in and Reduce Motion opt-out, without a client router.
+The general motion context and loader have matching listener cleanup. The
+opening's ResizeObserver and debounce timer are disconnected or cleared on
+nonpersisted exit. Persisted pages retain their existing restoration policy.
+Once-only reveals retain completed state through reconfiguration, prose remains
+steady, and the optional Approach renderer keeps its separate eligibility and
+resource owner. No new animation dependency or continuous background loop was
+introduced.
+
+Consumed retained reports show the first full run had 208 passes, 12 established
+inapplicable skips, and 15 failures. The affected run had 29 passes, six skips,
+and two Chromium navigation aborts. Nine repeated Chromium navigation checks
+subsequently passed after moving native transition opt-in into the head. These
+results do not constitute current full-tree acceptance. The parent is running
+the refreshed affected regressions and checks; final review will consume that
+evidence. Production integration remains outside scope. Only this pending report
+section was edited by the reviewer; no runtime, workflow, or application edit
+was performed.
+
+### Waiting-state accessibility correction: pending source follow-up
+
+Date: 2026-10-25. Reviewed the three-file delta over application checkpoint
+`2a0e900105d969565c5c9b65521f6ec51fd6ac5a` at these blobs:
+
+| File | Git blob |
+| --- | --- |
+| `src/scripts/motion.ts` | `8d18790161160c7902b7d9d4c9b80b7b55fef3bf` |
+| `src/scripts/experience-motion.ts` | `5bf7f1fe7a34027eb8bc76e8c03012be0eddef3c` |
+| `tests/portfolio.spec.ts` | `cf6eb28f5499b8cfab6407204d0104c45f18fd9d` |
+
+The earlier Optional notes are resolved: the ordinary chapter test now waits
+for opening configuration before measuring travel, and active-artwork tests
+require natural width above one and the expected WebP source family. Reviewed
+test identities are `5693c3e4d4f77467fac8b89d3a6e054e2043a143` for
+`journey.spec.ts` and `39f788e819034940e400d28bc0dc286606feb0db` for
+`experience.spec.ts`.
+
+**Required, P2 (resolved below): keep linked chapter headings transform-only too.** The new
+waiting-state policy makes action containers fully opaque, but
+`src/scripts/motion.ts` still applies a fully closed clip mask to every
+`.chapter-title`. The Cal.diy and LLM headings in
+`src/components/SelectedWork.astro` contain links, so those action containers
+remain fully clipped while waiting. Apply the interactive-descendant distinction
+to this heading branch as well, reserving clip masks for noninteractive titles.
+This is an incomplete application of the stated transform-only policy; full
+opacity alone does not establish that a link is visibly available.
+
+**Optional, P3 (resolved below): assert the animated container's effective visibility.** The
+new test reads `.framework-actions a` opacity, which remains 1 even if its
+`.framework-item` ancestor is faded. Assert the reveal container or effective
+ancestor opacity, and include linked chapter headings' clip state when enforcing
+the transform-only contract.
+
+The zero-opacity waiting state for noninteractive reveals retains their semantic
+content and existing once-only completion/context cleanup. Linked data-reveal
+containers, archive rows, and next-project links now use transform-only motion;
+the scene history has no controls. No new state, listener, dependency, renderer,
+or resource owner was added. Fresh normal-motion axe coverage spans all six
+routes without diagnostic masking, exclusions, or threshold changes.
+
+The parent reports the preceding checkpoint passed 40 affected checks with six
+inapplicable skips, 18 stronger artwork/range checks, nine repeated Chromium
+navigation checks, and all 18 Lighthouse performance measurements. Its normal-
+motion accessibility audit nevertheless exposed low-contrast waiting states.
+Those measurements belong to that checkpoint, not this correction. Current
+source approval and acceptance remain pending the Required correction and fresh
+runtime evidence. No checks or application edits were performed by this reviewer.
+
+### Linked-heading correction resolved; final verification pending
+
+Date: 2026-10-25. Reviewed motion blob
+`70f9529f83175bdcbc8fc5fbcc42aeeb18333b0d`, unchanged opening-motion blob
+`5bf7f1fe7a34027eb8bc76e8c03012be0eddef3c`, and portfolio-test blob
+`50909f92fa3dfca27ba7a0d4e2afbd9ca7df6abd`.
+
+The heading branch now uses transform-only motion when its heading contains
+actions, retaining clip reveals only for noninteractive headings. The Required
+P2 is resolved in source. The normal-motion test now asserts opacity 1 and
+`clipPath: none` on the actual framework and case-index containers, next-case
+links, About copy, and linked chapter headings. This also resolves the Optional
+child-link assertion weakness. No new lifecycle, dependency, or resource handling
+change was introduced.
+
+No unresolved Critical or Required source finding remains in this precise
+correction. The parent reports the preceding contrast/preference/history/artwork
+matrix passed all 37 cases without skips, failures, or retries. Final action-state
+axe checks across all nine configurations and the refreshed verification
+checkpoint remain pending. D-019 approval remains pending that evidence;
+`docs/verification.md` owns the current results. No duplicate checks or aesthetic
+review were performed, and only this report was edited.
+
+### Hosted growth-sample synchronization: test-only review
+
+Date: 2026-10-25. Application remains
+`d3e334ea22cbb3c7f9f4315bd182bb2c44c81b14`. Reviewed only the
+`tests/experience.spec.ts` correction, blob
+`3b76e5fd8439d0f28033562ef63699a180c62995`.
+
+**No Critical or Required test-source blocker found. D-019 acceptance remains
+pending refreshed hosted verification.** The correction waits for fonts and
+decoded active artwork before measuring text geometry, verifies the requested
+native scroll position, polls for growth above the unchanged 0.2 px threshold,
+then samples after three consecutive animation-frame widths differ by less than
+0.01 px. The final consecutive-growth, viewport, complete hero fade, native
+release, unchanged released width, and reversal assertions remain. Diagnostics
+attach the progress, requested/actual scroll, and width samples in `finally`.
+This preserves sampled monotonic growth evidence while removing the assumption
+that 350 ms necessarily contains a rendered update. It does not certify frame
+pacing or mathematical continuity between sampled positions.
+
+**Optional, P3 (resolved below): compare the settled first sample with the initial width too.**
+The initial-to-25% threshold is polled before settling, while the final loop
+compares only settled 25/75/92/100% widths. To reject an initial overshoot that
+later regresses, compare each settled width to `previousWidth + .2` before
+updating `previousWidth`, or include the initial width in the final series.
+The original four-position proof retains its settled comparisons regardless.
+
+The retained failure from CI `40179713602` remains: 240 passes, 12 established
+inapplicable skips, and one WebKit desktop growth-sample failure. The parent's
+trace analysis places the second width sample before the next rendered frame,
+with the final pose correctly enlarged. Its trace and pose images remain under
+`.research/d019/ci-d3`. The 27-registration, nine-configuration repeat matrix
+and lint are pending at this review checkpoint. No retry, skip, filter, or
+threshold relaxation was introduced. Only this pending report was edited;
+no checks, application edits, screenshots, or additional workflow were run.
+
+### Settled-initial comparison resolved; hosted verification pending
+
+Date: 2026-10-25. Test-only commit
+`9b9c03abeb289b2e34639e46f60409a4cc8684e2` adds the explicit
+`expect(width).toBeGreaterThan(previousWidth + .2)` after frame settlement and
+before updating `previousWidth`. The Optional note is resolved: every settled
+sample, including 25% against the initial pose, now retains the same growth
+threshold.
+
+The parent reports all nine configurations passed with zero failures, skips,
+flaky results, or retries in `settled-initial-growth-browser.json`; the earlier
+repeat check passed all 27 registrations. The application, assets, dependencies,
+and completed design extraction remain unchanged from `d3e334e`, according to
+the supplied diff result. The hosted workflow is running for `9b9c03a`; final
+hosted acceptance remains pending. This note resolves the supplied correction
+without another review, runtime check, or application edit.
+
+### Final D-019 technical source verdict and completion pointer
+
+Date: 2026-10-25. **Approve technical source quality** for application
+`d3e334ea22cbb3c7f9f4315bd182bb2c44c81b14` with verification tests at
+`9b9c03abeb289b2e34639e46f60409a4cc8684e2`. All ranked D-019 findings above
+are resolved. No unresolved Critical or Required source finding remains within
+the reviewed correctness, architecture, maintainability, security, dependency,
+and resource-handling scope. Completed design extraction in `54cd121` changes
+documentation only; the verification-test correction does not alter application
+paths.
+
+The active [D-019 verification record](verification.md) owns the current results
+and measurements. Its retained CI `40182083491` evidence was consumed without
+rerunning checks: 253 registrations, 241 passes, 12 established applicability
+skips, and zero unexpected failures, flaky results, retries, or runner errors.
+The retained `ci-final-summary.json` confirms all eighteen Lighthouse runs and
+all six routes meet the unchanged gates, with accessibility 100 on every route.
+Detailed metrics, local and hosted scope, preview deployments, and authenticated
+smoke coverage remain in that single verification record.
+
+Fresh visual acceptance and completed design documentation are recorded by their
+respective owners. Hosted acceptance for the reviewed preview scope is complete;
+earlier failures and interim pending states above remain historical evidence.
+Production stays at `40a24f16ec037658fb13d5509dd1ba59573f480a`. This source approval
+authorizes no production release and certifies no physical-device smoothness.
+Only this completion pointer was written; no source change, repeated review,
+runtime check, screenshot, or additional workflow was performed.

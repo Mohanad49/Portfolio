@@ -53,10 +53,10 @@
 
 ## Full portfolio motion extension, D-019
 
-- [ ] Share the accepted opening and preserve its complete fallback behavior.
-- [ ] Integrate it into the full homepage without duplicating TestPulse.
-- [ ] Choreograph the remaining homepage chapters and dynamic material field.
-- [ ] Extend the archive and all three case-study pages.
-- [ ] Verify behavior, accessibility, responsive states, and performance.
-- [ ] Complete visual/source review and finished design documentation.
-- [ ] Publish and smoke-test the complete preview, keeping production separate.
+- [x] Share the accepted opening and preserve its complete fallback behavior.
+- [x] Integrate it into the full homepage without duplicating TestPulse.
+- [x] Choreograph the remaining homepage chapters and dynamic material field.
+- [x] Extend the archive and all three case-study pages.
+- [x] Verify behavior, accessibility, responsive states, and performance.
+- [x] Complete visual/source review and finished design documentation.
+- [x] Publish and smoke-test the complete preview, keeping production separate.

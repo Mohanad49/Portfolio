@@ -1,6 +1,171 @@
 # Verification record
 
-## Continuous TestPulse arrival: active checkpoint, 2026-10-25
+## Full-site motion, D-019: active checkpoint, 2026-10-25
+
+Current application commit: d3e334ea22cbb3c7f9f4315bd182bb2c44c81b14.
+Current verification-test commit: 9b9c03abeb289b2e34639e46f60409a4cc8684e2.
+This promotes the accepted Pass Through opening onto the preview homepage and
+extends its world across the remaining homepage, archive, three case studies,
+and closing navigation. No factual source, dependency, or production deployment
+is changed. The earlier D-018 records below are historical evidence.
+
+Type checking covers 38 files with zero errors, warnings, or hints. ESLint and
+the twenty-page production build pass. The existing optional inspection-renderer
+chunk warning remains visible. The selected owner pipeline remains unchanged.
+
+| Retained local report | Result | Scope |
+| --- | --- | --- |
+| .research/d019/opening-browser.json | 72 passed | Shared opening, compact text flow, artwork, fallbacks, arrival and evidence. |
+| .research/d019/first-full-browser.json | 208 passed, 12 inapplicable skips, 15 failures | First complete browser matrix; failures were investigated, not suppressed. |
+| .research/d019/final-affected-browser.json | 40 passed, six inapplicable skips | Corrected images/history/reading positions, native navigation, shared geometry and module-loading order. |
+| .research/d019/artwork-and-range-browser.json | 18 passed | Actual WebP resources rather than inert placeholders; chapter range startup and reversal. |
+| .research/d019/navigation-repeat-browser.json | Nine passed | Three repetitions per Chromium viewport, including case-to-case navigation and browser Back. |
+| .research/d019/motion-accessibility-browser.json | 37 passed | Contrast correction, normal-motion axe, live preferences, actual artwork, and BFCache. |
+| .research/d019/action-state-axe-browser.json | Nine passed | Six routes in every browser/viewport, zero serious or critical axe findings with motion enabled; actual action containers stay opaque and unclipped. |
+| .research/d019/zoom-fix-browser.json | 81 passed | The visual review's enlarged-word correction, all opening behaviors, and main-route reflow across all nine configurations. |
+| .research/d019/settled-arrival-browser.json | 27 passed | Three repetitions per configuration of condition-based scroll/growth and frame settlement. |
+| .research/d019/settled-initial-growth-browser.json | Nine passed | Final settled initial-growth assertion with every original threshold retained. |
+
+Passing runs have no unexpected failures, retries, or flaky results. The six
+affected skips and twelve complete-matrix skips retain the established
+desktop-only scene and once-per-browser redirect applicability rules.
+Do not sum these overlapping registrations into a claimed full-suite result.
+The complete hosted result for the current application and verification tests is
+recorded below.
+
+### Corrected findings
+
+The shared opening's compact layout now flows at enlarged text sizes instead of
+overlapping absolute copy/actions. The opening's own responsive picture delivery
+remains scoped to the active viewport. Footer material is opt-in on full-site
+surfaces, keeping the isolated study free of unnecessary desktop split images.
+The image test keeps stable DOM identities as scrolling hides the old opening.
+The history test advances the new scrub sequence before requiring a transform.
+Live preferences compare the actual content's viewport position because changing
+the upstream opening's height legitimately changes the numerical scroll offset.
+
+Repeated Chromium navigation exposed a native View Transition opt-in timing
+error. The opt-in and reduced-motion opt-out now appear in inline head CSS before
+stylesheet loading, following the documented first-render requirement. No native
+error is filtered from the tests. Nine repeated navigation runs pass.
+
+Source review identified missing coordination when general motion loads before
+the opening expands. The opening now emits the existing portfolio:layout event
+after its height and reading-position transaction; general motion refreshes its
+triggers. A delayed-opening-bundle regression proves the initial and final poses
+at the actual shifted chapter range in all nine configurations.
+
+The first eighteen Lighthouse measurements passed performance but exposed
+offscreen low-contrast waiting text. Noninteractive fades now begin at zero
+opacity, without visibility or accessibility-tree hiding. Linked content uses
+transform-only motion. This includes the linked chapter headings, archive rows,
+next-project links, and About copy. The new normal-motion axe check inspects the
+actual animated containers, requiring full opacity and no clip mask. The previous
+reduced-motion scans remain evidence for the unchanged complete static layouts.
+
+Hosted CI 40179713602 then reported 240 passes, twelve inapplicable skips, and
+one WebKit desktop continuous-growth failure. Its retained trace shows a stale
+sample, not a reproduced title plateau: the 75% scroll was requested at
+219320.405, its width was read by 219703.65, and the next retained frame did not
+arrive until 219922. The prior frame was at 219221.651. The final frame shows the
+complete enlarged arrival. Trace and extracted poses remain in
+.research/d019/ci-d3 and .research/d019/ci-d3-pose-*.jpg.
+
+The test-only correction waits for the real artwork and fonts, confirms native
+scroll position, requires the same greater-than-0.2px growth at 25%, 75%, 92%, and
+100%, and samples a width after three unchanged animation frames. Settled initial
+growth also uses that threshold. It retains the complete arrival, hero fade,
+native release, and reversal assertions, and attaches actual scroll/width samples.
+No retry, skip, error filter, or relaxed assertion was introduced. The 27-repeat
+and final nine-configuration runs pass. Application paths have no diff from
+d3e334e, so this verification change does not alter the accepted artifact.
+
+### Visual, performance, and hosted completion
+
+The current 35-view visual manifest is
+.impeccable/review/d019/capture-manifest.json. It covers the five complete main
+routes at desktop/mobile, the homepage at tablet and the reported 1280 width,
+the approved comp size, all six later homepage chapters, readable case entrances,
+and 320-wide enlarged text. It also includes the ordinary compact entry and an
+actual 1265 by 712 hosted Cal.diy view. Captures were refreshed for the technical
+corrections. Unchanged PNG hashes reuse the earlier validity inspection; changed
+images were reopened. All current files have been validated. The opening's final
+comparison remains 0.942 overall; the material region is 0.9435. The explicitly
+accepted sharp semantic typography remains a documented adaptation.
+
+The fresh full-site visual review accepted the world and later-page treatment,
+with one material reflow finding at 320 width and 200% text size. The compact
+opening now caps its padding in viewport units, preserving the actual 64px title
+while giving each word sufficient width. A text-range regression requires every
+word to remain whole at both 320 and 390 widths. The reviewer scored that one fix
+resolved after validating the four refreshed views. Its ship disposition covers
+the scored fix list, with the original full assessment retained separately.
+
+An invalid early reflow attempt is retained under .research/d019/stale-build-*.
+Concurrent Astro check/build processes collided while renaming their generated
+content cache. The old build's test failure and captures are not current evidence.
+A successful standalone build preceded the passing 81-registration run and the
+current corrected captures. Future content-generating checks run sequentially.
+
+Provenance scan: six shipping rasters, zero missing records. The required
+completed-build documentation is complete in DESIGN.md, .impeccable/design.json,
+and docs/experience/full-site-design-record.md. It preserves the existing world
+and records the built motion values. Technical findings are resolved in
+source; its completion pointer follows this hosted result. The final local eighteen-run
+Lighthouse checkpoint at 976c91b passes all unchanged thresholds, with performance
+medians 97 to 99 and accessibility 100 on every route. Detailed measurements are
+in .research/d019/lighthouse-final-summary.json. That checkpoint precedes the
+narrow compact-padding correction; fresh current-source performance is supplied
+by hosted CI rather than inferred from those prior measurements.
+
+Hosted CI 40178038709 passed for 976c91b; the d3e334e run and its diagnosed failure
+remain recorded above. **Current CI 40182083491 passes** for verification commit
+9b9c03a, with no application-source change from d3e334e. Its complete 253-case
+registration matrix has 241 passes, twelve established applicability skips,
+zero unexpected failures, zero flaky results, zero retries, and zero runner
+errors. It starts at 2026-10-25T09:48:45.518Z and completes in 253.159 seconds.
+Retained result: .research/d019/ci-final/test-results/results.json. This includes
+Chromium, Firefox, and WebKit at desktop, tablet, and mobile sizes, normal and
+reduced-motion axe checks, keyboard/navigation, complete no-JavaScript content,
+WebGL failure/lifecycle, history restoration, filters/downloads/contact actions,
+legacy destinations, reading-position retention, and enlarged text.
+
+The same current-source CI completes all eighteen production-build mobile
+Lighthouse measurements, three per route, with the original thresholds intact.
+Each route has accessibility score 100 and no failed accessibility audit. Medians:
+
+| Route | Performance | LCP, ms | CLS |
+| --- | ---: | ---: | ---: |
+| / | 99 | 2106.81 | 0.000125 |
+| /work/ | 99 | 2065.53 | 0.000753 |
+| /work/testpulse/ | 98 | 2079.10 | 0.020175 |
+| /work/caldiy/ | 99 | 2076.02 | 0.000796 |
+| /work/llm-evaluation/ | 98 | 2089.02 | 0.000772 |
+| /experience/ | 99 | 1957.04 | 0.000125 |
+
+The complete reports and assertion results are retained under
+.research/d019/ci-final/.lighthouseci; the parsed current measurement record is
+.research/d019/ci-final-summary.json. Workflow:
+https://github.com/Mohanad49/Portfolio/actions/runs/40182083491.
+
+Vercel Preview deployment 7311056066 is Ready at
+https://portfolio-k0z5987oj-mohanad49s-projects.vercel.app. In the authenticated
+in-app browser, the current preview passed homepage arrival, archive filtering
+and reload persistence, a case-study bookmark, and continuation through all three
+case routes. A 390-wide hosted check reached the arrival with the hero hidden,
+exactly one TestPulse heading, and no canvas. The browser viewport was reset and
+the full preview retained as the deliverable. Physical-device smoothness is not
+inferred from this emulation. The matching test-commit deployment 7311399085 is
+also Ready at https://portfolio-cyrt22n7f-mohanad49s-projects.vercel.app. Source
+equivalence is explicit: git diff d3e334e..9b9c03a has no changes in src, public,
+assets, package.json, pnpm-lock.yaml, or astro.config.mjs. Subsequent design/review
+documentation does not change the application or invalidate these measurements.
+
+Production remains on 40a24f16ec037658fb13d5509dd1ba59573f480a. This task publishes
+the complete preview only. Physical-device iPhone smoothness remains outside the
+automated and desktop-browser verification scope.
+
+## Continuous TestPulse arrival: historical checkpoint, 2026-10-25
 
 D-018 records the owner's request to remove the broken handoff between a growing
 decorative label and a second TestPulse section title. The prototype now uses one
