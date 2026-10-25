@@ -4,13 +4,14 @@ import { getProjects } from '../../lib/content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Icon from '../../components/Icon.astro';
 import earlierBuilds from '../../data/earlier-builds.json';
+import MaterialField from '../../components/MaterialField.astro';
 const projects = await getProjects();
 const frameworks = (await getCollection('frameworks')).sort((a, b) => a.data.legacyId - b.data.legacyId);
 const categories = ['All', 'Web', 'API', 'Mobile', 'Performance'];
 ---
-<BaseLayout title="Work & test frameworks | Mohanad Yehia" description="QA case studies and six test frameworks across web, API, mobile, and performance testing. Source code, reports, scope, and decisions.">
-  <header class="work-heading"><a class="back-link" href="/"><Icon class="back-icon" /> Home</a><h1>Selected work.<br />The deeper cuts.</h1><p>Systems I’ve tested, tools I’ve built, and the evidence worth opening.</p></header>
-  <section class="case-index" aria-labelledby="selected-heading"><h2 id="selected-heading">Three case studies</h2>{projects.map(project => <a class="case-index-link" href={`/work/${project.data.slug}`}><span class="case-name">{project.data.title}<span>{project.data.eyebrow}</span></span><Icon /></a>)}</section>
+<BaseLayout title="Work & test frameworks | Mohanad Yehia" description="QA case studies and six test frameworks across web, API, mobile, and performance testing. Source code, reports, scope, and decisions." motion>
+  <header class="work-heading"><a class="back-link" href="/"><Icon class="back-icon" /> Home</a><h1>Selected work.<br />The deeper cuts.</h1><p>Systems I’ve tested, tools I’ve built, and the evidence worth opening.</p><MaterialField variant="archive" /></header>
+  <section class="case-index" aria-labelledby="selected-heading"><h2 id="selected-heading">Three case studies</h2>{projects.map(project => <a class="case-index-link" href={`/work/${project.data.slug}`}><span class="case-name" style={`view-transition-name: project-${project.data.slug}`}>{project.data.title}<span>{project.data.eyebrow}</span></span><Icon /></a>)}</section>
   <section class="framework-archive section-space" id="frameworks" aria-labelledby="framework-heading">
     <div class="archive-heading"><h2 id="framework-heading">Framework archive</h2><p>Focused projects across four testing disciplines. Open the source to inspect their structure and limitations.</p></div>
     <form class="filter-form" aria-label="Filter frameworks" hidden><fieldset><legend class="sr-only">Testing discipline</legend>{categories.map(category => <label class="filter-option"><input type="radio" name="discipline" value={category} checked={category === 'All'} /><span>{category}<span class="filter-count">{category === 'All' ? frameworks.length : frameworks.filter(item => item.data.category === category).length}</span></span></label>)}</fieldset></form>
@@ -39,6 +40,7 @@ const categories = ['All', 'Web', 'API', 'Mobile', 'Performance'];
         if (items.some(item => item.hidden && `#${item.id}` === url.hash)) url.hash = '';
         history.replaceState(null, '', url);
       }
+      window.dispatchEvent(new Event('portfolio:layout'));
     }
     function readUrl() {
       const requested = new URL(window.location.href).searchParams.get('type');
@@ -56,7 +58,7 @@ const categories = ['All', 'Web', 'API', 'Mobile', 'Performance'];
   }
 </script>
 <style>
-  .work-heading { padding: clamp(2rem, 5vw, 5rem) var(--page-gutter) 4rem; }
+  .work-heading { position: relative; isolation: isolate; overflow: clip; padding: clamp(2rem, 5vw, 5rem) var(--page-gutter) 4rem; }
   .back-link { display: inline-flex; align-items: center; min-height: 44px; font-size: .9rem; color: var(--color-muted); }
   .back-link { gap: .5rem; }
   .back-link :global(svg) { width: 16px; height: 16px; transform: rotate(180deg); }
@@ -66,7 +68,7 @@ const categories = ['All', 'Web', 'API', 'Mobile', 'Performance'];
   .case-index h2 { font-family: var(--font-sans); font-size: .9rem; font-weight: 500; letter-spacing: 0; color: var(--color-muted); margin-bottom: 1.5rem; }
   .case-index-link { display: grid; grid-template-columns: 1fr 2rem; gap: 1.5rem; align-items: center; padding-block: 1.8rem; border-top: 1px solid var(--line); }
   .case-index-link:last-child { border-bottom: 1px solid var(--line); }
-  .case-name { font-family: var(--font-display); font-size: clamp(1.4rem, 3vw, 3.2rem); line-height: 1.2; letter-spacing: -.04em; }
+  .case-name { display: block; font-family: var(--font-display); font-size: clamp(1.4rem, 3vw, 3.2rem); line-height: 1.2; letter-spacing: -.04em; }
   .case-name > span { display: block; font-family: var(--font-sans); font-size: .8rem; color: var(--color-muted); letter-spacing: 0; margin-top: .7rem; }
   .case-index-link:hover .case-name { color: var(--color-amber); }
   .framework-archive { padding-inline: var(--page-gutter); }

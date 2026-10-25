@@ -19,7 +19,9 @@ test('every main route has a readable heading, working images, and direct contac
     await expect(page.getByRole('link', { name: 'GitHub', exact: true })).toHaveAttribute('href', 'https://github.com/Mohanad49');
     await expect(page.getByRole('link', { name: 'mohanned.3262@gmail.com' })).toHaveAttribute('href', 'mailto:mohanned.3262@gmail.com');
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
+    // Keep stable image identities as the opening leaves the viewport.
     for (const image of await page.locator('img').all()) {
+      if (!await image.isVisible()) continue;
       await image.scrollIntoViewIfNeeded();
       await expect.poll(() => image.evaluate((element: HTMLImageElement) => {
         const replaced = element.classList.contains('inspection-fallback') && element.closest('.inspection-frame')?.querySelector('[data-ready="true"] canvas') && getComputedStyle(element).opacity === '0';
@@ -124,7 +126,8 @@ test('reduced motion keeps the complete fallback and omits the scene', async ({ 
   await expect(page.getByRole('slider', { name: 'Separate layers' })).toHaveCount(0);
   await expect(page.locator('.inspection-fallback')).toBeVisible();
   await expect.poll(() => page.locator('.inspection-fallback').evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBe(true);
-  expect(await page.locator('.hero-scene').evaluate(element => getComputedStyle(element).transform)).toBe('none');
+  await expect(page.locator('.passage-opening')).not.toHaveClass(/has-passage-motion/);
+  await expect(page.locator('.passage-arrival')).toBeVisible();
   expect(sceneRequests).toEqual([]);
 });
 
@@ -193,12 +196,12 @@ test('desktop inspection responds to keyboard input and returns to its fallback'
   await expect(async () => expect(Buffer.compare(before, await canvas.screenshot())).not.toBe(0)).toPass({ timeout: 5_000 });
   await page.getByRole('button', { name: 'Reset', exact: true }).click();
   await expect(slider).toHaveValue('22');
-  const readingPosition = await page.evaluate(() => scrollY);
+    const readingPosition = await page.locator('.inspection-frame').evaluate(element => element.getBoundingClientRect().top);
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await expect(canvas).toHaveCount(0);
   await expect(page.locator('.inspection-fallback')).toHaveCSS('opacity', '1');
   await expect.poll(() => page.locator('.inspection-fallback').evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBe(true);
-  await expect.poll(() => page.evaluate(() => scrollY)).toBeCloseTo(readingPosition, -1);
+  await expect.poll(() => page.locator('.inspection-frame').evaluate(element => element.getBoundingClientRect().top)).toBeCloseTo(readingPosition, -1);
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await expect(slider).toBeVisible();
   expect(await canvas.evaluate((element: HTMLCanvasElement) => {

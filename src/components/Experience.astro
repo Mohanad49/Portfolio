@@ -4,12 +4,13 @@ import Icon from './Icon.astro';
 const profile = await getProfile();
 ---
 <section class="experience section-space" id="experience" aria-labelledby="experience-title">
-  <div class="experience-heading" data-reveal><h2 id="experience-title">Production QA.<br />Behind the numbers.</h2></div>
+  <div class="experience-heading"><h2 id="experience-title" class="chapter-title">Production QA.<br />Behind the numbers.</h2></div>
   <div class="production-metrics" aria-label="Blue Ribbon production scope" data-reveal>
     <p class="metrics-attribution">Blue Ribbon <span>Production club-management platform</span></p>
     <dl>{profile.metrics.map(metric => <div><dt>{metric.label}<span>{metric.scope}</span></dt><dd>{metric.value}</dd></div>)}</dl>
   </div>
   <div class="experience-list">
+    <span class="experience-trace" aria-hidden="true"></span>
     {profile.experience.map((job, index) => <details class="experience-item" open={index === 0}>
       <summary><span class="company">{job.company}</span><span class="job-role">{job.role}<span>{job.period}</span></span><Icon name="plus" /></summary>
       <div class="job-body"><p>{job.summary}</p>{job.highlights.length > 0 && <ul>{job.highlights.map(highlight => <li>{highlight}</li>)}</ul>}</div>
@@ -29,6 +30,8 @@ const profile = await getProfile();
   dd { font-family: var(--font-display); font-size: clamp(2.6rem, 4.4vw, 5rem); line-height: 1; letter-spacing: -.04em; margin: 0; }
   dt span { display: block; font-size: .72rem; color: var(--color-muted); margin-top: .6rem; }
   .experience-item { border-top: 1px solid var(--line); }
+  .experience-list { position: relative; }
+  .experience-trace { position: absolute; left: -.8rem; top: 0; bottom: 0; width: 1px; background: var(--color-amber); transform-origin: top; }
   .experience-item:last-child { border-bottom: 1px solid var(--line); }
   summary { display: grid; grid-template-columns: 1fr 1.6fr 24px; align-items: center; gap: 2rem; padding-block: 1.8rem; cursor: pointer; list-style: none; }
   summary::-webkit-details-marker { display: none; }

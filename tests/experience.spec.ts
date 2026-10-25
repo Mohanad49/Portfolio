@@ -20,7 +20,7 @@ test('the study presents the frozen evidence and clear comparison actions', asyn
   await expect(page.locator('.shared-commit code')).toHaveText('5c0869a');
   await expect(page.locator('.snapshot-boundary')).toContainText('retry counts are unknown');
   await expect(page.locator('time').nth(2)).toHaveAttribute('datetime', '2026-09-21T09:02:13.068837+00:00');
-  await expect(page.getByRole('link', { name: 'View the current version' })).toHaveAttribute('href', '/');
+  await expect(page.getByRole('link', { name: 'Explore the full portfolio' })).toHaveAttribute('href', '/');
   await expect(page.getByRole('link', { name: 'Read the case study', exact: true })).toHaveAttribute('href', '/work/testpulse');
   await expect(page.locator('.passage-resume')).toHaveAttribute('download', 'Mohanad_Yehia_Software_QA_Engineer.pdf');
 });
@@ -180,7 +180,9 @@ test('artwork moves on scroll, returns intact, and rests without a renderer', as
   const layers = desktop ? [upper] : [upper, page.locator('.passage-lower')];
   for (const layer of layers) {
     await expect(layer).toBeVisible();
-    await expect.poll(() => layer.evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBe(true);
+    await expect.poll(() => layer.evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 1)).toBe(true);
+    const expectedAsset = desktop ? 'material' : await layer.evaluate(image => image.classList.contains('passage-lower') ? 'lower' : 'upper');
+    expect(await layer.evaluate((image: HTMLImageElement) => image.currentSrc)).toMatch(new RegExp(`/passage-${expectedAsset}\\.[^/]+\\.webp$`));
   }
   if (desktop) {
     const source = await upper.evaluate((image: HTMLImageElement) => image.currentSrc);

@@ -81,6 +81,7 @@ export function initExperienceMotion() {
       if (Math.abs(adjustment) > .5) window.scrollBy({ top: adjustment, behavior: 'instant' });
     }
     configured = true;
+    window.dispatchEvent(new Event('portfolio:layout'));
   }
   function resize() {
     window.clearTimeout(resizeTimer);

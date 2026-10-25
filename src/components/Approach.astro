@@ -6,9 +6,9 @@ import InspectionIsland from './InspectionIsland';
 const profile = await getProfile();
 ---
 <section class="approach section-space" id="approach" aria-labelledby="approach-title">
-  <div class="approach-heading" data-reveal><h2 id="approach-title">Look beneath<br />the interface.</h2></div>
+  <div class="approach-heading"><h2 id="approach-title" class="chapter-title">Look beneath<br />the interface.</h2></div>
   <div class="approach-body">
-    <ul class="approach-steps">{profile.approach.map(step => <li data-reveal><h3>{step.title}</h3><p>{step.description}</p><p class="step-evidence">{step.evidence}</p></li>)}</ul>
+    <ul class="approach-steps">{profile.approach.map(step => <li><h3>{step.title}</h3><p>{step.description}</p><p class="step-evidence">{step.evidence}</p></li>)}</ul>
     <figure class="inspection-study">
       <div class="inspection-frame"><Image class="inspection-fallback" src={inspectionArt} alt="A conceptual inspection sculpture made from separated dark chrome and amber glass layers." format="webp" quality={85} widths={[640, 1024]} sizes="(min-width: 1024px) 50vw, 100vw" loading="lazy" /><InspectionIsland client:media="(min-width: 1024px) and (prefers-reduced-motion: no-preference)" /></div>
       <figcaption>Layered inspection study <span>Conceptual artwork</span></figcaption>
