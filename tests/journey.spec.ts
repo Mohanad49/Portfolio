@@ -15,9 +15,10 @@ test('later motion uses the expanded opening geometry even when its module loads
     await openingReady;
     await route.continue();
   });
-  await page.goto('/');
   const winner = page.locator('.contention-bars .winner');
   try {
+    // The held module can keep the browser's load event pending.
+    await page.goto('/', { waitUntil: 'commit' });
     await expect.poll(() => winner.evaluate((element: HTMLElement) => element.style.transform)).not.toBe('');
     await expect(page.locator('.passage-opening')).not.toHaveClass(/has-passage-motion/);
   } finally { releaseOpening?.(); }

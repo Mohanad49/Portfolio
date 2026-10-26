@@ -316,3 +316,19 @@ One initial Approach component capture left its last entrance unsettled. It is
 invalid for finish acceptance and is replaced in the confirmation batch, after
 scrolling the complete component to settle every entry. The other initial captures
 were opened and validated. The final packet must use the refreshed manifest.
+
+The first complete D-020 hosted run, 40249515832, recorded 283 passes, 12
+established applicability skips, and three WebKit failures in the deliberate
+delayed-module scenario. The original fixture waited for load while holding
+an opening-module request. Moving to document commit exposed a real second
+dependency: WebKit reported the two fonts loaded while document.fonts.ready
+remained pending and general motion had not initialized.
+
+The retained probe is .research/d020/webkit-held-font-state.json. Startup now
+uses one shared preparation promise for explicit Alexandria and Manrope loads,
+rather than document-wide font-set readiness. The fixture waits for the actual
+general-motion state and releases its held request in finally. All original
+growth and geometry assertions remain. The corrected nine-configuration run
+passes with no failures, skips, retries, or filters. Application markup, styles,
+rasters, and settled choreography are unchanged by this resource-readiness fix;
+startup timing evidence is refreshed for the amended code.

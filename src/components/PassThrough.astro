@@ -73,12 +73,13 @@ const clock = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-dig
   </section>
  </div>
 <script>
+  import { prepareTypography } from '../lib/critical-fonts';
   const load = () => {
     const desktop = matchMedia('(min-width: 1024px)').matches;
     const images = [...document.querySelectorAll<HTMLImageElement>(desktop ? '.passage-plate' : '.passage-upper, .passage-lower')];
     void Promise.all([
       import('../scripts/experience-motion'),
-      document.fonts.ready,
+      prepareTypography(),
       ...images.map(image => image.decode().catch(() => {})),
     ]).then(([module]) => module.initExperienceMotion()).catch(() => {}).finally(() => window.dispatchEvent(new Event('portfolio:opening-ready')));
   };
