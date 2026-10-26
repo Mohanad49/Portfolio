@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-25T09:20:18Z",
+  "generatedAt": "2026-10-26T01:47:20Z",
   "title": "Design System: Mohanad Yehia Software QA Portfolio",
   "extensions": {
     "colorMeta": {
@@ -167,7 +167,19 @@
       },
       "action": {
         "displayName": "Action",
-        "purpose": "Desktop Pass Through actions, with padded flowing controls below 1024px and the compact 600px variant."
+        "purpose": "Desktop Pass Through actions with source-inherited 1.65 line height; the preserved component preview still uses 1.2 and is disclosed as pre-existing drift."
+      },
+      "chapter": {
+        "displayName": "Project Chapter",
+        "purpose": "Linked Cal.diy and LLM headings on desktop, with their complete project-purpose context."
+      },
+      "chapter-compact": {
+        "displayName": "Compact Project Chapter",
+        "purpose": "Below 1024px, the rem-plus-viewport clamp preserves readable project names in narrow and enlarged-text flow."
+      },
+      "entry-compact": {
+        "displayName": "Compact Case and Archive Entry",
+        "purpose": "Shared case/archive title clamp at 760px and below, in the normal-flow entry above a complete material silhouette."
       }
     },
     "shadows": [],
@@ -189,8 +201,8 @@
       },
       {
         "name": "content-entrance",
-        "value": ".85s",
-        "purpose": "Once-only shared entrance at top 92%; already-visible or revealed content stays steady and completed transform, opacity, and clip styles clear."
+        "value": "1s",
+        "purpose": "Once-only shared entrance at top 82%; already-visible or revealed content stays steady and completed transform, opacity, and clip styles clear."
       },
       {
         "name": "content-entrance-opacity",
@@ -199,8 +211,8 @@
       },
       {
         "name": "content-entrance-displacement",
-        "value": "28px",
-        "purpose": "Shared vertical entrance for below-viewport data-reveal groups, including transform-only linked groups."
+        "value": "52px",
+        "purpose": "Shared vertical entrance for below-viewport data-reveal groups; linked groups remain opaque and use transforms alone."
       },
       {
         "name": "entrance-ease",
@@ -209,23 +221,13 @@
       },
       {
         "name": "heading-reveal-displacement",
-        "value": "42px",
-        "purpose": "Shared chapter, case-prose, and evidence heading entrance; headings containing controls use translation alone."
+        "value": "56px",
+        "purpose": "Case-prose, evidence, and other shared headings outside work chapters; headings containing controls use translation alone."
       },
       {
         "name": "heading-reveal-mask",
         "value": "inset(0 0 100% 0)",
         "purpose": "Initial mask only for shared heading entrances without links or controls; cleared when the entrance completes."
-      },
-      {
-        "name": "material-and-portrait-scrub",
-        "value": ".45s",
-        "purpose": "Catch-up for the opposing upper/lower material travel and the real portrait settle, over their separate source ranges."
-      },
-      {
-        "name": "diagram-and-trace-scrub",
-        "value": ".35s",
-        "purpose": "Catch-up for Cal.diy contention bars, the LLM agreement treatment, and the production trace; each retains its own content range."
       },
       {
         "name": "ambient-light-scrub",
@@ -268,11 +270,6 @@
         "purpose": "Native transition groups and root page-in easing."
       },
       {
-        "name": "scene-entry-settle",
-        "value": "150ms",
-        "purpose": "Initial 3D activation waits for settled scrolling within its observation area; exit or hidden document restores static artwork."
-      },
-      {
         "name": "opening-resize-settle",
         "value": "150ms",
         "purpose": "Opening window/stage resize debounce before geometry, reading-position restoration, and the shared layout event."
@@ -281,6 +278,46 @@
         "name": "reduced-motion-duration",
         "value": ".01ms",
         "purpose": "Global reduced-motion animation and transition duration; scrolling becomes immediate and native document transitions opt out."
+      },
+      {
+        "name": "project-chapter-scrub",
+        "value": ".3s",
+        "purpose": "Distinct Cal.diy gate/contention and LLM prism/agreement timelines. Desktop sticks for a 170svh chapter only when the complete stage fits; compact or oversized flow uses figure top 90% to bottom 45%."
+      },
+      {
+        "name": "material-field-scrub",
+        "value": ".35s",
+        "purpose": "Non-chapter material object from y 44px/scale .88 to y -32px/scale 1 over top 80% to bottom top; fan rotates -12deg to 4deg, other fields -7deg to 3deg. Case LLM halves converge from opposing 10% offsets."
+      },
+      {
+        "name": "production-trace-scrub",
+        "value": ".35s",
+        "purpose": "Attributed experience trace follows its disclosure list from top 75% to bottom 45%."
+      },
+      {
+        "name": "portrait-scrub",
+        "value": ".45s",
+        "purpose": "Real portrait settles from scale 1.14/y 6% to scale 1/y -2% over top bottom to bottom 35%."
+      },
+      {
+        "name": "general-resize-settle",
+        "value": "180ms",
+        "purpose": "General motion re-evaluates window/media/project-stage size changes, releases chapters that no longer fit, and preserves the current reading anchor."
+      },
+      {
+        "name": "readiness-release-ceiling",
+        "value": "1600ms",
+        "purpose": "Fresh supported desktop navigation only. Actual opening module/active image/font preparation may release earlier; no minimum delay, percentage, or optional-3D dependency. Interaction and preference/page exit release immediately."
+      },
+      {
+        "name": "readiness-fade",
+        "value": ".3s",
+        "purpose": "Normal first-load readiness release; pointer, keyboard, wheel, page exit, or preference change cancels the fade."
+      },
+      {
+        "name": "readiness-line-cycle",
+        "value": "1s ease-in-out",
+        "purpose": "Indeterminate 40%-width amber line while the bounded readiness field is active. It pauses when inactive and is absent from static, compact, repeat/history/hash, and reduced-motion paths."
       }
     ],
     "breakpoints": [
@@ -293,7 +330,7 @@
         "value": "760px"
       },
       {
-        "name": "reading-and-portrait-stack-max",
+        "name": "entry-reading-and-portrait-stack-max",
         "value": "900px"
       },
       {
@@ -315,6 +352,10 @@
       {
         "name": "header-type-cap-min",
         "value": "1800px"
+      },
+      {
+        "name": "chapter-sticky-viewport-height-min",
+        "value": "680px"
       }
     ]
   },
@@ -402,12 +443,13 @@
   ],
   "narrative": {
     "northStar": "Exhibition plinth and inspection monograph",
-    "overview": "Matte graphite makes room for warm white typography, quiet controls, and precisely lit inspection materials. The system pairs an exhibition's large visual statements with a monograph's patient reading rhythm. Offset dark chrome and transparent amber layers give the abstract subject a physical form.\n\nEditorial layouts vary with their content: open project entries, ruled framework rows, attributed numerical evidence, long-form reading columns, and the owner's real portrait. Conceptual imagery is identified as artwork. Readable text and controls stay in HTML, with a complete static experience beneath optional motion and 3D. The accepted Pass Through opening now leads the homepage; its continuous project arrival extends into content-specific chapter motion, material-framed case entrances, and a quiet reading body.",
+    "overview": "Matte graphite makes room for warm white typography, quiet controls, and precisely lit inspection materials. The system pairs an exhibition's large visual statements with a monograph's patient reading rhythm. Offset dark chrome and transparent amber layers give the abstract subject a physical form.\n\nEditorial layouts vary with their content: open project entries, ruled framework rows, attributed numerical evidence, long-form reading columns, and the owner's real portrait. Conceptual imagery is identified as artwork. Readable text and controls stay in HTML, with a complete static experience beneath optional motion and explicitly requested 3D. The accepted Pass Through opening leads into Cal.diy's gate, LLM's paired prisms, and the archive's fan, with finite chapter relationships, material-framed case entrances, and a quiet reading body.",
     "keyCharacteristics": [
       "Matte graphite, warm white, and a controlled amber accent.",
       "Alexandria display typography paired with Manrope reading text.",
       "Rectangular editorial surfaces, fine rules, and generous section spacing.",
       "Optical depth carried by actual inspection materials and the local live study.",
+      "Complete, project-specific material silhouettes with reserved space before evidence and lists.",
       "Bounded native-scroll choreography, with steady prose and direct actions.",
       "Semantic controls, visible focus, and complete static alternatives."
     ],
@@ -441,6 +483,11 @@
         "name": "The Complete Still Rule",
         "body": "Artwork and content remain complete before enhancement. Demand-rendered 3D updates on pointer, layer-control, or scroll changes and yields to the static artwork outside its supported conditions.",
         "section": "elevation"
+      },
+      {
+        "name": "The Complete Silhouette Rule",
+        "body": "Reserve the material object's full resting and swept bounds before the next evidence or list surface. Each project's approved negative space is part of its identity, including on compact and enlarged-text layouts.",
+        "section": "elevation"
       }
     ],
     "dos": [
@@ -449,7 +496,9 @@
       "Do vary editorial structure with the content, using ruled rows, reading columns, and evidence panels where they serve the material.",
       "Do retain visible keyboard focus, readable selected states, semantic controls, and a complete static composition.",
       "Do keep the real portrait and identify conceptual inspection imagery as artwork.",
-      "Do keep result labels, numerical scope, and evidence limitations readable beside their visual emphasis."
+      "Do keep result labels, numerical scope, and evidence limitations readable beside their visual emphasis.",
+      "Do reserve complete material silhouettes before evidence panels and lists, with ordinary flow when a full chapter cannot fit.",
+      "Do keep 3D an explicit optional action and retain the artwork through preparation and unsupported states."
     ],
     "donts": [
       "Don't extend the approved Selected work label into a new system of decorative eyebrows or arbitrary indices.",
@@ -457,7 +506,9 @@
       "Don't add elevated shadows to reading panels or turn the varied editorial content into one repeated card template.",
       "Don't use amber alone to communicate a result or selected state.",
       "Don't require animation, WebGL, or clipboard support to reach the content, resume, or contact information.",
-      "Don't treat synthesized preview tonal ramps as source tokens or approved new surface colors."
+      "Don't treat synthesized preview tonal ramps as source tokens or approved new surface colors.",
+      "Don't count up recorded results or move whole diagrams across their captions to imply activity.",
+      "Don't impose a minimum readiness delay or wait for the optional renderer before releasing the opening."
     ]
   }
 }

@@ -69,5 +69,5 @@
 - [x] Resolve material boundaries and clarify all three QA project identities.
 - [x] Make later project choreography visible and reduce measured startup stalls.
 - [x] Verify behavior, accessibility, reflow, motion preferences, and performance.
-- [ ] Complete source and visual finish handoffs and the built design record.
+- [x] Complete source and visual finish handoffs and the built design record.
 - [x] Publish and validate the updated preview, keeping production unchanged.

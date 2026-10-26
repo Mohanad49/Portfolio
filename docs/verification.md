@@ -89,8 +89,12 @@ performance fix explicitly limited to the sampled scope: disposition ship.
 The [verdict](experience/d020-finish-verdict.md) records all 52 stills opened
 and all three recordings inspected as decoded frame sequences. It does not
 claim real-time playback, a fresh whole-surface approval, physical-device
-certification, or universal frame-rate behavior. Completed design documentation
-is the remaining handoff.
+certification, or universal frame-rate behavior. The independent documenter
+completed token-bearing DESIGN.md and .impeccable/design.json plus the
+[D-020 design record](experience/d020-design-record.md). The build thread
+confirmed schema version 2, eight canonical sections, all ten unchanged preview
+component objects, and no application/test/asset/dependency/workflow delta from
+abe2957. Existing preview drift is disclosed without changing those previews.
 
 Preview deployment 7321691035 is Ready for the exact verified source:
 [current preview](https://portfolio-detg2k6ub-mohanad49s-projects.vercel.app).
@@ -114,6 +118,12 @@ D-019 results below are historical. Production remains
 40a24f16ec037658fb13d5509dd1ba59573f480a.
 GitHub's current Production deployment was rechecked as 7280653313 at that SHA.
 The original Portfolio checkout remains clean.
+
+D-020 is complete at the preview boundary. The final documentation commits
+preserve the application and verification source above, so no duplicate runtime
+check was manually rerun after the documentation handoff. The temporary local
+Astro server on port 4187 was identified by PID and command before being stopped;
+the hosted preview remains available for the owner.
 
 ## Full-site motion, D-019: historical checkpoint, 2026-10-25
 

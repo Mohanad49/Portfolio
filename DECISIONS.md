@@ -347,5 +347,8 @@ claim native real-time playback or reopen full-surface aesthetic review.
 The authenticated preview at deployment 7321691035 passes native navigation,
 project/evidence access, bookmarked archive filtering, and explicit 3D keyboard/
 return controls. Production deployment 7280653313 remains at 40a24f1, and the
-original checkout remains clean. The completed built-system documentation is
-the final handoff; this amendment grants no merge or production-release approval.
+original checkout remains clean. The independent documenter completed the
+token-bearing design pair and D-020 extraction, preserving all ten preview
+component objects and disclosing their existing drift. The build thread verified
+the documentation boundary and unchanged application identity. D-020 is complete
+for preview review; this amendment grants no merge or production-release approval.
