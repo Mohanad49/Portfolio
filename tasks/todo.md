@@ -68,6 +68,6 @@
 - [x] Confirm distinct chrome/amber material forms before dependent UI integration.
 - [x] Resolve material boundaries and clarify all three QA project identities.
 - [x] Make later project choreography visible and reduce measured startup stalls.
-- [ ] Verify behavior, accessibility, reflow, motion preferences, and performance.
+- [x] Verify behavior, accessibility, reflow, motion preferences, and performance.
 - [ ] Complete source and visual finish handoffs and the built design record.
-- [ ] Publish and validate the updated preview, keeping production unchanged.
+- [x] Publish and validate the updated preview, keeping production unchanged.

@@ -332,3 +332,20 @@ growth and geometry assertions remain. The corrected nine-configuration run
 passes with no failures, skips, retries, or filters. Application markup, styles,
 rasters, and settled choreography are unchanged by this resource-readiness fix;
 startup timing evidence is refreshed for the amended code.
+
+Final application and tests are abe295742909c1f1a3110daf404d2f5d19b66523.
+Workflow 40251633738 passes with 286 checks and 12 established applicability
+skips; no failure, retry, flaky result, or runner error remains. Eighteen mobile
+Lighthouse runs meet the unchanged gates. Exact medians and the controlled
+desktop before/after measurements belong to docs/verification.md and
+docs/experience/d020-motion-performance.md, without physical-device claims.
+
+The fresh visual review's verdict pass scores all six listed fixes resolved,
+the last at sampled scope, and returns ship for that fix list. It validates
+52 stills and three recordings inspected as decoded sequences; it does not
+claim native real-time playback or reopen full-surface aesthetic review.
+The authenticated preview at deployment 7321691035 passes native navigation,
+project/evidence access, bookmarked archive filtering, and explicit 3D keyboard/
+return controls. Production deployment 7280653313 remains at 40a24f1, and the
+original checkout remains clean. The completed built-system documentation is
+the final handoff; this amendment grants no merge or production-release approval.

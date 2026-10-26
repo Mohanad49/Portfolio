@@ -1152,3 +1152,83 @@ Production stays at `40a24f16ec037658fb13d5509dd1ba59573f480a`. This source appr
 authorizes no production release and certifies no physical-device smoothness.
 Only this completion pointer was written; no source change, repeated review,
 runtime check, screenshot, or additional workflow was performed.
+
+## D-020 technical source review, 2026-10-26
+
+Scope: the amendment from 0628ade, under code-review-and-quality's source
+remit. This source review is performed in the build thread; the fresh visual
+review is independent and owns no source-quality approval. No additional
+workflow, library, backend, dependency, or pipeline policy was introduced.
+
+Required findings resolved in the application and affected checks:
+
+- Native scroll anchoring can already compensate when sticky space disappears.
+  Apply only the remaining reading-landmark delta; do not restore an obsolete
+  absolute scroll offset. The scene preference/reading-position check passes.
+- Keep material variant and shape class namespaces separate. The archive entry
+  is one unambiguous node, and complete swept bounds precede evidence/list edges.
+- Large type must release sticky project scenes as content grows. Observe stage
+  height changes, debounce reconfiguration, restore a reading landmark, and
+  disconnect the observer/listeners on non-persisted exit.
+- A requested renderer must preserve keyboard focus during preparation and move
+  to its range only while the launch control still owns focus. Do not disable
+  that focused control or steal focus after the visitor tabs away. The keyboard
+  activation and existing scene/fallback/loss paths pass.
+- A hidden preparation pulse must stop. Its CSS is paused unless the actual
+  first-load readiness class is active. Interaction, preference, history, and
+  timeout paths remove that class and listeners.
+- Reserve diagram baselines during animation. Scaling bars and the agreement
+  figure no longer pushes them across their captions or the comparison rule.
+- Enlarged headings and production values retain complete words/numbers.
+  Compact whitespace is capped while rem-based type floors remain; the 320px,
+  200% test measures actual Range fragments instead of merely checking overflow.
+
+Correctness and lifecycle: one GSAP context owns each DOM property. Project
+timelines own their own shapes; generic field motion excludes those chapters.
+Scoped contexts, observers, timers, preference handlers, and image preparation
+clean up. BFCached documents retain their existing listeners and revealed state.
+The opening/general module-order coordination still refreshes the actual ranges.
+
+Architecture and readability: shared assets live in MaterialField; page content
+stays semantic HTML; the separate React renderer retains its ownership. Reusing
+the existing progress store avoids a new animation/state subsystem. There is
+no network ingestion, user-input interpolation, credential, or data-storage
+change. Session storage contains only the first-opening boolean.
+
+Performance: the largest measured issue was automatic shader/renderer startup
+during scrolling. The scene now requires an explicit request. Raster transforms,
+bounded sticky ranges, pre-entry image decode, and actual type/hero readiness
+serve the remaining choreography. Software-WebGL lab evidence is not a claim
+about the owner's physical desktop or iPhone. New image bytes are a documented
+tradeoff for distinct material assets; the unchanged Lighthouse gates still apply.
+
+Source quality is acceptable at this local checkpoint, with no unresolved
+Critical or Required source finding. Hosted acceptance, exact committed source,
+the visual verdict, and completed documentation remain pending in the single
+verification record. This is not approval to merge or replace production.
+
+### D-020 current source verdict
+
+Reviewed application and test source: abe295742909c1f1a3110daf404d2f5d19b66523.
+The held-opening fixture revealed a real WebKit startup dependency: a whole
+font-set readiness promise stayed pending while the held module kept the
+document loading. Both critical font resources were loaded. A shared cached
+promise now explicitly loads the two required font faces. Opening and general
+motion share that preparation without a dependency on unrelated document load.
+The fixture waits for navigation commit and releases its resource in finally;
+growth, range refresh, viewport, and reversal assertions remain unchanged.
+
+The nine-configuration affected result passes. Full CI 40251633738 is consumed
+without duplicate checks: 286 passes, 12 established applicability skips, zero
+unexpected failures, retries, flaky results, or runner errors. All eighteen
+Lighthouse measurements pass their gates. Normal and reduced-motion axe checks
+retain zero serious or critical portfolio findings. The active verification
+record owns the exact route medians, retained failures, and hosted smoke scope.
+
+**Approve technical source quality at this reviewed source.** No unresolved
+Critical or Required finding remains in correctness, architecture,
+maintainability, security, dependencies, or resource handling. This is the build
+thread's source review, not an independent source-review claim. The required
+fresh visual reviewer separately scores the six listed material fixes, and the
+documenter records the finished system. Neither this verdict nor the passing
+CI run authorizes merging or replacing production.

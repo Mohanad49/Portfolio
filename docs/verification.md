@@ -1,6 +1,121 @@
 # Verification record
 
-## Full-site motion, D-019: active checkpoint, 2026-10-25
+## Owner feedback refinement, D-020: current verification, 2026-10-26
+
+The owner approved the gate, paired prisms, and fan material family. The working
+application resolves the three clipped junctions, identifies each QA project,
+adds finite project choreography, and makes the separate WebGL study opt-in.
+The accepted opening retains its normal composition. First desktop preparation
+is bounded at 1600ms, yields to interaction, skips repeat/history/reduced-motion
+paths, and never waits for the optional 3D study.
+
+Current application and verification source:
+abe295742909c1f1a3110daf404d2f5d19b66523. Local evidence:
+
+- Type checking across 41 files, ESLint, and the twenty-page build pass.
+  The existing optional-renderer chunk warning remains visible.
+- The affected Chromium desktop/mobile run has 46 passes, two established
+  applicability skips, and zero failures or flaky results. Its retained report
+  is .research/d020/affected-final.json.
+- The subsequent affected motion and live-text-resize run has 18 passes with
+  zero failures, skips, or flaky results, retained in
+  .research/d020/live-resize-final.json. It verifies that oversized chapters
+  return to normal flow and resume their fitting scenes after text is restored.
+- All nine configurations pass the delayed-module regression at the current
+  source, retained in .research/d020/module-race-final.json. The fixture waits
+  for commit while holding its resource and always releases it in finally.
+  Explicit shared preparation of the two critical fonts resolves WebKit's
+  pending whole-font-set promise without weakening any range/growth assertion.
+- Complete entry bounds, actual decoded images, named QA purposes, original
+  evidence limits, startup deadline/cache/keyboard behavior, scene focus,
+  reduced motion, no JavaScript, filters, downloads, and legacy navigation are
+  covered by the applicable checks. Do not add overlapping local counts.
+- Initial failures remain in .research/d020/affected-initial.json and its
+  retained results. A variant/shape class collision and native scroll-anchoring
+  correction were resolved. The intermediate enlarged-word failure and its
+  measurements are retained; the same word-fragment check now passes.
+- The mechanical detector reports advisory system-drift observations, with no
+  blocking finding. Its exact JSON remains .research/d020/detector.json.
+  The final design extraction must document intentional fluid type and local
+  material/diagram treatments. No second detector or new design workflow.
+- All eight shipping material rasters have embedded provenance. No dependency,
+  evidence metric, resume byte, employer claim, or production release changed.
+
+### Current full CI and performance
+
+[Workflow 40251633738](https://github.com/Mohanad49/Portfolio/actions/runs/40251633738)
+passes at abe2957. The retained artifact is .research/d020/ci-final, with the
+derived .research/d020/ci-final-summary.json. There are 298 registrations:
+286 passes, 12 established applicability skips, zero unexpected failures, flaky
+results, retries, or runner errors. The skips are desktop-only renderer checks
+and once-per-browser redirect checks on tablet/mobile. All nine browser/viewport
+configurations retain normal and reduced-motion accessibility coverage across
+six routes with zero serious or critical axe findings in the portfolio.
+
+The first hosted run, 40249515832 at de818d4, had 283 passes, 12 skips, and
+three WebKit delayed-module failures. Its traces remain in .research/d020/ci-first.
+The font-state diagnostic and intermediate failing correction remain retained;
+the final successful result does not erase them or relabel them flaky.
+
+All eighteen production-build mobile Lighthouse runs pass the unchanged gates:
+
+| Route | Runs | Median performance | Median LCP | Median CLS | Accessibility |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| / | 3 | 98 | 2.269s | 0.000125 | 100 |
+| /work/ | 3 | 99 | 1.955s | 0.000125 | 100 |
+| /work/testpulse/ | 3 | 99 | 1.808s | 0.000180 | 100 |
+| /work/caldiy/ | 3 | 99 | 2.108s | 0.031167 | 100 |
+| /work/llm-evaluation/ | 3 | 99 | 1.957s | 0.000125 | 100 |
+| /experience/ | 3 | 99 | 2.108s | 0.000125 | 100 |
+
+The isolated desktop profile records the removed automatic renderer activation:
+homepage maximum sampled frame gap changes from 2099.8ms to 33.4ms. Current
+archive and Cal.diy samples also peak at 33.4ms. An earlier amended case sample
+had a 50ms gap and remains disclosed. This is a software-WebGL lab comparison,
+not physical-device certification or a universal 60fps claim. Method, real
+readiness timing, byte tradeoffs, and raw reports are recorded in
+[D-020 motion and performance](experience/d020-motion-performance.md).
+
+### Visual evidence and hosted preview
+
+The final confirmation manifest contains 52 validated stills and three
+normal-speed native-wheel videos, with per-capture source commits and explicit
+settled-source equivalence after the script-only font-preparation correction.
+Current startup, production trace, both new case entrances, and archive motion
+have current-source evidence. The build thread completed its one inspection,
+correction batch, and final confirmation; no new aesthetic search is open.
+The fresh reviewer scored all six listed material fixes resolved, with the
+performance fix explicitly limited to the sampled scope: disposition ship.
+The [verdict](experience/d020-finish-verdict.md) records all 52 stills opened
+and all three recordings inspected as decoded frame sequences. It does not
+claim real-time playback, a fresh whole-surface approval, physical-device
+certification, or universal frame-rate behavior. Completed design documentation
+is the remaining handoff.
+
+Preview deployment 7321691035 is Ready for the exact verified source:
+[current preview](https://portfolio-detg2k6ub-mohanad49s-projects.vercel.app).
+Authenticated in-app browser smoke uses the actual 1265x712 viewport. Native
+wheel travel reaches the complete Cal.diy chapter, its case link opens the
+correct QA study, continuation opens the LLM case, All work opens the archive,
+and Web filtering displays two matching frameworks and survives reload at
+?type=Web. No warning/error log was recorded in that smoke session. The valid
+hosted chapter proof is .impeccable/review/d020/hosted-caldiy-settled.png.
+The hosted Approach action prepares the optional study only after Inspect in
+3D is selected, focuses Separate layers when ready, responds to Right from 22
+to 23, and Use artwork restores the static image and launch focus. No error log
+was recorded after that interaction.
+The immediate fast-jump image and the screenshot taken during native page
+transition are timing observations, not visual acceptance captures.
+
+The dist text scan finds no local owner paths, Impeccable workspace paths,
+generation-prompt markers, or imagegen tool names. No dependency, evidence
+metric, resume byte, employer claim, or production deployment changed. The
+D-019 results below are historical. Production remains
+40a24f16ec037658fb13d5509dd1ba59573f480a.
+GitHub's current Production deployment was rechecked as 7280653313 at that SHA.
+The original Portfolio checkout remains clean.
+
+## Full-site motion, D-019: historical checkpoint, 2026-10-25
 
 Current application commit: d3e334ea22cbb3c7f9f4315bd182bb2c44c81b14.
 Current verification-test commit: 9b9c03abeb289b2e34639e46f60409a4cc8684e2.
