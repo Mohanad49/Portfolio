@@ -277,3 +277,42 @@ The canonical design pair describes the implemented motion system. Current
 evidence, exact source identities, measurements, and review scopes are recorded
 in docs/verification.md and the separate review records. Production replacement
 remains an owner decision after reviewing this complete preview.
+
+## D-020: Resolve the owner's full-site continuity and motion feedback
+
+Date: 2026-10-26. The owner rejected the D-019 material cutoffs and repeated slab
+composition using three actual preview screenshots. Preserve the accepted Pass
+Through opening and production. Impeccable owns this refinement; a fresh full
+visual review consumes the owner's evidence. Imagegen produces distinct material
+forms only from Impeccable's briefs. No competing workflow or motion library.
+
+The narrow target is continuity across the Cal.diy homepage chapter, case-entry
+and evidence boundaries, and archive list; clearly legible QA project identity;
+more visible, content-specific project choreography; and measured desktop
+startup/scroll performance. Do not claim that a blocking loader improves render
+speed. Record before/after results and keep the complete static, reduced-motion,
+zoom, mobile, keyboard, history, and unsupported-WebGL paths.
+
+Initial local desktop profiling found no startup long tasks, but a 2099.8 ms
+frame gap during automatic activation of the optional Approach WebGL scene.
+This is headless Chromium with software WebGL, not a physical-device benchmark.
+The retained baseline is .research/d020/performance-before.json. Investigate
+renderer activation, critical-resource readiness, and image decode timing.
+
+Asset direction: retain the approved materials and lighting, with a concurrency
+gate for Cal.diy, paired optical forms for LLM evaluation, and an ordered fan for
+the archive. Present the new family before dependent UI integration. The accepted
+opening remains the primary sequence; later projects gain their own bounded
+scroll narrative instead of repeated subtle entrances.
+
+The first visual batch found two diagram entrances crossing their own captions
+and word fragmentation at 320px with 200% text. The correction removes vertical
+figure translation, caps compact whitespace, and uses fluid rem-based heading
+floors. Metrics wrap into one column when enlarged text needs it. Normal opening
+geometry is preserved. A keyboard focus handoff also follows explicit 3D startup;
+loading never disables the focused launch button or steals focus after tabbing away.
+
+One initial Approach component capture left its last entrance unsettled. It is
+invalid for finish acceptance and is replaced in the confirmation batch, after
+scrolling the complete component to settle every entry. The other initial captures
+were opened and validated. The final packet must use the refreshed manifest.

@@ -23,3 +23,11 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
 Preserve complete static rows, bookmarks, keyboard focus, filtering, browser
 history, enlarged text, and reduced motion. No invented projects, extra framework,
 second motion library, or production replacement.
+
+## D-020 owner correction
+
+Use the approved complete evidence fan in a reserved entry region. Give it a
+finite rotation/settle before the case list, never the repeated giant slab pair
+clipped by the list. The title states QA projects, and each row gives the durable
+project name, its QA purpose, and a short verified description. Preserve native
+filters, counts, URL state, direct evidence, and ordinary/reduced-motion access.

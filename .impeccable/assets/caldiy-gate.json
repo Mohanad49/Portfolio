@@ -1,0 +1,11 @@
+{
+  "prompt": "Use case: stylized-concept. Production cutout for a cinematic QA portfolio. Reference 1 establishes the exact dark textured chrome, transparent amber glass, warm rim light and controlled white reflections. Reference 2 is the owner's APPROVED family study. Match its specified object faithfully. Genuinely transparent alpha background including empty areas around the object. No opaque background, no floor, no ground shadow, no captions, no lettering, no logos, no UI, no data, no particles or haze. A complete uncropped object centered with generous transparent margins, every edge inside the image. Exceptional physically rendered product-photography detail, rich clear amber refraction, fine dark chrome texture, quiet sophisticated warm light. Landscape 1536x1024. Reproduce ONLY the LEFT object in the family study: the substantial horizontal dark chrome rounded rectangular gate, a complete thick rectangular open frame with an amber optical-glass rectangular blade held within it. Match its oblique three-quarter angle and rich physical finish. It must be the same individual design as the approved left object. No prisms or fan. The object occupies about 78% of frame width and 70% of height, with clear open negative space and complete smooth physical edge contours.",
+  "tool": "built-in image_gen",
+  "references": [
+    "assets/plates/passage-material.png",
+    ".impeccable/mocks/d020/material-family.png"
+  ],
+  "output": "assets/plates/caldiy-gate.png",
+  "role": "D-020 project-specific conceptual material",
+  "approvedFamily": "Owner confirmed all three forms on 2026-10-26"
+}

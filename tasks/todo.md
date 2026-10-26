@@ -60,3 +60,14 @@
 - [x] Verify behavior, accessibility, responsive states, and performance.
 - [x] Complete visual/source review and finished design documentation.
 - [x] Publish and smoke-test the complete preview, keeping production separate.
+
+## Owner feedback correction, D-020
+
+- [x] Inspect the owner's cutoffs, current source, and baseline desktop performance.
+- [x] Complete a fresh visual review based on the owner's screenshots.
+- [x] Confirm distinct chrome/amber material forms before dependent UI integration.
+- [x] Resolve material boundaries and clarify all three QA project identities.
+- [x] Make later project choreography visible and reduce measured startup stalls.
+- [ ] Verify behavior, accessibility, reflow, motion preferences, and performance.
+- [ ] Complete source and visual finish handoffs and the built design record.
+- [ ] Publish and validate the updated preview, keeping production unchanged.

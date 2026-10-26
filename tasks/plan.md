@@ -110,3 +110,30 @@ complete the existing independent finish and source handoffs; document the built
 system; validate the complete hosted preview. Reuse passing evidence for unchanged
 source. Native CSS cross-document transitions are progressive navigation effects,
 not another motion library or workflow.
+
+## Owner feedback refinement, D-020
+
+The owner's screenshots override D-019's staged visual verdict. Keep the accepted
+opening, existing stack, and preview-only boundary. On 2026-10-26 the owner chose
+the three-form material study at .impeccable/mocks/d020/material-family.png:
+Cal.diy gate, paired LLM prisms, and archive fan. Imagegen supplies native-alpha
+cutouts under Impeccable's direction. This is an extension of the approved
+material world, not a second design workflow or replacement visual identity.
+
+Focal motion: Cal.diy resolves concurrent attempts into one retained booking;
+LLM brings paired measurement and the judge's bounded result into focus. Use
+finite desktop sticky ranges when the complete content fits, lighter native
+scroll relationships on compact or enlarged layouts, and still alternatives.
+Entry materials finish with visible edges before reading panels and archive
+rows. Every featured project states its name and QA purpose immediately.
+
+Budget: transform existing static cutouts, keep prose and links available, decode
+nearby imagery ahead of entry, and load the separate WebGL study only after the
+visitor requests it. A small bounded readiness handoff may acknowledge actual
+critical-resource preparation. It must not impose a fixed delay or claim that a
+loader solves rendering cost. Compare retained startup and scroll profiles.
+
+A fresh visual review owns the six listed material fixes in
+ docs/experience/d020-owner-feedback-review.md. Complete affected browser,
+accessibility and performance checks, source review, a verdict against the fixes,
+and the final design record before handing over the updated hosted preview.

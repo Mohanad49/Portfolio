@@ -62,3 +62,22 @@ page adopts the accepted opening; /experience remains the focused study. Upgrade
 the archive, all three case studies, and shared closing/navigation treatment.
 Production replacement remains a separate owner decision. No new visual world,
 concept tournament, asset generation, factual claims, or duplicated skill owner.
+
+## D-020 owner correction
+
+The owner rejected the repeated slabs and hard Cal.diy edge on 2026-10-26.
+The selected family is .impeccable/mocks/d020/material-family.png: a Cal.diy gate,
+paired LLM prisms, and archive fan. Keep the accepted opening and its normal
+geometry. Name the actual QA projects and their purposes before their evidence.
+
+Cal.diy's complete gate rotates/settles while twenty attempts resolve to one
+persisted booking. The paired prisms converge as the retained 82% measurement
+and CI caveat come into focus. Desktop uses finite 170svh chapters only while
+the stage fits. Compact/enlarged layouts use ordinary flow and scroll-linked
+motion. Normal defaults and Reduce Motion keep complete still content. Reserve
+full swept bounds; no bright slab may be guillotined by the next surface.
+
+Only actual opening art/type preparation may show a brief original readiness
+handoff, with a 1600ms release ceiling and immediate interaction/cached/history
+paths. It never waits for below-fold 3D. The separate Approach renderer requires
+an explicit request and preserves the artwork while loading. Profile its cost.

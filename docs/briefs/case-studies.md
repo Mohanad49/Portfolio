@@ -33,3 +33,13 @@ DOM motion, with native CSS document transitions where supported. Respect
 Reduce Motion, no JavaScript, deep links, keyboard, zoom, and reading position.
 This changes the preview only. Shared identity stays fixed; there is no new
 composition competition or asset-production workflow for this extension.
+
+## D-020 owner correction
+
+Use the approved project-specific family: TestPulse's separated inspection
+layers, the Cal.diy gate, and paired LLM prisms. The header is a text/material
+composition with a reserved complete silhouette and normal-flow end. Its swept
+bounds finish before the evidence panel. Preserve the Cal.diy paper panel and
+retained red results. QA-purpose descriptions stay immediately legible; stable
+prose, source actions, and limitations remain. The entry moves into evidence;
+reading progress and heading/rule reveals retain the established quiet body.
