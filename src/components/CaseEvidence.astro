@@ -49,5 +49,10 @@ const strategies = [
   .strategy-list dd { margin: .8rem 0 0; font-size: .95rem; color: #d5cec4; }
   .strategy-list dd span { display: block; margin-top: .8rem; color: var(--color-amber); }
   @media (max-width: 760px) { .judge-results { grid-template-columns: 1fr; gap: 1.5rem; } th, td { padding-right: 1rem; min-width: 8rem; } }
-  @media (max-width: 600px) { .strategy-table { display: none; } .strategy-list { display: block; } }
+  @media (max-width: 600px) {
+    .strategy-table { display: none; }
+    .strategy-list { display: block; }
+    .case-evidence { padding: min(1.5rem, 6vw); }
+    h2 { font-size: clamp(1.5rem, calc(1rem + 3vw), 1.8rem); }
+  }
 </style>

@@ -1,0 +1,38 @@
+<div class="opening-readiness" aria-hidden="true">
+  <div><span class="readiness-name">Mohanad Yehia</span><span class="readiness-role">Software QA Engineer</span><span class="readiness-line"></span><span class="readiness-note">Preparing the inspection</span></div>
+</div>
+<script is:inline>
+  (() => {
+    const media = matchMedia('(min-width: 1024px) and (prefers-reduced-motion: no-preference)');
+    const navigation = performance.getEntriesByType('navigation')[0];
+    let seen = false;
+    try { seen = sessionStorage.getItem('portfolio-opening-seen') === '1'; } catch { /* Readiness still releases when browser storage is unavailable. */ }
+    if (!media.matches || navigation?.type !== 'navigate' || location.hash || seen) return;
+    const root = document.documentElement;
+    const curtain = document.querySelector('.opening-readiness');
+    const finish = event => {
+      if (event && event.type !== 'portfolio:opening-ready' && curtain) curtain.style.transition = 'none';
+      root.classList.remove('preparing-opening');
+      clearTimeout(timer);
+      try { sessionStorage.setItem('portfolio-opening-seen', '1'); } catch { /* A later visit may show the bounded handoff again. */ }
+      for (const name of ['pointerdown', 'keydown', 'wheel', 'pagehide', 'portfolio:opening-ready']) window.removeEventListener(name, finish);
+      media.removeEventListener('change', finish);
+    };
+    root.classList.add('preparing-opening');
+    const timer = setTimeout(finish, 1600);
+    for (const name of ['pointerdown', 'keydown', 'wheel', 'pagehide', 'portfolio:opening-ready']) window.addEventListener(name, finish, { passive: true });
+    media.addEventListener('change', finish);
+  })();
+</script>
+<style>
+  .opening-readiness { position: fixed; inset: 0; z-index: 30; display: grid; place-items: center; padding: 2rem; background: #171515; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .3s ease, visibility 0s .3s; }
+  :global(html.preparing-opening) .opening-readiness { visibility: visible; opacity: 1; transition: none; }
+  .opening-readiness > div { width: min(24rem, 100%); }
+  .readiness-name { display: block; font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 3rem); font-weight: 600; line-height: 1.2; letter-spacing: -.04em; }
+  .readiness-role, .readiness-note { display: block; font-size: .8rem; color: var(--color-muted); margin-top: .7rem; }
+  .readiness-line { display: block; height: 1px; overflow: hidden; background: var(--line); margin-top: 2.5rem; }
+  .readiness-line::after { content: ''; display: block; width: 40%; height: 100%; background: var(--color-amber); animation: prepare-inspection 1s ease-in-out infinite; animation-play-state: paused; }
+  :global(html.preparing-opening) .readiness-line::after { animation-play-state: running; }
+  @keyframes prepare-inspection { from { transform: translateX(-100%); } to { transform: translateX(350%); } }
+  @media (prefers-reduced-motion: reduce), (max-width: 1023px) { .opening-readiness { display: none; } }
+</style>

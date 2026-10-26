@@ -5,11 +5,10 @@
     const start = () => {
       if (!media.matches || started) return;
       started = true;
-      void import('../scripts/motion').then(module => module.initMotion()).catch(() => { started = false; });
+      void Promise.all([import('../scripts/motion'), document.fonts.ready]).then(([module]) => module.initMotion()).catch(() => { started = false; });
     };
     media.addEventListener('change', start);
-    if ('requestIdleCallback' in window) requestIdleCallback(start, { timeout: 1500 });
-    else setTimeout(start, 100);
+    start();
     function cleanup(event: PageTransitionEvent) {
       if (event.persisted) return;
       media.removeEventListener('change', start);

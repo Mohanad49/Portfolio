@@ -1,6 +1,7 @@
 ---
 import { getImage } from 'astro:assets';
 import Icon from './Icon.astro';
+import OpeningReadiness from './OpeningReadiness.astro';
 import { experienceHistory } from '../data/experience-history';
 import passageMaterial from '../../assets/plates/passage-material.png';
 import passageUpper from '../../assets/plates/passage-upper.png';
@@ -16,6 +17,7 @@ const [desktopArtwork, upperArtwork, lowerArtwork] = await Promise.all([
 const day = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'Africa/Cairo' });
 const clock = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Africa/Cairo' });
 ---
+ <OpeningReadiness />
  <div class="experience-story">
   <div class="passage-opening" id={home ? "home" : undefined}>
     {home && <span id="Home" class="legacy-anchor" aria-hidden="true"></span>}
@@ -45,11 +47,11 @@ const clock = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-dig
           <img class="passage-lower" src={inactiveArtwork} alt="" width={passageLower.width} height={passageLower.height} loading="eager" decoding="async" />
         </picture></div>
       </div>
-<h2 class="passage-project-title" id="evidence-title"><a href="/work/testpulse">TestPulse</a></h2><p class="passage-project-summary">Test observability &amp; flake detection</p></div>
+<h2 class="passage-project-title" id="evidence-title"><a href="/work/testpulse">TestPulse</a></h2><p class="passage-project-summary">QA reporting &amp; flaky-test analysis</p></div>
      </div>
      <div class="passage-arrival">
        <div class="passage-arrival-landmarks" aria-hidden="true"><span class="passage-title-destination"></span><span class="passage-summary-destination"></span></div>
-       <div class="passage-arrival-content"><h3>A red test deserves<br />a better explanation.</h3><p>A CI history that distinguishes inconsistent tests from new regressions. Multiple runners, a shared evidence model, and the reason behind every flake classification.</p></div>
+       <div class="passage-arrival-content"><h3>A red test deserves<br />a better explanation.</h3><p>I built TestPulse, a QA reporting tool that brings test results from multiple runners into one CI history. It surfaces the evidence behind flaky-test classifications and new regressions.</p></div>
      </div>
     </div>
   </div>
@@ -71,10 +73,17 @@ const clock = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-dig
   </section>
  </div>
 <script>
-  const load = () => { void import('../scripts/experience-motion').then(module => module.initExperienceMotion()).catch(() => {}); };
+  const load = () => {
+    const desktop = matchMedia('(min-width: 1024px)').matches;
+    const images = [...document.querySelectorAll<HTMLImageElement>(desktop ? '.passage-plate' : '.passage-upper, .passage-lower')];
+    void Promise.all([
+      import('../scripts/experience-motion'),
+      document.fonts.ready,
+      ...images.map(image => image.decode().catch(() => {})),
+    ]).then(([module]) => module.initExperienceMotion()).catch(() => {}).finally(() => window.dispatchEvent(new Event('portfolio:opening-ready')));
+  };
   if (matchMedia('(prefers-reduced-motion: no-preference)').matches) {
-    if ('requestIdleCallback' in window) window.requestIdleCallback(load, { timeout: 1200 });
-    else setTimeout(load, 0);
+    load();
   } else {
     const media = matchMedia('(prefers-reduced-motion: no-preference)');
     media.addEventListener('change', () => { if (media.matches) load(); }, { once: true });
@@ -186,10 +195,10 @@ const clock = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-dig
     .passage-actions { gap: .6rem; }
     .passage-actions a { font-size: .85rem; padding: .75rem 1rem; }
     .passage-mobile img { width: 215%; left: -12%; }
-    .passage-project-title { font-size: 3.3rem; }
+    .passage-project-title { font-size: clamp(1.9rem, 16.5vw, 3.3rem); }
     .passage-summary-destination { font-size: .95rem; }
     .passage-arrival-content { gap: 1.6rem; }
-    .passage-arrival-content h3 { font-size: 1.9rem; }
+    .passage-arrival-content h3 { font-size: clamp(1.45rem, 9.5vw, 1.9rem); }
     .evidence-sequence { padding-top: 2rem; }
     .evidence-question > p:first-child { font-size: 1.4rem; }
     .test-identity { font-size: .8rem; }
@@ -204,7 +213,7 @@ const clock = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-dig
     .shared-commit { flex-wrap: wrap; gap: .5rem 1rem; font-size: .8rem; }
     .shared-commit > span:last-child { margin-left: 0; flex-basis: 100%; }
     .evidence-conclusion { margin-top: 2.5rem; }
-    .evidence-conclusion h3 { font-size: 2rem; }
+    .evidence-conclusion h3 { font-size: clamp(1.75rem, 10vw, 2rem); }
     .evidence-conclusion p { font-size: 1rem; }
     .evidence-actions { gap: 1rem; }
   }

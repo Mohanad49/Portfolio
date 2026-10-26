@@ -1,5 +1,13 @@
 import { test, expect } from '@playwright/test';
 
+function chapterRange(element: Element) {
+  const chapter = element.closest('.work-chapter');
+  const sticky = chapter?.classList.contains('has-chapter-motion');
+  const rect = (sticky ? chapter : element)?.getBoundingClientRect();
+  if (!rect) throw new Error('Project motion range is missing.');
+  return { start: rect.top + scrollY - (sticky ? 0 : innerHeight * .9), end: rect.bottom + scrollY - (sticky ? innerHeight : innerHeight * .45) };
+}
+
 test('later motion uses the expanded opening geometry even when its module loads first', async ({ page }) => {
   let releaseOpening: (() => void) | undefined;
   const openingReady = new Promise<void>(resolve => { releaseOpening = resolve; });
@@ -14,10 +22,7 @@ test('later motion uses the expanded opening geometry even when its module loads
     await expect(page.locator('.passage-opening')).not.toHaveClass(/has-passage-motion/);
   } finally { releaseOpening?.(); }
   await expect(page.locator('.passage-opening')).toHaveClass(/has-passage-motion/);
-  const range = await page.locator('.contention-figure').evaluate(element => {
-    const rect = element.getBoundingClientRect();
-    return { start: rect.top + scrollY - innerHeight * .9, end: rect.bottom + scrollY - innerHeight * .45 };
-  });
+  const range = await page.locator('.contention-figure').evaluate(chapterRange);
   await page.evaluate(top => scrollTo({ top, behavior: 'instant' }), range.start + 1);
   await expect.poll(() => winner.evaluate(element => new DOMMatrix(getComputedStyle(element).transform).m22)).toBeLessThan(.3);
   await page.evaluate(top => scrollTo({ top, behavior: 'instant' }), range.end + 20);
@@ -44,10 +49,7 @@ test('later project motion advances and reverses while the recorded figures stay
   const figure = page.locator('.contention-figure');
   await expect(figure.locator('.contention-bars span')).toHaveCount(20);
   await expect(figure.locator('.winner')).toHaveCount(1);
-  const range = await figure.evaluate(element => {
-    const rect = element.getBoundingClientRect();
-    return { start: rect.top + scrollY - innerHeight * .9, end: rect.bottom + scrollY - innerHeight * .45 };
-  });
+  const range = await figure.evaluate(chapterRange);
   await page.evaluate(top => scrollTo({ top, behavior: 'instant' }), range.start);
   const winner = figure.locator('.winner');
   await expect.poll(() => winner.evaluate(element => getComputedStyle(element).transform)).not.toBe('none');
@@ -67,7 +69,7 @@ test('later project motion advances and reverses while the recorded figures stay
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await expect(winner).toHaveCSS('transform', 'none');
   await expect(page.locator('.agreement-track span')).toHaveCSS('transform', 'none');
-  await expect(page.locator('.material-upper').first()).toHaveJSProperty('complete', true);
+  await expect(page.locator('.caldiy-project .material-sculpture')).toHaveJSProperty('complete', true);
 });
 
 test('case studies move their artwork and reading progress while the prose remains steady', async ({ page }) => {
@@ -75,7 +77,7 @@ test('case studies move their artwork and reading progress while the prose remai
   page.on('pageerror', error => errors.push(error.message));
   for (const slug of ['testpulse', 'caldiy', 'llm-evaluation']) {
     await page.goto(`/work/${slug}`);
-    const artwork = page.locator('.material-field--case .material-upper');
+    const artwork = page.locator('.material-field--case .material-object');
     await expect.poll(() => artwork.evaluate(element => getComputedStyle(element).transform)).toContain('matrix3d');
     const initial = await artwork.evaluate(element => getComputedStyle(element).transform);
     const prose = page.locator('.case-prose');

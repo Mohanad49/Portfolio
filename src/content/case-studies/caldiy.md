@@ -1,8 +1,8 @@
 ---
 title: Cal.diy QA Strategy
 slug: caldiy
-eyebrow: Risk-led testing
-summary: Testing scheduling at the boundaries where time, state, and concurrent requests disagree.
+eyebrow: QA strategy and automation
+summary: QA strategy and automated tests for a scheduling system's API, time zones, concurrent bookings, and accessibility.
 role: Independent QA engagement
 order: 2
 category: Test strategy

@@ -48,6 +48,7 @@ p { text-wrap: pretty; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 [hidden] { display: none !important; }
 table, dd, .framework-number, .case-number { font-variant-numeric: tabular-nums; }
+@media (max-width: 600px) { :root { --page-gutter: min(1.25rem, 5vw); } }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }

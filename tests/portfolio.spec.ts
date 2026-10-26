@@ -261,8 +261,28 @@ test('320px reflow and 200% text resizing keep the page within the viewport', as
   for (const route of routes) {
     await page.goto(route);
     await page.addStyleTag({ content: 'html { font-size: 200%; }' });
+    await page.evaluate(() => document.fonts.ready);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), route).toBe(true);
     await expect(page.locator('h1')).toBeVisible();
+    const splitWords = await page.locator('h1, h2, h3, .production-metrics dd').evaluateAll(elements => {
+      const split: string[] = [];
+      for (const element of elements) {
+        if (!element.getClientRects().length) continue;
+        const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+        for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+          const text = node.textContent ?? '';
+          for (const match of text.matchAll(/[\p{L}\p{N}][\p{L}\p{N}.,’']+/gu)) {
+            const range = document.createRange();
+            range.setStart(node, match.index);
+            range.setEnd(node, match.index + match[0].length);
+            const lines = new Set([...range.getClientRects()].filter(rect => rect.width > .5).map(rect => Math.round(rect.top)));
+            if (lines.size > 1) split.push(match[0]);
+          }
+        }
+      }
+      return split;
+    });
+    expect(splitWords, route).toEqual([]);
   }
 });
 
