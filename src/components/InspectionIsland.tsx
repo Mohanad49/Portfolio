@@ -12,12 +12,17 @@ class CanvasBoundary extends Component<{ children: ReactNode; onFailure: () => v
 
 export default function InspectionIsland() {
   const host = useRef<HTMLDivElement>(null);
+  const focusOnReady = useRef(false);
   const [visible, setVisible] = useState(false);
+  const [requested, setRequested] = useState(false);
   const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
   const [spread, setSpread] = useState(22);
   const [Scene, setScene] = useState<ComponentType<InspectionCanvasProps> | null>(null);
-  const handleReady = useCallback(() => setReady(true), []);
+  const handleReady = useCallback(() => {
+    focusOnReady.current = !!host.current?.querySelector('.inspection-start:focus');
+    setReady(true);
+  }, []);
   const handleFailure = useCallback(() => { setFailed(true); setReady(false); }, []);
 
   useEffect(() => {
@@ -25,38 +30,24 @@ export default function InspectionIsland() {
     if (!element) return;
     const media = matchMedia('(min-width: 1024px) and (prefers-reduced-motion: no-preference)');
     let intersects = false;
-    let active = false;
-    let activationTimer: number | undefined;
     const update = () => {
-      window.clearTimeout(activationTimer);
-      if (!intersects || !media.matches || document.hidden) {
-        active = false;
-        setVisible(false);
-        setReady(false);
-      } else if (!active) {
-        // A bookmark can pass the scene without the visitor stopping to inspect it.
-        activationTimer = window.setTimeout(() => {
-          if (intersects && media.matches && !document.hidden) { active = true; setVisible(true); }
-        }, 150);
-      }
+      const available = intersects && media.matches && !document.hidden;
+      setVisible(available);
+      if (!available) setReady(false);
     };
-    const scrolling = () => { if (intersects && !active) update(); };
     const observer = new IntersectionObserver(entries => { intersects = entries.at(-1)?.isIntersecting ?? false; update(); }, { rootMargin: '120px' });
     observer.observe(element);
     media.addEventListener('change', update);
     document.addEventListener('visibilitychange', update);
-    window.addEventListener('scroll', scrolling, { passive: true });
     return () => {
-      window.clearTimeout(activationTimer);
       observer.disconnect();
       media.removeEventListener('change', update);
       document.removeEventListener('visibilitychange', update);
-      window.removeEventListener('scroll', scrolling);
     };
   }, []);
 
   useEffect(() => {
-    if (!visible || Scene || failed) return;
+    if (!requested || !visible || Scene || failed) return;
     let cancelled = false;
     async function loadScene() {
       try {
@@ -70,7 +61,14 @@ export default function InspectionIsland() {
     }
     void loadScene();
     return () => { cancelled = true; };
-  }, [visible, Scene, failed, handleFailure]);
+  }, [requested, visible, Scene, failed, handleFailure]);
+
+  useEffect(() => {
+    if (ready && focusOnReady.current) {
+      focusOnReady.current = false;
+      host.current?.querySelector('input')?.focus({ preventScroll: true });
+    }
+  }, [ready]);
 
   function changeSpread(value: number) {
     setSpread(value);
@@ -78,8 +76,17 @@ export default function InspectionIsland() {
     inspectionState.invalidate?.();
   }
 
-  return <div className="inspection-enhancement" ref={host} data-ready={ready && visible && !failed}>
-    {visible && Scene && !failed && <CanvasBoundary onFailure={handleFailure}><Scene onReady={handleReady} onFailure={handleFailure} /></CanvasBoundary>}
+  function showArtwork() {
+    setRequested(false);
+    setReady(false);
+    requestAnimationFrame(() => host.current?.querySelector('button')?.focus({ preventScroll: true }));
+  }
+
+  return <div className="inspection-enhancement" ref={host} data-ready={requested && ready && visible && !failed}>
+    {requested && visible && Scene && !failed && <CanvasBoundary onFailure={handleFailure}><Scene onReady={handleReady} onFailure={handleFailure} /></CanvasBoundary>}
+    {visible && !ready && !failed && <button className="inspection-start" type="button" aria-disabled={requested} aria-busy={requested} onClick={() => { if (!requested) setRequested(true); }}>{requested ? 'Preparing the 3D study…' : 'Inspect in 3D'}<span>{requested ? 'The artwork stays visible while it loads.' : 'Optional interactive material study'}</span></button>}
+    {failed && <p className="inspection-message" role="status">3D is unavailable. The complete artwork stays visible.</p>}
     {ready && visible && !failed && <div className="inspection-controls"><label htmlFor="inspection-spread">Separate layers<input id="inspection-spread" type="range" min="0" max="100" value={spread} aria-valuetext={`${spread}% separation`} onChange={event => changeSpread(Number(event.target.value))} /></label><button type="button" onClick={() => changeSpread(22)}>Reset</button></div>}
+    {ready && visible && !failed && <button className="inspection-exit" type="button" onClick={showArtwork}>Use artwork</button>}
   </div>;
 }

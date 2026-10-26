@@ -36,6 +36,7 @@ try {
   const interactive = await browser.newPage({ viewport: { width: 1440, height: 1000 }, deviceScaleFactor: 1 });
   await interactive.goto(base, { waitUntil: 'networkidle' });
   await interactive.locator('.inspection-frame').scrollIntoViewIfNeeded();
+  await interactive.getByRole('button', { name: /Inspect in 3D/ }).click();
   await interactive.getByRole('slider', { name: 'Separate layers' }).waitFor({ timeout: 20_000 });
   await interactive.locator('.inspection-study').screenshot({ path: `${directory}/inspection-interactive.png` });
   manifest.push({ name: 'inspection-interactive', path: `${directory}/inspection-interactive.png`, route: '/', width: 1440, height: 1000, reducedMotion: false, component: '.inspection-study' });

@@ -35,7 +35,12 @@ const profile = await getProfile();
   .inspection-frame :global(.inspection-controls label) { flex: 1; }
   .inspection-frame :global(input[type='range']) { display: block; width: 100%; min-height: 44px; accent-color: var(--color-amber); cursor: pointer; }
   .inspection-frame :global(button) { background: transparent; border: 0; color: var(--color-ink); min-height: 44px; padding: .5rem; }
+  .inspection-frame :global(.inspection-start), .inspection-frame :global(.inspection-message) { position: absolute; inset: auto 1.25rem 1.25rem; width: calc(100% - 2.5rem); padding: 1rem 1.25rem; background: #171411ed; border: 1px solid #8d7860; text-align: left; font-size: .95rem; }
+  .inspection-frame :global(.inspection-start span) { display: block; margin-top: .3rem; color: var(--color-muted); font-size: .75rem; }
+  .inspection-frame :global(.inspection-start:hover:not([aria-disabled='true'])) { border-color: var(--color-amber); }
+  .inspection-frame :global(.inspection-start[aria-disabled='true']) { cursor: progress; }
+  .inspection-frame :global(.inspection-exit) { position: absolute; top: 1rem; right: 1.25rem; padding: .5rem .8rem; background: #171411ed; border: 1px solid var(--line); font-size: .8rem; }
   figcaption { display: flex; justify-content: space-between; gap: 1rem; margin-top: 1rem; font-size: .8rem; color: var(--color-muted); }
   @media (max-width: 1023px) { .approach-body { grid-template-columns: 1fr; gap: 2rem; } .inspection-study { position: static; } .inspection-frame { height: clamp(280px, 60vw, 420px); } .approach-heading { margin-bottom: 2.5rem; } }
-  @media (max-width: 600px) { h2 { font-size: 2.3rem; } }
+  @media (max-width: 600px) { h2 { font-size: clamp(1.75rem, calc(1.2rem + 4.5vw), 2.3rem); } }
 </style>

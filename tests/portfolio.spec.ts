@@ -169,6 +169,10 @@ test('WebGL failure preserves artwork and working content', async ({ page }) => 
   });
   await page.goto('/');
   await page.locator('#approach').scrollIntoViewIfNeeded();
+  if ((page.viewportSize()?.width ?? 0) >= 1024) {
+    await page.getByRole('button', { name: /Inspect in 3D/ }).click();
+    await expect(page.getByRole('status').filter({ hasText: '3D is unavailable' })).toBeVisible();
+  }
   await expect(page.locator('.inspection-fallback')).toBeVisible();
   await expect.poll(() => page.locator('.inspection-fallback').evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBe(true);
   await expect(page.getByRole('slider', { name: 'Separate layers' })).toHaveCount(0);
@@ -187,8 +191,15 @@ test('desktop inspection responds to keyboard input and returns to its fallback'
   await page.waitForLoadState('networkidle');
   expect(canvasRequests).toEqual([]);
   await page.locator('.inspection-frame').scrollIntoViewIfNeeded();
+  await expect(page.getByRole('button', { name: /Inspect in 3D/ })).toBeVisible();
+  expect(canvasRequests).toEqual([]);
+  await expect(page.locator('canvas')).toHaveCount(0);
+  const launch = page.getByRole('button', { name: /Inspect in 3D/ });
+  await launch.focus();
+  await launch.press('Enter');
   const slider = page.getByRole('slider', { name: 'Separate layers' });
   await expect(slider).toBeVisible({ timeout: 20_000 });
+  await expect(slider).toBeFocused();
   expect(canvasRequests).toHaveLength(1);
   const canvas = page.locator('canvas');
   const before = await canvas.screenshot();
