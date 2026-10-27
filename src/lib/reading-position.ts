@@ -16,9 +16,8 @@ export function preserveReadingPosition(restoreInitial: boolean) {
   const initial = restoreInitial ? read(history.state) : undefined;
   let ready = false;
   let frame = 0;
-  let activity = 0;
   const inputs = ['wheel', 'touchstart', 'pointerdown', 'keydown'];
-  const interacted = () => { activity++; };
+  const cancel = () => cancelAnimationFrame(frame);
   const save = () => {
     if (!ready) return;
     const state: unknown = history.state;
@@ -28,12 +27,11 @@ export function preserveReadingPosition(restoreInitial: boolean) {
     } catch { /* Restricted browser contexts retain native restoration. */ }
   };
   const restore = (position: Position | undefined) => {
+    cancel();
     if (!position) return;
-    const version = activity;
-    cancelAnimationFrame(frame);
     frame = requestAnimationFrame(() => {
       frame = requestAnimationFrame(() => {
-        if (activity === version) window.scrollTo({ left: position.x, top: position.y, behavior: 'instant' });
+        window.scrollTo({ left: position.x, top: position.y, behavior: 'instant' });
       });
     });
   };
@@ -42,15 +40,15 @@ export function preserveReadingPosition(restoreInitial: boolean) {
   window.addEventListener('scrollend', save);
   window.addEventListener('pagehide', hidden);
   window.addEventListener('popstate', traversed);
-  inputs.forEach(name => window.addEventListener(name, interacted, { passive: true }));
+  inputs.forEach(name => window.addEventListener(name, cancel, { passive: true }));
   return {
     ready() { ready = true; restore(initial); },
     dispose() {
-      cancelAnimationFrame(frame);
+      cancel();
       window.removeEventListener('scrollend', save);
       window.removeEventListener('pagehide', hidden);
       window.removeEventListener('popstate', traversed);
-      inputs.forEach(name => window.removeEventListener(name, interacted));
+      inputs.forEach(name => window.removeEventListener(name, cancel));
     },
   };
 }

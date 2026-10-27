@@ -24,3 +24,19 @@ test('a restored history page keeps scroll motion and preference listeners', asy
     await expect.poll(() => scene.evaluate((element: HTMLElement) => element.style.transform)).not.toBe('');
   } finally { await browser.close(); }
 });
+
+test('a traversal without a checkpoint cancels an earlier queued restoration', async ({ page }) => {
+  await page.goto('/experience');
+  await expect(page.locator('.passage-opening')).toHaveClass(/has-passage-motion/);
+  await page.locator('.evidence-conclusion').scrollIntoViewIfNeeded();
+  await page.waitForFunction(() => scrollY > 0 && history.state?.portfolioReadingPosition?.y === scrollY);
+  const checkpoint: unknown = await page.evaluate(() => history.state);
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
+  await expect.poll(() => page.evaluate(() => scrollY)).toBe(0);
+  const finalPosition = await page.evaluate(saved => new Promise<number>(resolve => {
+    window.dispatchEvent(new PopStateEvent('popstate', { state: saved }));
+    window.dispatchEvent(new PopStateEvent('popstate', { state: null }));
+    requestAnimationFrame(() => requestAnimationFrame(() => resolve(scrollY)));
+  }), checkpoint);
+  expect(finalPosition).toBe(0);
+});
