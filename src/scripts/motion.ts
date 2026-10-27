@@ -142,6 +142,7 @@ export function initMotion() {
     initialized = true;
     stages.forEach(stage => stageHeights.set(stage, stage.offsetHeight));
     ScrollTrigger.refresh();
+    ScrollTrigger.clearScrollMemory('auto');
   }
 
   const imageObserver = new IntersectionObserver(entries => {

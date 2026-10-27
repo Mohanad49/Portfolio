@@ -1,4 +1,4 @@
-import { test, expect, type Locator } from '@playwright/test';
+import { test, expect, type Locator, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
 async function expectFullyInViewport(locator: Locator) {
@@ -6,6 +6,20 @@ async function expectFullyInViewport(locator: Locator) {
     const rect = element.getBoundingClientRect();
     return Math.min(rect.left, rect.top, innerWidth - rect.right, innerHeight - rect.bottom);
   })).toBeGreaterThanOrEqual(-.5);
+}
+
+async function settleNativeHistory(page: Page) {
+  await page.evaluate(() => new Promise<void>(resolve => {
+    let previous = scrollY;
+    let stable = 0;
+    const frame = () => {
+      stable = previous === scrollY && history.scrollRestoration === 'auto' ? stable + 1 : 0;
+      previous = scrollY;
+      if (stable >= 3) resolve();
+      else requestAnimationFrame(frame);
+    };
+    requestAnimationFrame(frame);
+  }));
 }
 
 test('the study presents the frozen evidence and clear comparison actions', async ({ page }) => {
@@ -140,6 +154,35 @@ test('live preferences preserve readable evidence without loading a renderer', a
   expect(rendererRequests).toEqual([]);
 });
 
+test('reloading an evidence bookmark preserves the current reading position', async ({ page }) => {
+  await page.goto('/experience#evidence');
+  await expect(page.locator('.passage-opening')).toHaveClass(/has-passage-motion/);
+  await expect(page.locator('#evidence')).toBeInViewport();
+  await settleNativeHistory(page);
+  const conclusion = page.locator('.evidence-conclusion');
+  await conclusion.scrollIntoViewIfNeeded();
+  await settleNativeHistory(page);
+  const before = await conclusion.evaluate(element => element.getBoundingClientRect().top);
+  await page.reload();
+  await expect(page.locator('.passage-opening')).toHaveClass(/has-passage-motion/);
+  await expect.poll(() => conclusion.evaluate((element, position) => Math.abs(element.getBoundingClientRect().top - position), before)).toBeLessThan(6);
+});
+
+test('Back restores the reading position of an earlier evidence bookmark', async ({ page }) => {
+  await page.goto('/experience#evidence');
+  await expect(page.locator('.passage-opening')).toHaveClass(/has-passage-motion/);
+  await expect(page.locator('#evidence')).toBeInViewport();
+  await settleNativeHistory(page);
+  const conclusion = page.locator('.evidence-conclusion');
+  await conclusion.scrollIntoViewIfNeeded();
+  await settleNativeHistory(page);
+  const before = await conclusion.evaluate(element => element.getBoundingClientRect().top);
+  await page.evaluate(() => { location.hash = 'top'; });
+  await expect.poll(() => page.evaluate(() => scrollY)).toBe(0);
+  await page.goBack();
+  await expect.poll(() => conclusion.evaluate((element, position) => Math.abs(element.getBoundingClientRect().top - position), before)).toBeLessThan(6);
+});
+
 test('static and unsupported rendering paths retain the complete study', async ({ browser, baseURL }, testInfo) => {
   const context = await browser.newContext({ javaScriptEnabled: false, baseURL, viewport: testInfo.project.use.viewport });
   const page = await context.newPage();
@@ -221,7 +264,7 @@ test('artwork moves on scroll, returns intact, and rests without a renderer', as
   page.on('pageerror', error => errors.push(error.message));
   page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
   page.on('request', request => { if (/PassageCanvas|PassageIsland|\/client\.[^/]+\.js/.test(request.url())) rendererRequests.push(request.url()); });
-  page.on('request', request => { if (/passage-(material|upper|lower).*\.webp/.test(request.url())) artworkRequests.push(request.url()); });
+  page.on('request', request => { if (/passage-(material|upper|lower).*\.(webp|avif)/.test(request.url())) artworkRequests.push(request.url()); });
   await page.goto('/experience');
   await expect(page.locator('.passage-opening')).toHaveClass(/has-passage-motion/);
   const desktop = (testInfo.project.use.viewport?.width ?? 0) >= 1024;
@@ -231,7 +274,7 @@ test('artwork moves on scroll, returns intact, and rests without a renderer', as
     await expect(layer).toBeVisible();
     await expect.poll(() => layer.evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 1)).toBe(true);
     const expectedAsset = desktop ? 'material' : await layer.evaluate(image => image.classList.contains('passage-lower') ? 'lower' : 'upper');
-    expect(await layer.evaluate((image: HTMLImageElement) => image.currentSrc)).toMatch(new RegExp(`/passage-${expectedAsset}\\.[^/]+\\.webp$`));
+    expect(await layer.evaluate((image: HTMLImageElement) => image.currentSrc)).toMatch(new RegExp(`/passage-${expectedAsset}\\.[^/]+\\.(webp|avif)$`));
   }
   if (desktop) {
     const source = await upper.evaluate((image: HTMLImageElement) => image.currentSrc);

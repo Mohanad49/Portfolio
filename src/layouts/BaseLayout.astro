@@ -6,6 +6,8 @@ import Contact from '../components/Contact.astro';
 import AmbientField from '../components/AmbientField.astro';
 import MotionLoader from '../components/MotionLoader.astro';
 import heroScene from '../../assets/plates/hero-scene.png';
+import displayFont from '@fontsource-variable/alexandria/files/alexandria-latin-wght-normal.woff2?url';
+import bodyFont from '@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2?url';
 import '../styles/global.css';
 interface Props { title?: string; description?: string; home?: boolean; noindex?: boolean; motion?: boolean; }
 const { title = 'Mohanad Yehia | Software QA Engineer', description = 'Software QA across web, mobile, API, and data. Explore production experience, test frameworks, and evidence-backed QA case studies.', home = false, noindex = false, motion = false } = Astro.props;
@@ -19,6 +21,8 @@ const person = { '@context': 'https://schema.org', '@type': 'Person', name: prof
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preload" href={displayFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={bodyFont} as="font" type="font/woff2" crossorigin />
     <style is:inline>
       @view-transition { navigation: auto; }
       @media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }

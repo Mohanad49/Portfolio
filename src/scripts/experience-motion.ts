@@ -1,7 +1,8 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { preserveReadingPosition } from '../lib/reading-position';
 
-export function initExperienceMotion() {
+export function initExperienceMotion({ settleInitialBookmark = true, restoringPosition = false } = {}) {
   const opening = document.querySelector<HTMLElement>('.passage-opening');
   const frame = document.querySelector<HTMLElement>('.passage-frame');
   const stage = document.querySelector<HTMLElement>('.passage-stage');
@@ -13,6 +14,7 @@ export function initExperienceMotion() {
   const titleDestination = document.querySelector<HTMLElement>('.passage-title-destination');
   const summaryDestination = document.querySelector<HTMLElement>('.passage-summary-destination');
   if (!opening || !frame || !stage || !history || !evidence || !anchor || !title || !summary || !titleDestination || !summaryDestination) return;
+  const readingPosition = preserveReadingPosition(restoringPosition);
   gsap.registerPlugin(ScrollTrigger);
   const motion = matchMedia('(prefers-reduced-motion: no-preference)');
   const desktop = matchMedia('(min-width: 1024px)');
@@ -43,8 +45,10 @@ export function initExperienceMotion() {
   function configure() {
     if (!opening || !frame || !stage || !history || !evidence || !anchor || !title || !summary || !titleDestination || !summaryDestination) return;
     const before = evidence.getBoundingClientRect().top;
+    const position = { top: scrollY, left: scrollX };
     const retainEvidence = before < innerHeight * .75;
-    const arrivingAtBookmark = !configured && ['#evidence', '#work', '#Portofolio'].includes(location.hash) && Math.abs(anchor.getBoundingClientRect().top - bookmarkOffset(anchor)) < 4;
+    // Font and image layout can move the native fragment before enhancement starts.
+    const arrivingAtBookmark = !configured && settleInitialBookmark && ['#evidence', '#work', '#Portofolio'].includes(location.hash);
     if (history.getBoundingClientRect().top < innerHeight * .9) historyRevealed = true;
     context?.revert();
     context = undefined;
@@ -75,19 +79,25 @@ export function initExperienceMotion() {
         gsap.from('.observation', { opacity: 0, y: 20, duration: .7, stagger: .14, clearProps: 'opacity,transform', ease: 'expo.out', onComplete: () => { historyRevealed = true; }, scrollTrigger: { trigger: history, start: 'top 85%', once: true } });
       } else historyRevealed = true;
     });
-    if (arrivingAtBookmark) syncBookmark();
+    if (!configured && restoringPosition) window.scrollTo({ ...position, behavior: 'instant' });
+    else if (arrivingAtBookmark) syncBookmark();
     else if (retainEvidence) {
       const adjustment = evidence.getBoundingClientRect().top - before;
       if (Math.abs(adjustment) > .5) window.scrollBy({ top: adjustment, behavior: 'instant' });
     }
     configured = true;
     window.dispatchEvent(new Event('portfolio:layout'));
+    ScrollTrigger.clearScrollMemory('auto');
   }
   function resize() {
     window.clearTimeout(resizeTimer);
     resizeTimer = window.setTimeout(configure, 150);
   }
+  function keepNativeRestoration() {
+    if (window.history.scrollRestoration !== 'auto') ScrollTrigger.clearScrollMemory('auto');
+  }
   configure();
+  readingPosition.ready();
   let stageHeight = stage.offsetHeight;
   const stageObserver = new ResizeObserver(() => {
     if (stage.offsetHeight === stageHeight) return;
@@ -97,15 +107,16 @@ export function initExperienceMotion() {
   stageObserver.observe(stage);
   motion.addEventListener('change', configure);
   window.addEventListener('resize', resize);
-  window.addEventListener('hashchange', syncBookmark);
+  window.addEventListener('scroll', keepNativeRestoration, { passive: true });
   function cleanup(event: PageTransitionEvent) {
     if (event.persisted) return;
     context?.revert();
+    readingPosition.dispose();
     stageObserver.disconnect();
     window.clearTimeout(resizeTimer);
     motion.removeEventListener('change', configure);
     window.removeEventListener('resize', resize);
-    window.removeEventListener('hashchange', syncBookmark);
+    window.removeEventListener('scroll', keepNativeRestoration);
     window.removeEventListener('pagehide', cleanup);
   }
   window.addEventListener('pagehide', cleanup);

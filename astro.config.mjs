@@ -5,6 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   site: 'https://myehia.vercel.app',
   output: 'static',
+  build: { inlineStylesheets: 'always' },
   devToolbar: { enabled: false },
   integrations: [react()],
   vite: { plugins: [tailwindcss()] },

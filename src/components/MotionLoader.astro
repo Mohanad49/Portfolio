@@ -3,15 +3,41 @@
   if (document.body.classList.contains('portfolio-surface')) {
     const media = matchMedia('(prefers-reduced-motion: no-preference)');
     let started = false;
+    let disposed = false;
+    let frame = 0;
+    let releaseOpening: (() => void) | undefined;
+    const openingPaint = () => new Promise<void>(resolve => {
+      const opening = document.querySelector('.passage-opening');
+      if (!opening || opening.classList.contains('has-passage-motion')) { resolve(); return; }
+      const events = ['portfolio:opening-ready', 'wheel', 'touchstart', 'pointerdown', 'keydown'];
+      const finish = () => {
+        clearTimeout(timer);
+        events.forEach(name => window.removeEventListener(name, finish));
+        releaseOpening = undefined;
+        resolve();
+      };
+      const timer = window.setTimeout(finish, 1600);
+      releaseOpening = finish;
+      events.forEach(name => window.addEventListener(name, finish, { passive: true }));
+    });
     const start = () => {
       if (!media.matches || started) return;
       started = true;
-      void Promise.all([import('../scripts/motion'), prepareTypography()]).then(([module]) => module.initMotion()).catch(() => { started = false; });
+      void Promise.all([import('../scripts/motion'), prepareTypography(), openingPaint()]).then(([module]) => {
+        if (disposed) return;
+        // Paint the prepared opening before measuring all of the later chapters.
+        frame = requestAnimationFrame(() => {
+          frame = requestAnimationFrame(() => { if (!disposed) module.initMotion(); });
+        });
+      }).catch(() => { started = false; });
     };
     media.addEventListener('change', start);
     start();
     function cleanup(event: PageTransitionEvent) {
       if (event.persisted) return;
+      disposed = true;
+      cancelAnimationFrame(frame);
+      releaseOpening?.();
       media.removeEventListener('change', start);
       window.removeEventListener('pagehide', cleanup);
     }

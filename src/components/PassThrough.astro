@@ -9,10 +9,12 @@ import passageLower from '../../assets/plates/passage-lower.png';
 interface Props { home?: boolean; }
 const { home = false } = Astro.props;
 const inactiveArtwork = "data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1'%20height='1'/%3E";
-const [desktopArtwork, upperArtwork, lowerArtwork] = await Promise.all([
+const [desktopArtwork, upperArtwork, lowerArtwork, upperAvif, lowerAvif] = await Promise.all([
   getImage({ src: passageMaterial, widths: [640, 1024, 1536], format: 'webp', quality: 85 }),
   getImage({ src: passageUpper, widths: [640, 1024], format: 'webp', quality: 85 }),
   getImage({ src: passageLower, widths: [640, 1024], format: 'webp', quality: 85 }),
+  getImage({ src: passageUpper, widths: [640, 1024], format: 'avif', quality: 70 }),
+  getImage({ src: passageLower, widths: [640, 1024], format: 'avif', quality: 70 }),
 ]);
 const day = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'Africa/Cairo' });
 const clock = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Africa/Cairo' });
@@ -39,10 +41,12 @@ const clock = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-dig
       <div class="passage-project">
       <div class="passage-mobile" aria-hidden="true">
         <picture>
+          <source media="(width < 1024px)" type="image/avif" srcset={upperAvif.srcSet.attribute} sizes="100vw" />
           <source media="(width < 1024px)" type="image/webp" srcset={upperArtwork.srcSet.attribute} sizes="100vw" />
           <img class="passage-upper" src={inactiveArtwork} alt="" width={passageUpper.width} height={passageUpper.height} loading="eager" fetchpriority="high" decoding="async" />
         </picture>
         <div class="passage-lower-anchor"><picture>
+          <source media="(width < 1024px)" type="image/avif" srcset={lowerAvif.srcSet.attribute} sizes="100vw" />
           <source media="(width < 1024px)" type="image/webp" srcset={lowerArtwork.srcSet.attribute} sizes="100vw" />
           <img class="passage-lower" src={inactiveArtwork} alt="" width={passageLower.width} height={passageLower.height} loading="eager" decoding="async" />
         </picture></div>
@@ -75,13 +79,25 @@ const clock = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-dig
 <script>
   import { prepareTypography } from '../lib/critical-fonts';
   const load = () => {
+    const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined;
+    const restoringPosition = navigation?.type === 'reload' || navigation?.type === 'back_forward';
+    let interacted = false;
+    const noteInteraction = () => { interacted = true; };
+    const interactionEvents = ['wheel', 'touchstart', 'pointerdown', 'keydown'] as const;
+    interactionEvents.forEach(name => window.addEventListener(name, noteInteraction, { passive: true }));
     const desktop = matchMedia('(min-width: 1024px)').matches;
     const images = [...document.querySelectorAll<HTMLImageElement>(desktop ? '.passage-plate' : '.passage-upper, .passage-lower')];
     void Promise.all([
       import('../scripts/experience-motion'),
       prepareTypography(),
       ...images.map(image => image.decode().catch(() => {})),
-    ]).then(([module]) => module.initExperienceMotion()).catch(() => {}).finally(() => window.dispatchEvent(new Event('portfolio:opening-ready')));
+    ]).then(([module]) => module.initExperienceMotion({
+      settleInitialBookmark: !restoringPosition && !interacted,
+      restoringPosition: restoringPosition && !interacted,
+    })).catch(() => {}).finally(() => {
+      interactionEvents.forEach(name => window.removeEventListener(name, noteInteraction));
+      window.dispatchEvent(new Event('portfolio:opening-ready'));
+    });
   };
   if (matchMedia('(prefers-reduced-motion: no-preference)').matches) {
     load();
@@ -93,7 +109,7 @@ const clock = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-dig
 <style>
   :global(html:has(.passage-opening)) { scroll-behavior: auto; }
   :global(body:has(.passage-opening) .site-header) { position: absolute; inset: 0 0 auto; background: linear-gradient(#141312e6, #14131200); }
-  .experience-story { --passage-scene-height: max(100svh, 720px); --passage-arrival-size: clamp(4.5rem, 10.5vw, 10rem); --passage-evidence-overlap: 30svh; }
+  .experience-story { --passage-scene-height: max(100svh, 720px); --passage-arrival-size: clamp(4.5rem, 10.5vw, 10rem); --passage-evidence-overlap: 30svh; overflow-anchor: none; }
   .passage-opening { position: relative; background: var(--color-graphite); }
   .passage-opening.has-passage-motion { height: var(--passage-height); }
   .has-passage-motion .passage-frame { position: sticky; top: 0; height: var(--passage-scene-height); }
