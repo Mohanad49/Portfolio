@@ -16,10 +16,10 @@ export function initMotion() {
 
   function configure() {
     const position = { top: scrollY, left: scrollX };
-    const readingAnchor = initialized ? [...document.querySelectorAll<HTMLElement>('main h2, main h3, main p, main summary')].find(element => {
+    const readingAnchor = [...document.querySelectorAll<HTMLElement>('main h2, main h3, main p, main summary')].find(element => {
       const rect = element.getBoundingClientRect();
       return rect.height > 0 && rect.top >= 0 && rect.top < innerHeight * .75;
-    }) : undefined;
+    });
     const readingTop = readingAnchor?.getBoundingClientRect().top;
     context?.revert();
     context = undefined;
@@ -132,13 +132,11 @@ export function initMotion() {
       });
     });
 
-    if (initialized) {
-      if (readingAnchor && readingTop !== undefined) {
-        // Native scroll anchoring may already compensate for removed sticky space.
-        const adjustment = readingAnchor.getBoundingClientRect().top - readingTop;
-        if (Math.abs(adjustment) > .5) window.scrollBy({ top: adjustment, behavior: 'instant' });
-      } else window.scrollTo({ ...position, behavior: 'instant' });
-    }
+    if (readingAnchor && readingTop !== undefined) {
+      // Native scroll anchoring may already compensate for removed sticky space.
+      const adjustment = readingAnchor.getBoundingClientRect().top - readingTop;
+      if (Math.abs(adjustment) > .5) window.scrollBy({ top: adjustment, behavior: 'instant' });
+    } else if (initialized) window.scrollTo({ ...position, behavior: 'instant' });
     initialized = true;
     stages.forEach(stage => stageHeights.set(stage, stage.offsetHeight));
     ScrollTrigger.refresh();
