@@ -8,6 +8,7 @@ const strategies = [
 ];
 ---
 <section class:list={['case-evidence', `case-evidence--${slug}`]} aria-label="Evidence in focus">
+  <span class="evidence-rule" aria-hidden="true"></span>
   {slug === 'testpulse' && <>
     <h2>The evidence behind a flake.</h2>
     <div class="table-scroll strategy-table" role="region" aria-label="TestPulse strategy comparison" tabindex="0"><table><caption>Two classification strategies documented in TestPulse</caption><thead><tr><th scope="col">Strategy</th><th scope="col">What it uses</th><th scope="col">How to read it</th></tr></thead><tbody>{strategies.map(strategy => <tr><th scope="row">{strategy.name}</th><td>{strategy.uses}</td><td>{strategy.meaning}</td></tr>)}</tbody></table></div>
@@ -25,7 +26,9 @@ const strategies = [
   </>}
 </section>
 <style>
-  .case-evidence { margin: 0 var(--page-gutter); padding: clamp(1.5rem, 3.5vw, 4rem); background: #252019; border: 1px solid #4b3d2b; }
+  .case-evidence { position: relative; margin: 0 var(--page-gutter); padding: clamp(1.5rem, 3.5vw, 4rem); background: #252019; border: 1px solid #4b3d2b; }
+  .evidence-rule { position: absolute; inset: 0 0 auto; height: 2px; background: var(--color-amber); transform-origin: left; }
+  .case-evidence--caldiy .evidence-rule { background: #7a311e; }
   .case-evidence--caldiy { background: #e9e0d4; color: #252019; border: 0; }
   h2 { font-size: clamp(1.8rem, 3vw, 3.3rem); margin-bottom: 2rem; }
   .table-scroll { overflow-x: auto; }
@@ -46,5 +49,10 @@ const strategies = [
   .strategy-list dd { margin: .8rem 0 0; font-size: .95rem; color: #d5cec4; }
   .strategy-list dd span { display: block; margin-top: .8rem; color: var(--color-amber); }
   @media (max-width: 760px) { .judge-results { grid-template-columns: 1fr; gap: 1.5rem; } th, td { padding-right: 1rem; min-width: 8rem; } }
-  @media (max-width: 600px) { .strategy-table { display: none; } .strategy-list { display: block; } }
+  @media (max-width: 600px) {
+    .strategy-table { display: none; }
+    .strategy-list { display: block; }
+    .case-evidence { padding: min(1.5rem, 6vw); }
+    h2 { font-size: clamp(1.5rem, calc(1rem + 3vw), 1.8rem); }
+  }
 </style>

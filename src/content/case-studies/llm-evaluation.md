@@ -1,8 +1,8 @@
 ---
 title: LLM Evaluation Harness
 slug: llm-evaluation
-eyebrow: AI quality evaluation
-summary: Measuring variable answers and checking whether the judge itself deserves to be trusted.
+eyebrow: AI quality assurance
+summary: An AI testing harness for retrieval, answers, and safety, with measured limits for its refusal judge.
 role: Independent project
 order: 3
 category: AI evaluation

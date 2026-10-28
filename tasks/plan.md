@@ -3,7 +3,7 @@
 ## Goal and decisions
 
 Build a cinematic QA portfolio in this isolated checkout of Mohanad49/Portfolio,
-branch codex/qa-portfolio. Deploy through the existing Vercel project at
+branch dev/qa-portfolio. Deploy through the existing Vercel project at
 https://myehia.vercel.app. The original checkout and previous deployment stay
 available as recovery points. No new skills or plugins are required.
 
@@ -35,9 +35,16 @@ one visual pipeline with independent assessment. Technical review is separate.
 6. Add a workflow only for a concrete responsibility gap and document its boundary.
 
 Inactive: design-taste and other design-direction skills, image-to-code, Vercel
-React best practices, web-design-guidelines, GSAP skills, Three.js fundamentals,
+React best practices, web-design-guidelines, general GSAP workflows, Three.js fundamentals,
 separate planning/incremental/TDD/review orchestrators, browser-testing-with-devtools.
 The latter requires a separate MCP setup; use available browser tools and CI tests.
+
+For the owner's continuous TestPulse transition request, gsap-scrolltrigger is
+an implementation reference for scroll ranges, refresh, and cleanup only.
+Impeccable still owns composition, choreography, acceptance, and documentation.
+gsap-timeline and transitions-dev were inspected but remain inactive: the first
+duplicates the selected reference, and the second targets component transitions.
+No new animation library, motion-token system, or parallel design workflow.
 
 ## Technical contract
 
@@ -83,3 +90,60 @@ and limitations. Preserve the evidence boundaries in PRODUCT.md.
 
 One verification record represents the current source tree. Git/review workflows
 reuse its results. Rerun affected checks and screenshots after changes.
+
+## Accepted full-site extension, D-019
+
+The owner accepted the D-018 opening and requested its motion character across
+the homepage, archive, and case studies. Continue in the existing isolated
+checkout and draft PR. Adopt the accepted opening on the preview root and keep
+/experience as the focused study. Production is not replaced during this step.
+
+Preserve the five-owner table. Impeccable owns this same-world motion extension.
+Existing selected compositions and rasters are reused; no new concept tournament
+or image generation is needed. Factual copy is unchanged. Case-study writing and
+imagegen remain inactive unless a concrete content or asset gap appears.
+
+Sequence: share and verify the opening; integrate the full homepage; implement
+content-specific chapter motion, case entries/evidence/reading/navigation, and
+archive continuity; run affected checks and current performance measurements;
+complete the existing independent finish and source handoffs; document the built
+system; validate the complete hosted preview. Reuse passing evidence for unchanged
+source. Native CSS cross-document transitions are progressive navigation effects,
+not another motion library or workflow.
+
+## Owner feedback refinement, D-020
+
+The owner's screenshots override D-019's staged visual verdict. Keep the accepted
+opening, existing stack, and preview-only boundary. On 2026-10-26 the owner chose
+the three-form material study at .impeccable/mocks/d020/material-family.png:
+Cal.diy gate, paired LLM prisms, and archive fan. Imagegen supplies native-alpha
+cutouts under Impeccable's direction. This is an extension of the approved
+material world, not a second design workflow or replacement visual identity.
+
+Focal motion: Cal.diy resolves concurrent attempts into one retained booking;
+LLM brings paired measurement and the judge's bounded result into focus. Use
+finite desktop sticky ranges when the complete content fits, lighter native
+scroll relationships on compact or enlarged layouts, and still alternatives.
+Entry materials finish with visible edges before reading panels and archive
+rows. Every featured project states its name and QA purpose immediately.
+
+Budget: transform existing static cutouts, keep prose and links available, decode
+nearby imagery ahead of entry, and load the separate WebGL study only after the
+visitor requests it. A small bounded readiness handoff may acknowledge actual
+critical-resource preparation. It must not impose a fixed delay or claim that a
+loader solves rendering cost. Compare retained startup and scroll profiles.
+
+A fresh visual review owns the six listed material fixes in
+ docs/experience/d020-owner-feedback-review.md. Complete affected browser,
+accessibility and performance checks, source review, a verdict against the fixes,
+and the final design record before handing over the updated hosted preview.
+
+## Final release review responsibility
+
+The owner requested a dedicated code-security review on 2026-10-27. Codex
+Security owns this bounded vulnerability assessment and its durable report.
+The technical source reviewer consumes its disposition and owns correctness,
+architecture, maintainability, and lifecycle review. It does not run a second
+vulnerability audit. Existing Impeccable visual ownership and the shared
+verification record remain unchanged. This does not activate another planning,
+design, testing, or release workflow.

@@ -35,7 +35,7 @@ The portfolio must not reposition him as exclusively an SDET or AI specialist.
 ## Operating Context
 
 The new project is an isolated checkout of Mohanad49/Portfolio on
-codex/qa-portfolio. Its final deployment replaces the current website through the
+dev/qa-portfolio. Its final deployment replaces the current website through the
 existing Vercel project at https://myehia.vercel.app. The original local checkout
 and previous production deployment are recovery points.
 

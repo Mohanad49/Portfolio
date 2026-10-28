@@ -1,19 +1,38 @@
-# Mohanad Yehia: QA portfolio
+# Mohanad Yehia | Software QA portfolio
 
-A static, evidence-led portfolio for production QA, test automation, and test
-observability. Built with Astro, TypeScript, Tailwind CSS, React islands,
-React Three Fiber, Three.js, and GSAP.
+My portfolio brings together production QA experience, test automation, and three
+case studies with inspectable evidence. The cinematic opening and scroll sequences
+are part of the presentation; the results and limitations remain readable without
+JavaScript, WebGL, or animation.
 
-## Local development
+[Live portfolio](https://myehia.vercel.app) · [Current release candidate](https://github.com/Mohanad49/Portfolio/pull/5)
 
-Use Node 24.16 or newer within the Node 24 release line and pnpm 11.17.0.
+## Selected QA work
+
+- **TestPulse:** QA reporting and flaky-test analysis using exported CI snapshots.
+- **Cal.diy:** risk-led testing of the pinned v6.2.0 scheduling application,
+  including concurrent booking and documented accessibility failures.
+- **LLM evaluation harness:** repeatable model evaluation with measured judge
+  limitations. The refusal judge is excluded from CI gates.
+
+Six additional testing frameworks are available in the work archive. Generated
+artwork is conceptual, never a substitute for real reports or employer interfaces.
+
+## Run locally
+
+Use Node 24.16 or newer within Node 24, and pnpm 11.17.0. These commands work on
+macOS, Linux, and Windows through pnpm's configured shell emulator.
 
 ```sh
 pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-## Verification
+The stack is Astro, TypeScript, Tailwind CSS, React islands, React Three Fiber,
+Three.js, and GSAP. Astro builds static pages from typed local content. There is
+no application backend, database, contact-form service, or public runtime API.
+
+## Verify
 
 ```sh
 pnpm check
@@ -24,44 +43,79 @@ pnpm test
 pnpm perf
 ```
 
-Playwright covers Chromium, Firefox, and WebKit at desktop, tablet, and mobile
-viewport sizes. It exercises navigation, filters, downloads, clipboard feedback,
-keyboard focus, no-JavaScript content, reduced motion, unavailable WebGL, the
-interactive scene, accessibility, and text reflow. It does not retry failures.
+The Linux CI suite covers Chromium, Firefox, and WebKit at desktop, tablet, and
+mobile sizes. A separate Windows job runs the same applicable behavior checks in
+Chrome, Microsoft Edge, and Firefox. Firefox content runs headless; one separate
+headed check covers WebGL interaction. The Windows job uses one worker to keep
+its desktop session isolated. Both Firefox profiles explicitly use Mozilla's
+active-page automation policy for consistent animation refresh on the runner.
+Each applicable check runs exactly once:
 
-Lighthouse CI runs the production build three times per main route with mobile
-emulation. Median performance must reach 90; median LCP must stay below 2.5 seconds
-and CLS below 0.1. Reports stay local or in the workflow artifact. The single
-current verification record is docs/verification.md.
+```sh
+pnpm exec playwright install firefox chrome msedge
+pnpm exec playwright test --config playwright.windows.config.ts
+```
 
-## Content and evidence
+Installing branded browsers can replace the existing local Chrome/Edge install;
+the dedicated CI job runs on an ephemeral Windows machine. Browser emulation
+is not a claim of testing every physical device or corporate browser policy.
 
-- Profile and experience: src/data/profile.json.
-- Three case studies: src/content/case-studies/.
-- Framework archive: src/data/frameworks.json.
-- Evidence boundaries and pinned sources: docs/evidence.md.
-- Current resume: public/resume.pdf.
+The checks cover navigation, filters, downloads, clipboard feedback, keyboard
+focus, no-JavaScript content, reduced motion, unavailable WebGL, the optional
+scene, axe accessibility scans, and enlarged-text reflow. Tests have no retries.
+Lighthouse CI measures each main route three times on a production build. Median
+mobile performance must reach 90, LCP must stay below 2.5 seconds, and CLS below
+0.1. See [the current verification record](docs/verification.md) for results and
+limitations; a successful deployment build alone is not release approval.
 
-Content collections validate these records at build time. TestPulse is a static
-export of real CI data, Cal.diy targets the pinned v6.2.0 snapshot, and the refusal
-judge remains outside CI gates. Generated artwork is conceptual and never serves
-as a report capture or employer interface.
+## Repository guide
+
+| Path | Purpose |
+| --- | --- |
+| `src/pages/` | Static routes, metadata, sitemap, and legacy route fallbacks |
+| `src/components/` | Page sections, material artwork, and optional 3D study |
+| `src/scripts/` | GSAP opening and chapter motion |
+| `src/content/case-studies/` | The three evidence-backed project narratives |
+| `src/data/` | Profile, employment, framework, and frozen CI records |
+| `assets/` | Source artwork and portrait, optimized during the build |
+| `public/` | Resume, certificates, font notices, and fixed public files |
+| `tests/` | Browser behavior, accessibility, and responsive checks |
+| `docs/` | Evidence, visual/source reviews, and release recovery records |
+| `.impeccable/` | Approved design references, asset provenance, and design tokens |
+
+[DECISIONS.md](DECISIONS.md) explains my choices. [DESIGN.md](DESIGN.md) describes
+the implemented visual system. [Evidence references](docs/evidence.md) separate
+verified facts from conceptual artwork. Local captures, test reports, generated
+output, and research are ignored rather than committed or publicly served.
 
 ## Motion and fallbacks
 
-GSAP owns DOM timelines and scroll progress. React Three Fiber owns scene rendering
-and resource lifecycle. A small shared progress object connects them. The scene
-loads only for eligible desktop visitors when it approaches the viewport and
-renders on demand. Mobile, reduced-motion, no-JavaScript, and unavailable-WebGL
-states retain the artwork, content, and links.
+GSAP owns DOM timelines and scroll progress. React Three Fiber owns the optional
+scene and its resources. **Inspect in 3D** explicitly loads that scene on an
+eligible desktop; ordinary scrolling does not initialize it. Mobile, reduced
+motion, disabled JavaScript, and unavailable WebGL retain the artwork and content.
+Fonts are self-hosted, and page-critical styles are included in the HTML.
+Later homepage scenes prepare as visitors approach the evidence sequence,
+leaving the first paint focused on the opening.
 
-## Deployment
+## Release and recovery
 
-Deploy this checkout through the existing Vercel project at https://myehia.vercel.app.
-The production build is dist/. Vercel uses the pinned pnpm version and Node 24.
-Legacy /project/1 through /project/13 links redirect to their replacement pages.
-The original bookmark IDs and search-verification HTML remain available.
+`main` is the production branch. `dev/qa-portfolio` holds the reviewed replacement.
+The existing Vercel project keeps `myehia.vercel.app`; only `dist/` is published.
+`main` requires a pull request, successful checks, and resolved conversations.
+Force pushes and deletion are blocked, including for administrators.
 
-See tasks/plan.md for the approved ownership and acceptance contract, DECISIONS.md
-for implementation decisions, and docs/release.md for deployment and rollback.
-The existing MIT license is retained.
+The pre-release production source is retained on the locked
+[`backup/production-2026-10-27`](https://github.com/Mohanad49/Portfolio/tree/backup/production-2026-10-27)
+branch. The corresponding retained Vercel deployment and recovery procedure are
+in [docs/release.md](docs/release.md). Production replacement needs my explicit
+release decision. Legacy project URLs, section bookmarks, and search verification
+remain supported.
+
+## License and credits
+
+The repository retains its existing [MIT license](LICENSE). Dependencies keep
+their own licenses, including GSAP's standard license and the SIL Open Font
+Licenses for Alexandria and Manrope. Font notices ship in `public/licenses/`.
+The source rewrite is original to this QA portfolio; the earlier template and
+its history remain in the saved recovery revisions.

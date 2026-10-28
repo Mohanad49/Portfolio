@@ -1,4 +1,193 @@
-# Independent technical source review
+# Final technical source review
+
+Updated: 2026-10-28. Delegated source reviewer using
+`engineering-suite:code-review-and-quality`.
+
+Repository: `/Users/yehiaabozid/Coding/Portfolio/qa-portfolio`.
+Snapshot HEAD: `dd0bf4b73c40703e2057e8062243c4685e31b913`.
+Latest scope: Firefox refresh-driver preference in `dd0bf4b`, with application
+source unchanged from the reviewed unload correction `c9dead3`.
+
+## Final verdict
+
+**Approve technical source quality and close technical CI acceptance at
+`dd0bf4b73c40703e2057e8062243c4685e31b913`.** No unresolved Critical, Required,
+Optional, or Nit source finding remains. Both Windows Firefox profiles use the
+reviewed active-page automation policy with unchanged application behavior and
+test expectations.
+
+Run `40689061389` completed successfully for verify and windows, confirmed by
+the parent and independently supported by the retained artifacts consumed below.
+The failed `5eeb780` doc-head repeat remains historical failed evidence. This
+technical approval authorizes no merge or production change.
+
+## Current accepted execution evidence
+
+Consumed the current Windows JSON at
+`.research/final-readiness/ci-dd0/portfolio-windows-verification/test-results/results.json`:
+105 expected passes, zero skipped, unexpected, or flaky results, zero runner
+errors, and every result passed on retry 0. Exact project counts remain Chrome
+35, Edge 35, Firefox headless content 34, and headed Firefox renderer 1.
+
+The previously failing Firefox pinning and live-reveal cases now pass with
+original assertions in total test durations of 5.366 and 3.669 seconds,
+respectively. These are complete test durations, not isolated assertion timings.
+No original eight-second expectation or animation duration was increased.
+
+The Linux artifact became available during closure and was independently read:
+306 expected passes, 12 established applicability skips, zero unexpected or
+flaky results, zero runner errors, and maximum retry 0. Its 18 Lighthouse
+reports contain three runs per route. All six unchanged median gates pass and
+the assertion-results list is empty. Median performance scores are 98 to 100,
+LCP spans 1805.3911 to 2407.7275 ms, and median CLS is 0 on every route. Homepage
+median LCP is 2040.9972 ms. Limits remain performance >=90, LCP <=2499 ms, and
+CLS <=0.0999. These are production-build mobile lab results, not field or
+physical-device certification.
+
+The parent authoritatively confirmed both workflow jobs succeeded at the full
+reviewed commit. Retained JSON and Lighthouse artifacts confirm the matrix and
+objective gates. No technical CI acceptance condition remains open for this
+source and configuration. Other review domains and the owner's production
+decision remain separate from this approval.
+
+## Latest Firefox preference review
+
+`playwright.windows.config.ts:5-6,30,42` adds one shared true boolean for
+`layout.testing.top-level-always-active`. The content project receives it through
+launchOptions.firefoxUserPrefs. The renderer project merges the same preference
+while preserving headed mode and both software-WebGL preferences.
+
+Read the parent-retained primary excerpt in
+`.research/final-readiness/mozilla-refresh-driver-source.md`. Mozilla's
+[StaticPrefList.yaml](https://raw.githubusercontent.com/mozilla-firefox/firefox/main/modules/libpref/init/StaticPrefList.yaml)
+defines this boolean with an explicit automation-purpose comment. The saved
+reference identifies its refresh-driver active-page scope and the adjacent
+one-frame-per-second throttled default. This supports modeling the intended
+active-page test environment rather than changing an application duration,
+scroll range, expected pose, timeout, or retry.
+
+Installed Playwright 1.64.1 source also uses this true preference in its BiDi
+Firefox default profile, explicitly for unthrottled requestAnimationFrame.
+These Windows projects use the native Juggler path, which accepts their explicit
+firefoxUserPrefs through Browser.enable. The accurate scope is an explicit
+policy for these native Windows profiles, not a claim that every Playwright
+Firefox implementation lacks this preference. No network verification was
+repeated by this reviewer.
+
+Only this preference and its shared configuration are added. The same 105
+browser-family/title pairs remain registered, with complementary Firefox
+selectors unchanged. Chrome 35, Edge 35, Firefox headless content 34, and the
+headed Firefox renderer check 1 remain. Worker count, execution modes,
+assertions, animation durations, original eight-second expectations, overall
+timeouts, zero retries, and Linux Lighthouse gates are unchanged. No runtime,
+style, asset, dependency, or visual change is introduced.
+
+## Historical failed doc-head repeat
+
+Consumed the retained Windows JSON and both trace archives under
+`.research/final-readiness/ci-5eeb/portfolio-windows-verification`:
+
+- 103 expected passes and two unexpected Firefox content failures, zero skips,
+  zero retries, zero flaky results, and zero runner errors.
+- The initial pinning assertion expected sticky and received relative at its
+  unchanged 8000 ms deadline.
+- The live-reveal assertion expected no transform and received
+  `matrix(1, 0, 0, 1, 0, 0.0005)` at its unchanged 8000 ms deadline.
+
+These are assertion failures, not teardown failures. Parsed actual DOM class
+attributes in the trace snapshots, excluding CSS-selector text. Later snapshots
+contain the Cal.diy has-chapter-motion class and show the reveal's inline
+transform eventually cleared after the failed checks. Those snapshots supported the refresh-scheduling investigation. The subsequent
+accepted full run confirms the configured profiles pass the original checks.
+The two failures remain recorded with their original outcomes and zero retries;
+they are not relabeled flaky.
+
+## Retained previous accepted checkpoint
+
+Run `40671248714` at `1202397458cb06ef40356d726a0b128e4b8b8156` completed both
+jobs successfully, confirmed by the parent and independently consumed artifacts
+under `.research/final-readiness/ci-120/`:
+
+- Windows: 105 expected passes, zero skips, unexpected/flaky results, runner
+  errors, or retries. Exact split 35/35/34/1, every result passed on retry 0.
+- Linux: 306 expected passes, 12 established applicability skips, zero
+  unexpected/flaky results, zero runner errors, and maximum retry 0.
+- Lighthouse: 18 reports, three per route, all six unchanged median gates pass;
+  the assertion-results list is empty. Median scores 98 to 100; median LCP
+  1806.9718 to 2339.475 ms; median CLS 0 on every route. Homepage median LCP
+  2310.015425 ms. Limits remain performance >=90, LCP <=2499 ms, CLS <=0.0999.
+
+Those remain valid historical lab measurements on the unchanged application.
+The current acceptance above uses fresh dd0 artifacts, separately from this
+previous checkpoint. They are not field or physical-device certification. Earlier runs
+`40651798704`, `40654781949`, and `40669413721` retain their failed Windows
+results and original diagnoses. Neither worker isolation nor unload changes
+alone are represented as having eliminated all driver/timing failures.
+
+## Source approvals retained
+
+- The Firefox split retains all 105 family/title pairs exactly once. The
+  renderer case still covers real Canvas creation, keyboard input, reset,
+  preferences, context loss, decoded fallback artwork, and browser errors.
+  Both project names retain desktop applicability; the content tests retain
+  every original functional, motion, accessibility, and reflow assertion.
+- Checkpoints save on scrollend or capture-phase anchor activation in the
+  active document. No checkpoint writer runs on pagehide. Stored coordinates
+  are finite and viewport-matched, ordinary object history fields are retained,
+  and pending restoration is canceled on input, every traversal, and disposal.
+- Nonpersisted cleanup removes app listeners, observers, timers, and pending
+  reading RAF before Context.kill(false). Installed GSAP confirms this avoids
+  full context style restoration while individual ScrollTriggers still perform
+  normal kill cleanup. Active reconfiguration still reverts; BFCache paths
+  remain intact. The focused 21 history checks passed with zero skips/retries.
+- First and later chapter setup preserve a visible reading landmark using the
+  remaining displacement after native compensation. Initial configuration
+  without a landmark avoids an obsolete absolute scroll restore. The early
+  height reserve and forced bookmark-on-every-hashchange behavior are removed.
+- General motion imports on real evidence proximity, with direct-fragment and
+  non-opening bypasses, jump/restoration checks, and matching listener/RAF
+  cleanup. No timer-based performance hiding, test detector, or content mask
+  was added. Its 36-check matrix and nine-check live-reveal matrix passed with
+  original assertions; all later failures remain recorded separately.
+
+Core HTML, AVIF/WebP separation, font/style contracts, optional renderer
+activation, and resource ownership retain prior source review. The pinned
+Playwright image matches the package. The fixed /github/home ownership change
+remains confined to the ephemeral container; action pins, contents:read,
+Xvfb/software WebGL, artifacts, and thresholds remain. The dependency/security
+verdict owns the pinned tool fixes and remaining nonblocking reachability
+assessments. This is not a zero-finding full dependency audit. Unchanged
+full-source conclusions in `docs/technical-review.md` are reused.
+
+No tests, browser actions, network requests, source edits, workflow invocations,
+or production operations were performed by this reviewer. Only this `/tmp`
+report was written. No new agent or visual workflow was started.
+
+## Reviewed blob identities
+
+| File | Git blob |
+| --- | --- |
+| `astro.config.mjs` | `bf7aee025b922e8ddbb9a8b2fcdda289c534b77a` |
+| `src/components/MotionLoader.astro` | `9eb4a8cc202e1d2be179b69a563d4b76c3f1ac49` |
+| `src/components/PassThrough.astro` | `c266b3843f3a5d9f490394167bc8c4470fb5fd3a` |
+| `src/layouts/BaseLayout.astro` | `67a5256dc0e59b961f1847ac379ee85c08b5aa80` |
+| `src/scripts/experience-motion.ts` | `077818c86bb0b60125d3dfc75c23c9bd28d885a3` |
+| `src/scripts/motion.ts` | `7d158bfdfabe0b02944a1444264282f353c8faf5` |
+| `src/lib/reading-position.ts` | `cd5e858b2fdee13eaa0acbb0393db30dadadb4ea` |
+| `tests/experience.spec.ts` | `419ea9002bf7fb53b0b02cd3da1c9ecd2519b973` |
+| `tests/history.spec.ts` | `a9b22e93fe255ce97c30989e553058559c277997` |
+| `tests/continuity.spec.ts` | `866f069668e7cb3384816cafaf90221c7fb5937d` |
+| `tests/journey.spec.ts` | `a406bb23fe094e479d420cf6d946a41aa4049e42` |
+| `tests/portfolio.spec.ts` | `9e94981975122e5735500f8ea5cd57c58596f26a` |
+| `pnpm-workspace.yaml` | `2a684d26623aae625f2b9dd1a87ffd879378db1b` |
+| `pnpm-lock.yaml` | `f8d0e98952de5e0353ec06e6b600a47e82ea11a9` |
+| `playwright.windows.config.ts` | `edbe38d1591e5b48f98d153b54a79f14eecb327a` |
+| `.github/workflows/quality.yml` | `fef530c504cb9452f6f35b683c847ba2afcfdb90` |
+
+
+---
+
+# Historical technical source reviews
 
 Review date: 2026-10-22.
 
@@ -385,3 +574,850 @@ This source approval does not claim the corrected checks or current mobile
 performance have passed. The parent owns affected type/lint/build checks,
 browser verification, captures, and performance acceptance for the changed
 mobile path. No browser or broad check was launched by this reviewer.
+
+## Pass Through prototype: technical source review
+
+Date: 2026-10-23. Baseline: `40a24f16ec037658fb13d5509dd1ba59573f480a`.
+Scope: the isolated `/experience` preview, including its committed prototype
+files and final working-tree delta. The approved brief and storyboard define
+the direction; this review covers source correctness, lifecycle, resource
+handling, evidence provenance, and test quality.
+
+**Technical source verdict: approve for isolated preview.** No unresolved
+Critical or Required source finding remains in the reviewed blobs. This is not
+visual acceptance or authorization to merge or release to production. The
+visual review still requires a desktop rebuild; full-tree CI and mobile
+Lighthouse remain pending on the draft PR.
+
+### Reviewed identities
+
+| File | Git blob |
+| --- | --- |
+| `src/pages/experience.astro` | `aa6cf9659b0127e38f575b026be9f2945861fcf0` |
+| `src/scripts/experience-motion.ts` | `25a693f6989ac74d6812c7c7e82296d838adb511` |
+| `src/components/experience/PassageIsland.tsx` | `914dc21877a6385ecce7c8e853df0972c6197b10` |
+| `src/components/experience/PassageCanvas.tsx` | `77fd3e47502939dc081ea58f95393dae2a7cf65c` |
+| `src/data/experience-history.ts` | `c3e8ab4d9d6967c36f9b50bdef924bfa767086aa` |
+| `tests/experience.spec.ts` | `e708b021a08a1927bd84d7f2fae2084cf6f46784` |
+| `lighthouserc.cjs` | `f88d6396f7722f8ebc356fbb0c9c031862f11351` |
+| `docs/experience/testpulse-evidence.json` | `2f0c1cfe7885685c4fb89aace406d4603d14d64e` |
+
+The source material assets reviewed are `passage-chrome-surface.png` blob
+`bd14495e45af4a72d8cf0728cc43fbb8ca85a88d` and
+`passage-studio-reflection.png` blob
+`d2188cbc5ec6024fda9e374bacc44dc05938ab60`, with retained generation provenance.
+They are conceptual rendering assets, separate from the QA observations.
+
+### Evidence and runtime boundaries
+
+The retained raw TestPulse export has SHA-256
+`7eef058c1467af41eae32480a367e142f24c44758be46a96866be354e55380a9`, matching
+the evidence manifest. Its selected booking-lifecycle observations are runs
+1220, 1224, and 1364, with pass, fail, and pass statuses on the same recorded
+commit. The page preserves their timestamps and unknown retry counts, and
+distinguishes the 81-observation detail timeline from the 50-run metric window.
+It does not infer a repair, root cause, or retry from this sequence. This is
+verification against the retained public snapshot, not a fresh live-source
+verification.
+
+The complete evidence, work link, resume link, and comparison links remain
+semantic static HTML. Native scrolling and fragment navigation do not depend
+on scene readiness. The original homepage is unchanged, and the preview is
+marked `noindex`. Reduce Motion, no JavaScript, unavailable WebGL, import
+failure, and context loss retain the readable fallback.
+
+Astro generates WebP assets and passes only their URLs to the island. The
+desktop and motion media boundary precedes hydration; a second eligibility
+check precedes the dynamic Canvas import. Pending activation settles scrolling
+for 150 ms, while offscreen, hidden-document, and media changes deactivate
+immediately. Timers, observers, listeners, stale imports, and the invalidation
+hook have cleanup paths. Mobile has no live Canvas.
+
+The rebuilt scene uses demand rendering, maximum DPR 1.25, two transmission
+materials with 256-pixel targets and two samples, and no continuous capture
+loop. Color and data textures are separate owned clones; cached loader sources
+are left intact, and the clones are disposed on unmount. The installed rendering
+helpers own their transmission targets and restore the supplied environment.
+No dependency or runtime data-fetch boundary was added.
+
+### Resolved concerns and verification limits
+
+The initial reading-position concern is resolved: JavaScript now owns the
+opening's extra motion height, captures the evidence position before changing
+it, and restores that position on live preference or desktop-boundary changes.
+CSS media queries no longer resize that extra height before the capture. Once
+revealed, the evidence remains revealed across reconfiguration.
+
+The retained rebuilt matrix had 47 passes, six inapplicable desktop-only skips,
+and one WebKit native-scroll failure. That failure stopped inside Playwright's
+inspector auto-scroll before dispatching the CTA click; it did not establish an
+application root cause. The retained geometry diagnostic found the CTA fully
+visible, with its anchor as the hit target and `data-ready=false`. Native
+pointer activation reached `#evidence` with its top at 64 pixels. Locator and
+WebGL-unavailable diagnostic cases also reached the target.
+
+The final native-navigation test first requires full viewport intersection,
+then uses the supported [`scroll: 'none'` click option](https://github.com/microsoft/playwright/blob/main/docs/src/api/params.md#input-scroll).
+It retains actionability and hit testing, real pointer activation, and the
+fragment and viewport assertions, without a scene-readiness wait. The prior
+failure artifacts remain evidence of the intermittent inspector stall. The
+renderer test additionally requires zero console errors and page errors, so
+successful draw calls cannot conceal a shader or runtime failure.
+
+The parent reports the final affected matrix completed in 44.1 seconds with
+12 passes, six inapplicable skips, and zero failures across 18 registrations.
+It reran native navigation in all nine engine/viewport combinations and the
+strengthened actual-renderer test in all three desktop engines. The other
+36 registrations from the rebuilt matrix were unchanged and green; this was
+an affected rerun, not a new complete 54-registration run. The parent also
+reports type checking of 36 files with zero diagnostics, lint, and the 20-page
+build passing. There were no retries or threshold changes. This reviewer did
+not launch a browser or repeat these checks.
+
+Technical approval leaves the visual rebuild disposition in force. Mobile
+action clearance is resolved in the visual report, while desktop materials,
+slot treatment, and navigation remain below the selected composition. Full-tree
+CI, mobile Lighthouse, and final preview acceptance are separate outstanding
+gates. No production merge or release is authorized by this report.
+
+## Continuous artwork prototype: source delta review
+
+Date: 2026-10-24. Reviewed range:
+`6a46f0be197b2b3d2cb5cbb866ee06c413bcf17b` through
+`4a2784ba429fc91c1ea9fe24418bef11c071e026`, including application commit
+`70aff97b980c09fc3cb3b971ff67abc4a44d0209`. The current brief, storyboard,
+D-017, verification record, and retained browser report supplied the scope and
+verification context. This review covers source and CI semantics only.
+
+**Findings: no unresolved Critical or Required source blocker. Technical source
+approval applies to the isolated preview.** The owner-authorized artwork
+treatment replaces the rejected renderer; fresh visual acceptance, current
+performance measurements, and hosted verification remain separate gates. This
+report does not authorize a production merge or release.
+
+### Exact reviewed blobs
+
+| File | Git blob |
+| --- | --- |
+| `src/pages/experience.astro` | `a779ce2f3e64ebc9d4a7aaaa452b99a833e5dfaf` |
+| `src/scripts/experience-motion.ts` | `15b25608834657aaf5ea7beb0574e8f6876479cc` |
+| `tests/experience.spec.ts` | `92ea5c8f295bc4efdf0dfec9f56f64806149982a` |
+| `.github/workflows/quality.yml` | `d7f14d1fc182a32335b3a01e8eb1a827947515e3` |
+| `docs/briefs/experience.md` (working tree) | `fe74938041fa7d22933b848ab7bb205d43b59d3a` |
+| `docs/experience/storyboard.md` (working tree) | `0be4b126459a59d4d13d9df62047d30f0b16ff4a` |
+| `DECISIONS.md` (working tree, D-017) | `5298b5ef0aca274ab6621212781934ccb26e860a` |
+| `docs/verification.md` (working tree) | `33f08abc035ef8b2f123270b24986634f6d9cfda` |
+
+The selected artwork remains `assets/plates/passage-material.png` blob
+`e9e41d11794aee115b2bf1d91c45716b4027e1b1`, with upper and lower cutouts
+`024a9a223d19830017eee9c51ec9272f818202b8` and
+`fdd4597d74c8294458b08cd5470306f55047c662`. The earlier evidence-data review
+continues to apply: `experience-history.ts` remains
+`c3e8ab4d9d6967c36f9b50bdef924bfa767086aa` and its manifest remains
+`2f0c1cfe7885685c4fb89aace406d4603d14d64e`.
+
+### Correctness, lifecycle, and resource handling
+
+The source removes `PassageIsland.tsx`, `PassageCanvas.tsx`, both abandoned
+material maps, and their sidecars. There are no remaining source imports of
+those components or maps. The experience motion module no longer imports or
+writes the shared inspection state. The homepage's inspection components,
+animation module, dependency declarations, and lockfile are unchanged in this
+range. Dependencies still needed by that homepage are correctly retained.
+
+Desktop uses one complete image element with bounded scale and reading-shade
+changes. Mobile keeps the existing alpha cutouts with bounded transforms. The
+decorative layers cannot capture pointer input, and semantic content, native
+fragment actions, the resume link, and the evidence record remain in HTML.
+Removing the prototype renderer also removes its import, texture, transmission
+target, context-loss, and renderer-lifecycle responsibilities from this route.
+No replacement renderer, dependency, data request, or continuous animation loop
+was introduced.
+
+GSAP remains tied to native scroll. Its context reverts on preference or desktop
+boundary changes and on nonpersisted page exit; the media listeners have matching
+cleanup. JavaScript still owns extra opening height and retains the evidence
+position when reconfiguring it. Completed history reveals remain complete.
+Reduce Motion and no-JavaScript states retain the complete readable study.
+
+### Regression evidence and CI allowance
+
+The retained `.research/experience-study/layered-browser.json` has SHA-256
+`33d95778a06f721073b781d9dd2bc04c73bfae24ec0f72e0df3633532d2ae852`.
+Its six tests run in each of nine engine/viewport configurations: 54 expected
+passes, zero skips, unexpected failures, or flaky results, and every retry index
+is zero. Duration is 87.3 seconds. This review consumed the report without
+rerunning it.
+
+Replacing the removed feature's desktop-only renderer test with artwork motion
+coverage is appropriate to the new implementation. The replacement requires
+loaded artwork, a changed pose after native wheel input, stable styles at rest,
+an exact return to the initial pose, no Canvas or renderer requests, and zero
+console errors or page errors. The other tests retain native forward/reverse
+scrolling, immediate CTA activation, deep links, live preference and reading
+position behavior, no-JavaScript and WebGL-unavailable paths, serious/critical
+axe findings, and narrow reflow. The selected desktop image must have one
+resource-timing entry; that assertion is not a transfer-byte or mobile
+performance measurement. The verification record reports type checking of
+34 files with zero diagnostics, lint, and the 20-page build passing.
+
+The workflow delta changes only the job allowance from 25 to 35 minutes. The
+parent supplied GitHub's annotation, "The job has exceeded the maximum execution
+time of 25m0s". Retained installation log timestamps independently span
+20:07:28.539 to 20:26:21.191 UTC, approximately 18 minutes 53 seconds. The parsed
+summary for run `40016674543` records 172 browser passes, 18 inapplicable skips,
+zero failures or flaky results, and only 11 of 18 Lighthouse reports before
+cancellation during performance collection. This supports a bounded job-time
+increase. Browser/test timeouts, retries, tested scope, acceptance thresholds,
+permissions, event triggers, and artifact retention are unchanged.
+
+That cancelled run and the earlier performance measurements belong to the
+rejected renderer snapshot. They do not establish a green pipeline or a current
+performance result for this artwork treatment. Fresh full visual review,
+performance measurements, and hosted checks remain pending. This reviewer
+opened no browser or screenshot, ran no tests or workflow, and changed only
+this technical report.
+
+## Final motion corrections and responsive artwork delivery
+
+Date: 2026-10-24. Scope: the working-tree source delta over
+`4a2784ba429fc91c1ea9fe24418bef11c071e026` in the three files below.
+
+| File | Reviewed Git blob |
+| --- | --- |
+| `src/pages/experience.astro` | `dcd77dd28e9414fc1bf104a4b279139a1b5671da` |
+| `src/scripts/experience-motion.ts` | `7379acbc1fe5c1c43f1b33ae3ddd00fa24f64c39` |
+| `tests/experience.spec.ts` | `884ccbbb25c239e978696048e30c80e72cb8a53e` |
+
+**Technical source verdict: approve for isolated preview, with the Optional
+boundary note below. No Critical or Required source blocker was found.** This
+does not clear the pending delivery matrix, performance gate, hosted checks,
+physical-device acceptance, or production authorization.
+
+The bounded title/subtitle offsets and introduction color transition use the
+existing scroll timeline and context cleanup. Tablet cutout positioning remains
+decorative and absolute. These changes add no listener, loop, dependency, state
+boundary, or layout-height owner. The visual reviewer reports the three named
+corrections resolved; this source review did not rescore them.
+
+The delivery correction retains the same decoded artwork, responsive variants,
+dimensions, and styles. The mobile upper image is eager with high fetch priority;
+the lower image is eager with ordinary priority. Each picture places its inactive
+data source before the optimized image, so native source selection can suppress
+the unused artwork without JavaScript. The built HTML preserves that ordering,
+the percent-encoded source, intrinsic dimensions, and loading/priority attributes.
+Responsive source selection remains native when the viewport changes.
+
+The constant one-pixel SVG has no script, external resource reference, or user
+input. Its namespace declaration is not a resource request. The repository's
+Vercel headers, Astro configuration, and shared layout declare no CSP that would
+block `data:` images; no policy is weakened by this patch. Any additional hosted
+policy remains part of hosted verification.
+
+### Optional: close the fractional media-query interval
+
+The inactive sources use `max-width: 1023px` for the full plate and
+`min-width: 1024px` for the cutouts. A fractional CSS viewport width strictly
+between those values satisfies neither query, allowing all three pictures to
+select real artwork. The nine integer viewport configurations do not cover that
+zoom/resize edge. If zero inactive downloads is required across fractional
+widths, use complementary range queries aligned with the corresponding CSS
+visibility rule. This is a narrow resource issue, not an observed functional
+failure in the supplied matrix.
+
+### Retained results and open acceptance gate
+
+The pre-delivery visual-fix matrix in `layered-final-browser.json` records
+54 passes, zero skips, unexpected failures, or flaky results, and retry index
+zero for all registrations. It does not verify the later delivery patch or
+the latest network assertions. Those assertions extend the existing motion
+test with no unused cutout requests on desktop and no full-plate request on
+mobile; the renderer exclusion, motion, reverse, idle, and error checks remain.
+
+The retained pre-priority Lighthouse reports identify `.passage-upper` as LCP
+with lazy loading and no high-priority hint. One report attributes approximately
+1201 ms to load delay. Median LCP is 2556.6769 ms, exceeding the unchanged
+2499 ms gate, despite median performance 96 and CLS approximately 0.000124.
+This failing measurement remains visible. Eager loading and priority directly
+address its discovery finding, but only new measurements can establish whether
+the gate now passes. The delivery-focused full matrix, three Lighthouse runs,
+and lint after the latest test edit are pending at this review checkpoint.
+No browser, screenshot, workflow, test, or Lighthouse run was started by this
+reviewer; only this report was edited.
+
+## Active artwork sources: delivery correction and query resolution
+
+Date: 2026-10-24. The corrected page blob is
+`34a7e7fbf82d94b77cc270ae3177425b315b455d` for
+`src/pages/experience.astro`. It supersedes the delivery markup in page blob
+`dcd77dd28e9414fc1bf104a4b279139a1b5671da` above. The reviewed motion and test
+blobs remain `7379acbc1fe5c1c43f1b33ae3ddd00fa24f64c39` and
+`884ccbbb25c239e978696048e30c80e72cb8a53e`.
+
+**Technical source verdict: approve for isolated preview. The Optional
+fractional-width finding is resolved, with no new Critical or Required source
+blocker.** Runtime and performance acceptance of this exact markup remain
+separate gates until their new results are available.
+
+The retained `delivery-initial-browser.json` records 53 passes and one failure
+in the WebKit desktop artwork test. The empty SVG was selected, but the browser
+still requested the real upper and lower WebPs exposed on the fallback image.
+This is a real resource-loading failure in the earlier pattern; a selected
+`currentSrc` alone did not establish that unused requests were absent.
+
+The correction obtains WebP variants at build time using `getImage`, places
+their `srcSet.attribute` values only on the active picture sources, and gives
+each fallback image only the inert SVG. There is no real URL or `srcset` on
+those fallback images. The inspected generated HTML contains the intended
+640/1024/1536 desktop widths and 640/1024 cutout widths, original image dimensions,
+empty alternative text, eager loading, high priority for the plate and upper
+cutout, and asynchronous decoding. The lower cutout retains ordinary priority.
+It introduces no client code, data fetch, listener, or dependency.
+
+The compact source condition is now `width < 1024px`, matching its CSS visibility
+rule and complementing desktop `min-width: 1024px`. This removes the previous
+fractional interval and keeps selection aligned with layout on resize. The
+inert SVG and repository CSP assessment above remain applicable.
+
+The parent reports type checking of 34 files with zero diagnostics, lint, and
+build passing. Focused WebKit verification, the final 54-registration matrix,
+and three current-source Lighthouse runs are pending at this checkpoint. An
+earlier priority pattern's improved measurements do not certify this replacement
+markup. The original LCP and WebKit failures remain retained. No browser or
+duplicate check was launched by this reviewer, and only this report was edited.
+
+## Exact-source local acceptance results
+
+Date: 2026-10-24. The retained final results apply to page blob
+`34a7e7fbf82d94b77cc270ae3177425b315b455d`, motion blob
+`7379acbc1fe5c1c43f1b33ae3ddd00fa24f64c39`, and test blob
+`884ccbbb25c239e978696048e30c80e72cb8a53e` reviewed above.
+
+`source-final-browser.json` records 54 passes across all nine engine/viewport
+configurations, with zero skips, failures, flaky results, or retries. It started
+at 2026-10-24T11:06:11.422Z and completed in 70.392 seconds. All nine axe/reflow
+registrations passed. This includes the strict unused-artwork request assertions
+that exposed the earlier WebKit failure.
+
+`lighthouse-source-final-summary.json` records three current-source mobile runs
+for `/experience/`: performance scores 98/98/98, LCP values
+2266.5714/2259.6771/2255.5207 ms, and CLS 0.0001237531567993509 in every run.
+Median LCP is 2259.6771 ms. The unchanged median gates pass: performance at least
+90, LCP at most 2499 ms, and CLS at most 0.0999. The parent also reports types,
+lint, and build passing at these identities, matching canonical design
+fingerprints, and a clean whitespace diff check.
+
+**The reviewed source now has passing local affected browser and performance
+acceptance.** The original LCP and WebKit failures above remain retained with
+their correction history. Final hosted CI and preview verification are still
+pending; this addendum does not authorize production integration or release.
+The reviewer consumed the existing result files and appended only this report,
+without starting another check, browser, review, or workflow.
+
+## Hosted acceptance results
+
+Date: 2026-10-24. The parent reports successful GitHub run `40089079924` at
+`38ea3bedd90cbf8c90a373c9f4b4f2aa63d25ffe`, completing all steps in 8m53s.
+Application commit `8731f42` retains the approved source blobs above. Retained
+`ci-summary-40089079924.json` and `ci-artifacts-40089079924` record 190 browser
+registrations: 178 passes, 12 established inapplicable `portfolio.spec.ts` skips,
+and zero failures, flaky results, or retries. All 54 experience checks apply
+and pass. All 18 Lighthouse runs completed, and all six routes met the unchanged
+median gates. `/experience/` has median performance 99, LCP 1959.1771 ms, and
+CLS 0.000124950481895; the homepage has performance 99 and LCP 1587.72575 ms.
+The other four routes score 100 with median LCP from 1355.96625 to 1356.94485 ms.
+Every route's median CLS is below 0.1.
+
+Vercel Preview deployment `7297844824` succeeded at the same commit. The parent's
+browser smoke at 729x797 and 1440x1000 confirmed active artwork, `noindex`, native
+scroll motion, the evidence fragment at 64 px, comparison navigation to the
+homepage, and resume link/download-filename attributes. This smoke does not add
+a PDF-transfer or physical-iPhone verification claim. Hosted CI and preview
+verification are now complete within that scope. Technical approval remains
+for the isolated prototype only; production integration and release are outside
+this approval. This note records supplied results without a new check or review.
+
+## D-018: continuous TestPulse arrival source review
+
+Date: 2026-10-24. Scope: the working-tree delta over `371ae38`, using D-018
+and the current experience brief. Technical review only; no aesthetic scoring.
+
+| Reviewed file | Git blob |
+| --- | --- |
+| `src/pages/experience.astro` | `6bad7224264ea68825134ef281529270f9c1eb34` |
+| `src/scripts/experience-motion.ts` | `ba858786084069df161c9e479018940a22b4d713` |
+| `tests/experience.spec.ts` | `a0540d821f1c66a12ef971c21b91bcc083ec0a4e` |
+| `DECISIONS.md` (D-018) | `7707b6ecbc681083513e50f099f41338644facce` |
+| `docs/briefs/experience.md` | `8218cbc6b4b92494f2a2d36dfab52ed538391f50` |
+
+**Required, P2 (resolved below): restore the unique descriptor in compact static and Reduce
+Motion layouts.** The compact `.passage-project-summary` rule unconditionally
+sets `opacity: 0`. Its only restoration is the normal-motion timeline's
+`autoAlpha: 1` tween. The previous visible descriptor in `.evidence-intro` was
+removed, so no JavaScript, initial Reduce Motion, live Reduce Motion reversion,
+or motion-import failure leaves a visible copy of "Test observability & flake
+detection" on compact viewports. Scope its initial hidden state to active motion
+or provide its visible static layout, and assert that state in the static and
+Reduce Motion regression coverage. This conflicts with D-018's complete fallback
+contract. Source approval was held for this correction at those reviewed blobs.
+No Critical finding or other confirmed Required source blocker was found.
+
+The remaining structure uses one linked TestPulse heading and one descriptor,
+with a single native-scroll arrival timeline and a separate once-only history
+reveal. `autoAlpha` removes faded hero controls from ordinary focus navigation.
+Measured pixel travel, debounced resize, context reversion, evidence-position
+compensation, timer cancellation, and matching resize/hash/media listener
+cleanup address the changed lifecycle. The empty arrival wrapper cannot
+intercept clicks. Structural layout transitions are explicitly disabled.
+The optimized active-source artwork delivery, homepage, public evidence,
+dependencies, and renderer exclusion remain unchanged.
+
+The consumed `arrival-final-browser.json` records 63 passes across seven checks
+in all nine engine/viewport configurations, zero skips, failures, flaky results,
+or retries, and a duration of 78.659 seconds from
+2026-10-24T13:02:13.156Z. All nine axe/reflow cases pass. These tests do not check
+the descriptor's static opacity and therefore do not clear the Required finding.
+The four-edge viewport helper's 0.5 CSS-pixel allowance addresses retained
+IntersectionObserver precision evidence while preserving full geometric bounds;
+it does not relax evidence, request-exclusion, or reading-position assertions.
+The earlier click interception and tablet reading failures remain retained,
+with the affected three-engine resize checks passing after measured travel.
+The parent reports 34-file type checking with zero diagnostics, lint, and the
+20-page build passing. Current performance/profile work, visual confirmation,
+fresh full visual review, and hosted acceptance of D-018 remain separate gates.
+PR 4 remains draft and production integration is outside this review. Only this
+report was edited; no browser, workflow, or duplicate check was launched.
+
+### Required finding resolved: scoped hidden state
+
+Date: 2026-10-24. The narrow correction was reviewed at page blob
+`2645581ebb116a7088d800da42f0cfcdecd2bfd4`, unchanged motion blob
+`ba858786084069df161c9e479018940a22b4d713`, and test blob
+`0d2ef8977eb90ad517f8a668e9a4cba8a4238faa`.
+
+Compact base styles now leave the unique descriptor visible. Only
+`.has-passage-motion .passage-project-summary` starts at zero opacity; context
+reversion and removal of that class restore the static state. The existing
+no-JavaScript, initial Reduce Motion/axe, and live Reduce Motion tests now
+explicitly require descriptor opacity 1. The correction adds no duplicate
+element, layout-height change, asset, or lifecycle responsibility.
+
+**Current technical source verdict: approve for the isolated prototype. The
+Required P2 finding is resolved; no Critical or Required source blocker remains
+at these corrected blobs.** The parent reports 34-file type checking with zero
+diagnostics, lint, and the 20-page build passing sequentially. The current
+63-check run in `arrival-reviewed-browser.json` remains pending at this source
+checkpoint. Earlier results above belong to their recorded identities. Current
+performance, visual, hosted, and physical-device acceptance remain separate;
+production integration remains outside scope. This resolution used source
+inspection only, with no duplicate runtime check or application edit.
+
+### Startup wrapper correction: source approval, measurements pending
+
+Date: 2026-10-25. This bounded D-018 correction was reviewed at these blobs:
+
+| File | Git blob |
+| --- | --- |
+| `src/pages/experience.astro` | `aeb16f2c39d4e03a40dfa10a924cdf43d2154c9c` |
+| `src/scripts/experience-motion.ts` | `3a67322cdfdc51cd574f9af94f2017f3877bf825` |
+| `tests/experience.spec.ts` | `d57a9a5e1ea9e8e6ee1d46bbce8a8542dd4f6036` |
+| `DECISIONS.md` | `cb8b343c5d3e6dbaf2f2e874411c82c469a31998` |
+
+**Technical source verdict: approve for the isolated prototype. No new Critical
+or Required source blocker was found.** Enhanced-only `visibility: hidden`
+targets the wrapper's visible relocation when its layout becomes absolute.
+Visibility preserves measurable destination geometry. The existing timeline
+reveals the wrapper with `fromTo` autoAlpha from progress .55 to .85, while only
+the copy child translates. The destination markers do not translate. Context
+reversion and removal of the enhancement class restore the visible static and
+Reduce Motion states. No new asset, dependency, listener, or loop is introduced.
+
+The regression now checks the hidden enhanced start, full wrapper opacity on
+arrival, and visible wrapper states without JavaScript and with initial/live
+Reduce Motion. The previously consumed descriptor-corrected run is now confirmed:
+`arrival-reviewed-browser.json` records 63 passes, no skips, failures, flaky
+results, or retries, starting 2026-10-24T13:16:49.169Z and taking 85.145 seconds.
+That result belongs to the preceding descriptor-correction identities.
+
+The parent retains the separate pre-wrapper Lighthouse failure: all three runs
+score 80 with CLS approximately 0.384377; LCP around 2256 ms passes its gate.
+The source change addresses the identified startup state, but does not establish
+passing CLS without new measurement. The parent reports sequential check, lint,
+and build passing at the current blobs. The new current-source matrix and
+performance results remain pending, with visual, hosted, and physical-device
+acceptance separate. Production integration remains outside scope. Only this
+report was edited; no browser, runtime check, or extra workflow was launched.
+
+### Supplied current-source acceptance results
+
+Date: 2026-10-25. At the startup-correction blobs recorded above,
+`arrival-final-source-browser.json` reports 63 passes, zero skips, failures,
+flaky results, or retries, starting 2026-10-25T00:00:04.666Z and completing in
+67.667486 seconds. All nine axe/reflow cases pass.
+
+The three exact-source mobile Lighthouse runs score 98/98/98, with LCP
+2262.0677/2256.4436/2255.8537 ms and CLS 0.0001237531567993509 in every run.
+Median LCP is 2256.4436 ms; all unchanged performance, LCP, and CLS gates pass.
+Reports are retained in `lighthouse-arrival-corrected` with parsed results in
+`lighthouse-arrival-corrected-summary.json`. The previous score-80/CLS-0.384377
+failure remains separately retained.
+
+The supplied bounded post-load `arrival-runtime-profile.json` records zero
+errors or Canvas elements, 46,899 encoded JavaScript bytes versus 1,467 with
+Reduce Motion, and 39 requestAnimationFrame samples per device. Median sample
+interval is 16.7 ms; desktop/tablet/mobile p90 values are 33.3/16.7/16.8 ms.
+These samples do not certify physical-iPhone or field performance. The single
+verification record contains the exact source identities and supplied results.
+Fresh full visual review and hosted acceptance remain pending, and production
+integration remains outside scope. This note records supplied results only;
+no new source review, runtime check, or workflow was performed.
+
+### Supplied hosted completion status
+
+Date: 2026-10-25. [The verification record](verification.md) owns the current
+results. Approved source blobs are unchanged. GitHub run `40145616153` succeeded
+at `186ef7970751fa19cf42c95be167793c3c48ab5a` (application `563096e`), with the
+verify job completing in 7m46s: 199 browser registrations, 187 passes, 12
+established inapplicable `portfolio.spec.ts` skips, and zero failures, flaky
+results, or retries. All 63 experience checks pass. All 18 Lighthouse measurements
+completed and all six routes pass the unchanged median gates; experience scores
+99 with LCP 1956.3218 ms and CLS approximately 0.00012495048. Retained evidence is
+`ci-artifacts-40145616153` and `ci-summary-40145616153.json` under the study folder.
+
+[Vercel Preview 7306339845](https://portfolio-f6xmmxsd7-mohanad49s-projects.vercel.app/experience)
+succeeded at the same checkpoint. The parent's desktop/mobile smoke confirms
+single-heading growth, complete hero fade and introduction, native release,
+bookmark placement, comparison navigation, download/noindex attributes, and
+empty error logs. Fresh full visual review reports ship; the design record is
+complete with canonical hashes unchanged. Hosted acceptance is complete for the
+isolated prototype. The parent reports a clean original checkout and production
+still at deployment `7280653313`, source `40a24f1`. Physical-iPhone behavior is
+not certified, and production integration remains outside this approval. This
+note records supplied results only, without new review, checks, or workflow.
+
+## D-019: full-site motion source review
+
+Date: 2026-10-25. Reviewed against
+`6cf7369c1a610acb859e83519d39a5426503f5fb`, including committed changes through
+`c68903339eb9e187eb65c49d97725bd029f56f59` and the working-tree source below.
+AGENTS.md, D-019, tasks/plan.md, and the home, archive, and case-study briefs
+define the remit. This is technical source review, with visual direction fixed.
+
+**Status: complete. Final technical source approval for the exact application
+and verification commits is recorded at the end of this D-019 section.** Earlier
+pending checkpoints and ranked findings below are historical, with their
+resolutions and evidence preserved.
+
+### Reviewed source identities
+
+| File | Git blob |
+| --- | --- |
+| `src/components/PassThrough.astro` | `d2f9a4caf01203d9bdfae1d38a3a2b5a0ba5b658` |
+| `src/components/MotionLoader.astro` | `e06e97f09bfc92d868add41b37615efa3cbbd82b` |
+| `src/components/MaterialField.astro` | `72428f00bbe2735bff9381a352035a391b9fdc04` |
+| `src/components/AmbientField.astro` | `08b5b08b57324b42b18bf26bc09360045095eb87` |
+| `src/components/About.astro` | `8cad4f611d67367d942f5040d7219adbe905a998` |
+| `src/components/Approach.astro` | `e23394b29cc4a31ad7b08ea6e3aef585a2a4aab8` |
+| `src/components/CaseEvidence.astro` | `9dffc7563f37cbd6a7bc13903213ca587f7aae76` |
+| `src/components/Contact.astro` | `6d107668ddddd5e2a2ae0a8ee18438c99d0d930f` |
+| `src/components/Experience.astro` | `29586e3e34de021aad55467116472fff2fa62f27` |
+| `src/components/SelectedWork.astro` | `84f6a5f83f19103706dbc54641eaf9401f3cbf0c` |
+| `src/layouts/BaseLayout.astro` | `246cda639fd475bc4a852fe9fc00a2362d1a1f8f` |
+| `src/pages/index.astro` | `9a56cedb32400e6592718a6668d3118a0cbe4123` |
+| `src/pages/experience.astro` | `70987cd8dd334394b9b1550f0ec359273feaa7b9` |
+| `src/pages/work/index.astro` | `4c1053435af65e163c12f155840873f8925cb4fa` |
+| `src/pages/work/[slug].astro` | `73fa5edea6f7c6297a0026d36505cb8b7068fd5e` |
+| `src/scripts/experience-motion.ts` | `49a67e46bebd18ab129749c6a6c110f378686a4f` |
+| `src/scripts/motion.ts` | `cc7d89012067a3bf786a47e6e060e0e134d8d159` |
+| `src/styles/global.css` | `e1c01dff13d83a1a726d4223ec2c85edd69d39ce` |
+| `tests/experience.spec.ts` | `e5fcf0958c3dee1e2f6d2465ccf1ca64bd13fe43` |
+| `tests/history.spec.ts` | `b6750b94bdfc2f22899c1c0eb5c9cd4ba457d972` |
+| `tests/portfolio.spec.ts` | `121ef512b7d0bc0079bc0388c09f6bc0aaf19a45` |
+| `tests/journey.spec.ts` | `5693c3e4d4f77467fac8b89d3a6e054e2043a143` |
+
+The obsolete `Hero.astro` is removed. Its raster remains used by social metadata.
+Dependency declarations and the lockfile have no delta against the baseline.
+
+### Ranked findings
+
+**Required, P2, resolved in source: refresh downstream geometry after opening
+configuration.** The opening and shared motion modules initialize independently.
+Previously, general motion could measure chapter triggers against the static
+opening before the opening module changed its height. CSS sticky does not supply
+GSAP pinning's automatic global refresh. ResizeObserver-only stage changes could
+leave the same stale geometry. `experience-motion.ts` now dispatches the existing
+`portfolio:layout` event after height, reading-position compensation, and
+configured-state changes; `motion.ts` refreshes the shared ScrollTriggers. The
+new journey regression deliberately holds the opening bundle until general
+motion initializes, releases it, and tests the winner bar near both ends of the
+actual shifted section. Runtime confirmation of the correction is pending.
+
+**Optional, P3: measure ordinary chapter travel after opening setup.** The
+ordinary forward/reverse test in `tests/journey.spec.ts` measures its figure
+range immediately after navigation, before requiring the opening enhancement
+class. Await that configuration before measuring coordinates, so delayed loading
+cannot make this test use the static document's range. The separate held-import
+test should continue exercising the deliberately reversed load order.
+
+**Optional, P3: reject the inert SVG in active-artwork assertions.** The artwork
+test in `tests/experience.spec.ts` accepts `complete && naturalWidth > 0`.
+The one-pixel fallback also meets this condition. In particular, the mobile
+branch could miss a broken active source while still passing motion and unused
+request checks. Require the expected active WebP source family, or a width above
+one for these known rasters, to establish actual artwork delivery.
+
+### Architecture and verification boundary
+
+The accepted opening is shared by the root and focused study. Contact's material
+field is opt-in, preserving the study's desktop request boundary. Native links,
+filters, disclosures, content, and evidence remain HTML; native view transitions
+have early inline head opt-in and Reduce Motion opt-out, without a client router.
+The general motion context and loader have matching listener cleanup. The
+opening's ResizeObserver and debounce timer are disconnected or cleared on
+nonpersisted exit. Persisted pages retain their existing restoration policy.
+Once-only reveals retain completed state through reconfiguration, prose remains
+steady, and the optional Approach renderer keeps its separate eligibility and
+resource owner. No new animation dependency or continuous background loop was
+introduced.
+
+Consumed retained reports show the first full run had 208 passes, 12 established
+inapplicable skips, and 15 failures. The affected run had 29 passes, six skips,
+and two Chromium navigation aborts. Nine repeated Chromium navigation checks
+subsequently passed after moving native transition opt-in into the head. These
+results do not constitute current full-tree acceptance. The parent is running
+the refreshed affected regressions and checks; final review will consume that
+evidence. Production integration remains outside scope. Only this pending report
+section was edited by the reviewer; no runtime, workflow, or application edit
+was performed.
+
+### Waiting-state accessibility correction: pending source follow-up
+
+Date: 2026-10-25. Reviewed the three-file delta over application checkpoint
+`2a0e900105d969565c5c9b65521f6ec51fd6ac5a` at these blobs:
+
+| File | Git blob |
+| --- | --- |
+| `src/scripts/motion.ts` | `8d18790161160c7902b7d9d4c9b80b7b55fef3bf` |
+| `src/scripts/experience-motion.ts` | `5bf7f1fe7a34027eb8bc76e8c03012be0eddef3c` |
+| `tests/portfolio.spec.ts` | `cf6eb28f5499b8cfab6407204d0104c45f18fd9d` |
+
+The earlier Optional notes are resolved: the ordinary chapter test now waits
+for opening configuration before measuring travel, and active-artwork tests
+require natural width above one and the expected WebP source family. Reviewed
+test identities are `5693c3e4d4f77467fac8b89d3a6e054e2043a143` for
+`journey.spec.ts` and `39f788e819034940e400d28bc0dc286606feb0db` for
+`experience.spec.ts`.
+
+**Required, P2 (resolved below): keep linked chapter headings transform-only too.** The new
+waiting-state policy makes action containers fully opaque, but
+`src/scripts/motion.ts` still applies a fully closed clip mask to every
+`.chapter-title`. The Cal.diy and LLM headings in
+`src/components/SelectedWork.astro` contain links, so those action containers
+remain fully clipped while waiting. Apply the interactive-descendant distinction
+to this heading branch as well, reserving clip masks for noninteractive titles.
+This is an incomplete application of the stated transform-only policy; full
+opacity alone does not establish that a link is visibly available.
+
+**Optional, P3 (resolved below): assert the animated container's effective visibility.** The
+new test reads `.framework-actions a` opacity, which remains 1 even if its
+`.framework-item` ancestor is faded. Assert the reveal container or effective
+ancestor opacity, and include linked chapter headings' clip state when enforcing
+the transform-only contract.
+
+The zero-opacity waiting state for noninteractive reveals retains their semantic
+content and existing once-only completion/context cleanup. Linked data-reveal
+containers, archive rows, and next-project links now use transform-only motion;
+the scene history has no controls. No new state, listener, dependency, renderer,
+or resource owner was added. Fresh normal-motion axe coverage spans all six
+routes without diagnostic masking, exclusions, or threshold changes.
+
+The parent reports the preceding checkpoint passed 40 affected checks with six
+inapplicable skips, 18 stronger artwork/range checks, nine repeated Chromium
+navigation checks, and all 18 Lighthouse performance measurements. Its normal-
+motion accessibility audit nevertheless exposed low-contrast waiting states.
+Those measurements belong to that checkpoint, not this correction. Current
+source approval and acceptance remain pending the Required correction and fresh
+runtime evidence. No checks or application edits were performed by this reviewer.
+
+### Linked-heading correction resolved; final verification pending
+
+Date: 2026-10-25. Reviewed motion blob
+`70f9529f83175bdcbc8fc5fbcc42aeeb18333b0d`, unchanged opening-motion blob
+`5bf7f1fe7a34027eb8bc76e8c03012be0eddef3c`, and portfolio-test blob
+`50909f92fa3dfca27ba7a0d4e2afbd9ca7df6abd`.
+
+The heading branch now uses transform-only motion when its heading contains
+actions, retaining clip reveals only for noninteractive headings. The Required
+P2 is resolved in source. The normal-motion test now asserts opacity 1 and
+`clipPath: none` on the actual framework and case-index containers, next-case
+links, About copy, and linked chapter headings. This also resolves the Optional
+child-link assertion weakness. No new lifecycle, dependency, or resource handling
+change was introduced.
+
+No unresolved Critical or Required source finding remains in this precise
+correction. The parent reports the preceding contrast/preference/history/artwork
+matrix passed all 37 cases without skips, failures, or retries. Final action-state
+axe checks across all nine configurations and the refreshed verification
+checkpoint remain pending. D-019 approval remains pending that evidence;
+`docs/verification.md` owns the current results. No duplicate checks or aesthetic
+review were performed, and only this report was edited.
+
+### Hosted growth-sample synchronization: test-only review
+
+Date: 2026-10-25. Application remains
+`d3e334ea22cbb3c7f9f4315bd182bb2c44c81b14`. Reviewed only the
+`tests/experience.spec.ts` correction, blob
+`3b76e5fd8439d0f28033562ef63699a180c62995`.
+
+**No Critical or Required test-source blocker found. D-019 acceptance remains
+pending refreshed hosted verification.** The correction waits for fonts and
+decoded active artwork before measuring text geometry, verifies the requested
+native scroll position, polls for growth above the unchanged 0.2 px threshold,
+then samples after three consecutive animation-frame widths differ by less than
+0.01 px. The final consecutive-growth, viewport, complete hero fade, native
+release, unchanged released width, and reversal assertions remain. Diagnostics
+attach the progress, requested/actual scroll, and width samples in `finally`.
+This preserves sampled monotonic growth evidence while removing the assumption
+that 350 ms necessarily contains a rendered update. It does not certify frame
+pacing or mathematical continuity between sampled positions.
+
+**Optional, P3 (resolved below): compare the settled first sample with the initial width too.**
+The initial-to-25% threshold is polled before settling, while the final loop
+compares only settled 25/75/92/100% widths. To reject an initial overshoot that
+later regresses, compare each settled width to `previousWidth + .2` before
+updating `previousWidth`, or include the initial width in the final series.
+The original four-position proof retains its settled comparisons regardless.
+
+The retained failure from CI `40179713602` remains: 240 passes, 12 established
+inapplicable skips, and one WebKit desktop growth-sample failure. The parent's
+trace analysis places the second width sample before the next rendered frame,
+with the final pose correctly enlarged. Its trace and pose images remain under
+`.research/d019/ci-d3`. The 27-registration, nine-configuration repeat matrix
+and lint are pending at this review checkpoint. No retry, skip, filter, or
+threshold relaxation was introduced. Only this pending report was edited;
+no checks, application edits, screenshots, or additional workflow were run.
+
+### Settled-initial comparison resolved; hosted verification pending
+
+Date: 2026-10-25. Test-only commit
+`9b9c03abeb289b2e34639e46f60409a4cc8684e2` adds the explicit
+`expect(width).toBeGreaterThan(previousWidth + .2)` after frame settlement and
+before updating `previousWidth`. The Optional note is resolved: every settled
+sample, including 25% against the initial pose, now retains the same growth
+threshold.
+
+The parent reports all nine configurations passed with zero failures, skips,
+flaky results, or retries in `settled-initial-growth-browser.json`; the earlier
+repeat check passed all 27 registrations. The application, assets, dependencies,
+and completed design extraction remain unchanged from `d3e334e`, according to
+the supplied diff result. The hosted workflow is running for `9b9c03a`; final
+hosted acceptance remains pending. This note resolves the supplied correction
+without another review, runtime check, or application edit.
+
+### Final D-019 technical source verdict and completion pointer
+
+Date: 2026-10-25. **Approve technical source quality** for application
+`d3e334ea22cbb3c7f9f4315bd182bb2c44c81b14` with verification tests at
+`9b9c03abeb289b2e34639e46f60409a4cc8684e2`. All ranked D-019 findings above
+are resolved. No unresolved Critical or Required source finding remains within
+the reviewed correctness, architecture, maintainability, security, dependency,
+and resource-handling scope. Completed design extraction in `54cd121` changes
+documentation only; the verification-test correction does not alter application
+paths.
+
+The active [D-019 verification record](verification.md) owns the current results
+and measurements. Its retained CI `40182083491` evidence was consumed without
+rerunning checks: 253 registrations, 241 passes, 12 established applicability
+skips, and zero unexpected failures, flaky results, retries, or runner errors.
+The retained `ci-final-summary.json` confirms all eighteen Lighthouse runs and
+all six routes meet the unchanged gates, with accessibility 100 on every route.
+Detailed metrics, local and hosted scope, preview deployments, and authenticated
+smoke coverage remain in that single verification record.
+
+Fresh visual acceptance and completed design documentation are recorded by their
+respective owners. Hosted acceptance for the reviewed preview scope is complete;
+earlier failures and interim pending states above remain historical evidence.
+Production stays at `40a24f16ec037658fb13d5509dd1ba59573f480a`. This source approval
+authorizes no production release and certifies no physical-device smoothness.
+Only this completion pointer was written; no source change, repeated review,
+runtime check, screenshot, or additional workflow was performed.
+
+## D-020 technical source review, 2026-10-26
+
+Scope: the amendment from 0628ade, under code-review-and-quality's source
+remit. This source review is performed in the build thread; the fresh visual
+review is independent and owns no source-quality approval. No additional
+workflow, library, backend, dependency, or pipeline policy was introduced.
+
+Required findings resolved in the application and affected checks:
+
+- Native scroll anchoring can already compensate when sticky space disappears.
+  Apply only the remaining reading-landmark delta; do not restore an obsolete
+  absolute scroll offset. The scene preference/reading-position check passes.
+- Keep material variant and shape class namespaces separate. The archive entry
+  is one unambiguous node, and complete swept bounds precede evidence/list edges.
+- Large type must release sticky project scenes as content grows. Observe stage
+  height changes, debounce reconfiguration, restore a reading landmark, and
+  disconnect the observer/listeners on non-persisted exit.
+- A requested renderer must preserve keyboard focus during preparation and move
+  to its range only while the launch control still owns focus. Do not disable
+  that focused control or steal focus after the visitor tabs away. The keyboard
+  activation and existing scene/fallback/loss paths pass.
+- A hidden preparation pulse must stop. Its CSS is paused unless the actual
+  first-load readiness class is active. Interaction, preference, history, and
+  timeout paths remove that class and listeners.
+- Reserve diagram baselines during animation. Scaling bars and the agreement
+  figure no longer pushes them across their captions or the comparison rule.
+- Enlarged headings and production values retain complete words/numbers.
+  Compact whitespace is capped while rem-based type floors remain; the 320px,
+  200% test measures actual Range fragments instead of merely checking overflow.
+
+Correctness and lifecycle: one GSAP context owns each DOM property. Project
+timelines own their own shapes; generic field motion excludes those chapters.
+Scoped contexts, observers, timers, preference handlers, and image preparation
+clean up. BFCached documents retain their existing listeners and revealed state.
+The opening/general module-order coordination still refreshes the actual ranges.
+
+Architecture and readability: shared assets live in MaterialField; page content
+stays semantic HTML; the separate React renderer retains its ownership. Reusing
+the existing progress store avoids a new animation/state subsystem. There is
+no network ingestion, user-input interpolation, credential, or data-storage
+change. Session storage contains only the first-opening boolean.
+
+Performance: the largest measured issue was automatic shader/renderer startup
+during scrolling. The scene now requires an explicit request. Raster transforms,
+bounded sticky ranges, pre-entry image decode, and actual type/hero readiness
+serve the remaining choreography. Software-WebGL lab evidence is not a claim
+about the owner's physical desktop or iPhone. New image bytes are a documented
+tradeoff for distinct material assets; the unchanged Lighthouse gates still apply.
+
+Source quality is acceptable at this local checkpoint, with no unresolved
+Critical or Required source finding. Hosted acceptance, exact committed source,
+the visual verdict, and completed documentation remain pending in the single
+verification record. This is not approval to merge or replace production.
+
+### D-020 current source verdict
+
+Reviewed application and test source: abe295742909c1f1a3110daf404d2f5d19b66523.
+The held-opening fixture revealed a real WebKit startup dependency: a whole
+font-set readiness promise stayed pending while the held module kept the
+document loading. Both critical font resources were loaded. A shared cached
+promise now explicitly loads the two required font faces. Opening and general
+motion share that preparation without a dependency on unrelated document load.
+The fixture waits for navigation commit and releases its resource in finally;
+growth, range refresh, viewport, and reversal assertions remain unchanged.
+
+The nine-configuration affected result passes. Full CI 40251633738 is consumed
+without duplicate checks: 286 passes, 12 established applicability skips, zero
+unexpected failures, retries, flaky results, or runner errors. All eighteen
+Lighthouse measurements pass their gates. Normal and reduced-motion axe checks
+retain zero serious or critical portfolio findings. The active verification
+record owns the exact route medians, retained failures, and hosted smoke scope.
+
+**Approve technical source quality at this reviewed source.** No unresolved
+Critical or Required finding remains in correctness, architecture,
+maintainability, security, dependencies, or resource handling. This is the build
+thread's source review, not an independent source-review claim. The required
+fresh visual reviewer separately scores the six listed material fixes, and the
+documenter records the finished system. Neither this verdict nor the passing
+CI run authorizes merging or replacing production.

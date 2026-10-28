@@ -1,0 +1,11 @@
+{
+  "prompt": "Use case: stylized-concept. Production cutout for a cinematic QA portfolio. Reference 1 establishes the exact dark textured chrome, transparent amber glass, warm rim light and controlled white reflections. Reference 2 is the owner's APPROVED family study. Match its specified object faithfully. Genuinely transparent alpha background including empty areas around the object. No opaque background, no floor, no ground shadow, no captions, no lettering, no logos, no UI, no data, no particles or haze. A complete uncropped object centered with generous transparent margins, every edge inside the image. Exceptional physically rendered product-photography detail, rich clear amber refraction, fine dark chrome texture, quiet sophisticated warm light. Landscape 1536x1024. Reproduce ONLY the RIGHT object in the family study: five substantial thin clear amber optical-glass cards with narrow dark chrome back edges, precisely arranged in an open radial sculptural fan from one dark chrome pivot. Match the approved fan's diagonal three-quarter pose, visible five alternating layers, strong physical transparent glass edge detail. No gate or paired prisms. The whole fan occupies about 76% width and 82% height, with all corners completely inside the frame.",
+  "tool": "built-in image_gen",
+  "references": [
+    "assets/plates/passage-material.png",
+    ".impeccable/mocks/d020/material-family.png"
+  ],
+  "output": "assets/plates/archive-fan.png",
+  "role": "D-020 project-specific conceptual material",
+  "approvedFamily": "Owner confirmed all three forms on 2026-10-26"
+}

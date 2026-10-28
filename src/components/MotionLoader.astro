@@ -1,0 +1,67 @@
+<script>
+  import { prepareTypography } from '../lib/critical-fonts';
+  if (document.body.classList.contains('portfolio-surface')) {
+    const media = matchMedia('(prefers-reduced-motion: no-preference)');
+    let started = false;
+    let disposed = false;
+    let frame = 0;
+    let releaseOpening: (() => void) | undefined;
+    let releaseChapters: (() => void) | undefined;
+    const openingPaint = () => new Promise<void>(resolve => {
+      const opening = document.querySelector('.passage-opening');
+      if (!opening || opening.classList.contains('has-passage-motion')) { resolve(); return; }
+      const events = ['portfolio:opening-ready', 'wheel', 'touchstart', 'pointerdown', 'keydown'];
+      const finish = () => {
+        clearTimeout(timer);
+        events.forEach(name => window.removeEventListener(name, finish));
+        releaseOpening = undefined;
+        resolve();
+      };
+      const timer = window.setTimeout(finish, 1600);
+      releaseOpening = finish;
+      events.forEach(name => window.addEventListener(name, finish, { passive: true }));
+    });
+    const approachingChapters = () => new Promise<void>(resolve => {
+      const evidence = document.querySelector('.experience-story .evidence-study');
+      if (!evidence || location.hash || disposed) { resolve(); return; }
+      const finish = () => {
+        window.removeEventListener('scroll', check);
+        window.removeEventListener('resize', check);
+        releaseChapters = undefined;
+        resolve();
+      };
+      const check = () => {
+        if (evidence.getBoundingClientRect().top <= innerHeight * 1.5) finish();
+      };
+      releaseChapters = finish;
+      window.addEventListener('scroll', check, { passive: true });
+      window.addEventListener('resize', check);
+      check();
+    });
+    const start = () => {
+      if (!media.matches || started) return;
+      started = true;
+      void Promise.all([prepareTypography(), openingPaint()]).then(approachingChapters).then(async () => {
+        if (disposed) return;
+        const module = await import('../scripts/motion');
+        if (disposed) return;
+        // Prepare later chapters as the visitor approaches the evidence sequence.
+        frame = requestAnimationFrame(() => {
+          frame = requestAnimationFrame(() => { if (!disposed) module.initMotion(); });
+        });
+      }).catch(() => { started = false; });
+    };
+    media.addEventListener('change', start);
+    start();
+    function cleanup(event: PageTransitionEvent) {
+      if (event.persisted) return;
+      disposed = true;
+      cancelAnimationFrame(frame);
+      releaseOpening?.();
+      releaseChapters?.();
+      media.removeEventListener('change', start);
+      window.removeEventListener('pagehide', cleanup);
+    }
+    window.addEventListener('pagehide', cleanup);
+  }
+</script>

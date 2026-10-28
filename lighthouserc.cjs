@@ -5,7 +5,7 @@ module.exports = {
     collect: {
       staticDistDir: './dist',
       isSinglePageApplication: false,
-      url: ['http://localhost/', 'http://localhost/work/', 'http://localhost/work/testpulse/', 'http://localhost/work/caldiy/', 'http://localhost/work/llm-evaluation/'],
+      url: ['http://localhost/', 'http://localhost/work/', 'http://localhost/work/testpulse/', 'http://localhost/work/caldiy/', 'http://localhost/work/llm-evaluation/', 'http://localhost/experience/'],
       numberOfRuns: 3,
       chromePath: chromium.executablePath(),
       settings: { formFactor: 'mobile', chromeFlags: '--headless --no-sandbox' },

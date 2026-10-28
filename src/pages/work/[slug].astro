@@ -4,6 +4,7 @@ import { getProjects } from '../../lib/content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CaseEvidence from '../../components/CaseEvidence.astro';
 import Icon from '../../components/Icon.astro';
+import MaterialField from '../../components/MaterialField.astro';
 
 export async function getStaticPaths() {
   return (await getProjects()).map(project => ({ params: { slug: project.data.slug }, props: { project } }));
@@ -16,14 +17,18 @@ const projects = await getProjects();
 const next = projects[data.order % projects.length];
 const checkedDate = new Intl.DateTimeFormat('en-GB', { dateStyle: 'long', timeZone: 'UTC' }).format(new Date(data.evidenceDate));
 ---
-<BaseLayout title={`${data.title} | QA case study | Mohanad Yehia`} description={data.summary}>
+<BaseLayout title={`${data.title} | QA case study | Mohanad Yehia`} description={data.summary} motion>
+  <div class="reading-progress" aria-hidden="true"></div>
   <header class="case-hero">
+    <div class="case-introduction">
     <a class="back-link" href="/work"><Icon class="back-icon" /> All work</a>
-    <h1>{data.title}</h1>
+    <h1 style={`view-transition-name: project-${data.slug}`}>{data.title}</h1>
     <div class="case-context"><span>{data.eyebrow}</span><span>{data.role}</span></div>
     <p class="case-summary">{data.summary}</p>
     <div class="case-actions"><a class="text-link" href={data.report}>{data.reportLabel} <Icon name="external" /></a><a class="source-link" href={data.repository}>View source <Icon name="external" /></a></div>
     <p class="case-stack">{data.stack.join(' · ')}</p>
+    </div>
+    <MaterialField variant="case" shape={data.slug} />
   </header>
   <CaseEvidence slug={data.slug} />
   <div class="case-reading section-space">
@@ -33,22 +38,24 @@ const checkedDate = new Intl.DateTimeFormat('en-GB', { dateStyle: 'long', timeZo
     </aside>
     <article class="case-prose" aria-label={`${data.title} case study`}><Content /></article>
   </div>
-  {next && <nav class="next-case" aria-label="More selected work"><a href={`/work/${next.data.slug}`}><span>{next.data.title}</span><Icon /></a><p>{next.data.eyebrow}</p></nav>}
+  {next && <nav class="next-case" aria-label="More selected work"><a href={`/work/${next.data.slug}`}><span style={`view-transition-name: project-${next.data.slug}`}>{next.data.title}</span><Icon /></a><p>{next.data.eyebrow}</p></nav>}
 </BaseLayout>
 <style>
-  .case-hero { padding: clamp(2rem, 5vw, 6rem) var(--page-gutter) clamp(3rem, 5vw, 6rem); }
+  .case-hero { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 4%; align-items: center; min-height: 88svh; padding: clamp(2rem, 5vw, 6rem) var(--page-gutter) clamp(4rem, 6vw, 7rem); }
+  .case-introduction { min-width: 0; }
   .back-link { display: inline-flex; align-items: center; min-height: 44px; color: var(--color-muted); font-size: .9rem; }
   .back-link:hover { color: var(--color-amber); }
   .back-link { gap: .5rem; }
   .back-link :global(svg) { width: 16px; height: 16px; transform: rotate(180deg); }
   .case-context { display: flex; flex-wrap: wrap; gap: .7rem 2rem; margin-top: 1.5rem; font-size: .85rem; color: var(--color-muted); }
-  h1 { font-size: clamp(2.8rem, 8vw, 9rem); margin-top: 2.5rem; overflow-wrap: anywhere; }
-  .case-summary { font-size: clamp(1.3rem, 2.1vw, 2.3rem); line-height: 1.4; max-width: 42ch; margin-top: 2rem; }
+  h1 { font-size: clamp(2.8rem, 6.5vw, 7.5rem); max-width: 15ch; margin-top: 2.5rem; overflow-wrap: anywhere; }
+  .case-summary { font-size: clamp(1.2rem, 1.7vw, 1.8rem); line-height: 1.5; max-width: 42ch; margin-top: 2rem; }
   .case-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 2rem; margin-top: 2.5rem; }
   .source-link { display: inline-flex; align-items: center; gap: .5rem; min-height: 44px; font-size: .95rem; color: var(--color-muted); }
   .source-link:hover { color: var(--color-ink); }
   .source-link :global(svg) { width: 18px; height: 18px; }
-  .case-stack { font-size: .8rem; color: var(--color-muted); margin-top: 2rem; }
+  .case-stack { font-size: .8rem; max-width: 58ch; color: var(--color-muted); margin-top: 2rem; }
+  .reading-progress { position: fixed; inset: 0 0 auto; height: 2px; background: var(--color-amber); transform: scaleX(0); transform-origin: left; z-index: 25; pointer-events: none; }
   .case-reading { display: grid; grid-template-columns: 17rem minmax(0, 47rem); gap: clamp(3rem, 9vw, 11rem); justify-content: center; padding-inline: var(--page-gutter); }
   .case-sidebar { position: sticky; top: 2rem; align-self: start; font-size: .85rem; }
   .case-jump { padding-bottom: 2rem; border-bottom: 1px solid var(--line); }
@@ -75,4 +82,11 @@ const checkedDate = new Intl.DateTimeFormat('en-GB', { dateStyle: 'long', timeZo
   .next-case :global(svg) { width: 42px; height: 42px; flex-shrink: 0; }
   .next-case > p:last-child { color: var(--color-muted); font-size: .9rem; }
   @media (max-width: 900px) { .case-reading { grid-template-columns: 1fr; gap: 3rem; } .case-sidebar { position: static; } .evidence-source { max-width: 65ch; } }
+  @media (max-width: 900px) { .case-hero { grid-template-columns: 1fr; gap: 2rem; min-height: auto; } }
+  @media (max-width: 760px) { h1 { font-size: clamp(1.75rem, 10vw, 4.4rem); } }
+  @media (max-width: 600px) {
+    .case-prose :global(h2) { font-size: clamp(1.25rem, calc(1rem + 3vw), 2.9rem); }
+    .next-case > a { display: grid; grid-template-columns: minmax(0, 1fr) 24px; gap: min(1rem, 3vw); font-size: clamp(1.5rem, calc(1rem + 4vw), 2rem); }
+    .next-case :global(svg) { width: 24px; height: 24px; }
+  }
 </style>

@@ -7,7 +7,7 @@ const profile = await getProfile();
 ---
 <section class="about section-space" id="about" aria-labelledby="about-title">
   <span id="About" class="legacy-anchor" aria-hidden="true"></span>
-  <figure class="portrait" data-reveal><Image src={portrait} alt="Mohanad Yehia standing at a lectern beside the Egyptian flag." format="webp" quality={85} widths={[480, 768, 1024]} sizes="(min-width: 900px) 38vw, 100vw" loading="lazy" /><figcaption>Mohanad Yehia <span>Cairo, Egypt</span></figcaption></figure>
+  <figure class="portrait"><div class="portrait-frame"><Image src={portrait} alt="Mohanad Yehia standing at a lectern beside the Egyptian flag." format="webp" quality={85} widths={[480, 768, 1024]} sizes="(min-width: 900px) 38vw, 100vw" loading="lazy" /></div><figcaption>Mohanad Yehia <span>Cairo, Egypt</span></figcaption></figure>
   <div class="about-copy" data-reveal>
     <h2 id="about-title">Mohanad Yehia.<br />Software QA Engineer.</h2>
     <p class="bio">{profile.bio}</p>
@@ -20,6 +20,7 @@ const profile = await getProfile();
 <style>
   .about { position: relative; padding-inline: var(--page-gutter); border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr 1.25fr; gap: 10%; align-items: start; }
   .portrait { margin: 0; }
+  .portrait-frame { overflow: clip; }
   .portrait img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 41%; }
   figcaption { display: flex; justify-content: space-between; gap: 1rem; font-size: .8rem; margin-top: 1rem; color: var(--color-muted); }
   h2 { font-size: clamp(2rem, 3.2vw, 3.6rem); }
@@ -32,4 +33,5 @@ const profile = await getProfile();
   .credentials li { border-top: 1px solid var(--line); padding-block: 1.4rem; }
   .languages { color: var(--color-muted); font-size: .8rem; margin-top: 1rem; }
   @media (max-width: 900px) { .about { grid-template-columns: 1fr; gap: 3rem; } .portrait { max-width: 560px; } h2 { font-size: clamp(2rem, 5vw, 3.2rem); } .education { margin-top: 2.5rem; } }
+  @media (max-width: 600px) { h2 { font-size: clamp(1.9rem, calc(1rem + 4.1vw), 3.2rem); } }
 </style>

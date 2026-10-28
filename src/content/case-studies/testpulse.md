@@ -1,8 +1,8 @@
 ---
 title: TestPulse
 slug: testpulse
-eyebrow: Test observability
-summary: Distinguishing an intermittent test from a regression by giving CI a memory.
+eyebrow: QA reporting tool
+summary: A QA reporting tool that uses CI history to investigate flaky tests and regressions.
 role: Independent project
 order: 1
 category: QA tooling

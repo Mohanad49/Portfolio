@@ -1,0 +1,41 @@
+---
+import { Image } from 'astro:assets';
+import upper from '../../assets/plates/passage-upper.png';
+import lower from '../../assets/plates/passage-lower.png';
+import gate from '../../assets/plates/caldiy-gate.png';
+import prisms from '../../assets/plates/llm-prisms.png';
+import fan from '../../assets/plates/archive-fan.png';
+interface Props {
+  variant?: 'project' | 'case' | 'archive' | 'closing';
+  shape?: 'testpulse' | 'caldiy' | 'llm-evaluation' | 'archive';
+}
+const { variant = 'project', shape = 'archive' } = Astro.props;
+const sculpture = shape === 'caldiy' ? gate : shape === 'llm-evaluation' ? prisms : fan;
+const sizes = variant === 'closing' ? '40vw' : '(min-width: 1024px) 48vw, 100vw';
+---
+<div class:list={['material-field', 'material-field--' + variant, 'material-shape--' + shape]} data-material-shape={shape} aria-hidden="true">
+  <div class="material-object">
+    {shape === 'testpulse' ? <>
+      <Image class="material-upper" src={upper} alt="" format="webp" quality={85} widths={[480, 800, 1024]} sizes={sizes} loading={variant === 'case' ? 'eager' : 'lazy'} />
+      <Image class="material-lower" src={lower} alt="" format="webp" quality={85} widths={[480, 800, 1024]} sizes={sizes} loading={variant === 'case' ? 'eager' : 'lazy'} />
+    </> : shape === 'llm-evaluation' ? <>
+      <Image class="material-sculpture material-prism-left" src={sculpture} alt="" format="webp" quality={85} widths={[480, 800, 1024]} sizes={sizes} loading={variant === 'case' ? 'eager' : 'lazy'} />
+      <Image class="material-sculpture material-prism-right" src={sculpture} alt="" format="webp" quality={85} widths={[480, 800, 1024]} sizes={sizes} loading={variant === 'case' ? 'eager' : 'lazy'} />
+    </> : <Image class="material-sculpture" src={sculpture} alt="" format="webp" quality={85} widths={[480, 800, 1024]} sizes={sizes} loading={variant === 'case' || variant === 'archive' ? 'eager' : 'lazy'} />}
+  </div>
+</div>
+<style>
+  .material-field { position: relative; width: 100%; aspect-ratio: 3 / 2; pointer-events: none; perspective: 1200px; }
+  .material-object { position: absolute; inset: 7% 6%; transform-origin: center; }
+  .material-sculpture { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+  .material-prism-left { clip-path: inset(0 50% 0 0); transform-origin: 25% 50%; }
+  .material-prism-right { clip-path: inset(0 0 0 50%); transform-origin: 75% 50%; }
+  .material-upper, .material-lower { position: absolute; width: 90%; height: 74%; object-fit: contain; left: 5%; }
+  .material-upper { top: -3%; }
+  .material-lower { top: 29%; }
+  .material-field--closing { position: absolute; inset: 4% 2% auto auto; width: 40%; z-index: -1; opacity: .19; }
+  @media (max-width: 760px) {
+    .material-field--case, .material-field--archive { max-width: 38rem; margin: 1rem auto; }
+    .material-field--closing { inset: 20% -2% auto auto; width: 65%; opacity: .1; }
+  }
+</style>
