@@ -134,6 +134,7 @@ test('reduced motion keeps the complete fallback and omits the scene', async ({ 
 test('scroll reveals become fully readable and respect live motion preferences', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.goto('/');
+  await page.locator('.evidence-study').scrollIntoViewIfNeeded();
   const copy = page.locator('.about-copy');
   await expect.poll(() => copy.evaluate(element => getComputedStyle(element).transform)).not.toBe('none');
   await expect(copy).toHaveCSS('opacity', '1');
