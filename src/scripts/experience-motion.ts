@@ -110,7 +110,6 @@ export function initExperienceMotion({ settleInitialBookmark = true, restoringPo
   window.addEventListener('scroll', keepNativeRestoration, { passive: true });
   function cleanup(event: PageTransitionEvent) {
     if (event.persisted) return;
-    context?.revert();
     readingPosition.dispose();
     stageObserver.disconnect();
     window.clearTimeout(resizeTimer);
@@ -118,6 +117,7 @@ export function initExperienceMotion({ settleInitialBookmark = true, restoringPo
     window.removeEventListener('resize', resize);
     window.removeEventListener('scroll', keepNativeRestoration);
     window.removeEventListener('pagehide', cleanup);
+    context?.kill(false);
   }
   window.addEventListener('pagehide', cleanup);
 }

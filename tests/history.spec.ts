@@ -40,3 +40,24 @@ test('a traversal without a checkpoint cancels an earlier queued restoration', a
   }), checkpoint);
   expect(finalPosition).toBe(0);
 });
+
+test('reading checkpoints save before link navigation and never during page exit', async ({ page }) => {
+  await page.goto('/experience');
+  await expect(page.locator('.passage-opening')).toHaveClass(/has-passage-motion/);
+  const writes = await page.evaluate(() => {
+    const original = history.replaceState.bind(history);
+    let count = 0;
+    history.replaceState = (...args) => { count++; original(...args); };
+    const link = document.querySelector<HTMLAnchorElement>('.passage-project-title a');
+    if (!link) throw new Error('The study link is missing.');
+    // Let the checkpoint's capture listener run without leaving the test document.
+    link.addEventListener('click', event => event.preventDefault(), { once: true });
+    link.click();
+    const beforeExit = count;
+    window.dispatchEvent(new PageTransitionEvent('pagehide', { persisted: false }));
+    history.replaceState = original;
+    return { beforeExit, afterExit: count };
+  });
+  expect(writes.beforeExit).toBe(1);
+  expect(writes.afterExit).toBe(writes.beforeExit);
+});

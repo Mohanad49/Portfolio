@@ -36,9 +36,11 @@ export function preserveReadingPosition(restoreInitial: boolean) {
     });
   };
   const traversed = (event: PopStateEvent) => restore(read(event.state));
-  const hidden = () => save();
+  const navigating = (event: MouseEvent) => {
+    if (event.target instanceof Element && event.target.closest('a[href]')) save();
+  };
   window.addEventListener('scrollend', save);
-  window.addEventListener('pagehide', hidden);
+  document.addEventListener('click', navigating, true);
   window.addEventListener('popstate', traversed);
   inputs.forEach(name => window.addEventListener(name, cancel, { passive: true }));
   return {
@@ -46,7 +48,7 @@ export function preserveReadingPosition(restoreInitial: boolean) {
     dispose() {
       cancel();
       window.removeEventListener('scrollend', save);
-      window.removeEventListener('pagehide', hidden);
+      document.removeEventListener('click', navigating, true);
       window.removeEventListener('popstate', traversed);
       inputs.forEach(name => window.removeEventListener(name, cancel));
     },

@@ -180,7 +180,7 @@ export function initMotion() {
     document.querySelectorAll('.experience-item').forEach(item => item.removeEventListener('toggle', refresh));
     imageObserver.disconnect();
     stageObserver.disconnect();
-    context?.revert();
+    context?.kill(false);
     window.removeEventListener('pagehide', cleanup);
   }
   window.addEventListener('pagehide', cleanup);
