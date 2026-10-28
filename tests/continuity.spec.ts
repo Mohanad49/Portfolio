@@ -4,6 +4,9 @@ test('enlarging text releases project pinning and restoring it enables fitting s
   await page.goto('/');
   const stages = page.locator('.project-stage');
   const desktop = (page.viewportSize()?.width ?? 0) >= 1024;
+  await expect(page.locator('.passage-opening')).toHaveClass(/has-passage-motion/);
+  await expect(stages.first()).toHaveCSS('position', 'relative');
+  await page.locator('.evidence-study').scrollIntoViewIfNeeded();
   if (desktop) await expect(stages.first()).toHaveCSS('position', 'sticky');
   const enlarged = await page.addStyleTag({ content: 'html { font-size: 200%; }' });
   for (const stage of await stages.all()) await expect(stage).toHaveCSS('position', 'relative');

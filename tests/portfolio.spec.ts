@@ -243,6 +243,7 @@ test('motion-enabled routes keep waiting reveals and source links accessible', a
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   for (const route of [...routes, '/experience']) {
     await page.goto(route);
+    if (route === '/') await page.locator('.evidence-study').scrollIntoViewIfNeeded();
     if (route === '/experience') await expect(page.locator('.passage-opening')).toHaveClass(/has-passage-motion/);
     else await expect.poll(() => page.locator('.ambient-warm').evaluate((element: HTMLElement) => element.style.transform)).not.toBe('');
     const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();

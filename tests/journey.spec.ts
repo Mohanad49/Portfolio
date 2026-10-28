@@ -19,6 +19,7 @@ test('later motion uses the expanded opening geometry even when its module loads
   try {
     // The held module can keep the browser's load event pending.
     await page.goto('/', { waitUntil: 'commit' });
+    await page.locator('.evidence-study').scrollIntoViewIfNeeded();
     await expect.poll(() => winner.evaluate((element: HTMLElement) => element.style.transform)).not.toBe('');
     await expect(page.locator('.passage-opening')).not.toHaveClass(/has-passage-motion/);
   } finally { releaseOpening?.(); }
@@ -48,6 +49,8 @@ test('later project motion advances and reverses while the recorded figures stay
   await page.goto('/');
   await expect(page.locator('.passage-opening')).toHaveClass(/has-passage-motion/);
   const figure = page.locator('.contention-figure');
+  await page.locator('.evidence-study').scrollIntoViewIfNeeded();
+  await expect.poll(() => figure.locator('.winner').evaluate((element: HTMLElement) => element.style.transform)).not.toBe('');
   await expect(figure.locator('.contention-bars span')).toHaveCount(20);
   await expect(figure.locator('.winner')).toHaveCount(1);
   const range = await figure.evaluate(chapterRange);

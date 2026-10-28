@@ -6,6 +6,7 @@
     let disposed = false;
     let frame = 0;
     let releaseOpening: (() => void) | undefined;
+    let releaseChapters: (() => void) | undefined;
     const openingPaint = () => new Promise<void>(resolve => {
       const opening = document.querySelector('.passage-opening');
       if (!opening || opening.classList.contains('has-passage-motion')) { resolve(); return; }
@@ -20,12 +21,31 @@
       releaseOpening = finish;
       events.forEach(name => window.addEventListener(name, finish, { passive: true }));
     });
+    const approachingChapters = () => new Promise<void>(resolve => {
+      const evidence = document.querySelector('.experience-story .evidence-study');
+      if (!evidence || location.hash || disposed) { resolve(); return; }
+      const finish = () => {
+        window.removeEventListener('scroll', check);
+        window.removeEventListener('resize', check);
+        releaseChapters = undefined;
+        resolve();
+      };
+      const check = () => {
+        if (evidence.getBoundingClientRect().top <= innerHeight * 1.5) finish();
+      };
+      releaseChapters = finish;
+      window.addEventListener('scroll', check, { passive: true });
+      window.addEventListener('resize', check);
+      check();
+    });
     const start = () => {
       if (!media.matches || started) return;
       started = true;
-      void Promise.all([import('../scripts/motion'), prepareTypography(), openingPaint()]).then(([module]) => {
+      void Promise.all([prepareTypography(), openingPaint()]).then(approachingChapters).then(async () => {
         if (disposed) return;
-        // Paint the prepared opening before measuring all of the later chapters.
+        const module = await import('../scripts/motion');
+        if (disposed) return;
+        // Prepare later chapters as the visitor approaches the evidence sequence.
         frame = requestAnimationFrame(() => {
           frame = requestAnimationFrame(() => { if (!disposed) module.initMotion(); });
         });
@@ -38,6 +58,7 @@
       disposed = true;
       cancelAnimationFrame(frame);
       releaseOpening?.();
+      releaseChapters?.();
       media.removeEventListener('change', start);
       window.removeEventListener('pagehide', cleanup);
     }
