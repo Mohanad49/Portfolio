@@ -1,6 +1,8 @@
 import { defineConfig } from '@playwright/test';
 import base from './playwright.config';
 
+const inspection = /desktop inspection responds to keyboard input and returns to its fallback/;
+
 export default defineConfig({
   ...base,
   // Keep the headed Firefox session isolated on the shared Windows desktop.
@@ -19,6 +21,13 @@ export default defineConfig({
     {
       name: 'firefox-desktop',
       testIgnore: '**/history.spec.ts',
+      grepInvert: inspection,
+      use: { browserName: 'firefox', viewport: { width: 1440, height: 1000 } },
+    },
+    {
+      name: 'firefox-renderer-desktop',
+      testMatch: '**/portfolio.spec.ts',
+      grep: inspection,
       use: {
         browserName: 'firefox',
         viewport: { width: 1440, height: 1000 },
