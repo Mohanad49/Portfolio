@@ -3,7 +3,7 @@
 ## Goal and decisions
 
 Build a cinematic QA portfolio in this isolated checkout of Mohanad49/Portfolio,
-branch codex/qa-portfolio. Deploy through the existing Vercel project at
+branch dev/qa-portfolio. Deploy through the existing Vercel project at
 https://myehia.vercel.app. The original checkout and previous deployment stay
 available as recovery points. No new skills or plugins are required.
 
@@ -137,3 +137,13 @@ A fresh visual review owns the six listed material fixes in
  docs/experience/d020-owner-feedback-review.md. Complete affected browser,
 accessibility and performance checks, source review, a verdict against the fixes,
 and the final design record before handing over the updated hosted preview.
+
+## Final release review responsibility
+
+The owner requested a dedicated code-security review on 2026-10-27. Codex
+Security owns this bounded vulnerability assessment and its durable report.
+The technical source reviewer consumes its disposition and owns correctness,
+architecture, maintainability, and lifecycle review. It does not run a second
+vulnerability audit. Existing Impeccable visual ownership and the shared
+verification record remain unchanged. This does not activate another planning,
+design, testing, or release workflow.

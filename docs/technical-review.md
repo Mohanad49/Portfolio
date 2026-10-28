@@ -1,4 +1,181 @@
-# Independent technical source review
+# Final technical source review
+
+Updated: 2026-10-28. Delegated source reviewer using
+`engineering-suite:code-review-and-quality`.
+
+Repository: `/Users/yehiaabozid/Coding/Portfolio/qa-portfolio`.
+Snapshot HEAD: `1202397458cb06ef40356d726a0b128e4b8b8156`.
+Latest scope: Windows Firefox project split `1202397`, with application source
+unchanged from the reviewed unload correction `c9dead3`.
+
+## Verdict
+
+**Approve technical source quality and close technical CI acceptance at
+`1202397458cb06ef40356d726a0b128e4b8b8156`.** No unresolved Critical, Required,
+Optional, or Nit source finding remains. The Windows configuration preserves
+the complete check inventory and separates content execution from the one
+headed renderer scenario.
+
+Run `40671248714` completed successfully for both verify and windows, confirmed
+by the parent and supported by the retained artifacts consumed below. Windows
+acceptance is closed for the reviewed execution modes and source. Earlier
+failures remain historical failures. This technical approval authorizes no
+merge or production change.
+
+## Latest Windows configuration review
+
+At `playwright.windows.config.ts:4,21-38`, one shared inspection pattern gives
+the Firefox projects complementary ownership. The default-headless project
+runs the other 34 checks. The headed project matches only the existing desktop
+inspection scenario in `portfolio.spec.ts`, retaining its software-WebGL prefs
+and viewport. Installed Playwright source confirms that absence of a headless
+override uses its true default. Chrome and Edge remain unchanged.
+
+Both Firefox names end in `desktop`, preserving the existing applicability
+checks. The renderer scenario still exercises real Canvas creation, keyboard
+input, reset, live motion preferences, actual context loss, decoded artwork
+fallback, and browser errors. The content project still runs all navigation,
+filter, resume, input, motion, accessibility, reflow, and fallback assertions.
+Workers:1, zero retries, original timeouts, fixed commands, and all thresholds
+remain. No runtime, style, asset, dependency, or visual change is introduced.
+
+Independently parsed `windows-scope-list.log` and compared its browser-family/
+title Counter with the retained c9 Windows JSON. All 105 pairs are identical,
+each exactly once, with zero missing, added, or duplicate pairs:
+
+| Project | Registrations |
+| --- | --- |
+| Chrome desktop | 35 |
+| Edge desktop | 35 |
+| Firefox headless content | 34 |
+| Firefox headed renderer | 1 |
+
+The scope comparison and successful current Windows artifact together confirm
+coverage and execution for the retained checks. The actual renderer path is
+preserved, and its headed scenario passed in the accepted run.
+
+## Current accepted CI evidence
+
+Consumed `.research/final-readiness/ci-120/` artifacts from successful run
+`40671248714` at the reviewed full commit. The Linux artifact became available
+during this closure and was independently read along with the Windows JSON.
+
+- Windows JSON: 105 expected passes, zero skips, unexpected results, flaky
+  results, runner errors, or retries. Every result passed on retry 0. Counts
+  are Chrome 35, Edge 35, Firefox content 34, and headed Firefox renderer 1.
+- Linux JSON: 306 expected passes, 12 established applicability skips, zero
+  unexpected or flaky results, zero runner errors, and maximum retry 0.
+- Lighthouse: 18 reports, three per route, all six unchanged median gates pass,
+  and the assertion-results list is empty. Median scores are 98 to 100; LCP
+  spans 1806.9718 to 2339.475 ms; every route has median CLS 0. Homepage median
+  LCP is 2310.015425 ms. Original limits remain performance >=90, LCP <=2499 ms,
+  and CLS <=0.0999. These are production-build mobile lab results, not field
+  or physical-device certification.
+
+The parent authoritatively confirmed both workflow jobs succeeded. The retained
+JSON and Lighthouse reports confirm the matrix counts and unchanged objective
+gates. The Windows registration split ran exactly as reviewed, including the
+headed software-WebGL case. No technical CI acceptance condition remains open
+for this source and configuration. The owner's production decision and other
+review domains remain separate from this source-review approval.
+
+## Historical Windows failures retained
+
+`40651798704` had 103 Windows passes and two failures. Isolating workers in
+`40654781949` produced 104 passes and one framework-filter context-teardown
+failure. The unload correction's run `40669413721` also had 104 passes and one
+reduced-motion context-teardown failure. That reduced-motion path did not load
+opening/general GSAP; driver traces included native Juggler and cheap native
+cancellation calls during closing. Neither earlier diagnosis is represented
+as sufficient to eliminate the failure.
+
+These runs remain failed evidence with zero retries and zero flaky results.
+Assertions passing before a failed teardown did not make those checks pass.
+The later successful run closes acceptance under the reviewed Firefox mode
+split without retroactively relabeling any prior result.
+
+## Retained unload and history source approval
+
+`c9dead3` saves checkpoints on scrollend and capture-phase anchor activation,
+before default navigation while the document is active. It removes pagehide
+checkpoint writes. The capture listener has matching removal; toolbar/reload
+navigation relies on the last settled checkpoint and native restoration.
+
+Nonpersisted motion cleanup disposes the reading helper and its pending RAF,
+observers, timers, and app listeners before killing animations. Installed GSAP
+3.15 confirms `Context.kill(false)` avoids the full Context getTweens/revert
+style-restoration path. Individual ScrollTriggers still perform normal kill
+cleanup; this is not zero DOM work. These contexts return no custom cleanup
+and use CSS sticky instead of ScrollTrigger pin wrappers. Active resize/media
+reconfiguration still reverts normally. Persisted/BFCache paths remain intact.
+This remains a coherent discarded-document policy despite not resolving the
+Windows driver hang by itself.
+
+Read `exit-history-checks.log` and `exit-history-results.json`: all 21 checks
+pass in 42.3 seconds, with zero skips, unexpected/flaky results, retries, or
+runner errors. They cover 18 real reload/Back cases across nine configurations
+plus Chromium regressions for actual BFCache restoration, cancellation across
+an invalid checkpoint, and one pre-navigation write with no page-exit write.
+The synthetic exit test proves the event boundary, not Windows driver shutdown.
+
+Earlier resolved source findings remain closed: no forced bookmark handler on
+every hashchange; no early height reserve in reduced-motion/failure paths;
+finite checkpoint values and matching viewport; preservation of ordinary object
+history fields; and cancellation of pending restoration on every traversal,
+input, and disposal. First and later chapter setup preserve a visible reading
+landmark without forcing an obsolete initial absolute offset.
+
+## Other source and verification retained
+
+General motion imports only as evidence approaches 1.5 viewport heights on an
+unfragmented opening page. Direct fragments and other pages bypass that wait.
+Immediate and scroll/resize checks handle jumps and restored positions; all
+waiting listeners/RAFs are released on completion or nonpersisted exit. No new
+timer, test detector, content mask, or performance-only branch exists. The
+36-check demand-loading matrix and nine-check live-reveal matrix passed with
+original assertions. The complete c9 Linux matrix now covers those scenarios.
+
+Core HTML, AVIF/WebP media separation, font/style contracts, and optional demand-
+rendered WebGL ownership retain prior source review. The pinned Playwright image
+matches the package. The `/github/home` ownership correction remains limited
+to that ephemeral mounted directory, without HOME reassignment or added
+privileges. Contents:read, action pins, Xvfb/software WebGL, checks, artifacts,
+and thresholds remain. No new visual review is needed for this config-only delta.
+
+The separate dependency/security verdict owns the pinned development-tool fixes
+and remaining nonblocking reachability assessments. This review does not claim
+a zero-finding full dependency audit. Unchanged full-source conclusions in
+`docs/technical-review.md` are reused.
+
+No tests, browser actions, network requests, source edits, workflow invocations,
+or production operations were performed by this reviewer. Only this `/tmp`
+report was written. No new agent or visual workflow was started.
+
+## Reviewed blob identities
+
+| File | Git blob |
+| --- | --- |
+| `astro.config.mjs` | `bf7aee025b922e8ddbb9a8b2fcdda289c534b77a` |
+| `src/components/MotionLoader.astro` | `9eb4a8cc202e1d2be179b69a563d4b76c3f1ac49` |
+| `src/components/PassThrough.astro` | `c266b3843f3a5d9f490394167bc8c4470fb5fd3a` |
+| `src/layouts/BaseLayout.astro` | `67a5256dc0e59b961f1847ac379ee85c08b5aa80` |
+| `src/scripts/experience-motion.ts` | `077818c86bb0b60125d3dfc75c23c9bd28d885a3` |
+| `src/scripts/motion.ts` | `7d158bfdfabe0b02944a1444264282f353c8faf5` |
+| `src/lib/reading-position.ts` | `cd5e858b2fdee13eaa0acbb0393db30dadadb4ea` |
+| `tests/experience.spec.ts` | `419ea9002bf7fb53b0b02cd3da1c9ecd2519b973` |
+| `tests/history.spec.ts` | `a9b22e93fe255ce97c30989e553058559c277997` |
+| `tests/continuity.spec.ts` | `866f069668e7cb3384816cafaf90221c7fb5937d` |
+| `tests/journey.spec.ts` | `a406bb23fe094e479d420cf6d946a41aa4049e42` |
+| `tests/portfolio.spec.ts` | `9e94981975122e5735500f8ea5cd57c58596f26a` |
+| `pnpm-workspace.yaml` | `2a684d26623aae625f2b9dd1a87ffd879378db1b` |
+| `pnpm-lock.yaml` | `f8d0e98952de5e0353ec06e6b600a47e82ea11a9` |
+| `playwright.windows.config.ts` | `700e136eb057ed383abba1c5d72bc778a2513115` |
+| `.github/workflows/quality.yml` | `fef530c504cb9452f6f35b683c847ba2afcfdb90` |
+
+
+---
+
+# Historical technical source reviews
 
 Review date: 2026-10-22.
 

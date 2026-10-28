@@ -4,7 +4,42 @@ Production project: the existing Vercel project serving https://myehia.vercel.ap
 Deploy the new repository root through that project; do not create a replacement
 project or move the hostname to another project.
 
-## Retained recovery point
+## Pending cinematic release: production is unchanged
+
+The owner approved the D-020 desktop/mobile preview and requested a final review,
+not a production deployment. The current production source and recovery point are:
+
+- Commit: `40a24f16ec037658fb13d5509dd1ba59573f480a`.
+- GitHub Production deployment: `7280653313`, verified successful.
+- Retained URL: https://portfolio-7zv8t8y73-mohanad49s-projects.vercel.app.
+- Locked backup branch: `backup/production-2026-10-27`, at that exact commit.
+- Development branch: `dev/qa-portfolio`.
+- Replacement draft: https://github.com/Mohanad49/Portfolio/pull/5.
+
+Renaming the previous head branch closed PR 4 automatically. PR 5 retains a link
+to that discussion; all source commits remain intact. `main` now requires an
+up-to-date pull request with successful `verify`, `windows`, and `Vercel` checks,
+plus resolved conversations. Administrator enforcement is enabled. Force pushes
+and deletion are disabled. The backup branch is additionally locked against
+updates. No second-person approval is required for this single-maintainer repo.
+
+When release is explicitly requested, verify these gates against the exact PR
+head and merge normally. Keep both the locked source backup and the retained
+Vercel deployment. If the release needs rollback, promote the retained deployment
+in the same Vercel project; do not reset or force-push `main`. The backup branch
+can also be checked out separately to rebuild the saved version. The older
+original-template recovery tag below remains available too.
+
+The source and visual reviews are complete. Workflow 40671248714 passes the
+complete application, browser, Windows, and performance gates at `1202397`.
+The remaining documentation-only head retains those application and verification
+files and must have green required checks before release. The current preview
+and exact results are linked from PR 5 and `docs/verification.md`.
+
+The historical release records below describe earlier launches, not approval to
+publish this candidate. Current readiness belongs to `docs/verification.md`.
+
+## Original-template recovery point
 
 - Production commit before replacement: 283ac31982d3e77893c8f28d22384e795172737e.
 - GitHub deployment: 6580860301, environment Production, state success.
@@ -17,7 +52,7 @@ select that deployment in the existing Vercel project's deployment history and
 promote it back to production. A source revert of the release merge is the
 recoverable Git alternative; do not reset or force-push main.
 
-## Release gates
+## Initial release gates and launch history
 
 Read docs/verification.md for the current source and objective results. Release
 requires the technical source verdict, the Impeccable visual verdict, all objective

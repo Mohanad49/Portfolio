@@ -71,3 +71,20 @@
 - [x] Verify behavior, accessibility, reflow, motion preferences, and performance.
 - [x] Complete source and visual finish handoffs and the built design record.
 - [x] Publish and validate the updated preview, keeping production unchanged.
+
+## Final pre-production review, D-021, 2026-10-28
+
+- [x] Inspect the accepted desktop/mobile preview and all case-study surfaces.
+- [x] Obtain independent visual and technical source verdicts.
+- [x] Complete the bounded source-security and dependency reviews.
+- [x] Verify actual Windows Chrome, Edge, and Firefox execution with every check retained.
+- [x] Pass the full current application matrix and unchanged performance gates.
+- [x] Rewrite the README and first-person decisions; review About, topics, and license.
+- [x] Remove verified obsolete files while preserving active and legacy assets.
+- [x] Rename the development branch and retain PR/source history.
+- [x] Protect main and lock an exact backup of the current production source.
+- [x] Record the release/recovery procedure and keep production unchanged.
+
+Production replacement remains outside this completed review and requires the
+owner's explicit release instruction. Current-head checks and the final preview
+are linked from PR 5 and the shared verification record.

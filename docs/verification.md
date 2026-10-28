@@ -1,5 +1,204 @@
 # Verification record
 
+## Final pre-production review, D-021, 2026-10-28
+
+Production is unchanged. The replacement remains on `dev/qa-portfolio` in
+[draft PR 5](https://github.com/Mohanad49/Portfolio/pull/5). The locked branch
+`backup/production-2026-10-27` retains production commit
+`40a24f16ec037658fb13d5509dd1ba59573f480a`, together with its retained Vercel
+deployment. No merge, production promotion, or hostname change is authorized.
+
+Current application and verification source is
+`c9dead34c01761c1806609cf5057c6a60cd4837a`. This includes the final page-exit
+correction and its regression. Configuration follow-up `1202397` assigns Firefox
+content checks to its default headless profile and retains the existing WebGL
+check in a separate headed profile. All 105 Windows family/title pairs remain
+present exactly once. The accepted active-page composition, assets,
+copy, and timelines remain identical to `17d6260`; only discarded-document
+cleanup and checkpoint timing changed afterward. The final documentation-only
+revision preserves that application, dependency, build, and verification
+configuration. Required current-head checks remain visible in the PR and are
+enforced before merge.
+
+[Full workflow 40671248714](https://github.com/Mohanad49/Portfolio/actions/runs/40671248714)
+passes at `1202397458cb06ef40356d726a0b128e4b8b8156`.
+Frozen installation, type checking across 43 files, ESLint, and the twenty-page
+production build pass. The optional renderer's existing chunk-size warning is
+retained; the scene is explicitly requested and does not block the first paint.
+
+- Linux: 318 registrations, 306 passes, 12 established applicability skips, zero
+  unexpected failures, flaky results, retries, or runner errors. Chromium,
+  Firefox, and WebKit run at desktop, tablet, and mobile sizes. The skips retain
+  the desktop renderer and once-per-engine legacy-redirect scope.
+- Windows: all 105 applicable checks pass, with zero skips, failures, flaky
+  results, retries, or runner errors. Chrome and Edge pass 35 checks each;
+  Firefox's complementary profiles pass 34 content checks and the one headed
+  renderer check. Real context teardown now completes in both profiles.
+- Normal/reduced-motion portfolio axe checks pass with zero serious or critical
+  findings. The external Cal.diy project's two recorded findings remain visible.
+- All eighteen production-build mobile Lighthouse measurements pass the original
+  three-run median gates. Every measurement has accessibility score 100.
+
+| Route | Runs | Median performance | Median LCP | Median CLS | Accessibility |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| / | 3 | 98 | 2.310s | 0.000000 | 100 |
+| /work/ | 3 | 100 | 1.807s | 0.000000 | 100 |
+| /work/testpulse/ | 3 | 98 | 2.339s | 0.000000 | 100 |
+| /work/caldiy/ | 3 | 98 | 2.263s | 0.000000 | 100 |
+| /work/llm-evaluation/ | 3 | 99 | 1.959s | 0.000000 | 100 |
+| /experience/ | 3 | 99 | 2.205s | 0.000000 | 100 |
+
+The exact reports are retained locally under `.research/final-readiness/ci-120/`
+and in that workflow's Linux and Windows artifacts. The final documentation-only
+head changes none of the verified application, assets, dependency graph, tests,
+build configuration, or CI configuration. Its required checks must also finish
+successfully before release. This record does not authorize a deployment.
+
+
+### What changed during readiness review
+
+- Added actual Windows CI coverage in stable Chrome, Edge, and Firefox. pnpm's
+  shell emulator supports the existing scripts without another runtime package.
+- Kept first-paint styles in the HTML and preloaded the two self-hosted fonts.
+  Mobile opening cutouts prefer AVIF with retained WebP fallbacks; desktop
+  artwork, source rasters, copy, layout, and motion timelines are unchanged.
+- Deferred later homepage motion until its evidence sequence approaches within
+  1.5 viewport heights. This also handles direct fragments and fast/restored
+  scroll positions. Temporary listeners and frames are disposed on exit. It
+  does not add a minimum loader delay, replace native scrolling, or detect tests.
+- Preserved fresh legacy bookmarks and native reading positions through layout
+  setup. Checkpoints save after scrolling and before link navigation, without
+  writing history during page exit. Discarded pages stop their animation contexts
+  without full context style restoration; cached pages retain their existing state. Reload/Back checkpoint validation and stale-traversal cancellation keep
+  the original strict assertions. Reduced motion and static content stay complete.
+- Patched published compatible Lighthouse-tool dependencies. Production audit has
+  zero advisories; the complete development audit retains one moderate and four
+  high advisories. Their actual configured reachability is documented in
+  [dependency review](dependency-review.md), without suppression or unsafe major
+  version overrides. The advisory results were refreshed on 2026-10-28.
+
+The final exit/history regression passes all 21 registrations, including real
+reload/Back checks and an explicit no-history-write-on-exit assertion.
+The focused chapter checks pass all 36 registrations across the nine engine/size
+configurations. The remaining live-preference regression passes all nine after
+activating the demand-loaded scenes. Neither has retries, skips, or failures.
+The affected initial-bookmark/reflow/module-order checks previously passed 21
+registrations with six established desktop-scope skips. These are supporting
+checks, not additional counts to add to the complete CI matrix.
+
+The three focused production-build homepage measurements at the final runtime
+have performance scores 96, 97, 97 and LCP values 2411.866, 2369.969, 2357.832 ms.
+Median performance is 97, median LCP 2.370 seconds, and CLS is zero. The complete
+CI measurements above own acceptance for all routes.
+
+### Independent reviews and hosted preview
+
+[Technical source review](technical-review.md) approves the reviewed correctness,
+architecture, maintainability, compatibility, and resource-handling scope without
+unresolved blocking findings. The sealed
+[security review](security-review.md) reports no established source vulnerability,
+retains its original revision and binary exclusions, and distinguishes the later
+parent-reviewed changes. It is not a guarantee against undiscovered issues.
+
+The independent [visual verdict](experience/final-readiness-visual-review.md)
+returns `ship`. It inspected 22 desktop/mobile captures covering all routes and
+normal-motion homepage states, followed by eight refreshed affected states at
+`17d6260`. Complete gate, prism, and fan silhouettes, readable QA descriptions,
+quiet case prose, and the accepted opening remain intact. The
+[design record](experience/final-readiness-design-record.md) preserves the
+canonical tokens and previews while recording these functional changes.
+
+The exact-runtime hosted preview is
+[deployment 7379690577](https://portfolio-exudh3l8r-mohanad49s-projects.vercel.app),
+verified successful in the Preview environment. Actual browser inspection at
+1440x1000 and 390x844 confirms the desktop About bookmark, mobile opening, single
+TestPulse arrival with the hero hidden, Cal.diy case navigation, complete material
+junction, retained red results, and no captured browser errors. Earlier unchanged
+archive filter/reload and case-table-of-contents checks retain their scope.
+The hosted resume has the descriptive filename and SHA-256
+`683ede439d00f58b2323c78629635ea674558fee1f5e1cce9d7132d7ae47735d`,
+identical to the checked-in PDF. The documentation-only preview receives a final
+smoke check without downloading that unchanged asset again.
+
+This is automated engine coverage, actual Windows CI execution, viewport-based
+hosted inspection, and independent still-image review. It does not certify every
+physical iPhone or Windows GPU, corporate browser policy, assistive technology,
+network condition, continuous animation frame rate, or intermediate visual pose.
+The owner's separate desktop/mobile acceptance remains retained context.
+
+### Repository, safeguards, and cleanup
+
+- `main` requires an up-to-date PR, resolved conversations, and `verify`,
+  `windows`, and `Vercel` checks bound to their verified GitHub Actions/Vercel apps.
+  Administrator enforcement is enabled, with force pushes and deletion blocked.
+  The production backup is additionally locked at the saved commit. Zero required
+  approvals avoids requiring an unavailable second maintainer; it does not remove
+  the PR or objective-check requirements.
+- The branch is renamed locally and remotely to `dev/qa-portfolio`. GitHub closed
+  PR 4 during that rename; PR 5 preserves its link and source history and stays
+  draft and unmerged. Production still serves the prior deployment.
+- About, homepage, topics, the QA-focused README, and the existing MIT license
+  were checked. Font notices and dependency-specific licenses remain retained.
+  `DECISIONS.md` is rewritten in the owner's first-person voice.
+- Removed only the unused legacy Firestore reader, duplicate root verification
+  file, and seven unreferenced certificate copies. The served verification file,
+  active credential assets, original portrait path, exact resume, thirteen legacy
+  project redirects, section bookmarks, and historical recovery records remain.
+- Generated output, test reports, captures, research, and `.env` variants are
+  ignored. No new runtime secret, backend, public API, or deployment project exists.
+
+### Failures retained rather than relabeled
+
+The earlier D-020 application passed run 40251633738. Its subsequent document-only
+head's run 40256504364 crossed the homepage LCP limit, demonstrating why an older
+green result was not accepted as current proof. Later intermediate runs remain
+in `.research/final-readiness/` with their exact source identities:
+
+- `40465817776`: Windows 99 passes; Linux had a Firefox mobile evidence-bookmark
+  failure. The final initial-bookmark correction and history work address it.
+- `40573869429`: Windows 105 passes; Linux 304 passes, 12 skips, and one WebKit
+  desktop About-bookmark failure, addressed by first-layout landmark preservation.
+- `40579225055`: Windows 105 passes; Linux 204 passes, eight skips, and 105 Firefox
+  launch failures from container-home ownership. Nonrecursive ownership alignment
+  fixed the ephemeral directory without overriding `HOME` or adding privileges.
+- `40649828524`: superseded and cancelled, not a completed acceptance run.
+- `40650647916`: Linux 296 passes, 12 skips, and nine instances of one reveal
+  fixture expecting eager chapter setup. The fixture now approaches the evidence
+  before its unchanged visibility and live-preference assertions.
+- `40651798704`: Linux 305 passes, 12 skips, and all eighteen Lighthouse gates
+  passed. Windows had 103 passes and two overlapping Firefox failures, one during
+  context shutdown and one stalled scroll animation. Their traces remain
+  retained. The Windows config now isolates headed sessions with one worker, as
+  recommended in [Playwright CI guidance](https://playwright.dev/docs/ci#workers).
+  Serialization is a diagnostic correction; the final complete run supplies its
+  result. No timeout was increased or failed assertion removed.
+- `40654781949`: Linux passed again. Windows had 104 passes and one filter-test
+  context-shutdown failure despite serial execution. Its trace retained the
+  page-exit history call and GSAP style restoration. The final correction moves
+  checkpoints before link activation, disposes their listeners before cleanup,
+  and kills discarded-document animation contexts without reverting styles.
+  Live resize/preference reconfiguration still reverts normally. The corrected
+  regression explicitly checks one pre-navigation save and zero exit-time saves.
+- `40669413721`: Linux passed the complete current application and performance
+  gates. Windows had 104 passes and a teardown-only failure after the static
+  reduced-motion assertions passed. That page does not load the GSAP modules;
+  the source lifecycle correction is not represented as fixing the driver hang.
+  Firefox content now uses the standard headless profile, with its one existing
+  WebGL interaction check isolated in a headed profile. Registration comparison
+  proves no check was removed or duplicated, and no assertion or timeout changed.
+- The first local 18-measurement final run had homepage median LCP 2664.831 ms.
+  A batched-layout-read experiment still failed at 2728.978 ms and was removed.
+  The real deferred-preparation correction then passed the three measurements
+  above. Earlier failed measurements and traces are retained as failed evidence.
+
+No assertion threshold was relaxed. The final successful results do not relabel
+these failures as flaky or convert cancelled runs into completed checks.
+
+## Historical verification records
+
+The records below retain their original source, date, and release scope. Their
+use of "current" refers to those earlier checkpoints.
+
 ## Owner feedback refinement, D-020: current verification, 2026-10-26
 
 The owner approved the gate, paired prisms, and fan material family. The working

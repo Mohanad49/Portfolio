@@ -1,354 +1,198 @@
-# Decisions
-
-## D-001: Isolated replacement with existing repository history
-
-Use a separate clone of the existing repository on codex/qa-portfolio. Keep the
-original local checkout unchanged and use the existing Vercel project at launch.
-This avoids changing the public URL or losing the current deployment as rollback.
-
-## D-002: Five skills with explicit ownership
-
-The owner approved the routing table in tasks/plan.md. Do not install the six
-previously proposed additions. Impeccable owns the visual pipeline; imagegen
-produces its requested raster assets. Content, Git, and technical review have
-separate owners. Tools execute the plan's checks without adding workflows.
-
-## D-003: Content truth and conceptual art
-
-Resume facts and verified public artifacts govern claims. Employer artwork is
-conceptual. TestPulse snapshot freshness, Cal.diy's pinned target and documented
-failures, and the LLM judge's exclusion from gates remain visible. Case-study
-templates do not justify fabricated team sizes, timelines, or business effects.
-
-## D-004: Images before UI implementation
-
-The owner chose image concepts first in the planning interview and repeated that
-requirement in the approved implementation plan. Generate three compositions in
-the approved quality-lab family. Record the selected concept before UI authoring.
-The rest of the product brief is already confirmed and must not be re-interviewed.
-
-## D-005: Layered monograph composition
-
-The owner selected concept B on comparison page 7bd85de9. The approval is recorded
-in .impeccable/mocks/concept-b.png.json and .impeccable/selection.json. Three
-compositions were shown together; no further palette or identity interview is
-required. The approved image is the measured first-viewport target, with native
-HTML text and controls and a deliberate responsive adaptation.
-# D006: Native raster limits and explicit layers
-
-The asset tool returned the hero at 1751 x 898 after a targeted resolution retry.
-The retained original is not upscaled. The project-detail plate is 2012 x 782 and
-uses the approved bleed crop. Both passed the asset tool's actual checks; the
-hero comparison passed at 90 percent after semantic text was integrated.
-The requested 1.5x hero density from the skill's prose was not produced by the
-available generator. Sharpness remains part of the visual review at real sizes.
-
-The hero uses optimized raster artwork behind semantic HTML. The testing-approach
-section supplies the real optional 3D interaction. Both layers stay complete when
-JavaScript, motion, or WebGL is unavailable.
-
-# D007: Supported, compatible build tooling
-
-Use Node 24, ESLint 10, Astro's current lint plugin, and TypeScript 6.0.3.
-TypeScript 7 is outside typescript-eslint's supported range. Disable automatic
-peer installation for this project and explicitly pin Vite so optional legacy
-accessibility lint peers cannot add an incompatible ESLint dependency. Axe and
-the browser suite own measured accessibility verification. Peer checks pass.
-
-## D-008: Overlapping glass in the desktop inspection study
-
-Use Drei's existing MeshTransmissionMaterial so the amber layers can sample other
-transmissive layers. Its extra buffers are bounded at 512 square with six samples,
-backside rendering disabled, and no temporal distortion. The three inner layers
-add three scene passes per demanded frame. The scene still mounts only near the
-viewport for eligible desktop visitors and disposes its owned resources on exit.
-The owner authorized the final focused material pass, and the visual reviewer
-accepted the resulting dark chrome, refracted amber overlap, and graphite field.
-See https://drei.docs.pmnd.rs/shaders/mesh-transmission-material.
-
-## D-009: Real WebGL2 coverage in hosted Firefox
-
-The first Ubuntu acceptance run passed 114 checks and failed the Firefox desktop
-interaction check. Its trace reported AllowWebgl2:false. Keep that failure as
-evidence rather than changing the assertion or skipping the browser. Run Linux CI
-Firefox with a virtual display and explicit software WebGL preferences, then prove
-that the existing input, rendering, console-error, and context-loss checks pass.
-These settings affect the ephemeral test browser, not the deployed application.
-Hosted execution remains a gate until the new configuration actually succeeds.
-References: https://playwright.dev/docs/ci and
-https://bugzilla.mozilla.org/show_bug.cgi?id=1970486.
-
-## D-010: Stable scene entry before GPU initialization
-
-A hosted desktop Chromium bookmark check exposed software-GPU stalls during
-initial Contact navigation. Its trace ends at the correct footer, but the native
-smooth scroll briefly passes the inspection study and initializes its renderer.
-A local 90-frame capture confirms one renderer request and fifteen canvas frames
-during that transit. Delay initial activation until scrolling has settled for
-150 ms, then recheck visibility, the media query, and document visibility. Keep
-immediate deactivation and the behavior of an already active scene. Consume the
-latest IntersectionObserver entry and clear pending timers and listeners on exit.
-The same capture now records zero renderer requests and zero canvas frames,
-reaching the identical Contact scroll position. Preserve the strict bookmark and
-real rendering assertions; do not change global smooth scrolling or the artwork.
-
-## D-011: Explicit resume response filename
-
-The PDF bytes matched the supplied resume in preview and production, but Vercel's
-default response header named the browser download resume.pdf. Set the descriptive
-attachment filename explicitly on /resume.pdf in vercel.json. Preserve the exact
-PDF, route, cache policy, and strict download assertion. The authenticated preview
-downloads Mohanad_Yehia_Software_QA_Engineer.pdf with the expected SHA-256 digest.
-Reference: https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Disposition.
-
-## D-012: Current employment metrics and curated testing evidence
-
-The owner confirms 5,000+ authored test cases and 600+ defects driven to resolution
-at Blue Ribbon. The existing local Word and PDF resumes already contain these
-figures; copy that PDF exactly into the portfolio rather than rebuilding it.
-Add the same figures to the GitHub profile and retain the 85% admin-portal scope.
-Identify the degree project explicitly as Graduation Project.
-
-Remove the eBay exercise from the curated portfolio and GitHub framework table.
-Its source has one externally configured search/filter journey and a parser unit
-suite. Broadening a live-marketplace exercise would duplicate stronger existing
-Selenium evidence. Keep the repository unchanged, and send its old /project/10 URL
-directly to GitHub. The archive now contains six frameworks across four disciplines.
-
-## D-013: Visible mobile reveals, with desktop-only 3D
-
-The owner selected visible, lightweight reveals on both desktop and mobile.
-Remove the viewport cutoff from the existing GSAP loader and keep it only around
-the hero's image movement. Strengthen the existing once-only evidence reveal from
-75% to 18% starting opacity, with 28px displacement over 0.8 seconds. Skip content
-already at the current reading position, clear completed styles, and retain live
-Reduce Motion cleanup and history restoration. No dependency or mobile Canvas is
-added. The static artwork below 1024px remains an intentional performance choice,
-not an inference about iPhone or Safari capability.
-
-## D-014: An experience study before broader motion integration
-
-The owner approved the recommended next step: storyboard the opening and
-TestPulse on desktop/mobile, then prototype the strongest sequence against the
-current site. Keep the established material identity and factual copy, while
-allowing a more expressive interaction. The study is separate from production.
-
-Three composition probes compare an opening fan, a short advance through a
-material slot, and a specimen travelling between sections. On 2026-10-23 the
-owner selected B: Pass Through after reviewing the desktop and mobile concepts.
-Its approved image is .impeccable/mocks/experience/pass-through.png.
-
-Use the current public TestPulse export for the second sequence. The selected
-Cal.diy API booking-lifecycle history includes passed and failed observations at
-one commit; retain the actual dates, unknown retry counts, and snapshot boundary.
-Do not substitute synthetic red/green cells for the real evidence.
-
-After selection, implement only the study in an isolated preview and measure
-mobile comfort and rendering cost. Keep the existing acceptance thresholds and
-one shared verification record. Integration and production replacement are
-separate decisions after the prototype comparison.
-
-## D-015: One native scroll sequence, with stable evidence access
-
-The isolated /experience route has a short sticky opening, immediate work/resume
-actions, and three immutable TestPulse observations. GSAP owns scroll progress
-and HTML transforms; React Three Fiber reads that progress and renders five
-actual desktop volumes on demand. It does not run a perpetual frame loop.
-Mobile opens two alpha-cut material plates over 45% of a viewport of travel.
-Reduce Motion and no JavaScript show the complete still and semantic evidence.
-
-This route overrides inherited smooth fragment scrolling with native immediate
-anchor navigation. The first production-build check exposed a stale fragment
-destination when enhancement lengthened the opening during smooth scrolling.
-Opening height changes now belong to the same configuration transaction as
-reading-position compensation, rather than changing earlier in media-query CSS.
-Completed evidence reveals stay completed across preference and size changes.
-
-HTML project lettering remains above the scene so a transmissive surface cannot
-hide the destination. The rebuilt renderer uses original chrome and reflection
-maps, with cloned color/data textures and a transmission background. A transparent
-canvas cannot refract HTML behind it.
-The static concept and actual real-time material are reviewed separately.
-Reference: https://drei.docs.pmnd.rs/shaders/mesh-transmission-material and
-https://drei.docs.pmnd.rs/staging/environment.
-
-## D-016: Keep the desktop material rejection visible
-
-Two independent full reviews of the isolated prototype return rebuild. The
-second resolves mobile action clearance, but the live desktop finish still has
-broad white/beige reflections and opaque-looking gold planes. It does not match
-the approved textured dark chrome, luminous amber volume, and close passage.
-The static composition's 94.2% match is a separate result, not a visual approval
-of the live scene. Retain both reports and present the actual preview before
-deciding between another 3D rebuild and an explicitly approved layered treatment.
-
-Do not integrate or replace production while that material finding remains open.
-The existing mobile treatment, factual observations, immediate work/resume access,
-complete fallbacks, and original homepage stay intact in this comparison snapshot.
-
-## D-017: Preserve B with cinematic artwork layers
-
-The owner rejected the hosted renderer as visibly unlike the approved B artwork
-and authorized preserving the cinematic layered artwork if the renderer could
-not match it. Two independent full reviews had already found that material gap.
-Choose the authorized layered treatment rather than extend the rejected renderer.
-
-Desktop keeps the approved text-free plate continuous and advances toward its
-existing slot with a bounded native-scroll push. The first layered capture exposed
-a hard horizontal seam when that image was split, so no artificial cut ships.
-Mobile retains the independently moving transparent cutouts. Keep semantic HTML, immediate actions, compact mobile cutouts, and
-complete reduced-motion/no-JavaScript states. Remove the prototype-only renderer
-and its abandoned maps. Keep the homepage's standalone inspection scene intact.
-
-This resolves the implementation strategy, not visual acceptance. Archive the
-rejected build/captures, perform a fresh full finish review of the new treatment,
-and update the isolated preview. Production integration remains outside scope.
-
-## D-018: One TestPulse heading from aperture to work section
-
-The owner accepts the artwork treatment but identifies a broken handoff: the
-decorative TestPulse grows, stops, and is followed by a second TestPulse heading.
-Replace the duplicate with one real linked heading that grows into the complete
-work introduction. Fade the hero title, role, description, and buttons fully as
-the material field advances and clears. Release the sticky frame only after the
-TestPulse introduction is complete, then continue into its existing evidence.
-
-Focal moment: the material aperture becomes the work itself. Continuity: the
-same heading and descriptor retain their identity throughout, with existing
-approved explanatory copy introducing the project. Feedback: work/resume access
-is immediate at rest; hidden hero controls leave keyboard focus when faded.
-Budget: a bounded native-scroll timeline, transforms and opacity, no renderer,
-new asset, dependency, forced snap, or custom scrolling. Reverse scrolling must
-restore the complete opening. Static and Reduce Motion paths remain complete.
-The opening's extra travel uses measured pixel height, updated with resize in
-the same reading-position transaction. Layout containers opt out of the global
-reduced-motion transition shortcut so padding and margins settle immediately.
-The evidence approaches from below during the final part of the transformation,
-avoiding an empty viewport between the introduction and actual observations.
-The enhanced arrival wrapper starts hidden while its layout changes from static
-flow to the pinned scene. GSAP reveals that wrapper, with a separate small copy
-translation, so initialization cannot move a visible layout box into the opening.
-Static and reduced-motion styles keep the wrapper visible without enhancement.
-
-Impeccable owns the choreography and finish. The newly installed official
-gsap-scrolltrigger skill supplies API guidance only. The inspected timeline and
-transitions.dev skills stay inactive, with no second motion system. Official
-references: https://gsap.com/docs/v3/Plugins/ScrollTrigger/ and
-https://gsap.com/docs/v3/GSAP/gsap.context()/.
-Apply this refinement to the isolated /experience preview; production integration
-remains a separate decision.
-
-## D-019: Carry the accepted opening through the full portfolio
-
-On 2026-10-25 the owner accepted D-018 and requested a similarly memorable full
-website, including the case studies. Promote that opening to the preview homepage
-and extend the existing world through content-specific chapter motion. Keep the
-focused /experience study, source facts, and production recovery point.
-
-This extends approved surfaces and materials, rather than selecting a new world.
-The prior image approvals and explicit D-018 acceptance remain visual authority.
-No new raster concept or material rebuild is needed. Impeccable owns the motion
-thesis, implementation, visual review, and documentation. The case-study writer
-is inactive because facts and narratives are unchanged; imagegen is inactive
-because existing approved assets suffice. Git and technical source review retain
-their existing separate responsibilities. No extra workflow is activated.
-
-Focal moment: accepted Pass Through. Continuity: distinct Cal.diy contention,
-LLM comparison, production trace, inspection, portrait, and contact sequences.
-Feedback: native navigation, project links, filters, disclosures, and contact
-remain direct. Budget: bounded GSAP timelines, native CSS document transitions,
-and the existing on-demand Approach renderer. No smooth-scroll replacement,
-client router, perpetual background loop, or additional animation dependency.
-
-Case-study entrances share the material language; prose remains steady. Preserve
-static content, Reduce Motion, focus, bookmarks, history, resource cleanup,
-responsive reflow, and enlarged text. Reuse the existing acceptance thresholds
-and one current-source verification record. Full visual/source reviews precede
-preview completion. Production replacement remains a separate decision.
-
-Reference inspection: https://landonorris.com/ supplies a pacing reference, not
-assets or product content. Implementation references are GSAP ScrollTrigger and
-MDN's native cross-document View Transition API documentation.
-
-Completion: the preview now carries the accepted opening through the homepage,
-archive, and all three cases. The fresh visual review's sole enlarged-text
-finding is resolved; technical findings and the final hosted checks are complete.
-The canonical design pair describes the implemented motion system. Current
-evidence, exact source identities, measurements, and review scopes are recorded
-in docs/verification.md and the separate review records. Production replacement
-remains an owner decision after reviewing this complete preview.
-
-## D-020: Resolve the owner's full-site continuity and motion feedback
-
-Date: 2026-10-26. The owner rejected the D-019 material cutoffs and repeated slab
-composition using three actual preview screenshots. Preserve the accepted Pass
-Through opening and production. Impeccable owns this refinement; a fresh full
-visual review consumes the owner's evidence. Imagegen produces distinct material
-forms only from Impeccable's briefs. No competing workflow or motion library.
-
-The narrow target is continuity across the Cal.diy homepage chapter, case-entry
-and evidence boundaries, and archive list; clearly legible QA project identity;
-more visible, content-specific project choreography; and measured desktop
-startup/scroll performance. Do not claim that a blocking loader improves render
-speed. Record before/after results and keep the complete static, reduced-motion,
-zoom, mobile, keyboard, history, and unsupported-WebGL paths.
-
-Initial local desktop profiling found no startup long tasks, but a 2099.8 ms
-frame gap during automatic activation of the optional Approach WebGL scene.
-This is headless Chromium with software WebGL, not a physical-device benchmark.
-The retained baseline is .research/d020/performance-before.json. Investigate
-renderer activation, critical-resource readiness, and image decode timing.
-
-Asset direction: retain the approved materials and lighting, with a concurrency
-gate for Cal.diy, paired optical forms for LLM evaluation, and an ordered fan for
-the archive. Present the new family before dependent UI integration. The accepted
-opening remains the primary sequence; later projects gain their own bounded
-scroll narrative instead of repeated subtle entrances.
-
-The first visual batch found two diagram entrances crossing their own captions
-and word fragmentation at 320px with 200% text. The correction removes vertical
-figure translation, caps compact whitespace, and uses fluid rem-based heading
-floors. Metrics wrap into one column when enlarged text needs it. Normal opening
-geometry is preserved. A keyboard focus handoff also follows explicit 3D startup;
-loading never disables the focused launch button or steals focus after tabbing away.
-
-One initial Approach component capture left its last entrance unsettled. It is
-invalid for finish acceptance and is replaced in the confirmation batch, after
-scrolling the complete component to settle every entry. The other initial captures
-were opened and validated. The final packet must use the refreshed manifest.
-
-The first complete D-020 hosted run, 40249515832, recorded 283 passes, 12
-established applicability skips, and three WebKit failures in the deliberate
-delayed-module scenario. The original fixture waited for load while holding
-an opening-module request. Moving to document commit exposed a real second
-dependency: WebKit reported the two fonts loaded while document.fonts.ready
-remained pending and general motion had not initialized.
-
-The retained probe is .research/d020/webkit-held-font-state.json. Startup now
-uses one shared preparation promise for explicit Alexandria and Manrope loads,
-rather than document-wide font-set readiness. The fixture waits for the actual
-general-motion state and releases its held request in finally. All original
-growth and geometry assertions remain. The corrected nine-configuration run
-passes with no failures, skips, retries, or filters. Application markup, styles,
-rasters, and settled choreography are unchanged by this resource-readiness fix;
-startup timing evidence is refreshed for the amended code.
-
-Final application and tests are abe295742909c1f1a3110daf404d2f5d19b66523.
-Workflow 40251633738 passes with 286 checks and 12 established applicability
-skips; no failure, retry, flaky result, or runner error remains. Eighteen mobile
-Lighthouse runs meet the unchanged gates. Exact medians and the controlled
-desktop before/after measurements belong to docs/verification.md and
-docs/experience/d020-motion-performance.md, without physical-device claims.
-
-The fresh visual review's verdict pass scores all six listed fixes resolved,
-the last at sampled scope, and returns ship for that fix list. It validates
-52 stills and three recordings inspected as decoded sequences; it does not
-claim native real-time playback or reopen full-surface aesthetic review.
-The authenticated preview at deployment 7321691035 passes native navigation,
-project/evidence access, bookmarked archive filtering, and explicit 3D keyboard/
-return controls. Production deployment 7280653313 remains at 40a24f1, and the
-original checkout remains clean. The independent documenter completed the
-token-bearing design pair and D-020 extraction, preserving all ten preview
-component objects and disclosing their existing drift. The build thread verified
-the documentation boundary and unchanged application identity. D-020 is complete
-for preview review; this amendment grants no merge or production-release approval.
+# Why I built the portfolio this way
+
+I wanted a portfolio that makes my QA work understandable and gives visitors a
+reason to remember it. These are the choices behind it, including the approaches
+I rejected. The detailed test results belong in [verification](docs/verification.md),
+and deployment history belongs in [release and recovery](docs/release.md).
+
+## D-001: Keep the existing history and public address
+
+I built the replacement in a separate checkout so I could keep using the current
+site while reviewing the new one. I kept the existing repository and Vercel
+project, including `myehia.vercel.app`. The development branch is now
+`dev/qa-portfolio`; its original name was `codex/qa-portfolio`.
+
+## D-002: Give each workflow one job
+
+I did not want several design skills giving conflicting advice. Impeccable owns
+the visual work, imagegen produces assets from that direction, and content,
+version control, and source review have separate responsibilities. The agreed
+boundaries are in [the project plan](tasks/plan.md).
+
+## D-003: Make every claim defensible
+
+I only publish experience and results I can explain in an interview. TestPulse
+shows exported CI snapshots, Cal.diy targets v6.2.0, and the LLM refusal judge
+stays outside CI gates. Failed checks and measurement limits are part of the
+story. Employer illustrations are conceptual, not screenshots of private systems.
+
+## D-004: See the design before building it
+
+I asked for image concepts first. That let me judge the composition, lighting,
+and material treatment before spending time on implementation. The selected
+concepts remain in the repository as design references.
+
+## D-005: Choose the layered composition
+
+I chose concept B for its dark chrome, amber glass, and strong typography. I
+wanted the artwork to establish the identity without turning the text and
+navigation into part of an image. The site keeps real HTML for both.
+
+## D-006: Work within the artwork's real resolution
+
+The generated hero and project artwork had finite resolution. I kept the native
+files instead of upscaling them and claiming extra detail. Responsive optimized
+images carry that artwork; the separate inspection study provides optional 3D.
+
+## D-007: Keep the build reproducible
+
+I use pinned dependencies, a committed lockfile, Node 24, and pnpm 11.17.0.
+TypeScript and lint tooling must support each other. The build validates the
+content, while browser checks and axe verify behavior and accessibility.
+
+## D-008: Make the glass interaction worth opening
+
+The inspection study uses bounded transmission buffers to show overlapping amber
+layers. I accepted the extra rendering cost for that optional experience. It
+renders on demand and has a complete artwork fallback. D-020 replaces its earlier
+automatic activation with an explicit button.
+
+## D-009: Keep Firefox failures visible
+
+The first hosted Firefox interaction test could not create WebGL2. I kept the
+assertion and fixed the Linux test environment with a virtual display and software
+rendering. A browser failing to initialize is evidence to investigate, not a
+reason to mark the same test as passed.
+
+## D-010: Avoid starting 3D during navigation
+
+Smooth scrolling to Contact briefly crossed the inspection section and started
+its renderer. The first fix waited for scrolling to settle before activation.
+D-020 later removed automatic activation entirely, so ordinary navigation no
+longer starts the optional renderer.
+
+## D-011: Give the resume download a useful filename
+
+The PDF was correct, but the download was named `resume.pdf`. I kept its exact
+bytes and public URL and set the response filename to
+`Mohanad_Yehia_Software_QA_Engineer.pdf`.
+
+## D-012: Update my figures and curate the project list
+
+My Blue Ribbon figures are 5,000+ authored test cases and 600+ defects driven to
+resolution. I can defend those numbers, and they now match my resume and GitHub
+profile. The 85% regression figure still refers specifically to the admin portal.
+I also labelled my machine-learning work as my graduation project.
+
+I removed the small eBay search/filter exercise from the curated portfolio. The
+other Selenium work provides stronger evidence, so expanding eBay would add
+repetition. Its repository stays available, and the old portfolio link redirects
+to it. The framework archive contains six projects across four disciplines.
+
+## D-013: Let mobile visitors see the motion too
+
+I wanted visible scroll reveals on desktop and mobile, with Reduce Motion fully
+respected. The optional 3D scene remains desktop-only as a performance choice.
+That does not mean an iPhone is incapable of running WebGL.
+
+## D-014: Prototype a memorable opening
+
+A clean portfolio was not enough for what I wanted. I asked for an experience
+study and chose B, Pass Through, after comparing three desktop concepts and a
+mobile study. The TestPulse sequence uses real exported observations, including
+their dates and unknown retry counts.
+
+## D-015: Keep scrolling native
+
+I chose a bounded scroll sequence with immediate work and resume access. GSAP
+controls the DOM motion; it does not replace the browser's scrolling. Bookmarks,
+history, keyboard navigation, and a complete static version remain part of the
+experience. The isolated `/experience` route records that study.
+
+## D-016: Reject the renderer that missed the concept
+
+The rendered prototype did not match the approved artwork. Its reflections looked
+pale and its gold planes looked opaque. I rejected that finish instead of accepting
+it because it was technically 3D. The rejected studies and review records remain
+part of the project history.
+
+## D-017: Preserve the cinematic artwork
+
+I chose the layered artwork treatment when the renderer could not reproduce the
+approved material. Desktop advances through the intact plate; mobile uses separate
+transparent layers. This preserved the look I actually wanted and removed the
+prototype renderer and its unused maps.
+
+## D-018: Turn the opening into TestPulse
+
+Seeing TestPulse enlarge and then appear again as another heading felt wrong.
+I asked for one continuous handoff: the hero copy fades away, the same TestPulse
+heading grows, and the full project introduction appears before normal scrolling
+continues. That transition is the main moment of the homepage.
+
+## D-019: Carry the experience through the site
+
+I wanted the rest of the homepage and the case studies to match the opening.
+Each chapter now has motion related to its content: booking contention, LLM
+comparison, experience, inspection, and contact. Case-study prose stays steady
+so the animation does not interfere with reading. Lando Norris's site informed
+the ambition and pacing; its assets and content were not reused.
+
+## D-020: Fix cutoffs, repetition, and unclear project identities
+
+My preview review found chopped glass artwork, repeated slab shapes, and project
+names that needed more explanation. I approved a related material family: a gate
+for Cal.diy, paired prisms for LLM evaluation, and a fan for the archive. The
+complete forms now connect with the surrounding content, and each featured
+project has a clear QA description.
+
+I also wanted stronger motion beyond the opening. The project sequences now
+advance with scrolling and keep their actual results unchanged. Enlarged text,
+mobile layouts, and reduced motion get complete alternatives.
+
+A local software-rendering trace showed a large stall when the optional 3D scene
+started automatically. It now starts only after pressing **Inspect in 3D**. The
+short desktop readiness screen has a fixed release ceiling and never blocks
+interaction. I did not use a loader as a substitute for fixing rendering work.
+
+The hosted WebKit checks also exposed a font-readiness issue. Explicit preparation
+of the two required fonts replaced waiting for the entire document font set.
+I reviewed the corrected preview on desktop and mobile and accepted it.
+
+## D-021: Verify the release and preserve the current site
+
+I asked for one final review before production, including Windows, browsers,
+security, source quality, and the repository itself. Windows now has a dedicated
+Chrome, Edge, and Firefox job. The existing Linux desktop, tablet, and mobile
+coverage stays in place. pnpm's built-in shell emulator makes the same commands
+work on Windows without another dependency.
+
+The current production source is saved on the locked branch
+`backup/production-2026-10-27`. `main` requires a pull request, passing checks, and
+resolved conversations, and blocks force pushes and deletion. I do not require a
+second person's approval on a repository I maintain alone.
+
+The final review found a homepage LCP result above the existing limit. I kept
+that limit and moved later chapter preparation out of the opening's first paint.
+The mobile opening uses smaller AVIF cutouts with WebP fallbacks. The full Linux
+run now passes the original performance gates; exact results and any remaining
+checks belong in [verification](docs/verification.md).
+
+I also isolated headed browser sessions on the Windows runner after two Firefox
+checks stalled while running together. That change keeps the same coverage,
+assertions, time limits, and zero retries. A later trace also pointed to work
+during page exit. Checkpoints now save before following links, and closing a
+document stops its animations without fully restoring a visual state that will be discarded.
+Cached pages keep their state.
+
+The Windows driver still hung when closing a page with no animation module.
+I separated Firefox's normal headless content checks from its one headed WebGL
+check. That keeps every check and gives each profile a clear job. The complete
+Windows run now passes with those profiles.
+
+Reload and Back also need to keep my visitor's place after the opening changes
+the document height. The site now saves a small reading checkpoint with each
+native history entry and restores it after layout, without replacing scrolling.
+A new action or another traversal cancels a pending restoration.
+
+Production will change only after I explicitly request the release.
