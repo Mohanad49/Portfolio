@@ -13,15 +13,17 @@ Current application and verification source is
 correction and its regression. Configuration follow-up `1202397` assigns Firefox
 content checks to its default headless profile and retains the existing WebGL
 check in a separate headed profile. All 105 Windows family/title pairs remain
-present exactly once. The accepted active-page composition, assets,
+present exactly once. `dd0bf4b` explicitly sets Mozilla's active-page automation
+preference in the native Windows Firefox profiles, retaining every existing
+assertion and time limit. The accepted active-page composition, assets,
 copy, and timelines remain identical to `17d6260`; only discarded-document
 cleanup and checkpoint timing changed afterward. The final documentation-only
 revision preserves that application, dependency, build, and verification
 configuration. Required current-head checks remain visible in the PR and are
 enforced before merge.
 
-[Full workflow 40671248714](https://github.com/Mohanad49/Portfolio/actions/runs/40671248714)
-passes at `1202397458cb06ef40356d726a0b128e4b8b8156`.
+[Full workflow 40689061389](https://github.com/Mohanad49/Portfolio/actions/runs/40689061389)
+passes at `dd0bf4b73c40703e2057e8062243c4685e31b913`.
 Frozen installation, type checking across 43 files, ESLint, and the twenty-page
 production build pass. The optional renderer's existing chunk-size warning is
 retained; the scene is explicitly requested and does not block the first paint.
@@ -41,14 +43,14 @@ retained; the scene is explicitly requested and does not block the first paint.
 
 | Route | Runs | Median performance | Median LCP | Median CLS | Accessibility |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| / | 3 | 98 | 2.310s | 0.000000 | 100 |
-| /work/ | 3 | 100 | 1.807s | 0.000000 | 100 |
-| /work/testpulse/ | 3 | 98 | 2.339s | 0.000000 | 100 |
-| /work/caldiy/ | 3 | 98 | 2.263s | 0.000000 | 100 |
-| /work/llm-evaluation/ | 3 | 99 | 1.959s | 0.000000 | 100 |
-| /experience/ | 3 | 99 | 2.205s | 0.000000 | 100 |
+| / | 3 | 99 | 2.041s | 0.000000 | 100 |
+| /work/ | 3 | 100 | 1.805s | 0.000000 | 100 |
+| /work/testpulse/ | 3 | 98 | 2.349s | 0.000000 | 100 |
+| /work/caldiy/ | 3 | 98 | 2.408s | 0.000000 | 100 |
+| /work/llm-evaluation/ | 3 | 99 | 1.957s | 0.000000 | 100 |
+| /experience/ | 3 | 98 | 2.256s | 0.000000 | 100 |
 
-The exact reports are retained locally under `.research/final-readiness/ci-120/`
+The exact reports are retained locally under `.research/final-readiness/ci-dd0/`
 and in that workflow's Linux and Windows artifacts. The final documentation-only
 head changes none of the verified application, assets, dependency graph, tests,
 build configuration, or CI configuration. Its required checks must also finish
@@ -186,6 +188,16 @@ in `.research/final-readiness/` with their exact source identities:
   Firefox content now uses the standard headless profile, with its one existing
   WebGL interaction check isolated in a headed profile. Registration comparison
   proves no check was removed or duplicated, and no assertion or timeout changed.
+- `40673557328`: the documentation-only repeat retained passing Linux checks,
+  but Windows had 103 passes and two Firefox timing failures. One chapter was
+  still waiting for setup; another reveal approached its final transform without
+  completing within the original eight seconds. The traces were retained rather
+  than relabeled flaky. The native Windows Firefox profiles now explicitly set
+  `layout.testing.top-level-always-active`, Mozilla's
+  [automation preference for refresh-driver scheduling](https://raw.githubusercontent.com/mozilla-firefox/firefox/main/modules/libpref/init/StaticPrefList.yaml).
+  Installed Playwright already uses that preference in its Firefox BiDi defaults;
+  these projects use the native Juggler path, so it is supplied explicitly.
+  No site animation, test timeout, selector, assertion, or retry policy changed.
 - The first local 18-measurement final run had homepage median LCP 2664.831 ms.
   A batched-layout-read experiment still failed at 2728.978 ms and was removed.
   The real deferred-preparation correction then passed the three measurements

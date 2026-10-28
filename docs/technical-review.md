@@ -4,148 +4,160 @@ Updated: 2026-10-28. Delegated source reviewer using
 `engineering-suite:code-review-and-quality`.
 
 Repository: `/Users/yehiaabozid/Coding/Portfolio/qa-portfolio`.
-Snapshot HEAD: `1202397458cb06ef40356d726a0b128e4b8b8156`.
-Latest scope: Windows Firefox project split `1202397`, with application source
-unchanged from the reviewed unload correction `c9dead3`.
+Snapshot HEAD: `dd0bf4b73c40703e2057e8062243c4685e31b913`.
+Latest scope: Firefox refresh-driver preference in `dd0bf4b`, with application
+source unchanged from the reviewed unload correction `c9dead3`.
 
-## Verdict
+## Final verdict
 
 **Approve technical source quality and close technical CI acceptance at
-`1202397458cb06ef40356d726a0b128e4b8b8156`.** No unresolved Critical, Required,
-Optional, or Nit source finding remains. The Windows configuration preserves
-the complete check inventory and separates content execution from the one
-headed renderer scenario.
+`dd0bf4b73c40703e2057e8062243c4685e31b913`.** No unresolved Critical, Required,
+Optional, or Nit source finding remains. Both Windows Firefox profiles use the
+reviewed active-page automation policy with unchanged application behavior and
+test expectations.
 
-Run `40671248714` completed successfully for both verify and windows, confirmed
-by the parent and supported by the retained artifacts consumed below. Windows
-acceptance is closed for the reviewed execution modes and source. Earlier
-failures remain historical failures. This technical approval authorizes no
-merge or production change.
+Run `40689061389` completed successfully for verify and windows, confirmed by
+the parent and independently supported by the retained artifacts consumed below.
+The failed `5eeb780` doc-head repeat remains historical failed evidence. This
+technical approval authorizes no merge or production change.
 
-## Latest Windows configuration review
+## Current accepted execution evidence
 
-At `playwright.windows.config.ts:4,21-38`, one shared inspection pattern gives
-the Firefox projects complementary ownership. The default-headless project
-runs the other 34 checks. The headed project matches only the existing desktop
-inspection scenario in `portfolio.spec.ts`, retaining its software-WebGL prefs
-and viewport. Installed Playwright source confirms that absence of a headless
-override uses its true default. Chrome and Edge remain unchanged.
+Consumed the current Windows JSON at
+`.research/final-readiness/ci-dd0/portfolio-windows-verification/test-results/results.json`:
+105 expected passes, zero skipped, unexpected, or flaky results, zero runner
+errors, and every result passed on retry 0. Exact project counts remain Chrome
+35, Edge 35, Firefox headless content 34, and headed Firefox renderer 1.
 
-Both Firefox names end in `desktop`, preserving the existing applicability
-checks. The renderer scenario still exercises real Canvas creation, keyboard
-input, reset, live motion preferences, actual context loss, decoded artwork
-fallback, and browser errors. The content project still runs all navigation,
-filter, resume, input, motion, accessibility, reflow, and fallback assertions.
-Workers:1, zero retries, original timeouts, fixed commands, and all thresholds
-remain. No runtime, style, asset, dependency, or visual change is introduced.
+The previously failing Firefox pinning and live-reveal cases now pass with
+original assertions in total test durations of 5.366 and 3.669 seconds,
+respectively. These are complete test durations, not isolated assertion timings.
+No original eight-second expectation or animation duration was increased.
 
-Independently parsed `windows-scope-list.log` and compared its browser-family/
-title Counter with the retained c9 Windows JSON. All 105 pairs are identical,
-each exactly once, with zero missing, added, or duplicate pairs:
+The Linux artifact became available during closure and was independently read:
+306 expected passes, 12 established applicability skips, zero unexpected or
+flaky results, zero runner errors, and maximum retry 0. Its 18 Lighthouse
+reports contain three runs per route. All six unchanged median gates pass and
+the assertion-results list is empty. Median performance scores are 98 to 100,
+LCP spans 1805.3911 to 2407.7275 ms, and median CLS is 0 on every route. Homepage
+median LCP is 2040.9972 ms. Limits remain performance >=90, LCP <=2499 ms, and
+CLS <=0.0999. These are production-build mobile lab results, not field or
+physical-device certification.
 
-| Project | Registrations |
-| --- | --- |
-| Chrome desktop | 35 |
-| Edge desktop | 35 |
-| Firefox headless content | 34 |
-| Firefox headed renderer | 1 |
+The parent authoritatively confirmed both workflow jobs succeeded at the full
+reviewed commit. Retained JSON and Lighthouse artifacts confirm the matrix and
+objective gates. No technical CI acceptance condition remains open for this
+source and configuration. Other review domains and the owner's production
+decision remain separate from this approval.
 
-The scope comparison and successful current Windows artifact together confirm
-coverage and execution for the retained checks. The actual renderer path is
-preserved, and its headed scenario passed in the accepted run.
+## Latest Firefox preference review
 
-## Current accepted CI evidence
+`playwright.windows.config.ts:5-6,30,42` adds one shared true boolean for
+`layout.testing.top-level-always-active`. The content project receives it through
+launchOptions.firefoxUserPrefs. The renderer project merges the same preference
+while preserving headed mode and both software-WebGL preferences.
 
-Consumed `.research/final-readiness/ci-120/` artifacts from successful run
-`40671248714` at the reviewed full commit. The Linux artifact became available
-during this closure and was independently read along with the Windows JSON.
+Read the parent-retained primary excerpt in
+`.research/final-readiness/mozilla-refresh-driver-source.md`. Mozilla's
+[StaticPrefList.yaml](https://raw.githubusercontent.com/mozilla-firefox/firefox/main/modules/libpref/init/StaticPrefList.yaml)
+defines this boolean with an explicit automation-purpose comment. The saved
+reference identifies its refresh-driver active-page scope and the adjacent
+one-frame-per-second throttled default. This supports modeling the intended
+active-page test environment rather than changing an application duration,
+scroll range, expected pose, timeout, or retry.
 
-- Windows JSON: 105 expected passes, zero skips, unexpected results, flaky
-  results, runner errors, or retries. Every result passed on retry 0. Counts
-  are Chrome 35, Edge 35, Firefox content 34, and headed Firefox renderer 1.
-- Linux JSON: 306 expected passes, 12 established applicability skips, zero
-  unexpected or flaky results, zero runner errors, and maximum retry 0.
-- Lighthouse: 18 reports, three per route, all six unchanged median gates pass,
-  and the assertion-results list is empty. Median scores are 98 to 100; LCP
-  spans 1806.9718 to 2339.475 ms; every route has median CLS 0. Homepage median
-  LCP is 2310.015425 ms. Original limits remain performance >=90, LCP <=2499 ms,
-  and CLS <=0.0999. These are production-build mobile lab results, not field
-  or physical-device certification.
+Installed Playwright 1.64.1 source also uses this true preference in its BiDi
+Firefox default profile, explicitly for unthrottled requestAnimationFrame.
+These Windows projects use the native Juggler path, which accepts their explicit
+firefoxUserPrefs through Browser.enable. The accurate scope is an explicit
+policy for these native Windows profiles, not a claim that every Playwright
+Firefox implementation lacks this preference. No network verification was
+repeated by this reviewer.
 
-The parent authoritatively confirmed both workflow jobs succeeded. The retained
-JSON and Lighthouse reports confirm the matrix counts and unchanged objective
-gates. The Windows registration split ran exactly as reviewed, including the
-headed software-WebGL case. No technical CI acceptance condition remains open
-for this source and configuration. The owner's production decision and other
-review domains remain separate from this source-review approval.
+Only this preference and its shared configuration are added. The same 105
+browser-family/title pairs remain registered, with complementary Firefox
+selectors unchanged. Chrome 35, Edge 35, Firefox headless content 34, and the
+headed Firefox renderer check 1 remain. Worker count, execution modes,
+assertions, animation durations, original eight-second expectations, overall
+timeouts, zero retries, and Linux Lighthouse gates are unchanged. No runtime,
+style, asset, dependency, or visual change is introduced.
 
-## Historical Windows failures retained
+## Historical failed doc-head repeat
 
-`40651798704` had 103 Windows passes and two failures. Isolating workers in
-`40654781949` produced 104 passes and one framework-filter context-teardown
-failure. The unload correction's run `40669413721` also had 104 passes and one
-reduced-motion context-teardown failure. That reduced-motion path did not load
-opening/general GSAP; driver traces included native Juggler and cheap native
-cancellation calls during closing. Neither earlier diagnosis is represented
-as sufficient to eliminate the failure.
+Consumed the retained Windows JSON and both trace archives under
+`.research/final-readiness/ci-5eeb/portfolio-windows-verification`:
 
-These runs remain failed evidence with zero retries and zero flaky results.
-Assertions passing before a failed teardown did not make those checks pass.
-The later successful run closes acceptance under the reviewed Firefox mode
-split without retroactively relabeling any prior result.
+- 103 expected passes and two unexpected Firefox content failures, zero skips,
+  zero retries, zero flaky results, and zero runner errors.
+- The initial pinning assertion expected sticky and received relative at its
+  unchanged 8000 ms deadline.
+- The live-reveal assertion expected no transform and received
+  `matrix(1, 0, 0, 1, 0, 0.0005)` at its unchanged 8000 ms deadline.
 
-## Retained unload and history source approval
+These are assertion failures, not teardown failures. Parsed actual DOM class
+attributes in the trace snapshots, excluding CSS-selector text. Later snapshots
+contain the Cal.diy has-chapter-motion class and show the reveal's inline
+transform eventually cleared after the failed checks. Those snapshots supported the refresh-scheduling investigation. The subsequent
+accepted full run confirms the configured profiles pass the original checks.
+The two failures remain recorded with their original outcomes and zero retries;
+they are not relabeled flaky.
 
-`c9dead3` saves checkpoints on scrollend and capture-phase anchor activation,
-before default navigation while the document is active. It removes pagehide
-checkpoint writes. The capture listener has matching removal; toolbar/reload
-navigation relies on the last settled checkpoint and native restoration.
+## Retained previous accepted checkpoint
 
-Nonpersisted motion cleanup disposes the reading helper and its pending RAF,
-observers, timers, and app listeners before killing animations. Installed GSAP
-3.15 confirms `Context.kill(false)` avoids the full Context getTweens/revert
-style-restoration path. Individual ScrollTriggers still perform normal kill
-cleanup; this is not zero DOM work. These contexts return no custom cleanup
-and use CSS sticky instead of ScrollTrigger pin wrappers. Active resize/media
-reconfiguration still reverts normally. Persisted/BFCache paths remain intact.
-This remains a coherent discarded-document policy despite not resolving the
-Windows driver hang by itself.
+Run `40671248714` at `1202397458cb06ef40356d726a0b128e4b8b8156` completed both
+jobs successfully, confirmed by the parent and independently consumed artifacts
+under `.research/final-readiness/ci-120/`:
 
-Read `exit-history-checks.log` and `exit-history-results.json`: all 21 checks
-pass in 42.3 seconds, with zero skips, unexpected/flaky results, retries, or
-runner errors. They cover 18 real reload/Back cases across nine configurations
-plus Chromium regressions for actual BFCache restoration, cancellation across
-an invalid checkpoint, and one pre-navigation write with no page-exit write.
-The synthetic exit test proves the event boundary, not Windows driver shutdown.
+- Windows: 105 expected passes, zero skips, unexpected/flaky results, runner
+  errors, or retries. Exact split 35/35/34/1, every result passed on retry 0.
+- Linux: 306 expected passes, 12 established applicability skips, zero
+  unexpected/flaky results, zero runner errors, and maximum retry 0.
+- Lighthouse: 18 reports, three per route, all six unchanged median gates pass;
+  the assertion-results list is empty. Median scores 98 to 100; median LCP
+  1806.9718 to 2339.475 ms; median CLS 0 on every route. Homepage median LCP
+  2310.015425 ms. Limits remain performance >=90, LCP <=2499 ms, CLS <=0.0999.
 
-Earlier resolved source findings remain closed: no forced bookmark handler on
-every hashchange; no early height reserve in reduced-motion/failure paths;
-finite checkpoint values and matching viewport; preservation of ordinary object
-history fields; and cancellation of pending restoration on every traversal,
-input, and disposal. First and later chapter setup preserve a visible reading
-landmark without forcing an obsolete initial absolute offset.
+Those remain valid historical lab measurements on the unchanged application.
+The current acceptance above uses fresh dd0 artifacts, separately from this
+previous checkpoint. They are not field or physical-device certification. Earlier runs
+`40651798704`, `40654781949`, and `40669413721` retain their failed Windows
+results and original diagnoses. Neither worker isolation nor unload changes
+alone are represented as having eliminated all driver/timing failures.
 
-## Other source and verification retained
+## Source approvals retained
 
-General motion imports only as evidence approaches 1.5 viewport heights on an
-unfragmented opening page. Direct fragments and other pages bypass that wait.
-Immediate and scroll/resize checks handle jumps and restored positions; all
-waiting listeners/RAFs are released on completion or nonpersisted exit. No new
-timer, test detector, content mask, or performance-only branch exists. The
-36-check demand-loading matrix and nine-check live-reveal matrix passed with
-original assertions. The complete c9 Linux matrix now covers those scenarios.
+- The Firefox split retains all 105 family/title pairs exactly once. The
+  renderer case still covers real Canvas creation, keyboard input, reset,
+  preferences, context loss, decoded fallback artwork, and browser errors.
+  Both project names retain desktop applicability; the content tests retain
+  every original functional, motion, accessibility, and reflow assertion.
+- Checkpoints save on scrollend or capture-phase anchor activation in the
+  active document. No checkpoint writer runs on pagehide. Stored coordinates
+  are finite and viewport-matched, ordinary object history fields are retained,
+  and pending restoration is canceled on input, every traversal, and disposal.
+- Nonpersisted cleanup removes app listeners, observers, timers, and pending
+  reading RAF before Context.kill(false). Installed GSAP confirms this avoids
+  full context style restoration while individual ScrollTriggers still perform
+  normal kill cleanup. Active reconfiguration still reverts; BFCache paths
+  remain intact. The focused 21 history checks passed with zero skips/retries.
+- First and later chapter setup preserve a visible reading landmark using the
+  remaining displacement after native compensation. Initial configuration
+  without a landmark avoids an obsolete absolute scroll restore. The early
+  height reserve and forced bookmark-on-every-hashchange behavior are removed.
+- General motion imports on real evidence proximity, with direct-fragment and
+  non-opening bypasses, jump/restoration checks, and matching listener/RAF
+  cleanup. No timer-based performance hiding, test detector, or content mask
+  was added. Its 36-check matrix and nine-check live-reveal matrix passed with
+  original assertions; all later failures remain recorded separately.
 
-Core HTML, AVIF/WebP media separation, font/style contracts, and optional demand-
-rendered WebGL ownership retain prior source review. The pinned Playwright image
-matches the package. The `/github/home` ownership correction remains limited
-to that ephemeral mounted directory, without HOME reassignment or added
-privileges. Contents:read, action pins, Xvfb/software WebGL, checks, artifacts,
-and thresholds remain. No new visual review is needed for this config-only delta.
-
-The separate dependency/security verdict owns the pinned development-tool fixes
-and remaining nonblocking reachability assessments. This review does not claim
-a zero-finding full dependency audit. Unchanged full-source conclusions in
-`docs/technical-review.md` are reused.
+Core HTML, AVIF/WebP separation, font/style contracts, optional renderer
+activation, and resource ownership retain prior source review. The pinned
+Playwright image matches the package. The fixed /github/home ownership change
+remains confined to the ephemeral container; action pins, contents:read,
+Xvfb/software WebGL, artifacts, and thresholds remain. The dependency/security
+verdict owns the pinned tool fixes and remaining nonblocking reachability
+assessments. This is not a zero-finding full dependency audit. Unchanged
+full-source conclusions in `docs/technical-review.md` are reused.
 
 No tests, browser actions, network requests, source edits, workflow invocations,
 or production operations were performed by this reviewer. Only this `/tmp`
@@ -169,7 +181,7 @@ report was written. No new agent or visual workflow was started.
 | `tests/portfolio.spec.ts` | `9e94981975122e5735500f8ea5cd57c58596f26a` |
 | `pnpm-workspace.yaml` | `2a684d26623aae625f2b9dd1a87ffd879378db1b` |
 | `pnpm-lock.yaml` | `f8d0e98952de5e0353ec06e6b600a47e82ea11a9` |
-| `playwright.windows.config.ts` | `700e136eb057ed383abba1c5d72bc778a2513115` |
+| `playwright.windows.config.ts` | `edbe38d1591e5b48f98d153b54a79f14eecb327a` |
 | `.github/workflows/quality.yml` | `fef530c504cb9452f6f35b683c847ba2afcfdb90` |
 
 

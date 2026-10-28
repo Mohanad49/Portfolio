@@ -47,7 +47,9 @@ The Linux CI suite covers Chromium, Firefox, and WebKit at desktop, tablet, and
 mobile sizes. A separate Windows job runs the same applicable behavior checks in
 Chrome, Microsoft Edge, and Firefox. Firefox content runs headless; one separate
 headed check covers WebGL interaction. The Windows job uses one worker to keep
-its desktop session isolated, and each applicable check runs exactly once:
+its desktop session isolated. Both Firefox profiles explicitly use Mozilla's
+active-page automation policy for consistent animation refresh on the runner.
+Each applicable check runs exactly once:
 
 ```sh
 pnpm exec playwright install firefox chrome msedge

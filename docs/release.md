@@ -30,8 +30,8 @@ in the same Vercel project; do not reset or force-push `main`. The backup branch
 can also be checked out separately to rebuild the saved version. The older
 original-template recovery tag below remains available too.
 
-The source and visual reviews are complete. Workflow 40671248714 passes the
-complete application, browser, Windows, and performance gates at `1202397`.
+The source and visual reviews are complete. Workflow 40689061389 passes the
+complete application, browser, Windows, and performance gates at `dd0bf4b`.
 The remaining documentation-only head retains those application and verification
 files and must have green required checks before release. The current preview
 and exact results are linked from PR 5 and `docs/verification.md`.

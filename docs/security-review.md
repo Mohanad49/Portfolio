@@ -22,6 +22,8 @@ discarded animation contexts without full context style restoration. These chang
 markup sink, remote target, secret, or deployment permission. Their independent
 source verdict is in [technical-review.md](technical-review.md). This later
 review does not change the scan's authoritative revision or canonical artifacts.
+The later Windows active-page refresh preference is confined to automation and
+adds no public input, runtime code, secret, target, or deployment permission.
 
 An independent baseline auditor read the application, tests, support scripts,
 and configuration. A separate architecture reviewer mapped real data and

@@ -188,7 +188,10 @@ Cached pages keep their state.
 The Windows driver still hung when closing a page with no animation module.
 I separated Firefox's normal headless content checks from its one headed WebGL
 check. That keeps every check and gives each profile a clear job. The complete
-Windows run now passes with those profiles.
+Windows run passed with those profiles. A repeat run exposed animation refresh
+throttling on the runner, so I explicitly keep its Firefox test pages active
+using Mozilla's automation preference. This affects the test browser, while the
+site's timings and the assertions stay unchanged.
 
 Reload and Back also need to keep my visitor's place after the opening changes
 the document height. The site now saves a small reading checkpoint with each
