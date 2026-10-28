@@ -3,6 +3,8 @@ import base from './playwright.config';
 
 export default defineConfig({
   ...base,
+  // Keep the headed Firefox session isolated on the shared Windows desktop.
+  workers: 1,
   projects: [
     ...(['chrome', 'msedge'] as const).map(channel => ({
       name: `${channel}-desktop`,
