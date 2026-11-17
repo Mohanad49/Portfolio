@@ -1,5 +1,245 @@
 # Verification record
 
+## Owner review corrections, D-023: local checkpoint, 2026-11-17
+
+The owner reviewed the local preview, kept the direction, and asked for five
+corrections (D-023). This section covers the corrected working tree. It is still
+uncommitted on `dev/portfolio-v2` over `21bcd9d`, nothing is pushed or deployed,
+and the owner has not reviewed the corrections yet. The D-022 section below
+describes the tree before them and is kept as it was written.
+
+Source identity: `src` tree `904fb3d45376167ef942d9318d643adcae6d103d` and
+`tests` tree `54cd27385a79c324afa314b3763de0d3071b1af6`. Same machine and tool
+versions as D-022, including the Node engine warning.
+
+- `astro check` across 65 files: 0 errors, 0 warnings, 0 hints. ESLint is clean.
+  The production build writes 20 pages.
+- Playwright: 414 registrations, two workers, zero retries, one family at a time.
+
+| Family | Registered | Passed | Skipped | Failed | Flaky | Duration |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Chromium | 144 | 141 | 3 | 0 | 0 | 3.0 min |
+| Firefox | 135 | 132 | 3 | 0 | 0 | 3.5 min |
+| WebKit | 135 | 132 | 3 | 0 | 0 | 4.1 min |
+
+The nine skips are the same two applicability rules as before. The count rose
+from 390 because of two new checks per project and six rule checks that run
+once, on desktop Chromium. One existing check was replaced:
+
+- `governor.spec.ts`: the renderer's quality rules as a pure module. It replays
+  the reported sequence (a dozen frames of 270 to 470 ms after the stage has run
+  well) and requires that the stage is never ended by it.
+- "scrolling back up restores every chapter to the state it had on the way
+  down": nine stops down the page, then the same stops in reverse, comparing the
+  opacity and focus state of everything the scroll choreographs.
+- "the archive, case studies, and not-found page share the homepage chrome,
+  voice, and closing": computed title, serif voice, brand, closing, and ground
+  compared with the homepage on five routes, the navigation targets, and no
+  light field of real size on any of them.
+- "experience and approach stay in the graphite theme with the chapter type
+  scale" replaces the retired check that the chrome turned to ink over the paper
+  and amber chapters. It also covers the two roles now listed.
+
+### The disappearing objects
+
+The owner's report was reproduced on this Mac's GPU before any change. In three
+runs that scrolled to the bottom and back six different ways, one stayed live
+throughout, one lost the stage at the bottom during a fast flick and showed no
+objects on the way up, and one lost it 4.6 seconds after it became ready, with
+long frames throughout that run. In each loss the renderer's own slow-device
+rule fired and kept the still until reload.
+
+Two changes followed. A renderer that has already run well is now only stepped
+down by a stall and returns to full quality when the frame rate recovers. And
+when a hardware renderer is handed back for slowness, the page offers it the
+stage again after twelve seconds, at most twice in a visit. Software rendering
+is not retried, so the path the browser matrix exercises is unchanged.
+
+Checked on the GPU with stalls injected into a small, cheap canvas, so the rules
+were tested and not the GPU's capacity:
+
+- After seven seconds at rest, 4.5 seconds of 350 ms frames: the stage stayed
+  live, and stayed live through a jump to the bottom and back to the top.
+- 400 ms frames from the first frame for 14 seconds: handed back after 2.7
+  seconds, live again at 16.1 seconds with no reload.
+
+On the final build the six-way probe ran twice more. All twelve trips to the
+bottom and back ended with the stage live and the object drawn at the top, no
+slow-renderer event fired, and the two runs had one and zero frames over 250 ms.
+The machine was quieter for these two runs than for the ones described next.
+
+The first rerun of the six-way probe, with only the first change in place, came
+out worse than the baseline: two of three runs lost the stage in their first
+pass. The machine was busy at the time. The process list showed the window
+server, a browser, and two other applications each using 15 to 60 percent of a
+core, and those two runs had 69 and 33 frames over 250 ms in about 17 seconds.
+A renderer that slow from its first frames is never treated as proven, so the
+first change could not help it. That is what led to the second change. It also
+means these probe runs measure this machine under load and are not a clean
+before-and-after comparison.
+
+### Failures retained rather than relabeled
+
+- First Chromium run on the corrected tree: 136 passed, 5 failed. All five were
+  two of the new checks being too blunt, not the pages. One counted the 2 px
+  amber rules as light surfaces; it now ignores painted areas under 20,000
+  square pixels. The other required chapter titles to be under three quarters of
+  the hero size, which does not hold on narrow layouts where the hero is itself
+  small; it now compares them with the other chapter titles at the same
+  viewport. That run's log was overwritten by the rerun, so only this summary of
+  it remains.
+- The hidden embedded browser pane was not used for any reading here.
+
+### Not done
+
+Unchanged from D-022: the mobile Lighthouse gate, hosted Linux CI, native
+Windows browsers, the Impeccable finish review and `DESIGN.md`, and a technical
+source review. The design hook still lists the new type sizes and tones as
+outside `DESIGN.md`. The retired homepage components and the old layout that
+only `/experience` uses are still in the repository.
+
+## Live stage homepage, D-022: local checkpoint, 2026-11-17
+
+Production and `main` are unchanged. The new homepage exists only as an
+uncommitted working tree on the local branch `dev/portfolio-v2`, on top of
+`21bcd9d55ecd32690bc0b898f5da9c6dc67d111b`. Nothing has been pushed or deployed,
+and the owner has not reviewed it yet. This checkpoint is local evidence for that
+review. It is not a release-readiness claim, and the D-021 record below remains
+the current record for `main`.
+
+Source identity for every result in this section: `src` tree
+`cba1e5d2dfcbd19286b4af822321fbf2e7ccd6e3` and `tests` tree
+`a03cde9b22b1689488f845ab70ce9f3ee6990e9c`. If the work is committed unchanged,
+`git rev-parse HEAD:src` and `git rev-parse HEAD:tests` return the same values.
+
+Environment: macOS 15.7.9, Node v24.6.0, pnpm 11.17.0, Playwright 1.64.1. The
+repository requires Node `>=24.16.0 <25`, so pnpm prints an engine warning on
+every command here. Hosted CI has not run this source on the required version.
+
+- `astro check` across 62 files: 0 errors, 0 warnings, 0 hints. ESLint is clean.
+- The production build writes 20 pages. Vite's 500 kB chunk warning for the
+  deferred renderer is still present, and its threshold was not raised.
+- Playwright: 390 registrations against one `astro preview` server, two workers,
+  zero retries, one browser family at a time.
+
+| Family | Registered | Passed | Skipped | Failed | Flaky | Duration |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Chromium | 132 | 129 | 3 | 0 | 0 | 2.8 min |
+| Firefox | 129 | 126 | 3 | 0 | 0 | 3.5 min |
+| WebKit | 129 | 126 | 3 | 0 | 0 | 4.5 min |
+
+Each family runs at 1440x1000, 834x1112, and 390x844. The nine skips are the two
+applicability rules written into the suite: the compact-menu check does not apply
+to desktop layouts (three), and static redirect compatibility is checked once per
+browser, on desktop (six). `history.spec.ts` runs on desktop Chromium only, as
+before. Logs and per-check summaries are in `.research/d022-local/`.
+
+### What the matrix covers and what it does not
+
+Headless browsers render WebGL in software. Every document check therefore blocks
+the renderer chunk and exercises the real "renderer unavailable" path, where the
+page keeps its still. One check per project starts the real renderer, and under
+software rendering it is normally judged too slow and handed back to the still.
+The matrix covers the document, navigation, bookmarks, the reduced-motion,
+no-JavaScript, and no-WebGL2 paths, the axe checks, 320px reflow, and that
+starting and then losing the renderer leaves a working page. It does not show
+that the stage stays live, and it says nothing about how the stage looks.
+
+A scratch probe outside the suite ran the built page in Playwright's Chromium 156
+on this Mac's GPU (Intel UHD Graphics 630 through Metal) at 1440x900 with a device
+pixel ratio of 2. Three runs with no other copy of the page open:
+
+- The stage stayed live in all three through ten seconds at rest, a pointer sweep
+  across the object, and a full scroll down and back. No slow-renderer event
+  fired and there were no page errors.
+- On the hero the page held 28 frames a second at rest and 27 while the lens was
+  in use, at full quality on a 2520x1575 canvas. That is above the 20 frames a
+  second at which the renderer lowers its quality, and well short of 60.
+- Frame gaps longer than 250 ms: one of 883 ms during startup in one run, none
+  in the second, and two of 267 ms while scrolling in the third.
+
+This is one integrated GPU in a headless browser. It is not a visible window, a
+discrete GPU, or a phone. A phone-size emulation on the same desktop GPU also
+stayed live, which is not evidence about phone hardware. Two captures from the
+probe, `gpu-desktop-headless-dpr2-end.png` and `gpu-phone-hero.png`, show the
+object and the lens rendering; they are not a visual review.
+
+Not run for this checkpoint: the mobile Lighthouse gate, hosted Linux CI, native
+Windows browsers, the Impeccable finish review and design documentation, and a
+technical source review. `tasks/todo.md` schedules them after the owner's review.
+D-022 puts a renderer on phones for the first time, so the mobile performance
+gate is the largest unmeasured risk in this checkpoint.
+
+The Impeccable detector reports no anti-pattern in the stage sources. It lists 65
+design-record differences that are expected until `DESIGN.md` is updated: 53 type
+sizes, 11 tones, and the Bodoni Moda face.
+
+### Open findings for the owner's review
+
+- On this integrated GPU the hero runs at about 28 frames a second at full
+  quality. The renderer only steps down below 20, so a machine like this one
+  keeps multisampling and bloom at a frame rate that is visibly short of smooth.
+  Whether to step down earlier is a visual and performance choice, not yet made.
+- Two consecutive frames longer than 250 ms lower the quality, and two more end
+  the stage until the page is loaded again. In one probe run, with a second copy
+  of the page open on the same GPU, six frames of 267 to 467 ms near the end of
+  the page did exactly that and the page fell back to its still. The fallback
+  worked as written. Whether a brief stall should end the stage for the rest of
+  the visit is an open question.
+- With the renderer blocked, the same scroll produced no frame gap over 250 ms in
+  two runs, so the long frames come from the renderer, not the document.
+
+### Failures retained rather than relabeled
+
+The session of 2026-11-11 ended abruptly during its final runs. Its logs were in
+a temporary folder that no longer exists, so no result from that session is
+counted above. Its last three failures are listed here from the session
+transcript, with the change that followed each one:
+
+- Chromium desktop, `portfolio.spec.ts`, scroll reveals: the first profile fact
+  stayed at opacity 0 after a motion-preference rebuild. `main.ts` now refreshes
+  ScrollTrigger at the end of a rebuild. That alone did not clear the check. The
+  `bring()` test helper now aims again until the element has arrived, because the
+  page height can still be settling after a rebuild.
+- Chromium tablet, `journey.spec.ts`, first navigation: `#work` was not in the
+  viewport after 12 seconds. Narrow layouts never pin, and they no longer ask for
+  a rebuild when the viewport changes.
+- Chromium desktop, `stage.spec.ts`, real renderer: the page did not reach
+  `is-ready` within 15 seconds under software rendering. `world.ts` now compiles
+  its programs with `compileAsync` before the first frame. This check's readiness
+  wait is now 45 seconds inside a 120 second limit. It is the only check that
+  runs software WebGL.
+
+The homepage checks were rewritten for the new opening, so their limits are not
+comparable line by line with D-021. One like-for-like bound did move: the opening
+handoff must end within 4.5 seconds where the retired opening had 2.5, because the
+handoff now waits up to 2.8 seconds for the stage.
+
+Found and corrected on 2026-11-17:
+
+- The first Chromium run passed 128 checks with four skips. Three skips were
+  expected. The fourth was the real-renderer check on desktop skipping itself
+  with the reason "no WebGL2 context" although the context exists. It read the
+  page's `no-stage` state, which is also set when a renderer starts and is handed
+  back, so the skip hid the scroll check in exactly the case it was written for.
+  A repeat confirmed it: one of two desktop runs skipped. The check now asks the
+  browser for WebGL2 directly, then passed nine of nine targeted runs and all
+  three family runs with no extra skip. The earlier log is retained as
+  `chromium-before-skip-correction.log`.
+
+Probe readings that were discarded, not counted:
+
+- The app's embedded browser pane was hidden. Frames stopped advancing and the
+  canvas never left its default size, so nothing seen there is evidence.
+- The first GPU probe took a full-page capture while the desktop stage was live,
+  and that stage was handed back straight afterwards. The capture stalled the
+  frames it was meant to observe. Later probes capture only after the state is
+  recorded. The phone-size run in the same probe is the one cited above.
+- Five probe runs took place while that hidden pane still held a second copy of
+  the page on the same GPU. Four stayed live and one was handed back; that one is
+  the second open finding above. Four further runs had a malformed pixel-ratio
+  argument and were discarded outright.
+
 ## Final pre-production review, D-021, 2026-10-28
 
 Production is unchanged. The replacement remains on `dev/qa-portfolio` in

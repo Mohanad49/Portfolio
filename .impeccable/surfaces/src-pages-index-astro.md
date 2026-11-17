@@ -81,3 +81,45 @@ Only actual opening art/type preparation may show a brief original readiness
 handoff, with a 1600ms release ceiling and immediate interaction/cached/history
 paths. It never waits for below-fold 3D. The separate Approach renderer requires
 an explicit request and preserves the artwork while loading. Profile its cost.
+
+## D-022 live stage, local preview on dev/portfolio-v2
+
+The owner chose the inspection lens and "same world, bolder" on 2026-11-11.
+Mode stays Experience. This section supersedes the opening, motion, and scope
+contracts above for src/pages/index.astro only, pending the owner's approval.
+
+THESIS: One live object stands for the system under test. The cursor inspects
+it, and scrolling turns it into each body of evidence.
+
+OWN-WORLD: Graphite, warm white, amber, Alexandria, and Manrope stay. Additions:
+Bodoni Moda italic as the second headline voice, and real-time chrome and amber
+glass in place of the hero raster. The paper and amber chapters were withdrawn
+on 2026-11-17 (D-023): every chapter stays on graphite.
+
+FIRST VIEWPORT: Two headline lines set diagonally around the object, role and
+actions at the lower left, current role and local time at the lower right, and a
+hand-drawn mark around "evidence."
+
+FORM: A fixed WebGL stage behind the document (src/scene, src/components/stage).
+Stations: hero, layers, TestPulse, Cal.diy, LLM, archive, career, roles, method,
+profile, closing. Roles has no object: it is the reading stretch on flat graphite. GSAP owns DOM choreography and publishes story and progress
+values; React Three Fiber owns the renderer and reads them.
+
+MOTION: Wide screens pin the layers sentence, each project, the career figures,
+and the method while the whole stage fits; otherwise chapters flow. Career: the
+figures resolve one at a time beside a column of twenty-two chrome slabs that
+builds in step. Method: four steps take focus one at a time while the lens is led
+to a flagged point on a different layer of the object (D-024). Only the two roles
+sit on flat graphite with the stage at rest. ScrollSmoother runs only for
+fine pointers on wide screens. Narrow screens keep each object in a window above
+its copy. Waiting text keeps its place in the accessibility tree, and groups
+that contain links only travel.
+
+FALLBACKS: Reduced motion, no JavaScript, and no WebGL2 keep the full page and
+the approved hero still. The renderer chunk loads only after the gate decides
+the stage can run.
+
+FINISH: the owner reviewed the preview on 2026-11-17, kept the direction, and
+asked for the D-023 corrections. Still unreviewed and undocumented by the finish
+reviewer and documenter: the finish review, DESIGN.md, and removal of the retired
+components follow once the owner accepts the corrections.

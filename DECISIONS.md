@@ -199,3 +199,116 @@ native history entry and restores it after layout, without replacing scrolling.
 A new action or another traversal cancels a pending restoration.
 
 Production will change only after I explicitly request the release.
+
+## D-022: Take the homepage to a live stage
+
+The accepted site was still a set of approved stills. I asked for a new version
+that reaches for what makes Lando Norris's site memorable: one signature object
+that reacts to the visitor, a page that plays like a film as it scrolls, two
+typographic voices, and a personal mark. Its assets and content were not reused.
+
+I chose the inspection lens. A chrome and amber-glass object stands for the
+system under test, and the cursor is a lens that leaves a fluid X-ray trail,
+showing the wireframe and flagged defects beneath the polished surface. On scroll
+the same stage becomes TestPulse's three recorded runs, the Cal.diy gate with its
+twenty contenders, the paired LLM prisms, and the archive fan. I rejected a
+portrait-led opening because my current photo cannot be cut out cleanly.
+
+I also chose to keep the same world and make it bolder. Graphite, warm white, and
+amber stay. The page now moves through a paper chapter for production experience
+and an amber chapter for the testing approach, and Bodoni Moda italic joins
+Alexandria inside the large headlines.
+
+This reverses three earlier positions on purpose. The 3D scene is no longer an
+optional study behind a button (D-008, D-020): it is the homepage. Phones now run
+a lighter version of it instead of none (D-013). Wide screens with a mouse get
+momentum scrolling from GSAP's own ScrollSmoother, which still drives the native
+scroll position, so bookmarks, history, and keyboard scrolling keep working
+(D-015). No motion library was added; the one new package is the italic typeface.
+
+Every figure and boundary on the page is unchanged: the TestPulse snapshot and
+unknown retry counts, Cal.diy v6.2.0, the 82% agreement with 45 blind labels, the
+judge outside CI gates, and the Blue Ribbon figures with their scope. The defect
+markers in the X-ray view are abstract and carry no invented identifiers.
+
+Reduced motion, no JavaScript, and a missing WebGL2 context each keep the complete
+page with the approved still. Enlarged text releases pinned scenes. Any input ends
+the opening handoff at once.
+
+This version lives on the local branch `dev/portfolio-v2`. It has not been pushed
+or deployed, and the older homepage components are still in the repository until
+I approve the replacement. Measured results and open findings belong in
+[verification](docs/verification.md).
+
+## D-023: Corrections after my review of the live stage
+
+I reviewed the local preview on 2026-11-17 and kept the direction. These
+corrections followed.
+
+The stage has to survive scrolling back up. Once, after I reached the bottom and
+scrolled up again, the objects were gone until I reloaded. The cause was the
+renderer's own safeguard: a short run of long frames ended the stage for the rest
+of the visit. Now a renderer that has already run well is only stepped down by a
+stall, and it returns to full quality when the frame rate recovers. Only a
+renderer that never holds a usable rate, or that stays slow for several seconds
+at the lighter level, is handed back to the still. On a real GPU a handed-back
+stage is offered again after a twelve second rest, up to two times in a visit,
+so the objects come back without a reload. Software rendering is not retried.
+
+The paper chapter and the amber chapter are withdrawn, which reverses that part
+of D-022. Their colour felt outside the homepage's theme and their type was too
+large. Experience and Approach now sit on the same graphite as the rest of the
+page, amber stays for figures and emphasis, and their titles use the chapter
+scale instead of a second hero scale.
+
+Experience lists Blue Ribbon and Atos only. ENPPI and MBG Developments are
+removed from the site because they are not software testing roles. The resume
+PDF is not changed by this.
+
+The work archive and the three case studies take the homepage's style: the same
+header with Experience and the resume, the Bodoni Moda voice in their headings,
+the heavier titles, and the same closing. The not-found page follows them. They
+remain reading pages without the 3D stage.
+
+Three choices were made while carrying this out, and I have not reviewed them yet:
+
+- With two roles, the sideways career track is gone. The roles are two rows.
+- The stage fades out above Experience and rests until Approach ends.
+- The Cal.diy case study's evidence panel moved from paper to graphite, so no
+  page keeps a paper field. Its two retained accessibility failures keep their
+  own tone and their wording.
+
+Every figure, scope note, and evidence boundary is unchanged. Measured results
+are in [verification](docs/verification.md).
+
+## D-024: Stage Experience and Approach, and fix Back to top
+
+After the D-023 corrections I pointed out two things on 2026-11-17 and delegated
+the second as a decision.
+
+Back to top sent me to the Cal.diy chapter. The cause was not the scroll target.
+After an in-page jump the page hands keyboard focus to the destination, and the
+smooth-scroll library centres whatever receives focus. For Back to top the
+destination is the whole main content, whose centre is the Cal.diy chapter. It
+only showed in a window shorter than about 900 pixels, which is any ordinary
+browser window. The page now tells the library to leave focus alone during its
+own jumps. The other navigation links were being re-centred the same way and now
+land with their chapter at the top.
+
+Experience and Approach had no held scroll sequence and no object, unlike every
+chapter before them. The decision, made for me and still mine to overrule: add
+both, with restraint.
+
+- Experience holds while its four figures resolve one at a time. Beside them a
+  column of chrome slabs with lit seams builds in step. It has twenty-two slabs
+  for the stated twenty-two modules and encodes nothing else. The two roles then
+  stay on flat graphite with the stage at rest, because that is the part a
+  recruiter reads line by line.
+- Approach holds while its four steps take focus one at a time. The four-layer
+  object returns laid open, and the lens moves to a flagged point on a different
+  layer for each step. Moving the pointer takes the lens back.
+
+This supersedes the D-023 choice to rest the stage through both chapters. No
+copy, figure, or scope note changed, and no number is animated: a counting
+figure would show values that are not facts.
+

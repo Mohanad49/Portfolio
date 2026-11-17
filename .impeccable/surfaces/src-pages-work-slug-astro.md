@@ -50,3 +50,11 @@ bounds finish before the evidence panel. Preserve the Cal.diy paper panel and
 retained red results. QA-purpose descriptions stay immediately legible; stable
 prose, source actions, and limitations remain. The entry moves into evidence;
 reading progress and heading/rule reveals retain the established quiet body.
+
+## D-023 owner correction, 2026-11-17
+
+Case studies take the homepage's world: the stage chrome, Alexandria 700 titles,
+the Bodoni Moda italic word in each evidence heading, and the homepage closing.
+The Cal.diy paper panel is withdrawn with the homepage's paper chapter: all three
+evidence panels sit on raised graphite. The retained red results keep a distinct
+tone and their wording. The owner has not reviewed that panel change yet.
