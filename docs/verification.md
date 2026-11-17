@@ -1,5 +1,155 @@
 # Verification record
 
+## Staged chapters, performance, and two review rounds, D-024 and D-025: local checkpoint, 2026-11-17
+
+Production, `main`, and the remote are unchanged. This work is committed on the
+local branch `dev/portfolio-v2` and has not been pushed, so no hosted run has
+seen it. Sections below this one describe earlier trees and are kept as written.
+
+Source identity for every result in this section: `src` tree
+`d61d9c3f4e0d9da57eca39bdf513b117f312ffb0` and `tests` tree
+`e5c82983506fc25c73c87542f84983c21616b117`. Same machine and tools as D-022,
+including the Node engine warning.
+
+- `astro check` across 59 files: 0 errors, 0 warnings, 0 hints. ESLint is clean.
+  The production build writes 20 pages; the renderer chunk's size warning stays.
+- Playwright: 451 registrations, two workers, zero retries, one family at a
+  time, each started only once the machine's load average was below 4.
+
+| Family | Registered | Passed | Skipped | Failed | Flaky | Duration |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Chromium | 157 | 154 | 3 | 0 | 0 | 3.8 min |
+| Firefox | 147 | 144 | 3 | 0 | 0 | 4.3 min |
+| WebKit | 147 | 144 | 3 | 0 | 0 | 4.9 min |
+
+The nine skips are the same two applicability rules as before. New checks since
+D-023 cover:
+
+- Back to top, the name, and the navigation at window heights of 1000 and 700
+  pixels, including where keyboard focus lands.
+- Experience and Approach staged, with their text never left waiting unseen.
+- Every case-study heading readable when its slot sits where text below it is
+  already in view.
+- The quality governor's rules, including the doubling recovery and masked
+  renderer names.
+- Phones getting no opening curtain and loading no renderer before the first
+  input.
+
+Mobile Lighthouse, production build, three runs per route, thresholds unchanged:
+
+| Route | Median performance | Median LCP | Median CLS | Median TBT | Accessibility |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| / | 98 | 1.955s | 0 | 116 ms | 100 |
+| /work/ | 99 | 2.012s | 0.0006 | 6 ms | 100 |
+| /work/testpulse/ | 99 | 2.118s | 0 | 13 ms | 100 |
+| /work/caldiy/ | 98 | 2.254s | 0 | 10 ms | 100 |
+| /work/llm-evaluation/ | 99 | 2.104s | 0 | 18 ms | 100 |
+| /experience/ | 98 | 2.234s | 0 | 12 ms | 100 |
+
+This gate failed after D-022 put a renderer on phones (homepage performance 62,
+4.1 seconds of blocked main thread). It was brought back without relaxing any
+threshold; D-025 lists what that changed for visitors. These are lab
+measurements, not field data.
+
+On this Mac's GPU (Intel UHD Graphics 630, headless Chromium):
+
+- **Scrolling to the bottom and back:** six different ways in a row, the object
+  was live at the top every time and after a 15 second rest, with no
+  slow-renderer event.
+- **Phone at 390x844:** before the first input there was no canvas and no
+  renderer request. After a key press the stage was live and the still had
+  faded.
+- **Resizing:** a live stage stayed live from wide to narrow and back.
+- **Injected stalls:** a 4.5 second burst of 350 ms frames after the stage had
+  run well left it live. 400 ms frames from the start handed it back after 2.7
+  seconds, and it returned by itself with no reload.
+
+### Reviews
+
+An independent, read-only technical review of the new source reported twelve
+findings and two below its cut. Fixed:
+
+- A live stage switched itself off when the window crossed 1024 pixels.
+- Navigation left keyboard focus on the link instead of the chapter.
+- A handed-back stage came back on any media change.
+- The governor counted a hidden tab's gap as a slow frame, a display capped at
+  30 Hz could never return to full quality, and masked renderer names were taken
+  for hardware.
+- A late rebuild could be cancelled by its own observer.
+- Arriving with a hash disabled saving the reading position.
+- Reduced motion switched on mid-opening could leave the headline hidden.
+- A malformed hash threw an error.
+- Cmd-click and Ctrl-click on in-page links were captured.
+- A renderer chunk that failed to load left neither stage nor still.
+- A scroll by script counted as the first input on phones.
+- Stale comments.
+
+Still open: a rebuild after resizing or zooming a wide window may not keep the
+reader's place. The reviewer rated it plausible; it was not reproduced or
+changed.
+
+The Impeccable finish review ran two rounds, the most its process allows before
+the table goes to the owner. Its final disposition is **fix**, because three
+items wait on the owner:
+
+| Item | Verdict | Note |
+| --- | --- | --- |
+| 1. Contract record | Partial | The brief now states how the direction was set; needs the owner's confirmation, including the delegated D-024. |
+| 2. One material across pages | Unresolved | Sub-page rasters are mirror chrome; the stage is amber glass on black. Owner's decision. |
+| 3. Phone stage | Resolved | Matching still, clean lens and edges, stacked TestPulse runs, no empty archive tail. |
+| 4. TestPulse on wide screens | Partial | Runs now sit over their columns; tile thickness is open (tilting washed out the amber). |
+| 5. Archive lettering | Resolved | Faint solid letters, no inner contours. |
+| 6. LLM chapter | Resolved | The track never shows less than 82 percent; prisms clear of the title and edge. |
+| 7. Case-study reading | Resolved | About 69 characters a line; no heading waits above readable text. |
+| 8. Facts | Resolved | Atos dates and the email match the resume. |
+
+The reviewer's last capture showed the final Blue Ribbon figure line on a phone
+half drawn, because on narrow screens it was tied to the scroll position. After
+the verdict the figures were changed to play once when they arrive on narrow
+screens; `.impeccable/review/d024c/phone-experience.png` shows them complete.
+The reviewer has not re-scored that change.
+
+`DESIGN.md` and its sidecar were regenerated from the built source by the
+Impeccable documenter. The design hook's remaining notes are literal values the
+document records as one-offs, such as the buttons' tones; none was suppressed.
+
+### Failures retained rather than relabeled
+
+- After the performance work, the archive filter test failed in Firefox at
+  desktop and tablet sizes. The radios were 1 pixel inputs and Firefox reported
+  the fieldset intercepting the click. Each radio now covers its whole label.
+- The first version of the heading test passed on the broken build, because it
+  placed headings by a position that included their entrance offset. It now
+  places them by layout and was shown failing with the old reveal and passing
+  with the fix in Chromium, Firefox, and WebKit.
+- While showing that, `git stash` on two files that also held earlier
+  uncommitted work reverted too much: the build failed, emptied `dist/`, and the
+  preview served 404s until it was rebuilt. No source was lost.
+- A governor test expected one unannounced 2 second gap to lower quality. The
+  rules need two long frames in a row, so the test was corrected, not the rules.
+- The first full matrix of the second review round ran on an overloaded machine:
+  load average 19, 3.5 of 5 GB of swap in use, and Spotlight indexing. Chromium
+  took 45 minutes and 11 tests timed out, on page loads over 20 seconds and a
+  one-second heading reveal still under way after 5. None failed on content. The
+  run was stopped; the table above comes from the rerun.
+- The mobile gate took six runs to pass, kept as `perf.log` to `perf6.log`.
+  The homepage went from 62 to 95 to 100, and two case studies went from just
+  over the 2.5 second paint limit to under it.
+
+### Known and not done
+
+- On phones the React chunk, about 67 KB over the network, loads after the first
+  paint even before any input. The bundler placed a runtime helper the homepage
+  script needs inside it. The renderer itself, three.js, waits for the first
+  input. Fixing this means changing the bundler's chunking; it is left for a
+  follow-up.
+- The Windows configuration now points at the current renderer test but has not
+  been run on Windows. Hosted CI has not run this source.
+
+Evidence: `.research/d022-feedback/` (logs, result summaries, probe output, and
+the probe scripts in `probes/`) and the captures in `.impeccable/review/d024`,
+`d024b`, and `d024c`.
+
 ## Owner review corrections, D-023: local checkpoint, 2026-11-17
 
 The owner reviewed the local preview, kept the direction, and asked for five

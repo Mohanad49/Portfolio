@@ -312,3 +312,62 @@ This supersedes the D-023 choice to rest the stage through both chapters. No
 copy, figure, or scope note changed, and no number is animated: a counting
 figure would show values that are not facts.
 
+## D-025: Keep the mobile performance gate with a renderer on phones
+
+D-022 put a lighter 3D stage on phones for the first time. The mobile Lighthouse
+gate then failed where it had always passed: the homepage scored 62 against the
+required 90, with 4.1 seconds of blocked main thread, and the homepage and two
+case studies missed the 2.5 second paint limit. The gate was not relaxed. These
+changes brought every route back inside it, and they change what a phone visitor
+sees, so they are listed for my review:
+
+- On phones and touch layouts the homepage has no opening curtain and no opening
+  animation. The first screen is painted once and stays as it was painted.
+- Phones show a still until the visitor's first touch, scroll, or key. The 3D
+  stage loads then, and the still fades out when its first frame is drawn. A
+  visitor who only reads the first screen never downloads the renderer. On
+  portrait phones and tablets the still is the live stage's own settled opening
+  frame, captured from the stage and placed where the live object appears,
+  because the approved hero raster cropped to an unreadable band at that width.
+  The same still serves those screens with reduced motion or without WebGL.
+  Wide screens keep the approved hero still.
+- On every layout the page's own scripts load after the browser reports the first
+  paint, and the scroll choreography is built chapter by chapter in small turns
+  instead of in one long task.
+- The reading pages fetch the Bodoni Moda face shortly after load instead of
+  before the first paint, because their first screen does not depend on it.
+  Until it arrives, and without scripts, their headings use the nearest
+  installed serif.
+- The work-page hero images are encoded at quality 78 instead of 85, and the
+  second TestPulse plate loads at low priority.
+
+Two rounds of the finish review led to these:
+
+- The LLM agreement track no longer grows from zero beside the 82 percent it
+  states.
+- The archive lettering is drawn as faint solid letters, because outlined
+  variable-font letters showed their inner contours.
+- The LLM prisms stay inside the window and clear of the title.
+- On wide screens the three TestPulse runs sit directly over their run columns,
+  and the row is closer to them. On narrow screens the three runs stack in the
+  window above the copy, first run on top, in the order of the list beneath.
+- Edges are smoothed wherever multisampling is off (phones, and the lighter
+  quality level), and a stall no longer leaves the stage at the lighter level for
+  the rest of a visit: full quality returns, each time after a longer healthy
+  stretch.
+- Case-study prose is narrowed to about 69 characters a line. Headings there
+  arrive as their slot enters the window, because a heading that waited further
+  up left a gap in text that was already readable.
+- The narrow archive ends with its copy instead of a third of a screen of
+  nothing.
+- Date ranges use an en dash. The Atos dates and the email address were checked
+  against my resume and are as there.
+
+Still mine to decide, and not changed:
+
+- Whether the sub-page hero rasters should be re-made from the live stage, so the
+  stage's material and theirs match.
+- Whether the TestPulse tiles should show more of their thickness. Tilting them
+  back to show it made the glass mirror the studio light, so the amber went to
+  cream and the failed run to pale pink. They keep the approved tilt for now.
+
