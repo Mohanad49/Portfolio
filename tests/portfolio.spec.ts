@@ -1,16 +1,23 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { createHash } from 'node:crypto';
+import { bring, released, withoutStage } from './support';
 
 const routes = ['/', '/work', '/work/testpulse', '/work/caldiy', '/work/llm-evaluation'];
 const resumeDigest = '683ede439d00f58b2323c78629635ea674558fee1f5e1cce9d7132d7ae47735d';
 
+// The stage has its own tests in stage.spec.ts.
+test.beforeEach(async ({ page }) => { await withoutStage(page); });
+
 test('every main route has a readable heading, working images, and direct contact', async ({ page }) => {
   const errors: string[] = [];
   const sceneRequests: string[] = [];
+  let current = '/';
   page.on('pageerror', error => errors.push(error.message));
-  page.on('request', request => { if (/\/(?:InspectionIsland|InspectionCanvas|client)\.[^/]+\.js/.test(new URL(request.url()).pathname)) sceneRequests.push(request.url()); });
+  // Only the homepage owns a stage. Every other route stays free of the renderer and its runtime.
+  page.on('request', request => { if (current !== '/' && /\/(?:StageCanvas|SceneIsland|client)\.[^/]+\.js/.test(new URL(request.url()).pathname)) sceneRequests.push(request.url()); });
   for (const route of routes) {
+    current = route;
     const response = await page.goto(route);
     expect(response?.status()).toBe(200);
     await expect(page.locator('h1')).toHaveCount(1);
@@ -22,7 +29,7 @@ test('every main route has a readable heading, working images, and direct contac
     // Keep stable image identities as the opening leaves the viewport.
     for (const image of await page.locator('img').all()) {
       if (!await image.isVisible()) continue;
-      await image.scrollIntoViewIfNeeded();
+      await bring(image);
       await expect.poll(() => image.evaluate((element: HTMLImageElement) => {
         const replaced = element.classList.contains('inspection-fallback') && element.closest('.inspection-frame')?.querySelector('[data-ready="true"] canvas') && getComputedStyle(element).opacity === '0';
         return !!replaced || (element.complete && element.naturalWidth > 0);
@@ -30,20 +37,63 @@ test('every main route has a readable heading, working images, and direct contac
     }
   }
   expect(errors).toEqual([]);
-  if ((page.viewportSize()?.width ?? 0) < 1024) expect(sceneRequests).toEqual([]);
+  expect(sceneRequests).toEqual([]);
 });
 
-test('navigation exposes selected work, approach, profile, and contact', async ({ page }) => {
+test('the homepage leads into a case study and its source evidence', async ({ page }) => {
   await page.goto('/');
-  for (const [name, target] of [['Work', '#work'], ['Approach', '#approach'], ['About', '#about'], ['Contact', '#contact']] as const) {
-    await page.getByRole('navigation', { name: 'Main navigation' }).getByRole('link', { name, exact: true }).click();
-    await expect(page).toHaveURL(new RegExp(`${target}$`));
-    await expect(page.locator(target)).toBeInViewport();
-    await page.goto('/');
-  }
-  await page.getByRole('link', { name: 'Read the case study', exact: true }).click();
+  await released(page);
+  const study = page.getByRole('link', { name: 'Read the case study', exact: true });
+  await bring(study);
+  await study.click();
   await expect(page).toHaveURL(/\/work\/testpulse\/?$/);
   await expect(page.getByRole('link', { name: 'Source evidence' })).toHaveAttribute('href', /7d9ac7a3466889265bb0799a2f96aed759481084/);
+  // Case studies carry the homepage chrome: the full navigation on wide screens, the menu on narrow ones.
+  if ((page.viewportSize()?.width ?? 0) >= 1024) await page.getByRole('navigation', { name: 'Main navigation' }).getByRole('link', { name: 'Contact', exact: true }).click();
+  else {
+    await page.locator('.chrome-menu').click();
+    await page.getByRole('navigation', { name: 'Menu', exact: true }).getByRole('link', { name: 'Contact', exact: true }).click();
+  }
+  await expect(page).toHaveURL(/\/#contact$/);
+  await expect(page.locator('#contact')).toBeInViewport({ timeout: 12_000 });
+});
+
+test('the archive, case studies, and not-found page share the homepage chrome, voice, and closing', async ({ page }) => {
+  const wide = (page.viewportSize()?.width ?? 0) >= 1024;
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/');
+  const home = await page.evaluate(() => {
+    const read = (selector: string) => { const style = getComputedStyle(document.querySelector(selector)!); return { family: style.fontFamily, weight: style.fontWeight, color: style.color }; };
+    return { title: read('h1'), voice: read('h1 em'), brand: read('.chrome-brand'), closing: read('.closing-title'), ground: getComputedStyle(document.body).backgroundColor };
+  });
+  for (const route of ['/work', '/work/testpulse', '/work/caldiy', '/work/llm-evaluation', '/404']) {
+    await page.goto(route);
+    const seen = await page.evaluate(() => {
+      const read = (selector: string) => { const element = document.querySelector(selector); if (!element) return null; const style = getComputedStyle(element); return { family: style.fontFamily, weight: style.fontWeight, color: style.color }; };
+      // No light field anywhere: a painted area of real size may not be lighter than a mid tone.
+      // Thin amber rules and controls are accents, not fields.
+      const light = [...document.querySelectorAll('main *, footer')].filter(element => {
+        const tone = getComputedStyle(element).backgroundColor.match(/[\d.]+/g)?.map(Number) ?? [];
+        const box = element.getBoundingClientRect();
+        return tone.length >= 3 && (tone[3] ?? 1) > 0.5 && (tone[0]! + tone[1]! + tone[2]!) / 3 > 120 && box.width * box.height > 20_000 && !element.closest('a, button, label');
+      }).map(element => element.className);
+      return { title: read('h1'), voice: read('h1 em, .case-evidence h2 em'), brand: read('.chrome-brand'), closing: read('.closing-title'), ground: getComputedStyle(document.body).backgroundColor, light };
+    });
+    expect(seen.title, route).toEqual(home.title);
+    expect(seen.voice, route).toMatchObject({ family: home.voice.family, weight: home.voice.weight });
+    expect(seen.brand, route).toEqual(home.brand);
+    expect(seen.closing, route).toEqual(home.closing);
+    expect(seen.ground, route).toBe(home.ground);
+    expect(seen.light, route).toEqual([]);
+    await expect(page.locator('.closing-title')).toHaveText(/Let’s talk\s*about quality\./);
+    const navigation = wide ? page.getByRole('navigation', { name: 'Main navigation' }) : page.getByRole('navigation', { name: 'Menu', exact: true });
+    if (!wide) await page.locator('.chrome-menu').click();
+    for (const [name, href] of [['Work', '/#work'], ['Experience', '/#experience'], ['Approach', '/#approach'], ['About', '/#about'], ['Contact', '/#contact']] as const) {
+      await expect(navigation.getByRole('link', { name, exact: true })).toHaveAttribute('href', href);
+    }
+    await expect((wide ? page.locator('.site-chrome') : navigation).getByRole('link', { name: 'Resume', exact: true })).toHaveAttribute('download', 'Mohanad_Yehia_Software_QA_Engineer.pdf');
+    await expect(page.getByRole('link', { name: 'Mohanad Yehia, home' })).toHaveAttribute('href', '/');
+  }
 });
 
 test('framework filters preserve source links and bookmark visibility', async ({ page }) => {
@@ -72,23 +122,27 @@ test('the resume download is the exact updated PDF', async ({ page, request }) =
   expect(createHash('sha256').update(await response.body()).digest('hex')).toBe(resumeDigest);
   await page.goto('/');
   const download = page.waitForEvent('download');
-  await page.getByRole('link', { name: 'Resume', exact: true }).click();
+  await page.locator('.hero').getByRole('link', { name: 'Resume', exact: true }).click();
   expect((await download).suggestedFilename()).toBe('Mohanad_Yehia_Software_QA_Engineer.pdf');
 });
 
 test('copy email reports success and passes the correct address to the browser', async ({ page }) => {
   await page.addInitScript(() => Object.defineProperty(navigator, 'clipboard', { value: { writeText: async (text: string) => { document.documentElement.dataset.copiedEmail = text; } } }));
   await page.goto('/');
+  await released(page);
+  await bring(page.getByRole('button', { name: 'Copy email' }));
   await page.getByRole('button', { name: 'Copy email' }).click();
-  await expect(page.locator('.copy-status')).toHaveText('Email address copied.');
+  await expect(page.locator('.closing-status')).toHaveText('Email address copied.');
   await expect(page.locator('html')).toHaveAttribute('data-copied-email', 'mohanned.3262@gmail.com');
 });
 
 test('clipboard denial has useful recovery feedback', async ({ page }) => {
   await page.addInitScript(() => Object.defineProperty(navigator, 'clipboard', { value: { writeText: async () => { throw new DOMException('Denied', 'NotAllowedError'); } } }));
   await page.goto('/');
+  await released(page);
+  await bring(page.getByRole('button', { name: 'Copy email' }));
   await page.getByRole('button', { name: 'Copy email' }).click();
-  await expect(page.locator('.copy-status')).toContainText('You can select the email address');
+  await expect(page.locator('.closing-status')).toContainText('You can select the email address');
   await expect(page.getByRole('link', { name: 'mohanned.3262@gmail.com' })).toBeVisible();
 });
 
@@ -100,7 +154,9 @@ test('keyboard navigation exposes a visible skip link and focus ring', async ({ 
   await expect(skip).toBeInViewport();
   await page.keyboard.press('Enter');
   await expect(page.locator('main')).toBeFocused();
-  await page.getByRole('navigation', { name: 'Main navigation' }).getByRole('link', { name: 'Work', exact: true }).focus();
+  const wide = (page.viewportSize()?.width ?? 0) >= 1024;
+  await (wide ? page.getByRole('navigation', { name: 'Main navigation' }).getByRole('link', { name: 'Work', exact: true }) : page.locator('.chrome-menu')).focus();
+  await page.keyboard.press(browserName === 'webkit' && process.platform === 'darwin' ? 'Alt+Tab' : 'Tab');
   expect(await page.locator(':focus').evaluate(element => getComputedStyle(element).outlineStyle)).toBe('solid');
 });
 
@@ -116,118 +172,25 @@ test('all routes retain their content without JavaScript', async ({ browser, bas
   await context.close();
 });
 
-test('reduced motion keeps the complete fallback and omits the scene', async ({ page }) => {
-  const sceneRequests: string[] = [];
-  page.on('request', request => { if (/\/(?:InspectionIsland|InspectionCanvas|client)\.[^/]+\.js/.test(new URL(request.url()).pathname)) sceneRequests.push(request.url()); });
-  await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.goto('/');
-  await page.locator('#approach').scrollIntoViewIfNeeded();
-  await expect(page.locator('canvas')).toHaveCount(0);
-  await expect(page.getByRole('slider', { name: 'Separate layers' })).toHaveCount(0);
-  await expect(page.locator('.inspection-fallback')).toBeVisible();
-  await expect.poll(() => page.locator('.inspection-fallback').evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBe(true);
-  await expect(page.locator('.passage-opening')).not.toHaveClass(/has-passage-motion/);
-  await expect(page.locator('.passage-arrival')).toBeVisible();
-  expect(sceneRequests).toEqual([]);
-});
-
 test('scroll reveals become fully readable and respect live motion preferences', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.goto('/');
-  await page.locator('.evidence-study').scrollIntoViewIfNeeded();
-  const copy = page.locator('.about-copy');
-  await expect.poll(() => copy.evaluate(element => getComputedStyle(element).transform)).not.toBe('none');
-  await expect(copy).toHaveCSS('opacity', '1');
+  await expect(page.locator('html')).toHaveClass(/is-ready/, { timeout: 15_000 });
+  await expect(page.locator('html')).toHaveClass(/is-staged/);
+  const waiting = page.locator('.layers-word, .layers-notes li, .history-run, .career-line, .profile-facts > div, .project-summary');
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  await expect.poll(() => page.locator('[data-reveal]').evaluateAll(elements => elements.every(element => {
+  await expect(page.locator('html')).not.toHaveClass(/is-staged/);
+  await expect.poll(() => waiting.evaluateAll(elements => elements.every(element => {
     const style = getComputedStyle(element);
-    return style.opacity === '1' && style.transform === 'none';
+    return style.opacity === '1' && style.transform === 'none' && style.visibility === 'visible';
   }))).toBe(true);
-  await page.emulateMedia({ reducedMotion: 'no-preference' });
-  await expect.poll(() => copy.evaluate(element => getComputedStyle(element).transform)).not.toBe('none');
-  await expect(copy).toHaveCSS('opacity', '1');
-  await copy.scrollIntoViewIfNeeded();
-  await expect(copy).toBeInViewport();
-  await expect(copy).toHaveCSS('opacity', '1');
-  await expect(copy).toHaveCSS('transform', 'none');
-  const viewport = page.viewportSize();
-  if (!viewport) throw new Error('The motion test requires a viewport.');
-  await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
-  await page.setViewportSize({ width: viewport.width < 761 ? 1000 : 600, height: viewport.height });
-  await expect(copy).toHaveCSS('opacity', '1');
-  await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.emulateMedia({ reducedMotion: 'no-preference' });
-  await expect(copy).toHaveCSS('opacity', '1');
-  await copy.scrollIntoViewIfNeeded();
-  await expect(copy).toHaveCSS('opacity', '1');
-  await expect(page.getByRole('link', { name: 'The full resume' })).toBeVisible();
-});
-
-test('WebGL failure preserves artwork and working content', async ({ page }) => {
-  await page.addInitScript(() => {
-    const original = HTMLCanvasElement.prototype.getContext;
-    Object.defineProperty(HTMLCanvasElement.prototype, 'getContext', { value: function (type: string, ...args: unknown[]) { return type.startsWith('webgl') ? null : Reflect.apply(original, this, [type, ...args]); } });
-  });
-  await page.goto('/');
-  await page.locator('#approach').scrollIntoViewIfNeeded();
-  if ((page.viewportSize()?.width ?? 0) >= 1024) {
-    await page.getByRole('button', { name: /Inspect in 3D/ }).click();
-    await expect(page.getByRole('status').filter({ hasText: '3D is unavailable' })).toBeVisible();
-  }
-  await expect(page.locator('.inspection-fallback')).toBeVisible();
-  await expect.poll(() => page.locator('.inspection-fallback').evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBe(true);
-  await expect(page.getByRole('slider', { name: 'Separate layers' })).toHaveCount(0);
   await expect(page.locator('canvas')).toHaveCount(0);
-  await expect(page.getByRole('link', { name: 'The full resume' })).toBeVisible();
-});
-
-test('desktop inspection responds to keyboard input and returns to its fallback', async ({ page }, testInfo) => {
-  test.skip(!testInfo.project.name.endsWith('desktop'), 'The interactive scene is a desktop enhancement.');
-  const browserErrors: string[] = [];
-  page.on('console', message => { if (message.type() === 'error') browserErrors.push(message.text()); });
-  page.on('pageerror', error => browserErrors.push(error.message));
-  const canvasRequests: string[] = [];
-  page.on('request', request => { if (new URL(request.url()).pathname.includes('/InspectionCanvas.')) canvasRequests.push(request.url()); });
-  await page.goto('/');
-  await page.waitForLoadState('networkidle');
-  expect(canvasRequests).toEqual([]);
-  await page.locator('.inspection-frame').scrollIntoViewIfNeeded();
-  await expect(page.getByRole('button', { name: /Inspect in 3D/ })).toBeVisible();
-  expect(canvasRequests).toEqual([]);
-  await expect(page.locator('canvas')).toHaveCount(0);
-  const launch = page.getByRole('button', { name: /Inspect in 3D/ });
-  await launch.focus();
-  await launch.press('Enter');
-  const slider = page.getByRole('slider', { name: 'Separate layers' });
-  await expect(slider).toBeVisible({ timeout: 20_000 });
-  await expect(slider).toBeFocused();
-  expect(canvasRequests).toHaveLength(1);
-  const canvas = page.locator('canvas');
-  const before = await canvas.screenshot();
-  await slider.focus();
-  await slider.press('End');
-  await expect(slider).toHaveValue('100');
-  await expect(async () => expect(Buffer.compare(before, await canvas.screenshot())).not.toBe(0)).toPass({ timeout: 5_000 });
-  await page.getByRole('button', { name: 'Reset', exact: true }).click();
-  await expect(slider).toHaveValue('22');
-    const readingPosition = await page.locator('.inspection-frame').evaluate(element => element.getBoundingClientRect().top);
-  await page.emulateMedia({ reducedMotion: 'reduce' });
-  await expect(canvas).toHaveCount(0);
-  await expect(page.locator('.inspection-fallback')).toHaveCSS('opacity', '1');
-  await expect.poll(() => page.locator('.inspection-fallback').evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBe(true);
-  await expect.poll(() => page.locator('.inspection-frame').evaluate(element => element.getBoundingClientRect().top)).toBeCloseTo(readingPosition, -1);
   await page.emulateMedia({ reducedMotion: 'no-preference' });
-  await expect(slider).toBeVisible();
-  expect(await canvas.evaluate((element: HTMLCanvasElement) => {
-    const extension = element.getContext('webgl2')?.getExtension('WEBGL_lose_context');
-    extension?.loseContext();
-    return !!extension;
-  })).toBe(true);
-  await expect(canvas).toHaveCount(0);
-  await expect(page.locator('.inspection-fallback')).toHaveCSS('opacity', '1');
-  await expect.poll(() => page.locator('.inspection-fallback').evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBe(true);
-  await testInfo.attach('inspection-browser-errors', { body: JSON.stringify(browserErrors), contentType: 'application/json' });
-  expect(browserErrors).toEqual([]);
+  await expect(page.locator('html')).toHaveClass(/is-staged/);
+  const facts = page.locator('.profile-facts > div').first();
+  await bring(facts);
+  await expect(facts).toHaveCSS('opacity', '1');
+  await expect(page.getByRole('link', { name: 'The full resume' })).toBeVisible();
 });
 
 test('all public routes have zero serious or critical axe findings', async ({ page }, testInfo) => {
@@ -244,13 +207,13 @@ test('motion-enabled routes keep waiting reveals and source links accessible', a
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   for (const route of [...routes, '/experience']) {
     await page.goto(route);
-    if (route === '/') await page.locator('.evidence-study').scrollIntoViewIfNeeded();
-    if (route === '/experience') await expect(page.locator('.passage-opening')).toHaveClass(/has-passage-motion/);
+    if (route === '/') await expect(page.locator('html')).toHaveClass(/is-ready/, { timeout: 15_000 });
+    else if (route === '/experience') await expect(page.locator('.passage-opening')).toHaveClass(/has-passage-motion/);
     else await expect.poll(() => page.locator('.ambient-warm').evaluate((element: HTMLElement) => element.style.transform)).not.toBe('');
     const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
     await testInfo.attach(`axe-motion-${route.replaceAll('/', '-') || 'home'}`, { body: JSON.stringify(results, null, 2), contentType: 'application/json' });
     expect(results.violations.filter(item => item.impact === 'serious' || item.impact === 'critical')).toEqual([]);
-    expect(await page.locator('.framework-item, .case-index-link, .next-case > a, .about-copy, .chapter-title:has(a)').evaluateAll(elements => elements.every(element => {
+    expect(await page.locator('.framework-item, .case-index-link, .next-case > a, .about-copy, .chapter-title:has(a), .project-links, .closing-email, .closing-links').evaluateAll(elements => elements.every(element => {
       const style = getComputedStyle(element);
       return style.opacity === '1' && style.clipPath === 'none';
     }))).toBe(true);
@@ -266,7 +229,7 @@ test('320px reflow and 200% text resizing keep the page within the viewport', as
     await page.evaluate(() => document.fonts.ready);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), route).toBe(true);
     await expect(page.locator('h1')).toBeVisible();
-    const splitWords = await page.locator('h1, h2, h3, .production-metrics dd').evaluateAll(elements => {
+    const splitWords = await page.locator('h1, h2, h3, .career-figures b').evaluateAll(elements => {
       const split: string[] = [];
       for (const element of elements) {
         if (!element.getClientRects().length) continue;

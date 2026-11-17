@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import { getProjects } from '../../lib/content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageLayout from '../../layouts/PageLayout.astro';
 import Icon from '../../components/Icon.astro';
 import earlierBuilds from '../../data/earlier-builds.json';
 import MaterialField from '../../components/MaterialField.astro';
@@ -9,9 +9,26 @@ const projects = await getProjects();
 const frameworks = (await getCollection('frameworks')).sort((a, b) => a.data.legacyId - b.data.legacyId);
 const categories = ['All', 'Web', 'API', 'Mobile', 'Performance'];
 ---
-<BaseLayout title="Work & test frameworks | Mohanad Yehia" description="QA case studies and six test frameworks across web, API, mobile, and performance testing. Source code, reports, scope, and decisions." motion>
-  <header class="work-heading"><div class="work-introduction"><a class="back-link" href="/"><Icon class="back-icon" /> Home</a><h1>QA projects.<br />The evidence.</h1><p>QA reporting, scheduling-system testing, and AI evaluation, followed by six focused test frameworks.</p></div><MaterialField variant="archive" shape="archive" /></header>
-  <section class="case-index" aria-labelledby="selected-heading"><h2 id="selected-heading">Three QA case studies</h2>{projects.map(project => <a class="case-index-link" href={`/work/${project.data.slug}`}><span class="case-name" style={`view-transition-name: project-${project.data.slug}`}>{project.data.title}<span>{project.data.eyebrow}</span><span class="case-description">{project.data.summary}</span></span><Icon /></a>)}</section>
+<PageLayout title="Work & test frameworks | Mohanad Yehia" description="QA case studies and six test frameworks across web, API, mobile, and performance testing. Source code, reports, scope, and decisions." motion>
+  <header class="page-hero work-heading">
+    <div class="page-hero-copy work-introduction">
+      <a class="back-link" href="/"><Icon class="back-icon" /> Home</a>
+      <h1>QA projects.<br />The <em>evidence.</em></h1>
+      <p class="page-lede">QA reporting, scheduling-system testing, and AI evaluation, followed by six focused test frameworks.</p>
+    </div>
+    <MaterialField variant="archive" shape="archive" />
+  </header>
+  <section class="case-index" aria-labelledby="selected-heading">
+    <h2 id="selected-heading">Three QA case studies</h2>
+    {projects.map(project => <a class="case-index-link lead-row" href={`/work/${project.data.slug}`}>
+      <span class="case-name">
+        <span class="lead-title" style={`view-transition-name: project-${project.data.slug}`}>{project.data.title}</span>
+        <span class="case-kind">{project.data.eyebrow}</span>
+        <span class="case-description">{project.data.summary}</span>
+      </span>
+      <Icon />
+    </a>)}
+  </section>
   <section class="framework-archive section-space" id="frameworks" aria-labelledby="framework-heading">
     <div class="archive-heading"><h2 id="framework-heading">Framework archive</h2><p>Focused projects across four testing disciplines. Open the source to inspect their structure and limitations.</p></div>
     <form class="filter-form" aria-label="Filter frameworks" hidden><fieldset><legend class="sr-only">Testing discipline</legend>{categories.map(category => <label class="filter-option"><input type="radio" name="discipline" value={category} checked={category === 'All'} /><span>{category}<span class="filter-count">{category === 'All' ? frameworks.length : frameworks.filter(item => item.data.category === category).length}</span></span></label>)}</fieldset></form>
@@ -22,7 +39,7 @@ const categories = ['All', 'Web', 'API', 'Mobile', 'Performance'];
     </article>)}</div>
   </section>
   <section class="earlier-builds" aria-labelledby="earlier-heading"><div><h2 id="earlier-heading">Earlier software builds</h2><p>Development projects that broadened my understanding of the systems I now test.</p></div><div class="earlier-list">{earlierBuilds.map(project => <article id={project.id}><h3><a href={project.repository}>{project.title} <Icon name="external" /></a></h3><p>{project.description}</p></article>)}</div></section>
-</BaseLayout>
+</PageLayout>
 <script>
   const form = document.querySelector<HTMLFormElement>('.filter-form');
   const items = [...document.querySelectorAll<HTMLElement>('.framework-item')];
@@ -58,52 +75,54 @@ const categories = ['All', 'Web', 'API', 'Mobile', 'Performance'];
   }
 </script>
 <style>
-  .work-heading { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr); gap: 4%; align-items: center; min-height: 78svh; padding: clamp(2rem, 5vw, 5rem) var(--page-gutter) clamp(4rem, 6vw, 7rem); }
-  .work-introduction { min-width: 0; }
-  .back-link { display: inline-flex; align-items: center; min-height: 44px; font-size: .9rem; color: var(--color-muted); }
-  .back-link { gap: .5rem; }
-  .back-link :global(svg) { width: 16px; height: 16px; transform: rotate(180deg); }
-  h1 { font-size: clamp(2.5rem, 6.5vw, 7rem); margin-top: 2.5rem; }
-  .work-introduction > p { max-width: 38ch; font-size: clamp(1.1rem, 1.6vw, 1.6rem); color: #d5cec4; margin-top: 2rem; }
   .case-index { margin-inline: var(--page-gutter); }
-  .case-index h2 { font-family: var(--font-sans); font-size: .9rem; font-weight: 500; letter-spacing: 0; color: var(--color-muted); margin-bottom: 1.5rem; }
-  .case-index-link { display: grid; grid-template-columns: 1fr 2rem; gap: 1.5rem; align-items: center; padding-block: 1.8rem; border-top: 1px solid var(--line); }
-  .case-index-link:last-child { border-bottom: 1px solid var(--line); }
-  .case-name { display: block; font-family: var(--font-display); font-size: clamp(1.4rem, 3vw, 3.2rem); line-height: 1.2; letter-spacing: -.04em; }
-  .case-name > span { display: block; font-family: var(--font-sans); font-size: .8rem; color: var(--color-muted); letter-spacing: 0; margin-top: .7rem; }
-  .case-name .case-description { max-width: 64ch; font-size: .95rem; line-height: 1.7; color: #d5cec4; }
-  .case-index-link:hover .case-name { color: var(--color-amber); }
+  .case-index h2 { margin-bottom: 1.25rem; font-family: var(--font-sans); font-size: .9rem; font-weight: 500; letter-spacing: 0; color: var(--color-muted); }
+  .case-name { display: block; min-width: 0; }
+  .case-kind { display: block; margin-top: .9rem; font-size: .9rem; color: var(--color-amber); }
+  .case-description { display: block; max-width: 62ch; margin-top: .45rem; font-size: 1rem; line-height: 1.7; color: var(--body-copy); }
   .framework-archive { padding-inline: var(--page-gutter); }
   .archive-heading { display: flex; gap: 3rem; justify-content: space-between; align-items: end; margin-bottom: 2.5rem; }
-  h2 { font-size: clamp(2rem, 3.6vw, 4rem); }
-  .archive-heading > p { max-width: 37ch; font-size: .95rem; color: var(--color-muted); }
+  h2 { font-size: clamp(2.1rem, 4.4vw, 5rem); font-weight: 700; line-height: 1.02; }
+  .archive-heading > p { max-width: 37ch; font-size: 1rem; color: var(--color-muted); }
   fieldset { border: 0; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: .5rem 2rem; }
   .filter-option { position: relative; cursor: pointer; }
   .filter-option input { position: absolute; width: 1px; height: 1px; opacity: 0; }
-  .filter-option > span { min-height: 44px; display: inline-flex; align-items: center; border-bottom: 2px solid transparent; padding-block: .5rem; color: var(--color-muted); }
+  .filter-option > span { min-height: 44px; display: inline-flex; align-items: center; border-bottom: 2px solid transparent; padding-block: .5rem; color: var(--color-muted); transition: color .2s, border-color .2s; }
+  .filter-option:hover > span { color: var(--color-ink); }
   .filter-option input:checked + span { color: var(--color-amber); border-color: var(--color-amber); }
   .filter-option input:focus-visible + span { outline: 2px solid var(--color-amber); outline-offset: 5px; }
-  .filter-count { margin-left: .4rem; font-size: .7rem; }
-  .filter-status { font-size: .8rem; color: var(--color-muted); margin-block: 1.5rem; }
-  .framework-item { display: grid; grid-template-columns: 1fr 8rem; gap: 1.5rem; padding-block: 2.5rem; border-top: 1px solid var(--line); scroll-margin-top: 2rem; }
+  .filter-count { margin-left: .4rem; font-size: .75rem; font-variant-numeric: tabular-nums; }
+  .filter-status { font-size: .85rem; color: var(--color-muted); margin-block: 1.5rem; }
+  .framework-item { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 2%; padding-block: clamp(1.8rem, 2.8vw, 2.8rem); border-top: 1px solid var(--line); scroll-margin-top: 2rem; }
   .framework-item:last-child { border-bottom: 1px solid var(--line); }
-  .framework-category { color: var(--color-amber); font-size: .75rem; margin-top: .7rem; }
-  h3 { font-size: clamp(1.35rem, 2vw, 2.2rem); }
-  .framework-info > p:not(.framework-category) { color: #d5cec4; max-width: 65ch; margin-top: 1rem; font-size: .95rem; }
-  .framework-stack { display: flex; flex-wrap: wrap; gap: .5rem 1.2rem; list-style: none; padding: 0; margin: 1.2rem 0 0; font-size: .75rem; color: var(--color-muted); }
-  .framework-actions { display: flex; flex-direction: column; align-items: start; gap: .5rem; }
-  .framework-actions a { display: inline-flex; align-items: center; gap: .5rem; min-height: 44px; font-size: .9rem; }
+  .framework-info { grid-column: 1 / span 9; }
+  .framework-category { color: var(--color-amber); font-size: .9rem; margin-top: .6rem; }
+  h3 { font-size: clamp(1.5rem, 2.5vw, 2.75rem); font-weight: 600; line-height: 1.06; }
+  .framework-info > p:not(.framework-category) { color: var(--body-copy); max-width: 62ch; margin-top: .9rem; }
+  .framework-stack { display: flex; flex-wrap: wrap; gap: .4rem 1.2rem; list-style: none; padding: 0; margin: 1.1rem 0 0; font-size: .85rem; color: var(--color-muted); }
+  .framework-actions { grid-column: 11 / span 2; display: flex; flex-direction: column; align-items: start; gap: .25rem; }
+  .framework-actions a { display: inline-flex; align-items: center; gap: .5rem; min-height: 44px; font-weight: 600; transition: color .2s; }
   .framework-actions a:hover { color: var(--color-amber); }
   .framework-actions :global(svg) { width: 18px; height: 18px; }
-  .earlier-builds { display: grid; grid-template-columns: 1fr 1fr; gap: 10%; padding: 0 var(--page-gutter) clamp(4rem, 8vw, 9rem); }
-  .earlier-builds > div > p { max-width: 40ch; color: var(--color-muted); margin-top: 1.5rem; }
-  .earlier-list article { padding-block: 1.5rem; border-top: 1px solid var(--line); }
-  .earlier-list h3 { font-size: 1.5rem; }
-  .earlier-list a { display: flex; align-items: center; justify-content: space-between; min-height: 44px; }
+  .earlier-builds { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 2%; padding: 0 var(--page-gutter) clamp(4rem, 8vw, 9rem); }
+  .earlier-builds > div:first-child { grid-column: 1 / span 5; }
+  .earlier-builds > div > p { max-width: 36ch; color: var(--color-muted); margin-top: 1.4rem; }
+  .earlier-list { grid-column: 7 / span 6; }
+  .earlier-list article { padding-block: 1.4rem; border-top: 1px solid var(--line); }
+  .earlier-list article:last-child { border-bottom: 1px solid var(--line); }
+  .earlier-list h3 { font-size: clamp(1.25rem, 1.8vw, 1.9rem); }
+  .earlier-list a { display: flex; align-items: center; justify-content: space-between; min-height: 44px; transition: color .2s; }
+  .earlier-list a:hover { color: var(--color-amber); }
   .earlier-list :global(svg) { width: 20px; height: 20px; }
-  .earlier-list p { color: var(--color-muted); font-size: .85rem; margin-top: .5rem; }
-  @media (max-width: 900px) { .work-heading { grid-template-columns: 1fr; gap: 2rem; min-height: auto; } }
-  @media (max-width: 760px) { h1 { font-size: clamp(1.75rem, 10vw, 4.4rem); } }
-  @media (max-width: 600px) { .archive-heading h2, .earlier-builds h2 { font-size: clamp(1.6rem, calc(1rem + 4vw), 2rem); } }
-  @media (max-width: 760px) { .archive-heading { display: block; } .archive-heading > p { margin-top: 1.5rem; } fieldset { gap: .3rem 1.3rem; } .framework-item { grid-template-columns: 1fr; gap: 1rem; } .framework-actions { flex-direction: row; gap: 2rem; } .earlier-builds { grid-template-columns: 1fr; gap: 2.5rem; } .case-index-link { grid-template-columns: 1fr 1.5rem; gap: 1rem; } }
+  .earlier-list p { color: var(--color-muted); font-size: .95rem; margin-top: .4rem; }
+  @media (max-width: 760px) {
+    h2 { font-size: clamp(1.5rem, 8.4vw, 4rem); }
+    .archive-heading { display: block; }
+    .archive-heading > p { margin-top: 1.25rem; }
+    fieldset { gap: .3rem 1.3rem; }
+    .framework-item, .earlier-builds { grid-template-columns: minmax(0, 1fr); row-gap: 1rem; }
+    .framework-info, .framework-actions, .earlier-builds > div:first-child, .earlier-list { grid-column: 1; }
+    .framework-actions { flex-direction: row; gap: 2rem; }
+    .earlier-builds { row-gap: 2.5rem; }
+  }
 </style>
