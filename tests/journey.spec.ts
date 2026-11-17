@@ -51,6 +51,25 @@ test('project evidence advances and reverses with the scroll while the recorded 
   await expect.poll(() => loser.evaluate(element => element.getAttribute('style') ?? '')).toBe('');
 });
 
+test('every case-study heading is readable once it is scrolled into view', async ({ page }) => {
+  for (const slug of ['testpulse', 'caldiy', 'llm-evaluation']) {
+    await page.goto(`/work/${slug}`);
+    // Motion is running, and the serif face that arrives after load (and can move what follows it) is in.
+    await expect.poll(() => page.locator('.ambient-warm').evaluate((element: HTMLElement) => element.style.transform)).not.toBe('');
+    await expect.poll(() => page.evaluate(() => [...document.fonts].some(face => face.family.includes('Bodoni') && face.status === 'loaded')), { timeout: 10_000 }).toBe(true);
+    for (const heading of await page.locator('.case-prose h2').all()) {
+      // Place the heading's own slot (its layout position, not where an entrance offset has moved it)
+      // 82% down the window. The text that follows it is in view there, so the heading must be too.
+      await heading.evaluate(element => {
+        let top = 0;
+        for (let node: HTMLElement | null = element as HTMLElement; node; node = node.offsetParent as HTMLElement | null) top += node.offsetTop;
+        window.scrollTo({ top: top - innerHeight * 0.82, behavior: 'instant' });
+      });
+      await expect(heading, `${slug}: ${await heading.textContent()}`).toHaveCSS('clip-path', 'none', { timeout: 5_000 });
+    }
+  }
+});
+
 test('case studies move their artwork and reading progress while the prose remains steady', async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
