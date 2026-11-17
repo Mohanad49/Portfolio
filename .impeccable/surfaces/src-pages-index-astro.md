@@ -86,7 +86,11 @@ an explicit request and preserves the artwork while loading. Profile its cost.
 
 The owner chose the inspection lens and "same world, bolder" on 2026-11-11.
 Mode stays Experience. This section supersedes the opening, motion, and scope
-contracts above for src/pages/index.astro only, pending the owner's approval.
+contracts above for src/pages/index.astro. No concept roll or comp was produced
+for it: the owner's own reference, the two probe answers of 2026-11-11, the
+owner's review of 2026-11-17 (D-023), and the Experience and Approach decision
+the owner delegated the same day (D-024, not yet seen by the owner) stand in for
+them, so this contract carries no seed key.
 
 THESIS: One live object stands for the system under test. The cursor inspects
 it, and scrolling turns it into each body of evidence.

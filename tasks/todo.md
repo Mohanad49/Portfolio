@@ -125,8 +125,10 @@ are linked from PR 5 and the shared verification record.
 - [x] Decide on Experience and Approach: stage both, keep the roles calm.
 - [x] Build the career column and the inspected object with the led lens.
 - [x] Keep both stages holding in short windows and within the page's frame rate.
-- [ ] Commit on dev/portfolio-v2.
-- [ ] Remove the retired homepage components.
-- [ ] Mobile performance gate, finish review, DESIGN.md, technical review.
-- [ ] Full three-browser matrix on the final tree and the verification record.
+- [x] Commit on dev/portfolio-v2.
+- [x] Remove the retired homepage components.
+- [x] Mobile performance gate, finish review, DESIGN.md, technical review.
+- [x] Two finish-review rounds; the second verdict goes to the owner as it stands.
+- [x] Full three-browser matrix on the final tree and the verification record.
+- [ ] Owner decisions: sub-page rasters, TestPulse tile thickness, D-024 and D-025.
 
