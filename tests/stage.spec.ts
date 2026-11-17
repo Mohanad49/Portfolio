@@ -93,6 +93,8 @@ for (const height of [1000, 700]) {
       await link.press('Enter');
       await expect(page).toHaveURL(new RegExp(`${target}$`));
       await settled(page);
+      // Reading order moves with the jump: focus is on the chapter, not left on the link.
+      expect(await page.evaluate(id => document.activeElement?.contains(document.querySelector(id)) ?? false, target), name).toBe(true);
       // The chapter's own top edge is at the top of the window, not some other chapter's.
       await expect.poll(() => page.locator(target).evaluate(element => Math.abs(Math.round(element.getBoundingClientRect().top))), { timeout: 12_000, message: name }).toBeLessThanOrEqual(4);
     }
@@ -160,6 +162,11 @@ test('a browser without WebGL2 keeps the still, the motion, and working content'
   page.on('request', request => { if (stageChunk.test(new URL(request.url()).pathname)) stageRequests.push(request.url()); });
   await page.goto('/');
   await released(page);
+  // Narrow layouts show the still from the start and only ask the browser about WebGL on first input.
+  if (!isWide(page)) {
+    await expect(page.locator('.stage-still')).toBeVisible();
+    await page.keyboard.press('Shift');
+  }
   await expect(page.locator('html')).toHaveClass(/no-stage/);
   await expect(page.locator('html')).not.toHaveClass(/is-preparing/);
   await expect(page.locator('canvas')).toHaveCount(0);
@@ -183,6 +190,14 @@ test('the stage starts where WebGL2 exists and survives a full scroll in both di
   test.skip(!hasWebGL2, 'This browser build has no WebGL2 context.');
   await page.goto('/');
   await expect(page.locator('html')).toHaveClass(/is-ready/, { timeout: 45_000 });
+  if (!isWide(page)) {
+    // Narrow layouts keep the still and load no renderer until the visitor's first input.
+    await expect(page.locator('html')).toHaveClass(/stage-lite/);
+    await expect(page.locator('.stage-still')).toBeVisible();
+    await page.waitForTimeout(1500);
+    await expect(page.locator('canvas')).toHaveCount(0);
+    await page.keyboard.press('Shift');
+  }
   // A hardware renderer goes live. A software renderer is expected to be judged too slow and
   // handed back to the still within a few seconds; either outcome leaves a working page.
   await expect(page.locator('html')).toHaveClass(/stage-live|no-stage/, { timeout: 45_000 });
@@ -300,7 +315,13 @@ test('scrolling back up restores every chapter to the state it had on the way do
 
 test('the opening handoff is bounded and repeat visits skip it', async ({ page }) => {
   await withoutStage(page);
-  await page.goto('/');
+  await page.goto('/', { waitUntil: 'commit' });
+  // Narrow layouts never wait on the stage, so they get no curtain and the headline paints at once.
+  if (!isWide(page)) {
+    await expect(page.locator('h1')).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.classList.contains('is-preparing'))).toBe(false);
+    await expect(page.locator('.hero-line').first()).toHaveCSS('clip-path', 'none');
+  }
   await released(page);
   await expect(page.locator('html')).not.toHaveClass(/is-preparing/, { timeout: 8_000 });
   await expect(page.locator('.stage-loader')).toBeHidden();

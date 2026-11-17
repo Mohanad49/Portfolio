@@ -16,12 +16,12 @@ const sizes = variant === 'closing' ? '40vw' : '(min-width: 1024px) 48vw, 100vw'
 <div class:list={['material-field', 'material-field--' + variant, 'material-shape--' + shape]} data-material-shape={shape} aria-hidden="true">
   <div class="material-object">
     {shape === 'testpulse' ? <>
-      <Image class="material-upper" src={upper} alt="" format="webp" quality={85} widths={[480, 800, 1024]} sizes={sizes} loading={variant === 'case' ? 'eager' : 'lazy'} />
-      <Image class="material-lower" src={lower} alt="" format="webp" quality={85} widths={[480, 800, 1024]} sizes={sizes} loading={variant === 'case' ? 'eager' : 'lazy'} />
+      <Image class="material-upper" src={upper} alt="" format="webp" quality={78} widths={[480, 800, 1024]} sizes={sizes} loading={variant === 'case' ? 'eager' : 'lazy'} />
+      <Image class="material-lower" src={lower} alt="" format="webp" quality={78} widths={[480, 800, 1024]} sizes={sizes} loading={variant === 'case' ? 'eager' : 'lazy'} fetchpriority="low" />
     </> : shape === 'llm-evaluation' ? <>
-      <Image class="material-sculpture material-prism-left" src={sculpture} alt="" format="webp" quality={85} widths={[480, 800, 1024]} sizes={sizes} loading={variant === 'case' ? 'eager' : 'lazy'} />
-      <Image class="material-sculpture material-prism-right" src={sculpture} alt="" format="webp" quality={85} widths={[480, 800, 1024]} sizes={sizes} loading={variant === 'case' ? 'eager' : 'lazy'} />
-    </> : <Image class="material-sculpture" src={sculpture} alt="" format="webp" quality={85} widths={[480, 800, 1024]} sizes={sizes} loading={variant === 'case' || variant === 'archive' ? 'eager' : 'lazy'} />}
+      <Image class="material-sculpture material-prism-left" src={sculpture} alt="" format="webp" quality={78} widths={[480, 800, 1024]} sizes={sizes} loading={variant === 'case' ? 'eager' : 'lazy'} />
+      <Image class="material-sculpture material-prism-right" src={sculpture} alt="" format="webp" quality={78} widths={[480, 800, 1024]} sizes={sizes} loading={variant === 'case' ? 'eager' : 'lazy'} />
+    </> : <Image class="material-sculpture" src={sculpture} alt="" format="webp" quality={78} widths={[480, 800, 1024]} sizes={sizes} loading={variant === 'case' || variant === 'archive' ? 'eager' : 'lazy'} />}
   </div>
 </div>
 <style>

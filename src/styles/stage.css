@@ -1,3 +1,5 @@
+@import '@fontsource-variable/bodoni-moda/opsz-italic.css';
+
 /* Stage homepage: one fixed WebGL stage behind the document. Shared parts live in world.css. */
 :root {
   /* How far the stage takes to fade out above the record chapters, and back in below them. */
@@ -5,17 +7,22 @@
 }
 
 html.stage { scroll-behavior: auto; scroll-padding-top: 0; }
+/* A chapter that receives focus from the navigation is a reading position, not a control. */
+html.stage :is(section, footer)[tabindex='-1']:focus { outline: none; }
 html.stage body { overflow-x: clip; }
 
 /* Stage layers */
 .stage-still { position: absolute; inset: 0 0 auto 0; height: 100svh; z-index: 0; overflow: clip; }
+.stage-still picture { display: block; height: 100%; }
 .stage-still img { width: 100%; height: 100%; object-fit: cover; object-position: 70% 50%; opacity: .5; }
 .stage-still::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, var(--color-graphite) 4%, transparent 70%), linear-gradient(0deg, var(--color-graphite), transparent 40%); }
 .stage-canvas { z-index: 0; opacity: 0; transition: opacity 1.1s var(--ease-out); }
 html.stage-live .stage-canvas { opacity: 1; }
 html.stage-live.stage-loose .stage-canvas { opacity: .28; }
-/* The still stands in only when no live stage will arrive. */
-html.can-move:not(.no-stage) .stage-still { display: none; }
+/* The still stands in when no live stage will arrive, and on phones until theirs has drawn its first frame. */
+html.can-move:not(.no-stage):not(.stage-lite) .stage-still { display: none; }
+html.can-move.stage-lite .stage-still { transition: opacity 1.1s var(--ease-out); }
+html.can-move.stage-lite.stage-live .stage-still { opacity: 0; }
 #smooth-wrapper, #smooth-content { position: relative; z-index: 1; }
 /* The smoothing wrapper must not be a scroll container of its own: anything that scrolls an element
    into view (focus, find in page, automation) has to move the page, not the wrapper. */
@@ -52,7 +59,8 @@ html.is-preparing .stage-loader { display: grid; }
 .hero-hint-lens { width: 1.1rem; height: 1.1rem; border: 1px solid var(--color-amber); border-radius: 50%; animation: hint-lens 2.4s var(--ease-out) infinite; }
 .hero-hint-touch { display: none; }
 @keyframes hint-lens { 0% { transform: scale(.6); opacity: 0; } 35% { opacity: 1; } 100% { transform: scale(1.5); opacity: 0; } }
-html:not(.has-stage) .hero-hint { visibility: hidden; }
+/* The hint describes the live object, so it waits for it. */
+html:not(.stage-live) .hero-hint { visibility: hidden; }
 .hero-status { justify-self: end; display: grid; gap: .6rem; margin: 0; padding: 0 0 .5rem 1.25rem; border-left: 1px solid var(--line); font-size: .8rem; line-height: 1.5; }
 .hero-status div { display: grid; grid-template-columns: 4.5rem 1fr; gap: .75rem; }
 .hero-status dt { color: var(--color-muted); }
@@ -81,6 +89,9 @@ html.stage .legacy-anchor { height: 30svh; }
 .project-evidence { grid-column: 8 / span 5; grid-row: 1; align-self: end; margin: 0; }
 [data-side='right'] .project-copy { grid-column: 7 / span 6; }
 [data-side='right'] .project-evidence { grid-column: 1 / span 5; }
+/* TestPulse's three run columns are as wide as the three tiles above them. */
+.project--testpulse .project-evidence { grid-column: 7 / span 6; }
+.project--testpulse .project-evidence figcaption { max-width: 36rem; }
 .project-title { font-size: clamp(3rem, 7.8vw, 9.5rem); font-weight: 700; line-height: .98; letter-spacing: -.04em; }
 .project--llm .project-title { font-size: clamp(2.5rem, 5.9vw, 6.8rem); }
 .project-title a { display: inline-block; transition: color .25s; }
@@ -119,7 +130,8 @@ html.stage .legacy-anchor { height: 30svh; }
 .archive-reel { position: absolute; inset: 9svh 0 auto 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: .25rem; }
 .archive-row { overflow: clip; white-space: nowrap; }
 .archive-track { display: inline-flex; will-change: transform; }
-.archive-track span { display: inline-flex; align-items: center; gap: .5em; padding-right: .5em; font-family: var(--font-display); font-size: clamp(2.4rem, 6.4vw, 7.25rem); font-weight: 700; letter-spacing: -.04em; line-height: 1.12; color: transparent; -webkit-text-stroke: 1px rgb(248 242 233 / .3); }
+.archive-track span { display: inline-flex; align-items: center; gap: .5em; padding-right: .5em; font-family: var(--font-display); font-size: clamp(2.4rem, 6.4vw, 7.25rem); font-weight: 700; letter-spacing: -.04em; line-height: 1.12; color: rgb(248 242 233 / .1); }
+.archive-track span::before { content: attr(data-label); }
 .archive-track i { flex: none; width: .26em; height: .26em; border-radius: 50%; background: var(--color-amber); }
 .archive-copy { position: relative; display: flex; justify-content: space-between; align-items: flex-end; gap: 3rem; }
 .archive-title { max-width: 15ch; font-size: clamp(2.2rem, 4.6vw, 5.25rem); font-weight: 600; line-height: 1.04; }
@@ -211,6 +223,12 @@ html.is-staged .method-body { margin-top: .9rem; }
 .profile-facts dd span { display: block; margin-top: .5rem; font-size: .9rem; color: var(--color-muted); }
 .profile-facts dd p + p { margin-top: .9rem; }
 
+/* Narrow portrait screens: the still is the live object's own opening frame, in the place the object takes. */
+@media (max-width: 1023px) and (orientation: portrait) {
+  .stage-still img { object-position: 50% 50%; opacity: 1; }
+  .stage-still::after { display: none; }
+}
+
 /* Narrow layouts: the object sits in the upper part of the screen, copy follows beneath it. */
 @media (max-width: 1023px) {
   .hero-title { flex: none; gap: .1em; font-size: clamp(1.7rem, 10.2vw, 6.5rem); text-wrap: balance; }
@@ -229,7 +247,7 @@ html.is-staged .method-body { margin-top: .9rem; }
   .project-title, .project--llm .project-title { font-size: clamp(1.35rem, 12vw, 6rem); }
   .project-claim { font-size: clamp(1.35rem, 6vw, 3rem); }
   .project-summary { font-size: 1rem; }
-  .archive { min-height: 110svh; padding-top: 50svh; justify-content: flex-start; }
+  .archive { min-height: 0; padding-top: 50svh; padding-bottom: clamp(3.5rem, 9svh, 5.5rem); justify-content: flex-start; }
   .archive-reel { inset: 4svh 0 auto 0; }
   .archive-copy { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
   .archive-title { font-size: clamp(1.25rem, 8vw, 5.25rem); }

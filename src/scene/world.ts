@@ -4,6 +4,7 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js';
+import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js';
 import { FullScreenQuad } from 'three/examples/jsm/postprocessing/Pass.js';
 import { sceneState, stationIndex } from '../lib/scene-state';
 import { createGovernor } from './governor';
@@ -347,7 +348,11 @@ export function createWorld(renderer: THREE.WebGLRenderer, scene: THREE.Scene, c
   composer.addPass(new ShaderPass(compositeMaterial));
   const bloom = lite ? undefined : new UnrealBloomPass(new THREE.Vector2(256, 256), 0.34, 0.6, 1);
   if (bloom) composer.addPass(bloom);
-  composer.addPass(new OutputPass());
+  const output = new OutputPass();
+  composer.addPass(output);
+  // Edge smoothing for whenever multisampling is off. It reads display colours, so it runs last.
+  const fxaa = new ShaderPass(FXAAShader);
+  composer.addPass(fxaa);
 
   // Pointer. The lens follows it; without one, a slow automatic scan hints at the interaction.
   const pointer = { x: 0.5, y: 0.5, present: false, moved: -100 };
@@ -428,7 +433,7 @@ export function createWorld(renderer: THREE.WebGLRenderer, scene: THREE.Scene, c
     anchor(0.3, -0.01, anchorA, 0.03);
     anchor(1, 0, anchorB);
     anchorA.lerp(anchorB, toLayers);
-    anchor(1, 0.13, anchorB);
+    anchor(0.99, 0.03, anchorB);
     anchorA.lerp(anchorB, toRow);
     if (!chain) anchor(1.42, 0.3, anchorA, 0.3);
     if (inspected) anchor(-1, 0.02, anchorA);
@@ -482,14 +487,19 @@ export function createWorld(renderer: THREE.WebGLRenderer, scene: THREE.Scene, c
       const oz = layerOffsetZ[index] ?? 0;
       const stackY = (index - 1.5) * lerp(0.37, 0.98, explode);
       const inRow = index < 3;
-      const rowX = (index - 1) * (narrow() ? 0.9 : 1.42);
-      const rowScale = narrow() ? 0.34 : 0.52;
+      // Narrow screens stack the three runs in the window above the copy, first run on top, in the
+      // order of the list beneath. Wide screens lay them out in a row over the run columns.
+      const column = narrow();
+      const rowX = column ? 0 : (index - 1) * 1.24;
+      const rowY = column ? (1 - index) * 0.96 : 0;
+      const rowScale = 0.52;
       group.position.set(
         lerp(ox * lerp(1, 0.3, explode) + focused * 0.22, inRow ? rowX : 0, toRow),
-        lerp(stackY, inRow ? 0 : -1.2, toRow),
+        lerp(stackY, inRow ? rowY : -1.2, toRow),
         lerp(oz * lerp(1, 0.3, explode) + focused * 0.5, 0, toRow),
       );
-      group.rotation.set(lerp(0, Math.PI / 2 - 0.42, toRow), lerp(0, (index - 1) * -0.2, toRow), lerp(0, (index - 1) * 0.05, toRow));
+      // Turned nearly face-on: tilted further back, the glass mirrors the studio light and loses its amber.
+      group.rotation.set(lerp(0, Math.PI / 2 - 0.42, toRow), lerp(0, column ? 0 : (index - 1) * -0.2, toRow), lerp(0, column ? 0 : (index - 1) * 0.05, toRow));
       group.scale.setScalar(lerp(1, inRow ? rowScale : 0.001, toRow));
 
       // TestPulse: three recorded observations light in order. The second one failed.
@@ -553,10 +563,10 @@ export function createWorld(renderer: THREE.WebGLRenderer, scene: THREE.Scene, c
   };
 
   const updatePrisms = (story: number, size: number) => {
-    if (!place(prisms, S.llm, story - S.llm, 1, 0.12, size * (narrow() ? 0.62 : 0.92))) return;
+    if (!place(prisms, S.llm, story - S.llm, 1.1, 0.12, size * (narrow() ? 0.62 : 0.8))) return;
     const converge = smooth(state.local[S.llm] ?? 0);
     prisms.rotation.set(0.16 + state.tiltX, -0.28 + state.tiltY + Math.sin(time * 0.36) * 0.05, 0);
-    const gap = lerp(2.05, 1.18, converge);
+    const gap = lerp(1.7, 1.1, converge);
     prismPair.forEach(({ group, direction }) => {
       group.position.set(direction * gap, 0, 0);
       group.rotation.set(0, direction < 0 ? lerp(0.75, 0.18, converge) : Math.PI - lerp(0.75, 0.18, converge), direction * lerp(0.2, 0, converge));
@@ -616,10 +626,16 @@ export function createWorld(renderer: THREE.WebGLRenderer, scene: THREE.Scene, c
     xrayTarget.setSize(surfaceTarget.width, surfaceTarget.height);
     composer.setPixelRatio(ratio);
     composer.setSize(sizing.width, sizing.height);
+    fxaa.enabled = samples === 0;
+    (fxaa.uniforms.resolution!.value as THREE.Vector2).set(1 / Math.max(2, sizing.width * ratio), 1 / Math.max(2, sizing.height * ratio));
     compositeMaterial.uniforms.uPixelRatio!.value = ratio;
     if (bloom) bloom.enabled = governor.level === 0;
   };
   let handedBack = false;
+  // A gap spent hidden or resting is not a slow frame.
+  const onVisibility = () => { if (!document.hidden) governor.resume(); };
+  document.addEventListener('visibilitychange', onVisibility);
+  let wasResting = false;
   const govern = (elapsed: number) => {
     const step = governor.step(elapsed);
     if (step === 'stopped') {
@@ -659,7 +675,8 @@ export function createWorld(renderer: THREE.WebGLRenderer, scene: THREE.Scene, c
     },
 
     frame(rawDelta) {
-      if (!compiled || disposed || document.hidden || sceneState.covered >= 1 || governor.level > 1) return;
+      if (!compiled || disposed || document.hidden || sceneState.covered >= 1 || governor.level > 1) { wasResting = true; return; }
+      if (wasResting) { wasResting = false; governor.resume(); }
       if (!govern(rawDelta)) return;
       const delta = Math.min(rawDelta, 0.05);
       time += delta;
@@ -668,7 +685,7 @@ export function createWorld(renderer: THREE.WebGLRenderer, scene: THREE.Scene, c
       const rate = state.first ? 1000 : 7;
       state.story = damp(state.story, sceneState.story, rate, delta);
       for (let index = 0; index < state.local.length; index += 1) state.local[index] = damp(state.local[index] ?? 0, sceneState.local[index] ?? 0, rate, delta);
-      state.intro = damp(state.intro, sceneState.intro, 2.4, delta);
+      state.intro = state.first ? sceneState.intro : damp(state.intro, sceneState.intro, 2.4, delta);
       state.first = false;
       state.tiltY = damp(state.tiltY, (pointer.x - 0.5) * 0.34, 3, delta);
       state.tiltX = damp(state.tiltX, (pointer.y - 0.5) * -0.22, 3, delta);
@@ -693,16 +710,19 @@ export function createWorld(renderer: THREE.WebGLRenderer, scene: THREE.Scene, c
       const idle = time - pointer.moved;
       const scanning = idle > 4 && state.story < 0.45 && state.intro > 0.9;
       let strength = 0;
+      let automatic = false;
       let radius = lite ? 0.1 : 0.118;
       const to = trailMaterial.uniforms.uTo!.value as THREE.Vector2;
       const from = trailMaterial.uniforms.uFrom!.value as THREE.Vector2;
       if (led.active && idle > 1.4) {
         to.set(led.x + Math.cos(time * 0.9) * 0.012 / view.aspect, led.y + Math.sin(time * 1.3) * 0.012);
+        automatic = true;
         strength = 0.95;
         radius *= 0.92;
       } else if (scanning) {
         projected.copy(specimen.position).project(camera);
         to.set(projected.x * 0.5 + 0.5 + Math.cos(time * 0.7) * 0.1 / view.aspect * 1.6, projected.y * 0.5 + 0.5 + Math.sin(time * 1.05) * 0.13);
+        automatic = true;
         strength = 0.92;
         radius *= 0.72;
       } else if (pointer.present) {
@@ -714,7 +734,7 @@ export function createWorld(renderer: THREE.WebGLRenderer, scene: THREE.Scene, c
       stamped = strength > 0;
       trailMaterial.uniforms.uStrength!.value = strength;
       trailMaterial.uniforms.uRadius!.value = radius;
-      trailMaterial.uniforms.uDecay!.value = Math.exp(-delta * 1.25);
+      trailMaterial.uniforms.uDecay!.value = Math.exp(-delta * (automatic ? 3.4 : 1.25));
       trailMaterial.uniforms.uTime!.value = time;
       trailMaterial.uniforms.tPrev!.value = trailRead.texture;
       renderer.setRenderTarget(trailWrite);
@@ -740,6 +760,7 @@ export function createWorld(renderer: THREE.WebGLRenderer, scene: THREE.Scene, c
 
     dispose() {
       disposed = true;
+      document.removeEventListener('visibilitychange', onVisibility);
       window.removeEventListener('pointermove', onMove);
       window.removeEventListener('pointerdown', onMove);
       document.documentElement.removeEventListener('pointerleave', onLeave);
@@ -754,6 +775,8 @@ export function createWorld(renderer: THREE.WebGLRenderer, scene: THREE.Scene, c
       falloff.dispose();
       trailQuad.dispose();
       bloom?.dispose();
+      output.dispose();
+      fxaa.dispose();
       composer.dispose();
       sceneState.ready = false;
     },

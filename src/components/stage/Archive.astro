@@ -7,8 +7,8 @@ const second = frameworks.slice(3);
 ---
 <section class="archive" data-station="archive" aria-labelledby="archive-title">
   <div class="archive-reel" aria-hidden="true">
-    <div class="archive-row" data-direction="-1"><div class="archive-track">{[...first, ...first, ...first, ...first].map(item => <span>{item.title}<i></i></span>)}</div></div>
-    <div class="archive-row" data-direction="1"><div class="archive-track">{[...second, ...second, ...second, ...second].map(item => <span>{item.title}<i></i></span>)}</div></div>
+    <div class="archive-row" data-direction="-1"><div class="archive-track">{[...first, ...first, ...first, ...first].map(item => <span data-label={item.title}><i></i></span>)}</div></div>
+    <div class="archive-row" data-direction="1"><div class="archive-track">{[...second, ...second, ...second, ...second].map(item => <span data-label={item.title}><i></i></span>)}</div></div>
   </div>
   <div class="archive-copy">
     <h2 class="archive-title" id="archive-title">Six frameworks. Four testing <em>disciplines.</em></h2>

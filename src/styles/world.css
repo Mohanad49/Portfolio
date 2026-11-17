@@ -1,6 +1,5 @@
-@import '@fontsource-variable/bodoni-moda/opsz-italic.css';
-
-/* The shared world of every page: tokens, the serif voice, the chrome, actions, and the closing. */
+/* The shared world of every page: tokens, the serif voice, the chrome, actions, and the closing.
+   The serif face itself is declared by each layout: at once on the homepage, after load elsewhere. */
 :root {
   --paper-ink: #252019;
   --body-copy: #d5cec4;
