@@ -1,0 +1,9 @@
+{
+  "source": "Capture of the homepage live WebGL stage at its settled opening frame, without the page, the lens, or its automatic scan",
+  "capture": "834x1112 CSS px at device scale 2 on a touch layout, after a key press started the stage",
+  "renderer": "Headless Chromium through ANGLE Metal on Intel UHD Graphics 630",
+  "script": ".research/d022-feedback/probes/still-capture.mjs",
+  "output": "assets/plates/stage-still-tablet.png",
+  "role": "D-025 still for portrait narrow layouts until the stage starts, and with reduced motion or without WebGL",
+  "approved": "Listed for the owner review in D-025; not yet confirmed"
+}
