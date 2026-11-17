@@ -1,0 +1,15 @@
+{
+  "source": "Capture of the homepage live WebGL stage, from a local build of src tree d61d9c3f4e0d9da57eca39bdf513b117f312ffb0",
+  "station": "caldiy",
+  "position": "85 percent through the chapter pin, with the contenders jammed in the lit gate",
+  "capture": "1440x900 CSS px at device scale 2. The stage rendered at pixel ratio 1.75 (canvas 2520x1575) at full quality, with no slow-renderer event. The page, chrome, and lens were hidden.",
+  "renderer": "Headless Chromium through ANGLE Metal on Intel UHD Graphics 630",
+  "cut": "The stage backdrop was estimated from the capture away from the object. The object body (pixels that stand out from that backdrop by half or more, and every hole they enclose) keeps its captured colour and is solid. Around it, glow and soft shadow keep the least opacity that reproduces them over the backdrop, judged on a 5x5 average and faded where faintest. Fitted into a transparent 1536x1024 plate. Not retouched.",
+  "scripts": [
+    ".research/d022-feedback/probes/raster-capture.mjs",
+    ".research/d022-feedback/probes/plate-cut.mjs"
+  ],
+  "output": "assets/plates/stage-caldiy.png",
+  "role": "D-026 reading-page plate",
+  "approved": "Owner chose the stage captures for all four reading-page plates on 2026-11-17"
+}
