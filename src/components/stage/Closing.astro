@@ -1,0 +1,45 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Icon from '../Icon.astro';
+interface Props { profile: CollectionEntry<'profile'>['data']; }
+const { profile } = Astro.props;
+---
+<footer class="closing" id="contact" data-station="closing">
+  <span id="Contact" class="legacy-anchor" aria-hidden="true"></span>
+  <h2 class="closing-title">
+    <span class="closing-line" data-drift="-1">Let’s talk</span>
+    <span class="closing-line" data-drift="1">about <em>quality.</em></span>
+  </h2>
+  <div class="closing-body">
+    <p class="closing-note">Have a role, a project, or a testing problem in mind? I’d like to hear about it.</p>
+    <div class="closing-email">
+      <a class="closing-address" href={`mailto:${profile.email}`}>{profile.email}</a>
+      <button class="closing-copy" type="button" data-email={profile.email} hidden><Icon name="copy" /><span>Copy email</span></button>
+      <p class="closing-status" role="status" aria-live="polite"></p>
+    </div>
+  </div>
+  <div class="closing-foot">
+    <p>{profile.name}<span>Software QA Engineer, {profile.location}</span></p>
+    <nav class="closing-links" aria-label="Elsewhere">
+      <a href={profile.linkedin}>LinkedIn <Icon name="external" /></a>
+      <a href={profile.github}>GitHub <Icon name="external" /></a>
+      <a href="/resume.pdf" download="Mohanad_Yehia_Software_QA_Engineer.pdf">Resume <Icon name="download" /></a>
+      <a href="#top">Back to top <Icon class="closing-up" /></a>
+    </nav>
+  </div>
+</footer>
+<script>
+  const button = document.querySelector<HTMLButtonElement>('.closing-copy');
+  const status = document.querySelector<HTMLElement>('.closing-status');
+  if (button && status && navigator.clipboard) {
+    button.hidden = false;
+    button.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(button.dataset.email ?? '');
+        status.textContent = 'Email address copied.';
+      } catch {
+        status.textContent = 'Copy is unavailable. You can select the email address or open the email link.';
+      }
+    });
+  }
+</script>

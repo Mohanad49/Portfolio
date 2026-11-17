@@ -59,20 +59,6 @@
         "Reported an unhandled 500 exposing internal CRM names and error codes mapped to the wrong entity type.",
         "Executed the Regularization suite against staging and logged defects in Azure DevOps."
       ]
-    },
-    {
-      "company": "ENPPI",
-      "role": "IT Intern",
-      "period": "Aug 2024 - Sep 2024",
-      "summary": "Completed a 120-hour IT training programme involving Oracle Forms, ASP.NET MVC, networking, system administration, and internal documentation.",
-      "highlights": []
-    },
-    {
-      "company": "MBG Developments",
-      "role": "Software Engineer Intern",
-      "period": "Jul 2024 - Aug 2024",
-      "summary": "Prepared and executed 20+ SAP S/4HANA Sales and Distribution test cases across master data and transactional flows for 5+ departments.",
-      "highlights": []
     }
   ],
   "approach": [

@@ -1,0 +1,24 @@
+---
+// Scope notes restate the Blue Ribbon entry in src/data/profile.json. No new claims.
+const layers = [
+  { word: 'web,', name: 'Web', note: 'Multi-tenant admin portal. Selenium and Python first, then Playwright and TypeScript with traces, video, and release-triggered CI.' },
+  { word: 'mobile,', name: 'Mobile', note: 'Flutter app. Appium evaluated, then Maestro adopted for authentication, wallet, dining, and booking flows.' },
+  { word: 'API,', name: 'API', note: 'REST API, payments, and ERP integration. Cross-module journeys include wallet, dining, bookings, academies, and access control.' },
+  { word: 'data.', name: 'Data', note: 'PostgreSQL. SQL verification for backend issues and data integrity through launch and legacy migration.' },
+];
+---
+<section class="layers" data-station="layers" aria-labelledby="layers-title">
+  <div class="layers-stage">
+    <div class="layers-copy">
+      <h2 class="layers-sentence" id="layers-title">
+        <span class="layers-word">Production</span>{' '}<span class="layers-word">QA</span>{' '}<span class="layers-word">across</span>{' '}
+        {layers.slice(0, 3).map((layer, index) => <><em class="layers-word layers-key" data-layer={index}>{layer.word}</em>{' '}</>)}
+        <span class="layers-word">and</span>{' '}<em class="layers-word layers-key" data-layer="3">{layers[3]?.word}</em>
+      </h2>
+      <ol class="layers-notes" aria-label="Scope at Blue Ribbon, by layer">
+        {layers.map((layer, index) => <li data-layer={index}><strong>{layer.name}</strong><span>{layer.note}</span></li>)}
+      </ol>
+      <p class="layers-scope">Scope shown: Blue Ribbon production platform</p>
+    </div>
+  </div>
+</section>

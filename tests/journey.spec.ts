@@ -1,79 +1,54 @@
 import { test, expect } from '@playwright/test';
+import { released, withoutStage } from './support';
 
-function chapterRange(element: Element) {
-  const chapter = element.closest('.work-chapter');
-  const sticky = chapter?.classList.contains('has-chapter-motion');
-  const rect = (sticky ? chapter : element)?.getBoundingClientRect();
-  if (!rect) throw new Error('Project motion range is missing.');
-  return { start: rect.top + scrollY - (sticky ? 0 : innerHeight * .9), end: rect.bottom + scrollY - (sticky ? innerHeight : innerHeight * .45) };
-}
+test.beforeEach(async ({ page }) => { await withoutStage(page); });
 
-test('later motion uses the expanded opening geometry even when its module loads first', async ({ page }) => {
-  let releaseOpening: (() => void) | undefined;
-  const openingReady = new Promise<void>(resolve => { releaseOpening = resolve; });
-  await page.route(/\/experience-motion\.[^/]+\.js$/, async route => {
-    await openingReady;
-    await route.continue();
-  });
-  const winner = page.locator('.contention-bars .winner');
-  try {
-    // The held module can keep the browser's load event pending.
-    await page.goto('/', { waitUntil: 'commit' });
-    await page.locator('.evidence-study').scrollIntoViewIfNeeded();
-    await expect.poll(() => winner.evaluate((element: HTMLElement) => element.style.transform)).not.toBe('');
-    await expect(page.locator('.passage-opening')).not.toHaveClass(/has-passage-motion/);
-  } finally { releaseOpening?.(); }
-  await expect(page.locator('.passage-opening')).toHaveClass(/has-passage-motion/);
-  const range = await page.locator('.contention-figure').evaluate(chapterRange);
-  await page.evaluate(top => scrollTo({ top, behavior: 'instant' }), range.start + 1);
-  await expect.poll(() => winner.evaluate(element => new DOMMatrix(getComputedStyle(element).transform).m22)).toBeLessThan(.3);
-  await page.evaluate(top => scrollTo({ top, behavior: 'instant' }), range.end + 20);
-  await expect.poll(() => winner.evaluate(element => new DOMMatrix(getComputedStyle(element).transform).m22)).toBeGreaterThan(.99);
-});
-
-test('the homepage opening arrives at one TestPulse section and continues into the other work', async ({ page }) => {
+test('the homepage introduces one TestPulse chapter and continues into the other work', async ({ page }) => {
   await page.goto('/');
-  await expect(page.locator('.passage-opening')).toHaveClass(/has-passage-motion/);
+  await released(page);
   await expect(page.getByRole('heading', { name: 'TestPulse', exact: true })).toHaveCount(1);
   await page.getByRole('link', { name: 'Explore the work', exact: true }).click();
   await expect(page).toHaveURL(/#work$/);
-  await expect(page.locator('#passage-title')).toHaveCSS('opacity', '0');
-  await expect(page.locator('.passage-project-title')).toBeInViewport();
-  await page.locator('.caldiy-project').scrollIntoViewIfNeeded();
+  await expect(page.locator('#work')).toBeInViewport({ timeout: 12_000 });
+  await page.locator('.project--caldiy .project-links').scrollIntoViewIfNeeded();
   await expect(page.getByRole('link', { name: 'Inspect Cal.diy', exact: true })).toBeVisible();
-  await page.locator('.llm-project').scrollIntoViewIfNeeded();
+  await page.locator('.project--llm .project-links').scrollIntoViewIfNeeded();
   await expect(page.getByRole('link', { name: 'Read the evaluation', exact: true })).toBeVisible();
 });
 
-test('later project motion advances and reverses while the recorded figures stay fixed', async ({ page }) => {
+test('project evidence advances and reverses with the scroll while the recorded figures stay fixed', async ({ page }) => {
   await page.goto('/');
-  await expect(page.locator('.passage-opening')).toHaveClass(/has-passage-motion/);
-  const figure = page.locator('.contention-figure');
-  await page.locator('.evidence-study').scrollIntoViewIfNeeded();
-  await expect.poll(() => figure.locator('.winner').evaluate((element: HTMLElement) => element.style.transform)).not.toBe('');
-  await expect(figure.locator('.contention-bars span')).toHaveCount(20);
+  await released(page);
+  const figure = page.locator('.evidence--contention');
+  const bars = figure.locator('.contention span');
+  await expect(bars).toHaveCount(20);
   await expect(figure.locator('.winner')).toHaveCount(1);
-  const range = await figure.evaluate(chapterRange);
-  await page.evaluate(top => scrollTo({ top, behavior: 'instant' }), range.start);
-  const winner = figure.locator('.winner');
-  await expect.poll(() => winner.evaluate(element => getComputedStyle(element).transform)).not.toBe('none');
-  const before = await winner.evaluate(element => getComputedStyle(element).transform);
-  await page.evaluate(top => scrollTo({ top, behavior: 'instant' }), range.end + 20);
-  await expect.poll(() => winner.evaluate(element => getComputedStyle(element).transform)).not.toBe(before);
-  const after = await winner.evaluate(element => getComputedStyle(element).transform);
-  await page.evaluate(top => scrollTo({ top, behavior: 'instant' }), range.start);
-  await expect.poll(() => winner.evaluate(element => getComputedStyle(element).transform)).not.toBe(after);
+  const loser = bars.nth(5);
+  // The scrubbed range is the pin on wide screens and the chapter's passage through the viewport elsewhere.
+  const range = await page.locator('.project--caldiy').evaluate(element => {
+    const spacer = element.querySelector('.pin-spacer');
+    const rect = (spacer ?? element).getBoundingClientRect();
+    const top = rect.top + scrollY;
+    return spacer ? { start: top, end: top + rect.height - innerHeight } : { start: top - innerHeight * 0.3, end: top + rect.height - innerHeight * 0.9 };
+  });
+  const height = () => loser.evaluate(element => element.getBoundingClientRect().height);
+  await page.evaluate(top => scrollTo({ top, behavior: 'instant' }), range.start + (range.end - range.start) * 0.4);
+  await expect.poll(height).toBeGreaterThan(10);
+  const early = await height();
+  await page.evaluate(top => scrollTo({ top, behavior: 'instant' }), range.end - 2);
+  await expect.poll(height).toBeLessThan(early * 0.6);
+  await page.evaluate(top => scrollTo({ top, behavior: 'instant' }), range.start + (range.end - range.start) * 0.4);
+  await expect.poll(height).toBeGreaterThan(early * 0.9);
   await expect(figure.locator('figcaption')).toContainText('1 persisted booking');
   await expect(figure.locator('figcaption')).toContainText('19 expected conflicts');
-  const agreement = page.locator('.judge-figure');
-  await agreement.scrollIntoViewIfNeeded();
-  await expect(agreement.locator('.agreement > span')).toHaveText('82%');
+  const agreement = page.locator('.evidence--agreement');
+  await expect(agreement.locator('.agreement-value')).toHaveText('82%');
   await expect(agreement).toContainText('45 blind human labels');
   await expect(agreement).toContainText('outside CI gates');
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  await expect(winner).toHaveCSS('transform', 'none');
+  await expect(loser).toHaveCSS('transform', 'none');
   await expect(page.locator('.agreement-track span')).toHaveCSS('transform', 'none');
-  await expect(page.locator('.caldiy-project .material-sculpture')).toHaveJSProperty('complete', true);
+  await expect.poll(() => loser.evaluate(element => element.getAttribute('style') ?? '')).toBe('');
 });
 
 test('case studies move their artwork and reading progress while the prose remains steady', async ({ page }) => {

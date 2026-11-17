@@ -1,0 +1,27 @@
+---
+import { getProfile } from '../../lib/content';
+const profile = await getProfile();
+const current = profile.experience[0];
+---
+<section class="hero" id="home" data-station="hero" aria-labelledby="hero-title">
+  <span id="Home" class="legacy-anchor" aria-hidden="true"></span>
+  <h1 class="hero-title" id="hero-title">
+    <span class="hero-line hero-line--first">Complex <em>systems.</em></span>
+    <span class="hero-line hero-line--second">Clear <em class="hero-marked">evidence.<svg class="hero-mark" viewBox="0 0 600 180" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M34 96C28 44 150 14 318 16c150 2 262 30 252 82-10 50-140 72-300 68C128 162 22 138 40 78c12-38 96-58 190-64" /></svg></em></span>
+  </h1>
+  <div class="hero-foot">
+    <div class="hero-intro">
+      <p class="hero-role">{profile.role}</p>
+      <p class="hero-summary">{profile.introduction}</p>
+      <div class="hero-actions">
+        <a class="action action--primary" href="#work">Explore the work</a>
+        <a class="action action--quiet" href="/resume.pdf" download="Mohanad_Yehia_Software_QA_Engineer.pdf">Resume</a>
+      </div>
+    </div>
+    <p class="hero-hint"><span class="hero-hint-lens" aria-hidden="true"></span><span class="hero-hint-fine">Move the cursor across the object to inspect it</span><span class="hero-hint-touch">Drag across the object to inspect it</span></p>
+    {current && <dl class="hero-status">
+      <div><dt>Now</dt><dd>{current.role}, {current.company}</dd></div>
+      <div><dt>Based in</dt><dd>{profile.location} <time class="hero-clock" data-zone="Africa/Cairo"></time></dd></div>
+    </dl>}
+  </div>
+</section>
