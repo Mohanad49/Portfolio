@@ -1,5 +1,27 @@
 # Verification record
 
+## Hosted checks on the D-026 commit, and D-027: 2026-11-17
+
+Workflow run 44171388141 on `953cfeb`. The Linux `verify` job passed check,
+lint, build, and the browser matrix, and was in its mobile gate when the next
+head replaced it. The `windows` job failed 2 of its 154 checks (149 passed, 3
+skipped, no retries):
+
+- Chrome: the Cal.diy contention figure kept a losing bar at 36 pixels, above the
+  30.5 the end of the scrub requires, for 8 seconds after a scripted scroll to the
+  end of the chapter's pin.
+- Firefox: after Back to top in a 700 pixel tall window, the scroll position
+  reached the top, but the screen still showed the closing section 8 seconds
+  later.
+
+In both, the smooth-scroll layer did not follow a scripted scroll. The homepage
+code in this run is identical to `5d40d40`, whose Windows job passed every check,
+and the D-026 commit changed only the reading pages. Both stay recorded as
+failures. The next head reruns them; a repeat would be treated as a defect in the
+homepage's smooth scrolling, not as noise.
+
+D-027 keeps the TestPulse tiles at their approved tilt. No source changed.
+
 ## Reading-page plates from the live stage, D-026: local checkpoint, 2026-11-17
 
 `dev/portfolio-v2` is pushed and open as draft PR 6 against `main`. Its first

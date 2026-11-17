@@ -396,3 +396,13 @@ Still mine to decide: whether the TestPulse tiles should show more of their
 thickness, and whether D-024, D-025, and the choices D-023 made in implementation
 stand. Measured results are in [verification](docs/verification.md).
 
+## D-027: Keep the TestPulse tiles at their approved tilt
+
+D-025 left open whether the three TestPulse tiles should show more of their
+thickness. Tilting them back to show it made the glass mirror the studio light,
+so the amber went to cream and the failed run to pale pink. On 2026-11-17 I chose
+to keep the approved tilt. Nothing changes in the stage or in the TestPulse still.
+
+Still mine to decide: whether D-024, D-025, and the choices D-023 made in
+implementation stand.
+
