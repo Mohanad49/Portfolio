@@ -1,0 +1,79 @@
+---
+import Icon from '../Icon.astro';
+import { experienceHistory } from '../../data/experience-history';
+const day = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'Africa/Cairo' });
+const clock = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Africa/Cairo' });
+---
+<section class="project project--testpulse" id="work" data-station="testpulse" data-side="left" aria-labelledby="testpulse-title">
+  <span id="Portofolio" class="legacy-anchor" aria-hidden="true"></span>
+  <span id="evidence" class="legacy-anchor" aria-hidden="true"></span>
+  <div class="project-stage">
+    <div class="project-copy">
+      <h2 class="project-title" id="testpulse-title" style="view-transition-name: project-testpulse"><a href="/work/testpulse">TestPulse</a></h2>
+      <p class="project-kind">QA reporting and flaky-test analysis</p>
+      <h3 class="project-claim">A red test deserves a better <em>explanation.</em></h3>
+      <p class="project-summary">I built TestPulse, a QA reporting tool that brings test results from multiple runners into one CI history. It surfaces the evidence behind flaky-test classifications and new regressions.</p>
+      <div class="project-links">
+        <a class="text-link" href="/work/testpulse">Read the case study <Icon /></a>
+        <a class="text-link text-link--quiet" href="https://testpulse-eight.vercel.app/">Open dashboard <Icon name="external" /></a>
+      </div>
+    </div>
+    <figure class="project-evidence evidence--history">
+      <ol class="history" aria-label="Three recorded observations in chronological order">
+        {experienceHistory.observations.map(observation => <li class:list={['history-run', { 'history-run--failed': observation.status === 'failed' }]}>
+          <span class="history-state"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true">{observation.status === 'passed' ? <path d="m5 12.5 4.5 4.5L19 7" /> : <path d="m6 6 12 12m0-12L6 18" />}</svg>{observation.status === 'passed' ? 'Passed' : 'Failed'}</span>
+          <span class="history-id">Run {observation.runId}</span>
+          <time datetime={observation.startedAt}>{day.format(new Date(observation.startedAt))}, {clock.format(new Date(observation.startedAt))}</time>
+        </li>)}
+      </ol>
+      <figcaption>
+        <strong>Same commit. Different outcomes.</strong>
+        <span>{experienceHistory.suite} / <code>{experienceHistory.test}</code> at <code title={experienceHistory.commit}>{experienceHistory.commit.slice(0, 7)}</code>. Times shown in Cairo.</span>
+        <span>These observations support an instability signal. They do not identify the cause or show that the test has been repaired. Recorded CI snapshot, exported {day.format(new Date(experienceHistory.exportedAt))}. Three selected observations; retry counts are unknown.</span>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="project project--caldiy" data-station="caldiy" data-side="right" aria-labelledby="caldiy-title">
+  <div class="project-stage">
+    <div class="project-copy">
+      <h2 class="project-title" id="caldiy-title" style="view-transition-name: project-caldiy"><a href="/work/caldiy">Cal.diy</a></h2>
+      <p class="project-kind">QA strategy and automation</p>
+      <h3 class="project-claim">One slot. Twenty <em>contenders.</em></h3>
+      <p class="project-summary">I tested a self-hosted scheduling system across APIs, time zones, concurrent bookings, and accessibility. The target is Cal.diy v6.2.0; documented failures stay in the evidence.</p>
+      <div class="project-links">
+        <a class="text-link" href="/work/caldiy">Inspect Cal.diy <Icon /></a>
+      </div>
+    </div>
+    <figure class="project-evidence evidence--contention">
+      <div class="contention" aria-hidden="true">{Array.from({ length: 20 }, (_, index) => <span class:list={{ winner: index === 0 }}></span>)}</div>
+      <figcaption>
+        <strong>1 persisted booking</strong>
+        <span>19 expected conflicts in a recorded contention run</span>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="project project--llm" data-station="llm" data-side="left" aria-labelledby="llm-title">
+  <div class="project-stage">
+    <div class="project-copy">
+      <h2 class="project-title" id="llm-title" style="view-transition-name: project-llm-evaluation"><a href="/work/llm-evaluation">LLM Evaluation Harness</a></h2>
+      <p class="project-kind">AI quality assurance</p>
+      <h3 class="project-claim">How reliable is the <em>judge?</em></h3>
+      <p class="project-summary">I built a testing harness for a local retrieval-augmented question-answering system. It evaluates retrieval, answers, and safety, then checks the refusal judge against human labels.</p>
+      <div class="project-links">
+        <a class="text-link" href="/work/llm-evaluation">Read the evaluation <Icon /></a>
+      </div>
+    </div>
+    <figure class="project-evidence evidence--agreement">
+      <div class="agreement">
+        <p class="agreement-value">82<span>%</span></p>
+        <p class="agreement-scope">raw agreement with 45 blind human labels</p>
+      </div>
+      <div class="agreement-track" aria-hidden="true"><span></span></div>
+      <figcaption><span>The refusal judge remains outside CI gates.</span></figcaption>
+    </figure>
+  </div>
+</section>

@@ -1,0 +1,23 @@
+---
+import { getProfile } from '../../lib/content';
+const profile = await getProfile();
+---
+<section class="method" id="approach" data-station="method" aria-labelledby="method-title">
+  <div class="method-stage">
+    <div class="method-copy">
+      <h2 class="method-title" id="method-title">
+        <span class="method-title-solid">Look beneath the <em>interface.</em></span>
+        <span class="method-title-wire" aria-hidden="true">Look beneath the <em>interface.</em></span>
+      </h2>
+      <ol class="method-steps">
+        {profile.approach.map(step => <li class="method-step">
+          <h3>{step.title}</h3>
+          <div class="method-body">
+            <p>{step.description}</p>
+            <p class="method-evidence">{step.evidence}</p>
+          </div>
+        </li>)}
+      </ol>
+    </div>
+  </div>
+</section>

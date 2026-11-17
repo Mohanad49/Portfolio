@@ -1,0 +1,33 @@
+---
+import { Image } from 'astro:assets';
+import { getProfile } from '../../lib/content';
+import Icon from '../Icon.astro';
+import portrait from '../../../assets/profile/mohanad-yehia.jpeg';
+const profile = await getProfile();
+---
+<section class="profile" id="about" data-station="profile" aria-labelledby="profile-title">
+  <span id="About" class="legacy-anchor" aria-hidden="true"></span>
+  <figure class="profile-portrait">
+    <div class="profile-frame"><Image src={portrait} alt="Mohanad Yehia standing at a lectern beside the Egyptian flag." format="webp" quality={85} widths={[480, 768, 1024]} sizes="(min-width: 900px) 36vw, 100vw" loading="lazy" /></div>
+    <figcaption>Mohanad Yehia <span>{profile.location}</span></figcaption>
+  </figure>
+  <div class="profile-copy">
+    <h2 class="profile-title" id="profile-title"><span>Mohanad Yehia.</span> <span>Software QA <em>Engineer.</em></span></h2>
+    <p class="profile-bio">{profile.bio}</p>
+    <a class="text-link" href="/resume.pdf" download="Mohanad_Yehia_Software_QA_Engineer.pdf">The full resume <Icon name="download" /></a>
+    <dl class="profile-facts">
+      <div>
+        <dt>Education</dt>
+        <dd><strong>{profile.education.degree}</strong>{profile.education.institution}, {profile.education.period}<span>Graduation project: {profile.education.project}. {profile.education.projectSummary}</span></dd>
+      </div>
+      <div>
+        <dt>Credentials</dt>
+        <dd>{profile.credentials.map(credential => <p><strong>{credential.name}</strong>{credential.detail}</p>)}</dd>
+      </div>
+      <div>
+        <dt>Languages</dt>
+        <dd>{profile.languages.join(', ')}</dd>
+      </div>
+    </dl>
+  </div>
+</section>
