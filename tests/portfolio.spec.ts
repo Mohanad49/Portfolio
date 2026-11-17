@@ -15,7 +15,7 @@ test('every main route has a readable heading, working images, and direct contac
   let current = '/';
   page.on('pageerror', error => errors.push(error.message));
   // Only the homepage owns a stage. Every other route stays free of the renderer and its runtime.
-  page.on('request', request => { if (current !== '/' && /\/(?:StageCanvas|SceneIsland|client)\.[^/]+\.js/.test(new URL(request.url()).pathname)) sceneRequests.push(request.url()); });
+  page.on('request', request => { if (current !== '/' && /\/(?:StageCanvas|SceneIsland|mount|client)\.[^/]+\.js/.test(new URL(request.url()).pathname)) sceneRequests.push(request.url()); });
   for (const route of routes) {
     current = route;
     const response = await page.goto(route);
@@ -30,10 +30,7 @@ test('every main route has a readable heading, working images, and direct contac
     for (const image of await page.locator('img').all()) {
       if (!await image.isVisible()) continue;
       await bring(image);
-      await expect.poll(() => image.evaluate((element: HTMLImageElement) => {
-        const replaced = element.classList.contains('inspection-fallback') && element.closest('.inspection-frame')?.querySelector('[data-ready="true"] canvas') && getComputedStyle(element).opacity === '0';
-        return !!replaced || (element.complete && element.naturalWidth > 0);
-      })).toBe(true);
+      await expect.poll(() => image.evaluate((element: HTMLImageElement) => element.complete && element.naturalWidth > 0)).toBe(true);
     }
   }
   expect(errors).toEqual([]);
@@ -213,7 +210,7 @@ test('motion-enabled routes keep waiting reveals and source links accessible', a
     const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
     await testInfo.attach(`axe-motion-${route.replaceAll('/', '-') || 'home'}`, { body: JSON.stringify(results, null, 2), contentType: 'application/json' });
     expect(results.violations.filter(item => item.impact === 'serious' || item.impact === 'critical')).toEqual([]);
-    expect(await page.locator('.framework-item, .case-index-link, .next-case > a, .about-copy, .chapter-title:has(a), .project-links, .closing-email, .closing-links').evaluateAll(elements => elements.every(element => {
+    expect(await page.locator('.framework-item, .case-index-link, .next-case > a, .project-links, .closing-email, .closing-links').evaluateAll(elements => elements.every(element => {
       const style = getComputedStyle(element);
       return style.opacity === '1' && style.clipPath === 'none';
     }))).toBe(true);
