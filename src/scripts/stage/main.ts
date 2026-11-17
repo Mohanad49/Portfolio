@@ -12,7 +12,7 @@ const root = document.documentElement;
 const all = <T extends Element = HTMLElement>(selector: string, scope: ParentNode = document) => [...scope.querySelectorAll<T>(selector)];
 const one = <T extends Element = HTMLElement>(selector: string, scope: ParentNode = document) => scope.querySelector<T>(selector);
 
-// Local time in Cairo beside the status line. Plain text, updated once a minute.
+// Local time in Cairo beside the status line. Plain text, refreshed twice a minute.
 function startClock() {
   const clock = one('.hero-clock');
   if (!clock) return;
@@ -31,7 +31,7 @@ function whenPrepared() {
   ]).catch(() => undefined);
   const stage = new Promise<void>(resolve => {
     // Phones start their stage after the page is idle, so the handoff does not wait for it.
-    if (sceneState.ready || matchMedia('(max-width: 1023px), (pointer: coarse)').matches) { resolve(); return; }
+    if (sceneState.ready || lite.matches) { resolve(); return; }
     const done = () => { window.removeEventListener('scene:ready', done); window.removeEventListener('scene:unavailable', done); resolve(); };
     window.addEventListener('scene:ready', done);
     window.addEventListener('scene:unavailable', done);
@@ -42,6 +42,8 @@ function whenPrepared() {
 
 startClock();
 
+// Phones and touch layouts: a lighter stage that starts on first input, and no opening curtain.
+const lite = matchMedia('(max-width: 1023px), (pointer: coarse)');
 const queries = {
   motion: matchMedia('(prefers-reduced-motion: no-preference)'),
   wide: matchMedia('(min-width: 1024px)'),
@@ -54,6 +56,12 @@ let rebuild = () => {};
 let ensureBuilt = () => {};
 // The current build's in-page jump. The opening uses it, and a rebuild replaces it.
 let jumpTo: (hash: string, instant?: boolean) => boolean = () => false;
+// Set by the opening: brings every opening tween to its end, so nothing it hid stays hidden.
+let finishOpening = () => {};
+// The page is built over several turns. Work that needs every chapter in place waits here.
+let building = false;
+const afterBuild: Array<() => void> = [];
+const whenBuilt = (done: () => void) => { if (building) afterBuild.push(done); else done(); };
 
 // A stage is pinned only while its whole content fits the viewport, so enlarged text is never clipped.
 // The decision is taken before any pin exists, when a stage still has its natural height.
@@ -71,6 +79,7 @@ function setup({ motion, wide, fine }: { motion: boolean; wide: boolean; fine: b
   if (!motion) {
     root.classList.remove('is-staged', 'is-preparing');
     root.classList.add('is-ready');
+    finishOpening();
     if (!opened) { opened = true; reading.ready(); }
     return () => {};
   }
@@ -96,13 +105,23 @@ function setup({ motion, wide, fine }: { motion: boolean; wide: boolean; fine: b
   // If some stages cannot hold, their objects would sit behind running text: quiet the stage.
   root.classList.toggle('stage-loose', wide && [...pins.values()].includes(false));
 
-  const context = gsap.context(() => {
+  const setLocal = (name: Station) => (self: ScrollTrigger) => { sceneState.local[stationIndex(name)] = self.progress; };
+
+  // The choreography is built chapter by chapter, in page order. Whenever the work so far has
+  // taken more than a few milliseconds the next chapter waits a turn, so setting the page up
+  // never holds the main thread for long, however slow the device.
+  const context = gsap.context(() => {});
+  const slices: Array<() => void> = [];
+  const slice = (build: () => void) => { slices.push(build); };
+  let alive = true;
+
+  slice(() => {
   smoother = wide && fine
     ? ScrollSmoother.create({ wrapper: '#smooth-wrapper', content: '#smooth-content', smooth: 1.05, smoothTouch: false, effects: false, onFocusIn: () => !placingFocus })
     : null;
+  });
 
-  const setLocal = (name: Station) => (self: ScrollTrigger) => { sceneState.local[stationIndex(name)] = self.progress; };
-
+  slice(() => {
   /* Hero: the two lines part as the object takes the stage. */
   const hero = one('.hero');
   if (hero) {
@@ -112,6 +131,9 @@ function setup({ motion, wide, fine }: { motion: boolean; wide: boolean; fine: b
       .to('.hero-foot', { yPercent: 40, autoAlpha: 0, ease: 'none' }, 0);
   }
 
+  });
+
+  slice(() => {
   /* Layers: the sentence lights word by word while the matching plate lifts out of the stack. */
   const layers = one('.layers');
   if (layers) {
@@ -141,8 +163,10 @@ function setup({ motion, wide, fine }: { motion: boolean; wide: boolean; fine: b
       : { trigger: layers, start: 'top 20%', end: 'bottom 85%', scrub: true, animation: timeline, onUpdate: setLocal('layers') });
   }
 
+  });
+
   /* Projects: each stage holds while its evidence resolves in step with the object. */
-  all('.project').forEach(project => {
+  all('.project').forEach(project => slice(() => {
     const station = project.dataset.station as Station;
     const stage = one('.project-stage', project);
     const title = one('.project-title a', project);
@@ -179,16 +203,18 @@ function setup({ motion, wide, fine }: { motion: boolean; wide: boolean; fine: b
       timeline.fromTo(bars.slice(0, 1), { backgroundColor: '#756c60' }, { backgroundColor: '#ffc368', duration: 0.12 }, 0.6);
       timeline.from(one('.project-evidence figcaption', project), { opacity: 0, y: 20, duration: 0.1, ease: 'power2.out' }, 0.72);
     } else {
+      // The track is a statement of the measured 82 percent, so it never shows a smaller share while it arrives.
       timeline.from(one('.agreement', project), { opacity: 0, y: 26, duration: 0.14, ease: 'power2.out' }, 0.2);
-      timeline.from(one('.agreement-track span', project), { scaleX: 0, duration: 0.5 }, 0.35);
+      timeline.from(one('.agreement-track', project), { opacity: 0, duration: 0.14, ease: 'power2.out' }, 0.3);
       timeline.from(one('.project-evidence figcaption', project), { opacity: 0, duration: 0.1 }, 0.85);
     }
     timeline.to({}, { duration: 0.02 }, 0.98);
     ScrollTrigger.create(pins.get(stage)
       ? { trigger: stage, start: 'top top', end: '+=190%', pin: true, scrub: true, animation: timeline, onUpdate: setLocal(station) }
       : { trigger: project, start: 'top 30%', end: 'bottom 90%', scrub: true, animation: timeline, onUpdate: setLocal(station) });
-  });
+  }));
 
+  slice(() => {
   /* Archive: framework names travel with the scroll while the fan opens. */
   const archive = one('.archive');
   if (archive) {
@@ -206,9 +232,12 @@ function setup({ motion, wide, fine }: { motion: boolean; wide: boolean; fine: b
         onSplit: self => gsap.from(self.lines, { yPercent: 105, duration: 1, ease: 'expo.out', stagger: 0.09, scrollTrigger: { trigger: title, start: 'top 88%', toggleActions: 'play none none reverse' } }),
       });
     }
-    gsap.to('.archive-reel, .archive-copy', { autoAlpha: 0, ease: 'none', scrollTrigger: { trigger: '.career', start: 'top 85%', end: 'top 35%', scrub: true } });
+    gsap.to(wide ? '.archive-reel, .archive-copy' : '.archive-reel', { autoAlpha: 0, ease: 'none', scrollTrigger: { trigger: '.career', start: 'top 85%', end: 'top 35%', scrub: true } });
   }
 
+  });
+
+  slice(() => {
   /* Career: the figures resolve one at a time while the column builds beside them, then the roles
      arrive on flat graphite. Both directions replay. */
   const career = one('.career');
@@ -221,15 +250,20 @@ function setup({ motion, wide, fine }: { motion: boolean; wide: boolean; fine: b
         onSplit: self => gsap.from(self.lines, { yPercent: 105, duration: 1.1, ease: 'expo.out', stagger: 0.1, scrollTrigger: { trigger: title, start: 'top 84%', toggleActions: 'play none none reverse' } }),
       });
     }
-    const timeline = gsap.timeline({ defaults: { ease: 'none' } });
+    const timeline = gsap.timeline({ defaults: { ease: 'none' }, paused: true });
     all('.career-line', career).forEach((line, index) => {
       timeline.from(line, { clipPath: 'inset(0% 100% 0% 0%)', x: -24, duration: 0.16, ease: 'power2.out' }, 0.06 + index * 0.21);
     });
     timeline.from(one('.career-scope', career), { opacity: 0, y: 16, duration: 0.1, ease: 'power2.out' }, 0.86);
     timeline.to({}, { duration: 0.02 }, 0.98);
-    ScrollTrigger.create(pins.get(careerStage)
-      ? { trigger: careerStage, start: 'top top', end: '+=170%', pin: true, scrub: true, animation: timeline, onUpdate: setLocal('career') }
-      : { trigger: careerStage, start: 'top 45%', end: 'bottom 85%', scrub: true, animation: timeline, onUpdate: setLocal('career') });
+    if (pins.get(careerStage)) {
+      ScrollTrigger.create({ trigger: careerStage, start: 'top top', end: '+=170%', pin: true, scrub: true, animation: timeline, onUpdate: setLocal('career') });
+    } else {
+      // In flow the column still builds with the scroll, but the figures play once they arrive:
+      // a line tied to the scroll could rest half drawn while someone is reading it.
+      ScrollTrigger.create({ trigger: careerStage, start: 'top 45%', end: 'bottom 85%', onUpdate: setLocal('career') });
+      ScrollTrigger.create({ trigger: one('.career-figures', career) ?? careerStage, start: 'top 88%', animation: timeline.timeScale(0.8), toggleActions: 'play none none reverse' });
+    }
     all('.career-stop', career).forEach(stop => {
       gsap.from(stop, { opacity: 0, y: 36, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: stop, start: 'top 86%', toggleActions: 'play none none reverse' } });
     });
@@ -245,6 +279,9 @@ function setup({ motion, wide, fine }: { motion: boolean; wide: boolean; fine: b
     }
   }
 
+  });
+
+  slice(() => {
   /* Method: one step is in focus at a time while the lens inspects a different layer for each.
      Held, the scroll picks the step; in flow, each step's own position does. */
   const method = one('.method');
@@ -281,6 +318,9 @@ function setup({ motion, wide, fine }: { motion: boolean; wide: boolean; fine: b
     }
   }
 
+  });
+
+  slice(() => {
   /* Profile: the portrait opens like a shutter and settles. */
   const profile = one('.profile');
   if (profile) {
@@ -309,6 +349,9 @@ function setup({ motion, wide, fine }: { motion: boolean; wide: boolean; fine: b
     });
   }
 
+  });
+
+  slice(() => {
   /* Closing: the two lines drift toward each other; the address leans toward the pointer. */
   const closing = one('.closing');
   if (closing) {
@@ -331,6 +374,9 @@ function setup({ motion, wide, fine }: { motion: boolean; wide: boolean; fine: b
     }
   }
 
+  });
+
+  slice(() => {
   /* Story coordinate: each chapter adds one as it rises through the viewport. */
   const stations = all('[data-station]');
   const entered = new Float32Array(stations.length);
@@ -348,12 +394,18 @@ function setup({ motion, wide, fine }: { motion: boolean; wide: boolean; fine: b
     disposers.push(() => gsap.ticker.remove(measure));
   }
 
+  });
+
+  slice(() => {
   /* Chrome: leaves while reading down, returns on the way up. */
   ScrollTrigger.create({
     start: 0, end: 'max',
     onUpdate: self => root.classList.toggle('chrome-away', self.direction === 1 && self.scroll() > window.innerHeight * 0.6),
   });
 
+  });
+
+  slice(() => {
   /* In-page links follow the smoothed scroll when it is active. */
   const jump = (hash: string, instant = false) => {
     // The top of the page is a position, not an element.
@@ -362,7 +414,9 @@ function setup({ motion, wide, fine }: { motion: boolean; wide: boolean; fine: b
       else window.scrollTo({ top: 0, behavior: instant ? 'instant' : 'smooth' });
       return true;
     }
-    const target = document.getElementById(decodeURIComponent(hash.slice(1)));
+    let id = hash.slice(1);
+    try { id = decodeURIComponent(id); } catch { return false; }
+    const target = document.getElementById(id);
     if (!target) return false;
     if (smoother) smoother.scrollTo(target, !instant, 'top top');
     else target.scrollIntoView({ behavior: instant ? 'auto' : 'smooth', block: 'start' });
@@ -370,38 +424,69 @@ function setup({ motion, wide, fine }: { motion: boolean; wide: boolean; fine: b
   };
   listen(document.documentElement, 'click', event => {
     const link = (event.target as Element).closest<HTMLAnchorElement>('a[href^="#"]');
-    if (!link || event.defaultPrevented) return;
+    const mouse = event as MouseEvent;
+    // A modified click means a new tab or window: that stays the browser's.
+    if (!link || event.defaultPrevented || mouse.button > 0 || mouse.metaKey || mouse.ctrlKey || mouse.shiftKey || mouse.altKey) return;
     const hash = link.getAttribute('href') ?? '';
     if (hash.length < 2 || !jump(hash)) return;
     event.preventDefault();
     history.pushState(null, '', hash === '#top' ? location.pathname : hash);
     const target = hash === '#top' ? one('#main') : document.getElementById(hash.slice(1));
-    placingFocus = true;
-    target?.closest<HTMLElement>('section, footer, main')?.focus({ preventScroll: true });
-    placingFocus = false;
+    const region = target?.closest<HTMLElement>('section, footer, main');
+    if (region) {
+      // Chapters are not focusable by themselves, so reading order would stay on the link.
+      if (!region.hasAttribute('tabindex')) region.tabIndex = -1;
+      placingFocus = true;
+      region.focus({ preventScroll: true });
+      placingFocus = false;
+    }
   });
 
   jumpTo = jump;
-  // On a rebuild the page is already open: settle every pin and range now rather than on a later tick.
-  if (opened) ScrollTrigger.refresh();
   });
 
   // Text enlargement or a resize can change which stages fit. Rebuild when that happens.
   let settle = 0;
+  let late = 0;
+  let turn = 0;
   const observer = new ResizeObserver(() => {
     window.clearTimeout(settle);
     settle = window.setTimeout(() => { if (environment() !== decidedFor) rebuild(); }, 180);
   });
-  // A pinned stage keeps a fixed box, so its children are what report a change in content size.
-  pinnable.forEach(stage => { observer.observe(stage); [...stage.children].forEach(child => observer.observe(child)); });
-  // A pinned stage that ended up taller than the viewport gives up its pin on the next build.
-  const late = pinnable.filter(stage => pins.get(stage) && stage.scrollHeight > window.innerHeight + 2);
-  if (late.length) {
-    late.forEach(stage => outgrown.add(stage));
-    settle = window.setTimeout(rebuild, 0);
-  }
+  const finish = () => {
+    // Settle every pin and range now that the whole page is described.
+    if (opened) ScrollTrigger.refresh();
+    // A pinned stage keeps a fixed box, so its children are what report a change in content size.
+    pinnable.forEach(stage => { observer.observe(stage); [...stage.children].forEach(child => observer.observe(child)); });
+    // A pinned stage that ended up taller than the viewport gives up its pin on the next build.
+    const grown = pinnable.filter(stage => pins.get(stage) && stage.scrollHeight > window.innerHeight + 2);
+    if (grown.length) {
+      grown.forEach(stage => outgrown.add(stage));
+      late = window.setTimeout(rebuild, 0);
+    }
+    building = false;
+    afterBuild.splice(0).forEach(done => done());
+  };
+  const run = (from: number) => {
+    if (!alive) return;
+    const started = performance.now();
+    for (let index = from; index < slices.length; index += 1) {
+      context.add(slices[index]!);
+      if (index + 1 < slices.length && performance.now() - started > 10) {
+        turn = window.setTimeout(() => run(index + 1), 0);
+        return;
+      }
+    }
+    finish();
+  };
+  building = true;
+  run(0);
 
   return () => {
+    alive = false;
+    building = false;
+    window.clearTimeout(turn);
+    window.clearTimeout(late);
     observer.disconnect();
     window.clearTimeout(settle);
     disposers.forEach(dispose => dispose());
@@ -422,12 +507,15 @@ function open() {
       .set(loader, { display: 'none' });
   }
   const start = intro.duration() * 0.55;
-  intro.fromTo('.hero-line', { clipPath: 'inset(0% 0% 100% 0%)', yPercent: 55 }, { clipPath: 'inset(-25% -12% -30% -12%)', yPercent: 0, duration: 1.3, stagger: 0.12, clearProps: 'clipPath,transform' }, start)
+  // Narrow and touch layouts have no curtain. Their first screen is painted before this script
+  // runs, so nothing on it is hidden and brought back: it stays as it was painted.
+  if (!lite.matches) intro.fromTo('.hero-line', { clipPath: 'inset(0% 0% 100% 0%)', yPercent: 55 }, { clipPath: 'inset(-25% -12% -30% -12%)', yPercent: 0, duration: 1.3, stagger: 0.12, clearProps: 'clipPath,transform' }, start)
     .fromTo('.hero-mark path', { drawSVG: '0%' }, { drawSVG: '100%', duration: 1.2, ease: 'power2.inOut' }, start + 0.75)
     // Text may fade in. Anything that holds a link only travels, so it is reachable from the first frame.
     .fromTo('.hero-role, .hero-summary, .hero-hint, .hero-status', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1, stagger: 0.07, clearProps: 'all' }, start + 0.45)
     .fromTo('.hero-actions', { y: 30 }, { y: 0, duration: 1, clearProps: 'all' }, start + 0.55)
     .fromTo('.site-chrome > *', { y: -16 }, { y: 0, duration: 0.9, stagger: 0.05, clearProps: 'all' }, start + 0.3);
+  finishOpening = () => { intro.progress(1); };
   const inputs = ['pointerdown', 'keydown', 'wheel', 'touchstart'];
   const release = () => {
     if (opened) return;
@@ -440,9 +528,11 @@ function open() {
     // A wall-clock timer: the page is never held by a slow first frame.
     window.setTimeout(() => root.classList.remove('is-preparing'), 900);
     ensureBuilt();
-    ScrollTrigger.refresh();
-    if (location.hash.length > 1) jumpTo(location.hash, true);
-    else reading.ready();
+    whenBuilt(() => {
+      ScrollTrigger.refresh();
+      if (location.hash.length > 1) jumpTo(location.hash, true);
+      reading.ready();
+    });
   };
   // Any input ends the handoff at once: the visitor never waits on the stage.
   const hurry = () => { intro.progress(1); root.classList.remove('is-preparing'); release(); };
@@ -456,9 +546,36 @@ rebuild = () => {
   teardown();
   teardown = setup({ motion: queries.motion.matches, wide: queries.wide.matches, fine: queries.fine.matches });
   built = true;
+  // A static page has nothing left to build, so nobody is kept waiting for it.
+  if (!building) afterBuild.splice(0).forEach(done => done());
 };
 ensureBuilt = () => { if (!built) rebuild(); };
 Object.values(queries).forEach(query => query.addEventListener('change', () => { if (built) rebuild(); }));
+// The stage's gate (React and the renderer check) is mounted when the page is ready for it. This
+// script already runs after the first paint, so wide layouts mount it at once. Narrow and touch
+// layouts wait for the visitor's first input and show the still until then.
+const stageRoot = one('#stage-root');
+let stageMounted = false;
+const mountStage = () => {
+  if (stageMounted || !stageRoot) return;
+  stageMounted = true;
+  void import('../../components/stage/mount').then(module => module.mountStage(stageRoot)).catch(() => {
+    root.classList.add('no-stage');
+    window.dispatchEvent(new Event('scene:unavailable'));
+  });
+};
+const offerStage = () => {
+  if (stageMounted || !queries.motion.matches) return;
+  if (!lite.matches) { mountStage(); return; }
+  const firstInputs = ['pointerdown', 'touchstart', 'keydown', 'wheel'];
+  const begin = () => { firstInputs.forEach(name => window.removeEventListener(name, begin)); mountStage(); };
+  firstInputs.forEach(name => window.addEventListener(name, begin, { passive: true }));
+};
+// With reduced motion nothing is mounted, so the page is marked here as having no stage.
+root.classList.toggle('no-stage', !queries.motion.matches);
+queries.motion.addEventListener('change', () => { if (!stageMounted) { root.classList.toggle('no-stage', !queries.motion.matches); offerStage(); } });
+offerStage();
+
 if (queries.motion.matches) {
   // Pin decisions depend on text metrics, so the first build waits briefly for the fonts.
   open();

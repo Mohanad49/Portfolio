@@ -21,16 +21,20 @@ export const GOVERNOR = {
   slowWindowsToStop: 3,
   /** Fast windows in a row before the lighter level returns to full quality. */
   fastWindowsToRestore: 4,
-  /** Full quality is retried this many times in one visit, so an unsustainable level cannot flicker. */
-  restores: 2,
+  /** What counts as fast there. Below a 30 Hz display's rate, so a capped display can still return. */
+  fastRate: 26,
+  /** Each return to full quality doubles the healthy stretch the next one needs, up to this factor,
+      so a level the device cannot hold cannot flicker, and full quality is never given up for good. */
+  backoffLimit: 16,
 } as const;
 
 /**
  * Software rendering does not get faster by waiting, so a stage handed back there stays handed
  * back. A hardware renderer that was handed back was busy, and is given the stage again after a
- * rest. An unknown name is treated as software: the page never retries on a guess.
+ * rest. An unknown name, empty or a browser's masked placeholder, is treated as software: the
+ * page never retries on a guess.
  */
-export const isSoftwareRenderer = (name: string) => name.trim() === '' || /swiftshader|llvmpipe|softpipe|software|basic render/i.test(name);
+export const isSoftwareRenderer = (name: string) => /^(|webkit webgl|mozilla)$/i.test(name.trim()) || /swiftshader|llvmpipe|softpipe|software|basic render/i.test(name);
 
 /** How a handed-back stage returns on a hardware renderer. */
 export const STAGE_RETURN = { restMs: 12_000, attempts: 2 } as const;
@@ -40,15 +44,22 @@ export function createGovernor() {
   const clear = () => { state.strikes = 0; state.span = 0; state.count = 0; state.slowWindows = 0; state.fastWindows = 0; };
   const lower = (): GovernorStep => { state.level += 1; clear(); return state.level > 1 ? 'stopped' : 'changed'; };
 
+  let skip = false;
   return {
     get level() { return state.level; },
     get proven() { return state.proven; },
+    /** The page was hidden or the stage was resting: the next frame's gap says nothing about speed. */
+    resume() { skip = true; },
     /** Feed one rendered frame's elapsed time in seconds. */
     step(elapsed: number): GovernorStep {
       if (state.level > 1) return 'stopped';
       state.frames += 1;
-      // The first frames compile shaders, and a long gap is the tab returning.
-      if (state.frames <= 2 || elapsed > GOVERNOR.awayGap) return 'steady';
+      // The first frames compile shaders, and a long gap is the tab returning. Neither is a stall.
+      if (state.frames <= 2 || elapsed > GOVERNOR.awayGap || skip) {
+        skip = false;
+        state.strikes = 0;
+        return 'steady';
+      }
       state.strikes = elapsed > GOVERNOR.longFrame ? state.strikes + 1 : 0;
       state.span += elapsed;
       state.count += 1;
@@ -63,7 +74,7 @@ export function createGovernor() {
           state.fastWindows = 0;
         } else {
           state.slowWindows = 0;
-          state.fastWindows = rate >= 40 ? state.fastWindows + 1 : 0;
+          state.fastWindows = rate >= GOVERNOR.fastRate ? state.fastWindows + 1 : 0;
           state.healthy += state.span;
           if (state.healthy >= GOVERNOR.provenAfter) state.proven = true;
         }
@@ -75,7 +86,7 @@ export function createGovernor() {
       // Proven at the lighter level: a stall alone changes nothing.
       if (stalled) state.strikes = 0;
       if (state.slowWindows >= GOVERNOR.slowWindowsToStop) return lower();
-      if (state.fastWindows >= GOVERNOR.fastWindowsToRestore && state.restores < GOVERNOR.restores) {
+      if (state.fastWindows >= GOVERNOR.fastWindowsToRestore * Math.min(2 ** state.restores, GOVERNOR.backoffLimit)) {
         state.level = 0;
         state.restores += 1;
         clear();

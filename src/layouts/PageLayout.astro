@@ -8,7 +8,6 @@ import MotionLoader from '../components/MotionLoader.astro';
 import heroScene from '../../assets/plates/hero-scene.png';
 import displayFont from '@fontsource-variable/alexandria/files/alexandria-latin-wght-normal.woff2?url';
 import bodyFont from '@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2?url';
-import serifFont from '@fontsource-variable/bodoni-moda/files/bodoni-moda-latin-opsz-italic.woff2?url';
 import '../styles/global.css';
 import '../styles/world.css';
 import '../styles/page.css';
@@ -27,7 +26,6 @@ const person = { '@context': 'https://schema.org', '@type': 'Person', name: prof
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="preload" href={displayFont} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={bodyFont} as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href={serifFont} as="font" type="font/woff2" crossorigin />
     <style is:inline>
       @view-transition { navigation: auto; }
       @media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }
@@ -55,5 +53,24 @@ const person = { '@context': 'https://schema.org', '@type': 'Person', name: prof
     <main id="main" tabindex="-1"><slot /></main>
     <Closing profile={profile} />
     {motion && <MotionLoader />}
+    <script>
+      // The serif voice is not part of these pages' first screen, so it is fetched once the page
+      // has loaded and never competes with the first paint. Until then, and without scripts, the
+      // headings use the nearest installed serif.
+      import serif from '@fontsource-variable/bodoni-moda/files/bodoni-moda-latin-opsz-italic.woff2?url';
+      const add = () => {
+        const face = new FontFace('Bodoni Moda Variable', `url(${serif}) format('woff2-variations')`, {
+          style: 'italic', weight: '400 900', display: 'swap',
+          unicodeRange: 'U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD',
+        });
+        document.fonts.add(face);
+        // Headings re-wrap in the new face, so anything measured against the old layout is told.
+        void face.load().then(() => window.dispatchEvent(new Event('portfolio:layout'))).catch(() => { /* The fallback serif stays. */ });
+      };
+      // A short pause after load keeps it clear of the first screen's own image.
+      const soon = () => window.setTimeout(add, 400);
+      if (document.readyState === 'complete') soon();
+      else window.addEventListener('load', soon, { once: true });
+    </script>
   </body>
 </html>

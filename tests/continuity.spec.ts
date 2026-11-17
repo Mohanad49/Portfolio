@@ -69,7 +69,9 @@ test('the opening handoff is bounded while the stage is slow and repeat visits a
   await page.route(/\/StageCanvas\.[^/]+\.js$/, async route => { await held; await route.abort().catch(() => {}); });
   try {
     await page.goto('/', { waitUntil: 'domcontentloaded' });
-    await expect(page.locator('html')).toHaveClass(/is-preparing/);
+    // Only wide layouts with a fine pointer show the curtain; the others paint the headline at once.
+    if ((page.viewportSize()?.width ?? 0) >= 1024) await expect(page.locator('html')).toHaveClass(/is-preparing/);
+    else await expect(page.locator('html')).not.toHaveClass(/is-preparing/);
     // The handoff waits at most 2.8 seconds for the stage, then the hero arrives without it.
     await expect(page.locator('html')).not.toHaveClass(/is-preparing/, { timeout: 4500 });
     await expect(page.locator('h1')).toBeVisible();

@@ -55,23 +55,63 @@ test('a proven renderer is handed back only after sustained slowness at the ligh
   expect(more).toContain('stopped');
 });
 
-test('full quality is retried a limited number of times, and a returning tab is not a slow frame', () => {
+test('full quality always comes back after a stall, each time after a longer healthy stretch', () => {
   const governor = createGovernor();
   feed(governor, 6, 1 / 30);
+  // A returning tab is not a slow frame.
   expect(governor.step(8)).toBe('steady');
   expect(governor.level).toBe(0);
-  let restored = 0;
-  for (let round = 0; round < GOVERNOR.restores + 2; round += 1) {
-    // Stall, then recover.
+  const waits: number[] = [];
+  for (let round = 0; round < 6; round += 1) {
+    // Stall, then count the seconds of healthy frames until full quality returns.
     governor.step(0.4); governor.step(0.4);
-    if (feed(governor, 12, 1 / 60).includes('changed')) restored += 1;
+    expect(governor.level).toBe(1);
+    let seconds = 0;
+    while (governor.level === 1 && seconds < 600) { governor.step(1 / 60); seconds += 1 / 60; }
+    expect(governor.level, `round ${round}`).toBe(0);
+    waits.push(Math.round(seconds));
   }
-  expect(restored).toBe(GOVERNOR.restores);
-  expect(governor.level).toBe(1);
+  // The wait grows so an unsustainable level cannot flicker, and stops growing so it is never final.
+  for (let index = 1; index < waits.length; index += 1) expect(waits[index]).toBeGreaterThanOrEqual(waits[index - 1]!);
+  expect(waits[1]).toBeGreaterThan(waits[0]!);
+  expect(Math.max(...waits)).toBeLessThanOrEqual(GOVERNOR.fastWindowsToRestore * GOVERNOR.backoffLimit * 2 + 2);
+});
+
+test('a gap spent hidden or resting is not a stall, and a 30 Hz display can return to full quality', () => {
+  const governor = createGovernor();
+  feed(governor, 6, 1 / 60);
+  // Three one-to-three second gaps, each announced as a return: full quality is never lost.
+  for (const gap of [1.2, 2, 2.8]) {
+    governor.resume();
+    expect(governor.step(gap)).toBe('steady');
+    expect(feed(governor, 4, 1 / 60)).not.toContain('changed');
+  }
+  expect(governor.level).toBe(0);
+  // Two such gaps in a row, announced, are still nothing. Unannounced, they are a stall.
+  governor.resume();
+  expect(governor.step(2)).toBe('steady');
+  governor.resume();
+  expect(governor.step(2)).toBe('steady');
+  expect(governor.level).toBe(0);
+  const unannounced = createGovernor();
+  feed(unannounced, 6, 1 / 60);
+  unannounced.step(2);
+  expect(unannounced.step(2)).toBe('changed');
+  expect(unannounced.level).toBe(1);
+  // A display capped at 30 frames a second, stepped down by a stall, gets full quality back.
+  const capped = createGovernor();
+  feed(capped, 6, 1 / 30);
+  capped.step(0.4); capped.step(0.4);
+  expect(capped.level).toBe(1);
+  expect(feed(capped, 12, 1 / 30)).toContain('changed');
+  expect(capped.level).toBe(0);
 });
 
 test('only a hardware renderer is offered the stage again after a handback', () => {
   for (const name of [
+    // Masked placeholders say nothing about the hardware, so they are not retried on.
+    'WebKit WebGL',
+    'Mozilla',
     'ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)',
     'llvmpipe (LLVM 15.0.7, 256 bits)',
     'Microsoft Basic Render Driver',
