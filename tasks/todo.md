@@ -140,5 +140,6 @@ are linked from PR 5 and the shared verification record.
 - [x] Swap the plates, give TestPulse one plate, record provenance for these and the D-025 stills.
 - [x] Three-browser matrix, mobile gate on the reading pages, and recapture of the built pages.
 - [x] Push to the draft PR. Its Windows job then failed two homepage smooth-scroll checks; recorded.
-- [ ] Confirm the next head's hosted checks, including those two Windows checks.
+- [x] Next head: Windows passed; the contention check failed in Linux WebKit. Its timing was the cause, now fixed.
+- [ ] Confirm the hosted checks on the fixed check.
 
