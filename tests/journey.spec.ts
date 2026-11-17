@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { released, withoutStage } from './support';
+import { released, settled, withoutStage } from './support';
 
 test.beforeEach(async ({ page }) => { await withoutStage(page); });
 
@@ -32,12 +32,17 @@ test('project evidence advances and reverses with the scroll while the recorded 
     return spacer ? { start: top, end: top + rect.height - innerHeight } : { start: top - innerHeight * 0.3, end: top + rect.height - innerHeight * 0.9 };
   });
   const height = () => loser.evaluate(element => element.getBoundingClientRect().height);
+  // Smoothed scrolling passes through the figure's earlier states on its way to a position, so the
+  // figure is read only once scrolling has come to rest.
   await page.evaluate(top => scrollTo({ top, behavior: 'instant' }), range.start + (range.end - range.start) * 0.4);
+  await settled(page);
   await expect.poll(height).toBeGreaterThan(10);
   const early = await height();
   await page.evaluate(top => scrollTo({ top, behavior: 'instant' }), range.end - 2);
+  await settled(page);
   await expect.poll(height).toBeLessThan(early * 0.6);
   await page.evaluate(top => scrollTo({ top, behavior: 'instant' }), range.start + (range.end - range.start) * 0.4);
+  await settled(page);
   await expect.poll(height).toBeGreaterThan(early * 0.9);
   await expect(figure.locator('figcaption')).toContainText('1 persisted booking');
   await expect(figure.locator('figcaption')).toContainText('19 expected conflicts');

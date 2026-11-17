@@ -1,6 +1,6 @@
 # Verification record
 
-## Hosted checks on the D-026 commit, and D-027: 2026-11-17
+## Hosted checks on the D-026 commits, D-027, and a check fixed: 2026-11-17
 
 Workflow run 44171388141 on `953cfeb`. The Linux `verify` job passed check,
 lint, build, and the browser matrix, and was in its mobile gate when the next
@@ -21,6 +21,25 @@ failures. The next head reruns them; a repeat would be treated as a defect in th
 homepage's smooth scrolling, not as noise.
 
 D-027 keeps the TestPulse tiles at their approved tilt. No source changed.
+
+Workflow run 44174681315 on `9e96743`, which changed only records: `windows`
+passed every check, so neither Windows failure repeated there. `verify` failed one
+of its 451 checks: the same contention check, in WebKit at desktop size, read 17.4
+pixels at 40 percent of the chapter and 36 at its end.
+
+The cause was in the check, not the page. Both failure screenshots show the
+figure's correct end state: the winner lit and the losers at 40 percent of the
+row, 36 pixels. The check took its comparison height right after a scripted
+scroll, while smoothed scrolling was still passing through the figure's growth.
+Sampled every 20 ms after the same scroll on this Mac, the bar reads 0 for about
+400 ms, passes through 50.8 pixels in Chromium (53.1 in WebKit, 73.4 in Firefox)
+for one or two samples, and settles at 90. The Windows Chrome failure implies a
+comparison height of exactly 50.8. The check now waits for scrolling to come to
+rest before each reading, and passed 45 of 45 runs: five in each of the nine
+browser and size projects. No page code changed.
+
+The Firefox Back to top failure on Windows did not repeat and was not reproduced
+locally. It stays recorded as a failure.
 
 ## Reading-page plates from the live stage, D-026: local checkpoint, 2026-11-17
 
