@@ -45,3 +45,9 @@ The archive takes the homepage's world: the stage chrome with Experience and the
 resume, Alexandria 700 titles with one Bodoni Moda italic word in the page title,
 and the homepage closing. It stays a reading page without the 3D stage. The fan,
 filters, counts, URL state, and rows are unchanged in behaviour.
+
+## D-026 owner decision, 2026-11-17
+
+The fan is now a still of the homepage stage's own evidence fan, cut out on a
+transparent ground, so the archive's material matches the stage. Provenance:
+`.impeccable/assets/stage-archive.json`.

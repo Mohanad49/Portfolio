@@ -1,5 +1,85 @@
 # Verification record
 
+## Reading-page plates from the live stage, D-026: local checkpoint, 2026-11-17
+
+`dev/portfolio-v2` is pushed and open as draft PR 6 against `main`. Its first
+hosted run, on `5d40d40`, passed `verify` and `windows` (workflow run
+44146945690), and Vercel built a preview deployment. Production and `main` are
+unchanged. This section covers the commit after that run; earlier sections are
+kept as written.
+
+Source identity for the results below: `src` tree
+`692177b7932dd2746a6da7f57fca0967f9bb0239`, `assets` tree
+`589741ef399ca508fed1acd04dcf97bce01b949a`, and the unchanged `tests` tree
+`e5c82983506fc25c73c87542f84983c21616b117`. Same machine and tools as D-022,
+including the Node engine warning.
+
+- `astro check`: 0 errors, 0 warnings, 0 hints. ESLint is clean. The production
+  build writes 20 pages.
+- Playwright: 451 registrations, two workers, zero retries, one family at a time,
+  each started once the one-minute load average was below 4.
+
+| Family | Passed | Skipped | Failed | Flaky | Duration |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Chromium | 154 | 3 | 0 | 0 | 4.1 min |
+| Firefox | 144 | 3 | 0 | 0 | 4.8 min |
+| WebKit | 144 | 3 | 0 | 0 | 5.8 min |
+
+Mobile Lighthouse, production build, three runs per route, thresholds unchanged.
+The plate is now the largest paint on every reading page:
+
+| Route | Median performance | Median LCP | Median CLS | Median TBT | Accessibility | Largest paint |
+| --- | ---: | ---: | ---: | ---: | ---: | --- |
+| / | 99 | 1.884s | 0 | 98 ms | 100 | hero headline |
+| /work/ | 99 | 2.024s | 0.0006 | 17 ms | 100 | archive plate |
+| /work/testpulse/ | 99 | 2.021s | 0 | 23 ms | 100 | case plate |
+| /work/caldiy/ | 99 | 2.016s | 0 | 20 ms | 100 | case plate |
+| /work/llm-evaluation/ | 99 | 2.034s | 0 | 31 ms | 100 | case plate |
+| /experience/ | 98 | 2.219s | 0 | 21 ms | 100 | passage plate |
+
+The gate started with the five-minute load average near 5, just after the
+matrix. These are lab measurements, not field data.
+
+Served plate weight at 1024 pixels wide: archive 56 KB, Cal.diy 46 KB, LLM 57 KB,
+and 72 KB for TestPulse's single plate. The plates they replace, re-encoded the
+same way, were 75 KB, 143 KB, 83 KB, and 54 plus 44 KB for TestPulse's two.
+
+The stills come from twelve captures of the four project stations, one fresh page
+each, at 1440x900 and device scale 2 in headless Chromium on this Mac's GPU. In
+every capture the stage was live at full quality (canvas 2520x1575) with no
+slow-renderer event. The owner compared the chosen four with the plates they
+replace, swapped in the browser only, at desktop and phone sizes, and chose all
+four. The built pages were captured again at both sizes. They match those
+previews in pose, framing, and size; the final cut, described below, also removed
+contour lines from the glass and lightened the files.
+
+### Failures retained rather than relabeled
+
+- The first cut gave each pixel only the least opacity that reproduces it over
+  the stage's backdrop. Where glass matched the backdrop's colour it turned
+  transparent, so the page showed through the object as dark contour lines, and
+  the stage's dither survived as a faint grain around each object.
+- That cut also kept each object's shading in its opacity: 128 to 208 KB per
+  plate at 1024 pixels, heavier than the plates being replaced. Making the body
+  of each object solid moved the shading into colour. Neither version was
+  committed.
+- Re-grounding every pixel from the stage's backdrop onto the page colour was
+  tried and discarded. Bloom raised the backdrop estimate under bright objects,
+  and they came out dark and blue.
+
+### Known and not done
+
+- Hosted CI has not run this commit yet; pushing it to PR 6 starts it.
+- The finish reviewer has not re-scored its material item; the owner decided it.
+- `DESIGN.md` already describes reading pages as carrying "a still plate of the
+  object" and was not regenerated.
+- Still with the owner: TestPulse tile thickness, and whether D-024, D-025, and
+  the D-023 implementation choices stand.
+
+Evidence: `.impeccable/review/rasters/` (raw captures, cut checks, comparisons,
+and the built pages) and `.research/d026/` (matrix and Lighthouse logs). The
+capture and cut scripts are in `.research/d022-feedback/probes/`.
+
 ## Staged chapters, performance, and two review rounds, D-024 and D-025: local checkpoint, 2026-11-17
 
 Production, `main`, and the remote are unchanged. This work is committed on the

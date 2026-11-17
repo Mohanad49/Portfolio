@@ -371,3 +371,28 @@ Still mine to decide, and not changed:
   back to show it made the glass mirror the studio light, so the amber went to
   cream and the failed run to pale pink. They keep the approved tilt for now.
 
+## D-026: Reading pages show stills of the live stage
+
+The finish review left the reading pages' plates to me. They were the earlier
+generated renders, brushed chrome and amber glass under studio light, while the
+homepage stage is black lacquer and amber glass on graphite. On 2026-11-17 I
+compared both on every reading page, at desktop and phone sizes, and chose stills
+of the stage for all four.
+
+- The work archive shows the stage's evidence fan. TestPulse shows its three
+  recorded runs with the failed run lit, Cal.diy the contenders jammed in the lit
+  gate, and the LLM evaluation the paired prisms with the signal between them.
+- Each still is captured from the live stage near the end of its chapter and cut
+  out on a transparent ground. Nothing is retouched. The stills are quieter and
+  less detailed than the generated plates, because they are what the real-time
+  stage draws.
+- TestPulse now has one plate instead of two stacked bars. The faint fan behind
+  the closing of the experience study is the same still.
+- The earlier archive, Cal.diy, and LLM plates are removed. Their generation
+  records stay in `.impeccable/assets`, beside the capture records of the new
+  stills and of the D-025 phone and tablet stills.
+
+Still mine to decide: whether the TestPulse tiles should show more of their
+thickness, and whether D-024, D-025, and the choices D-023 made in implementation
+stand. Measured results are in [verification](docs/verification.md).
+

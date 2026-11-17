@@ -58,3 +58,11 @@ the Bodoni Moda italic word in each evidence heading, and the homepage closing.
 The Cal.diy paper panel is withdrawn with the homepage's paper chapter: all three
 evidence panels sit on raised graphite. The retained red results keep a distinct
 tone and their wording. The owner has not reviewed that panel change yet.
+
+## D-026 owner decision, 2026-11-17
+
+The opening plate of each case study is a still of the homepage's live stage, cut
+out on a transparent ground, replacing the generated chrome/glass rasters named
+above: TestPulse's three recorded runs with the failed run lit, the Cal.diy gate
+with its contenders jammed inside, and the paired LLM prisms with the signal
+between them. TestPulse uses one plate. Provenance: `.impeccable/assets/stage-*.json`.
