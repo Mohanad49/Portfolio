@@ -130,7 +130,7 @@ are linked from PR 5 and the shared verification record.
 - [x] Mobile performance gate, finish review, DESIGN.md, technical review.
 - [x] Two finish-review rounds; the second verdict goes to the owner as it stands.
 - [x] Full three-browser matrix on the final tree and the verification record.
-- [ ] Owner decisions: TestPulse tile thickness, D-024 and D-025 (sub-page rasters decided in D-026).
+- [ ] Owner decisions: D-024 and D-025 (sub-page rasters decided in D-026, tile tilt kept in D-027).
 
 ## Reading-page plates from the live stage, D-026, 2026-11-17
 
@@ -139,5 +139,6 @@ are linked from PR 5 and the shared verification record.
 - [x] Owner chose the stage stills for all four pages.
 - [x] Swap the plates, give TestPulse one plate, record provenance for these and the D-025 stills.
 - [x] Three-browser matrix, mobile gate on the reading pages, and recapture of the built pages.
-- [ ] Push to the draft PR and confirm its hosted checks.
+- [x] Push to the draft PR. Its Windows job then failed two homepage smooth-scroll checks; recorded.
+- [ ] Confirm the next head's hosted checks, including those two Windows checks.
 
