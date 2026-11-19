@@ -440,16 +440,21 @@ export function createWorld(renderer: THREE.WebGLRenderer, scene: THREE.Scene, c
     let travel = Math.sign(distance) * smooth(Math.abs(distance));
     const bob = Math.sin(time * 0.7) * 0.035;
     specimen.position.set(anchorA.x, anchorA.y + bob + travel * view.height * 1.15, 0);
+    let hop = 1;
     if (narrow()) {
       travel = 0;
-      const y = chain ? lerp(lerp(windowY(S.hero, 0.43), windowY(S.layers, 0.25), toLayers), windowY(S.testpulse, 0.25), toRow) : inspected ? windowY(S.method, 0.25) : windowY(S.closing, 0.2);
-      specimen.visible = Math.abs(y) < view.height * 0.95;
+      // Between the layers and the runs the object does not slide across the notes that lie between
+      // their two windows: it shrinks away in the layers' window and grows back in the runs' window.
+      const leaving = chain && toRow < 0.5;
+      if (chain) hop = smooth(Math.abs(2 * toRow - 1));
+      const y = chain ? (leaving ? lerp(windowY(S.hero, 0.43), windowY(S.layers, 0.25), toLayers) : windowY(S.testpulse, 0.25)) : inspected ? windowY(S.method, 0.25) : windowY(S.closing, 0.2);
+      specimen.visible = Math.abs(y) < view.height * 0.95 && hop > 0.001;
       if (!specimen.visible) return;
       specimen.position.set(0, y + bob, 0);
     }
     const intro = smooth(state.intro);
     const base = (chain ? lerp(lerp(1, 0.94, toLayers), 1.02, toRow) : inspected ? 0.86 : 0.92) * size;
-    specimen.scale.setScalar(base * (1 - 0.18 * Math.abs(travel)) * lerp(0.72, 1, intro));
+    specimen.scale.setScalar(base * (1 - 0.18 * Math.abs(travel)) * lerp(0.72, 1, intro) * hop);
     const spin = chain || inspected ? 0 : time * 0.12;
     if (inspected) {
       // Seen from above at three quarters, so every layer shows its face to the lens and keeps its depth.

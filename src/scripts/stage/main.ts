@@ -95,8 +95,8 @@ function setup({ motion, wide, fine }: { motion: boolean; wide: boolean; fine: b
   // otherwise centres whatever receives focus, which sent "Back to top" to the middle of the page.
   let placingFocus = false;
   const pinnable = all('.layers-stage, .project-stage, .career-stage, .method-stage');
-  // These two change layout when they hold, so they are measured in the layout they would hold in.
-  const holdable = all('.career-stage, .method-stage');
+  // These change layout when they hold, so they are measured in the layout they would hold in.
+  const holdable = all('.layers-stage, .career-stage, .method-stage');
   holdable.forEach(stage => stage.classList.toggle('is-held', wide));
   const decidedFor = environment();
   if (outgrownFor !== decidedFor) { outgrown.clear(); outgrownFor = decidedFor; }
@@ -136,31 +136,50 @@ function setup({ motion, wide, fine }: { motion: boolean; wide: boolean; fine: b
   slice(() => {
   /* Layers: the sentence lights word by word while the matching plate lifts out of the stack. */
   const layers = one('.layers');
-  if (layers) {
+  const layersStage = one('.layers-stage', layers ?? undefined);
+  if (layers && layersStage) {
     const words = all('.layers-word', layers);
     const notes = all('.layers-notes li', layers);
-    // Dim words stay above 3:1 against graphite, so the sentence is readable before it is lit.
-    gsap.set(words, { opacity: 0.45 });
-    gsap.set(notes, { opacity: 0, y: 18 });
-    const timeline = gsap.timeline({ defaults: { ease: 'none' } });
     const plain = words.filter(word => !word.classList.contains('layers-key'));
-    plain.slice(0, 3).forEach((word, index) => timeline.to(word, { opacity: 1, duration: 0.04 }, 0.01 + index * 0.035));
-    const and = plain[3];
-    if (and) timeline.to(and, { opacity: 1, duration: 0.04 }, 0.7);
-    all('.layers-key', layers).forEach(word => {
-      const index = Number(word.dataset.layer);
-      const from = 0.14 + index * 0.2;
-      timeline.to(word, { opacity: 1, duration: 0.05 }, from - 0.03);
-      const note = notes[index];
-      if (!note) return;
-      timeline.to(note, { opacity: 1, y: 0, duration: 0.05 }, from);
-      if (index < 3) timeline.to(note, { opacity: 0, y: -18, duration: 0.04 }, from + 0.17);
-    });
-    timeline.to({}, { duration: 0.02 }, 0.98);
-    const stage = one('.layers-stage', layers);
-    ScrollTrigger.create(stage && pins.get(stage)
-      ? { trigger: stage, start: 'top top', end: '+=240%', pin: true, scrub: true, animation: timeline, onUpdate: setLocal('layers') }
-      : { trigger: layers, start: 'top 20%', end: 'bottom 85%', scrub: true, animation: timeline, onUpdate: setLocal('layers') });
+    const keys = all('.layers-key', layers);
+    // Dim words stay above 3:1 against graphite, so the sentence is readable before it is lit.
+    const dim = 0.45;
+    if (pins.get(layersStage)) {
+      // Held, the four notes share one place and take turns while the stage stays put.
+      gsap.set(words, { opacity: dim });
+      gsap.set(notes, { opacity: 0, y: 18 });
+      const timeline = gsap.timeline({ defaults: { ease: 'none' } });
+      plain.slice(0, 3).forEach((word, index) => timeline.to(word, { opacity: 1, duration: 0.04 }, 0.01 + index * 0.035));
+      const and = plain[3];
+      if (and) timeline.to(and, { opacity: 1, duration: 0.04 }, 0.7);
+      keys.forEach(word => {
+        const index = Number(word.dataset.layer);
+        const from = 0.14 + index * 0.2;
+        timeline.to(word, { opacity: 1, duration: 0.05 }, from - 0.03);
+        const note = notes[index];
+        if (!note) return;
+        timeline.to(note, { opacity: 1, y: 0, duration: 0.05 }, from);
+        if (index < 3) timeline.to(note, { opacity: 0, y: -18, duration: 0.04 }, from + 0.17);
+      });
+      timeline.to({}, { duration: 0.02 }, 0.98);
+      ScrollTrigger.create({ trigger: layersStage, start: 'top top', end: '+=240%', pin: true, scrub: true, animation: timeline, onUpdate: setLocal('layers') });
+    } else {
+      // Without a hold the notes are a list, read at the reader's own pace: each arrives as it enters
+      // the window and the word it explains lights with it. Taking turns in one place, they passed in
+      // a few dozen pixels of scrolling. Each undoes only as it leaves through the bottom edge, so
+      // nothing in view is taken away and scrolling back up retraces the way down.
+      const arrive = (trigger: HTMLElement) => ({ trigger, start: 'top bottom-=48', toggleActions: 'play none none reverse' });
+      // One tween per element, from its dim state: undone, each returns to exactly how it was.
+      const sentence = one('.layers-sentence', layers);
+      if (sentence) gsap.fromTo(plain, { opacity: dim }, { opacity: 1, duration: 0.5, stagger: 0.04, scrollTrigger: arrive(sentence) });
+      notes.forEach((note, index) => {
+        gsap.from(note, { opacity: 0, y: 18, duration: 0.7, ease: 'power3.out', scrollTrigger: arrive(note) });
+        const key = keys.find(word => Number(word.dataset.layer) === index);
+        if (key) gsap.fromTo(key, { opacity: dim }, { opacity: 1, duration: 0.5, scrollTrigger: arrive(note) });
+      });
+      // Each plate lifts as its note arrives, so the lit word and the lifted plate stay a pair.
+      ScrollTrigger.create({ trigger: one('.layers-notes', layers) ?? layers, start: 'top bottom-=48', end: 'bottom bottom-=48', onUpdate: setLocal('layers') });
+    }
   }
 
   });
@@ -209,9 +228,17 @@ function setup({ motion, wide, fine }: { motion: boolean; wide: boolean; fine: b
       timeline.from(one('.project-evidence figcaption', project), { opacity: 0, duration: 0.1 }, 0.85);
     }
     timeline.to({}, { duration: 0.02 }, 0.98);
-    ScrollTrigger.create(pins.get(stage)
-      ? { trigger: stage, start: 'top top', end: '+=190%', pin: true, scrub: true, animation: timeline, onUpdate: setLocal(station) }
-      : { trigger: project, start: 'top 30%', end: 'bottom 90%', scrub: true, animation: timeline, onUpdate: setLocal(station) });
+    if (pins.get(stage)) {
+      ScrollTrigger.create({ trigger: stage, start: 'top top', end: '+=190%', pin: true, scrub: true, animation: timeline, onUpdate: setLocal(station) });
+    } else {
+      ScrollTrigger.create({ trigger: project, start: 'top 30%', end: 'bottom 90%', scrub: true, animation: timeline });
+      // On narrow screens the object keeps to the window at the top of its chapter, so its sequence
+      // plays while that window is on screen. Spread over the whole chapter, the failed run lit only
+      // after the runs had left the screen.
+      ScrollTrigger.create(wide
+        ? { trigger: project, start: 'top 30%', end: 'bottom 90%', onUpdate: setLocal(station) }
+        : { trigger: project, start: 'top 30%', end: 'top -10%', onUpdate: setLocal(station) });
+    }
   }));
 
   slice(() => {

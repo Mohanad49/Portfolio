@@ -77,8 +77,8 @@ html:not(.stage-live) .hero-hint { visibility: hidden; }
 .layers-notes strong { font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; letter-spacing: -.02em; color: var(--color-amber); }
 .layers-notes span { color: var(--body-copy); line-height: 1.6; }
 .layers-scope { margin-top: 1.6rem; font-size: .8rem; color: var(--color-muted); }
-html.is-staged .layers-notes { position: relative; display: block; min-height: 6.5rem; }
-html.is-staged .layers-notes li { position: absolute; inset: 0 auto auto 0; }
+html.is-staged .layers-stage.is-held .layers-notes { position: relative; display: block; min-height: 6.5rem; }
+html.is-staged .layers-stage.is-held .layers-notes li { position: absolute; inset: 0 auto auto 0; }
 
 /* Projects */
 .project, .layers { position: relative; }

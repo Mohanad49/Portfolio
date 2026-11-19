@@ -1,6 +1,6 @@
 import { test, expect, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-import { released, settled, withoutStage } from './support';
+import { bring, released, settled, withoutStage } from './support';
 
 const stageChunk = /\/StageCanvas\.[^/]+\.js$/;
 const chapters = [['Work', '#work'], ['Experience', '#experience'], ['Approach', '#approach'], ['About', '#about'], ['Contact', '#contact']] as const;
@@ -311,6 +311,27 @@ test('scrolling back up restores every chapter to the state it had on the way do
     await expect.poll(state, { timeout: 10_000, message: `state at ${stop}px on the way up` }).toBe(down[index]);
   }
   await expect(page.locator('h1')).toBeInViewport();
+});
+
+test('on narrow screens the layer notes are a list that stays readable while in view', async ({ page }) => {
+  test.skip(isWide(page), 'Wide screens hold the chapter, where the notes take turns in one place.');
+  await withoutStage(page);
+  await page.goto('/');
+  await released(page);
+  const notes = page.locator('.layers-notes li');
+  await expect(notes).toHaveCount(4);
+  // Each note has a place of its own below the one before it. Sharing one place, they used to
+  // take turns within a few dozen pixels of scrolling.
+  const tops = await notes.evaluateAll(items => items.map(item => { let top = 0; for (let node = item as HTMLElement | null; node; node = node.offsetParent as HTMLElement | null) top += node.offsetTop; return top; }));
+  for (let index = 1; index < tops.length; index += 1) expect(tops[index]!, `note ${index + 1}`).toBeGreaterThan(tops[index - 1]! + 20);
+  for (const [index, note] of (await notes.all()).entries()) {
+    // In the middle of the window the note is readable, and it stays so as reading continues.
+    await bring(note);
+    await expect(note, `note ${index + 1}`).toHaveCSS('opacity', '1');
+    await page.evaluate(() => window.scrollBy({ top: 160, behavior: 'instant' }));
+    await settled(page);
+    await expect(note, `note ${index + 1} after reading on`).toHaveCSS('opacity', '1');
+  }
 });
 
 test('the opening handoff is bounded and repeat visits skip it', async ({ page }) => {
