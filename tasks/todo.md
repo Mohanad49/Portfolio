@@ -130,7 +130,7 @@ are linked from PR 5 and the shared verification record.
 - [x] Mobile performance gate, finish review, DESIGN.md, technical review.
 - [x] Two finish-review rounds; the second verdict goes to the owner as it stands.
 - [x] Full three-browser matrix on the final tree and the verification record.
-- [ ] Owner decisions: D-024 and D-025 (sub-page rasters decided in D-026, tile tilt kept in D-027).
+- [x] Owner decisions: D-024, D-025, and the D-023 choices confirmed on 2026-11-19 (sub-page rasters decided in D-026, tile tilt kept in D-027).
 
 ## Reading-page plates from the live stage, D-026, 2026-11-17
 
@@ -141,5 +141,15 @@ are linked from PR 5 and the shared verification record.
 - [x] Three-browser matrix, mobile gate on the reading pages, and recapture of the built pages.
 - [x] Push to the draft PR. Its Windows job then failed two homepage smooth-scroll checks; recorded.
 - [x] Next head: Windows passed; the contention check failed in Linux WebKit. Its timing was the cause, now fixed.
-- [ ] Confirm the hosted checks on the fixed check.
+- [x] Confirm the hosted checks on the fixed check: all four passed on `b9878db`.
+
+## Mobile corrections after the owner's preview review, D-028, 2026-11-19
+
+- [x] Measure the layer notes on a phone: three of four were readable for under 41 pixels of scrolling.
+- [x] Make the notes a list on narrow screens; light each word and plate as its note arrives.
+- [x] Capture the project objects on a phone: the failed run lit only as the runs left the screen.
+- [x] Play each project object's sequence while its window is on screen; stop the stack sliding behind the notes.
+- [x] Regression check for the notes, failing on the previous source and passing on the fix.
+- [x] Three-browser matrix, mobile gate, and the verification record.
+- [ ] Push to the draft PR and confirm its hosted checks.
 

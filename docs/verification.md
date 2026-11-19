@@ -1,5 +1,96 @@
 # Verification record
 
+## Mobile corrections, D-028: local checkpoint, 2026-11-19
+
+All four hosted checks passed on `b9878db`: `verify`, `windows`, and both Vercel
+checks. The owner then reviewed the hosted preview on desktop and a phone,
+confirmed D-024, D-025, and the D-023 implementation choices, and reported two
+phone problems. Production and `main` are unchanged.
+
+Source identity for the results below: `src` tree
+`3c07c3662a09e63b38296948520d22c0f4968399` and `tests` tree
+`d986474b492b77713fde2532b282ebd69a5624f0`. Same machine and tools as D-022,
+including the Node engine warning.
+
+Measured at 390x844 on `b9878db`, before the change:
+
+- Scrolling down in 8 pixel steps, the four layer notes were fully readable on
+  screen for 0, 40, 32, and 592 pixels of scrolling. They shared one place and
+  took turns over about 300 pixels.
+- On the GPU, with the TestPulse chapter's top edge at 20 and at 0 percent of the
+  screen, all three runs were amber. The failed run turned red only at minus 25
+  percent, as the runs left the top of the screen. The Cal.diy contenders and the
+  LLM prisms also finished their sequences as their objects left the screen.
+
+After:
+
+- Each note is readable for 704 to 712 pixels of scrolling, and its word in the
+  sentence lights as it arrives.
+- The failed run turns red with the chapter's top edge near 5 percent, with the
+  runs in the middle of the screen. The Cal.diy contenders reach the gate and the
+  LLM prisms converge while on screen.
+- Between the layers and the runs, the object no longer passes behind any notes.
+  The before capture also showed it behind the Data note at 45 percent.
+
+Checks:
+
+- `astro check`: 0 errors, 0 warnings, 0 hints. ESLint is clean. The production
+  build writes 20 pages.
+- New check: on narrow screens the layer notes are a list that stays readable
+  while in view. It failed on the previous source in Chromium at mobile size and
+  WebKit at tablet size (note 2 shared note 1's place) and passes in all six
+  narrow projects.
+- Playwright: 460 registrations, two workers, zero retries, one family at a time,
+  each started once the one-minute load average was below 4. The five-minute
+  average stayed between 5.6 and 7.6 throughout.
+
+| Family | Passed | Skipped | Failed | Flaky | Duration |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Chromium | 156 | 4 | 0 | 0 | 4.8 min |
+| Firefox | 146 | 4 | 0 | 0 | 4.7 min |
+| WebKit | 146 | 4 | 0 | 0 | 5.4 min |
+
+The fourth skip in each family is the new check at desktop size, where the
+chapter holds instead.
+
+Mobile Lighthouse, production build, three runs per route, thresholds unchanged:
+
+| Route | Median performance | Median LCP | Median CLS | Median TBT | Accessibility |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| / | 97 | 1.885s | 0 | 176 ms | 100 |
+| /work/ | 99 | 2.015s | 0.0006 | 9 ms | 100 |
+| /work/testpulse/ | 99 | 2.010s | 0 | 17 ms | 100 |
+| /work/caldiy/ | 99 | 1.972s | 0 | 15 ms | 100 |
+| /work/llm-evaluation/ | 99 | 1.970s | 0 | 21 ms | 100 |
+| /experience/ | 98 | 2.278s | 0 | 15 ms | 100 |
+
+The homepage's blocking time is higher than in the D-026 run (98 ms) and its
+score lower (99). Narrow layouts now set up a few more scroll triggers, which may
+account for part of it; that was not isolated. Both stay well inside the gate.
+These are lab measurements on a busy machine, not field data.
+
+### Failures retained rather than relabeled
+
+- The first version made the notes a list but left the object's path between the
+  layers and the runs as it was. The list is taller, so the object slid behind the
+  API and Data notes for about a third of a screen. It now shrinks away and grows
+  back in the runs' window.
+- The first full matrix of this change failed "scroll reveals become fully
+  readable and respect live motion preferences" in Chromium at tablet and mobile
+  sizes. After reduced motion was switched on mid-visit, the four plain words of
+  the layers sentence stayed at 45 percent opacity: each had two tweens, a dim
+  setting and a reveal, and undoing both left the dim value. Each now has one tween
+  from its dim state. That run was stopped before Firefox and WebKit finished, and
+  the table above is from the rerun on the corrected build.
+
+### Known and not done
+
+- Hosted CI has not run this change; pushing it to PR 6 starts it.
+- The finish reviewer has not reviewed the phone changes.
+
+Evidence: `.research/d028/` (probe scripts, logs, and captures) and
+`.impeccable/review/mobile-d028/phone-before-after.png`.
+
 ## Hosted checks on the D-026 commits, D-027, and a check fixed: 2026-11-17
 
 Workflow run 44171388141 on `953cfeb`. The Linux `verify` job passed check,
