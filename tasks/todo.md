@@ -103,10 +103,11 @@ are linked from PR 5 and the shared verification record.
       in docs/verification.md, including the corrected real-renderer skip.
 - [x] Probe the live stage on this Mac's GPU and record the open findings.
 - [x] Owner review of the local preview on 2026-11-17: direction kept, five corrections.
-- [ ] After approval: remove the retired homepage components, update DESIGN.md and
+- [x] After approval: remove the retired homepage components, update DESIGN.md and
       the surface briefs through Impeccable's documenter, restyle the shared
       header on case studies and the archive, rerun the full browser matrix and
-      the mobile performance gate, then open a pull request.
+      the mobile performance gate, then open a pull request (done under D-023 and
+      D-024; PR 6).
 
 ## Owner review corrections, D-023, 2026-11-17
 
@@ -116,7 +117,8 @@ are linked from PR 5 and the shared verification record.
 - [x] List Blue Ribbon and Atos only in Experience.
 - [x] Give the archive, case studies, and 404 the homepage chrome, voice, and closing.
 - [x] Pass the three-browser matrix on the corrected tree and record it.
-- [ ] Owner review of the corrections and of the three unreviewed choices in D-023.
+- [x] Owner review of the corrections and of the three unreviewed choices in D-023
+      (confirmed on 2026-11-19, D-028).
 
 ## Back to top and staged Experience and Approach, D-024, 2026-11-17
 
@@ -151,5 +153,24 @@ are linked from PR 5 and the shared verification record.
 - [x] Play each project object's sequence while its window is on screen; stop the stack sliding behind the notes.
 - [x] Regression check for the notes, failing on the previous source and passing on the fix.
 - [x] Three-browser matrix, mobile gate, and the verification record.
-- [ ] Push to the draft PR and confirm its hosted checks.
+- [x] Push to the draft PR and confirm its hosted checks: all four passed on `5fa08f5`.
+
+## Release of the live stage, D-029, 2026-11-19
+
+- [x] Owner rechecked the phone, approved the mobile version, and asked for release once green.
+- [x] Save the outgoing production (`21bcd9d`, v1.1.0) on the locked branch `backup/production-2026-11-19`.
+- [x] Verify `verify`, `windows`, and `Vercel` on the exact head; mark PR 6 ready and merge normally.
+- [x] Confirm production deployment `7913797965` and the public alias.
+- [x] Smoke-test the live site: HTTP, the full browser matrix (448 passed, 12 skipped), and the stage on the GPU.
+- [x] Tag `qa-portfolio-v2.0.0` and publish its release record.
+
+## Repository attribution and voice, 2026-11-19
+
+- [x] Record the confirmed button colours as intentional in the shared detector config.
+- [x] Remove the generated-with line from PR 6's description; no other PR text or comment had it.
+- [x] Write every entry in DECISIONS.md in first person, pointing overtaken statements to later decisions.
+- [x] Rewrite the commit messages after `21bcd9d` without co-author lines (16 commits, trees, authors, and dates identical).
+- [x] Force-push `main` and `dev/portfolio-v2` once, lifting `main`'s protection for the push and restoring it exactly.
+- [x] Move `qa-portfolio-v2.0.0` to the rewritten merge; the release stays published.
+- [x] Confirm the redeploy of the rewritten merge (`7915971518`) and update the release records.
 

@@ -1,3 +1,39 @@
 {
-  "buildPath": "comp"
+  "buildPath": "comp",
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "design-system-color",
+        "value": "#ffd17d",
+        "createdAt": "2026-11-19T14:18:40.239Z",
+        "reason": "User confirmed #ffd17d is intentional (primary button gradient, light end)"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "#f4a938",
+        "createdAt": "2026-11-19T14:18:40.338Z",
+        "reason": "User confirmed #f4a938 is intentional (primary button gradient, deep end)"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "#17110a",
+        "createdAt": "2026-11-19T14:18:40.439Z",
+        "reason": "User confirmed #17110a is intentional (primary button label)"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "#b1a492",
+        "createdAt": "2026-11-19T14:18:40.539Z",
+        "reason": "User confirmed #b1a492 is intentional (quiet button border)"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "#393027",
+        "createdAt": "2026-11-19T14:18:40.640Z",
+        "reason": "User confirmed #393027 is intentional (quiet button hover)"
+      }
+    ]
+  }
 }
