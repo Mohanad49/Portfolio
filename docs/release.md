@@ -4,40 +4,49 @@ Production project: the existing Vercel project serving https://myehia.vercel.ap
 Deploy the new repository root through that project; do not create a replacement
 project or move the hostname to another project.
 
-## Pending cinematic release: production is unchanged
+## Current production: the live stage, v2.0.0, 2026-11-19
 
-The owner approved the D-020 desktop/mobile preview and requested a final review,
-not a production deployment. The current production source and recovery point are:
+Released on 2026-11-19, after a final review of the hosted preview on desktop and
+on a phone and an explicit request to release once the hosted checks were green.
+PR 6 merged at its verified head, and the merge has the identical source tree.
 
-- Commit: `40a24f16ec037658fb13d5509dd1ba59573f480a`.
-- GitHub Production deployment: `7280653313`, verified successful.
-- Retained URL: https://portfolio-7zv8t8y73-mohanad49s-projects.vercel.app.
-- Locked backup branch: `backup/production-2026-10-27`, at that exact commit.
-- Development branch: `dev/qa-portfolio`.
-- Replacement draft: https://github.com/Mohanad49/Portfolio/pull/5.
+- Verified head: `5fa08f5573c813780395914ad616c1f81c5aeada`. `verify`, `windows`,
+  `Vercel`, and Vercel Preview Comments passed on it (workflow run 44430913255).
+- Production merge: `8bbdd838c464b76557e4936c41eeb95c619ad4a6`, at 12:59:39 UTC.
+- GitHub Production deployment: `7913797965`, successful at 13:00:13 UTC.
+- Immutable URL: https://portfolio-mv2xtlun6-mohanad49s-projects.vercel.app.
+- Release tag and record: `qa-portfolio-v2.0.0`.
 
-Renaming the previous head branch closed PR 4 automatically. PR 5 retains a link
-to that discussion; all source commits remain intact. `main` now requires an
-up-to-date pull request with successful `verify`, `windows`, and `Vercel` checks,
-plus resolved conversations. Administrator enforcement is enabled. Force pushes
-and deletion are disabled. The backup branch is additionally locked against
-updates. No second-person approval is required for this single-maintainer repo.
+Recovery points, newest first:
 
-When release is explicitly requested, verify these gates against the exact PR
-head and merge normally. Keep both the locked source backup and the retained
-Vercel deployment. If the release needs rollback, promote the retained deployment
-in the same Vercel project; do not reset or force-push `main`. The backup branch
-can also be checked out separately to rebuild the saved version. The older
-original-template recovery tag below remains available too.
+- The version this release replaced, `qa-portfolio-v1.1.0` at
+  `21bcd9d55ecd32690bc0b898f5da9c6dc67d111b`, was saved before the merge on the
+  locked branch `backup/production-2026-11-19`. Its deployment `7386489155` stays
+  in the Vercel project: https://portfolio-phdptz66z-mohanad49s-projects.vercel.app.
+- The version before it, `40a24f16ec037658fb13d5509dd1ba59573f480a`, is on the
+  locked branch `backup/production-2026-10-27`, with deployment `7280653313`:
+  https://portfolio-7zv8t8y73-mohanad49s-projects.vercel.app.
+- The original template keeps its recovery tag, described below.
 
-The source and visual reviews are complete. Workflow 40689061389 passes the
-complete application, browser, Windows, and performance gates at `dd0bf4b`.
-The remaining documentation-only head retains those application and verification
-files and must have green required checks before release. The current preview
-and exact results are linked from PR 5 and `docs/verification.md`.
+To recover, promote the retained deployment in the same Vercel project; do not
+reset or force-push `main`. A locked backup branch can also be checked out
+separately to rebuild its version. `main` requires an up-to-date pull request
+with successful `verify`, `windows`, and `Vercel` checks, plus resolved
+conversations. Administrator enforcement is enabled, force pushes and deletion
+are disabled, and both backup branches are locked against updates. No
+second-person approval is required for this single-maintainer repository.
 
-The historical release records below describe earlier launches, not approval to
-publish this candidate. Current readiness belongs to `docs/verification.md`.
+The live checks after this release are in [verification](verification.md).
+
+## Cinematic release v1.1.0, 2026-10-28
+
+PR 5 merged as `21bcd9d55ecd32690bc0b898f5da9c6dc67d111b`, and production
+deployment `7386489155` succeeded on 2026-10-28 at 13:20:52 UTC. Its complete
+record, including the hosted run and the live smoke checks, is the GitHub release
+`qa-portfolio-v1.1.0`, which superseded the pre-release hold this file described
+until now.
+
+The sections below record earlier launches.
 
 ## Original-template recovery point
 

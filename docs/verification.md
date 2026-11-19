@@ -1,5 +1,50 @@
 # Verification record
 
+## Release of the live stage, D-029: 2026-11-19
+
+Released on request once the hosted checks were green, after a recheck of the
+hosted preview on a phone. On the verified head `5fa08f5`, `verify`, `windows`,
+`Vercel`, and Vercel Preview Comments passed (workflow run 44430913255).
+
+Before the merge, the outgoing production source `21bcd9d` (release
+`qa-portfolio-v1.1.0`, deployment `7386489155`) was saved on the new locked branch
+`backup/production-2026-11-19`. Read back from GitHub, the branch, `main`, the
+v1.1.0 tag, and that production deployment all pointed at this commit, and the
+branch has the older backup's protection: locked, administrators included, no
+force pushes or deletion.
+
+PR 6 merged at 12:59:39 UTC as `8bbdd838c464b76557e4936c41eeb95c619ad4a6`, a merge
+commit whose tree equals the verified head's (`2c233b0`). Production deployment
+`7913797965` succeeded at 13:00:13 UTC, and the public alias serves it. The tag
+`qa-portfolio-v2.0.0` and its GitHub release record the result; recovery is in
+[release and recovery](release.md).
+
+Live checks, signed out and uncached, against https://myehia.vercel.app (scripts
+and logs in the ignored `.research/release-v2/`):
+
+- HTTP: 78 of 82 built files are byte-identical to a local build of the released
+  tree. The four that differ are the AVIF plates on the experience page, with the
+  same names and dimensions and a mean pixel difference of 0.79 to 0.89 of 255:
+  AVIF encoding differs between Vercel's Linux build and this Mac. The 35 WebP
+  images, 14 scripts, and 13 fonts match exactly. All 13 legacy redirects, the
+  four security headers, the resume's bytes and download filename, the content
+  types, and the custom 404 match. Eight development records return 404, and no
+  built file names them.
+- Playwright, all 460 registrations against the live site, two workers, zero
+  retries: 448 passed and 12 skipped, with no failures or flaky results, in 16.7
+  minutes. Chromium passed 156, Firefox 146, and WebKit 146, the same counts as
+  the local run; the skips are the four established ones in each family.
+- GPU, headless Chromium on this Mac: 17 fresh-page visits to the live homepage
+  (desktop 1672x965 at 2x, phone 390x760 at 3x) all reached `stage-live`, the
+  phone only after its first input, with no slow-frame events and no page or
+  console errors. Desktop rendered at the full 1.75 pixel ratio and the phone at
+  the lite 1.5.
+
+Still open from the PR: the React chunk that phones load before any input, a
+rebuild after resizing a wide window that may not keep the reader's place
+(plausible, not reproduced), and the unreproduced Windows Firefox Back to top
+failure on `953cfeb`.
+
 ## Mobile corrections, D-028: local checkpoint, 2026-11-19
 
 All four hosted checks passed on `b9878db`: `verify`, `windows`, and both Vercel

@@ -430,3 +430,12 @@ things on the phone were wrong:
 No copy, figure, or scope note changed. Measured results are in
 [verification](docs/verification.md).
 
+## D-029: Release the live stage
+
+On 2026-11-19 I rechecked the preview on my phone, approved the mobile version,
+and asked for the release once the hosted checks passed. I wanted the version it
+replaced kept first: it is on the locked branch `backup/production-2026-11-19`,
+beside its existing GitHub release, and its Vercel deployment stays available for
+recovery. The release, its live checks, and the recovery steps are in
+[release and recovery](docs/release.md) and [verification](docs/verification.md).
+
