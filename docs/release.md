@@ -7,15 +7,25 @@ project or move the hostname to another project.
 ## Current production: the live stage, v2.0.0, 2026-11-19
 
 Released on 2026-11-19, after a final review of the hosted preview on desktop and
-on a phone and an explicit request to release once the hosted checks were green.
-PR 6 merged at its verified head, and the merge has the identical source tree.
+on a phone, once the hosted checks were green. PR 6 merged at its verified head,
+and the merge has the identical source tree.
 
 - Verified head: `5fa08f5573c813780395914ad616c1f81c5aeada`. `verify`, `windows`,
   `Vercel`, and Vercel Preview Comments passed on it (workflow run 44430913255).
-- Production merge: `8bbdd838c464b76557e4936c41eeb95c619ad4a6`, at 12:59:39 UTC.
-- GitHub Production deployment: `7913797965`, successful at 13:00:13 UTC.
-- Immutable URL: https://portfolio-mv2xtlun6-mohanad49s-projects.vercel.app.
+- Production merge: `8bbdd838c464b76557e4936c41eeb95c619ad4a6`, at 12:59:39 UTC,
+  deployed as `7913797965` at 13:00:13 UTC.
 - Release tag and record: `qa-portfolio-v2.0.0`.
+
+Later that day the commit messages after `21bcd9d` were rewritten to drop
+co-author lines, and `main` was force-pushed once, with its protection lifted for
+that push and restored exactly. Trees, authors, and dates are unchanged. The
+verified head is now `654b55d2bb403eb8b14ecd07965adecb5d9d3eda` and the merge is
+now `e61bc27547e85aee3cdb108468fbf0480be2f902`, where the release tag points. The
+original commits remain in PR 6.
+
+- Production deployment of the rewritten merge: `7915971518`, successful at
+  14:27:44 UTC, with the same build output.
+- Immutable URL: https://portfolio-ct1wxyamf-mohanad49s-projects.vercel.app.
 
 Recovery points, newest first:
 

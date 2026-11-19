@@ -164,3 +164,13 @@ are linked from PR 5 and the shared verification record.
 - [x] Smoke-test the live site: HTTP, the full browser matrix (448 passed, 12 skipped), and the stage on the GPU.
 - [x] Tag `qa-portfolio-v2.0.0` and publish its release record.
 
+## Repository attribution and voice, 2026-11-19
+
+- [x] Record the confirmed button colours as intentional in the shared detector config.
+- [x] Remove the generated-with line from PR 6's description; no other PR text or comment had it.
+- [x] Write every entry in DECISIONS.md in first person, pointing overtaken statements to later decisions.
+- [x] Rewrite the commit messages after `21bcd9d` without co-author lines (16 commits, trees, authors, and dates identical).
+- [x] Force-push `main` and `dev/portfolio-v2` once, lifting `main`'s protection for the push and restoring it exactly.
+- [x] Move `qa-portfolio-v2.0.0` to the rewritten merge; the release stays published.
+- [x] Confirm the redeploy of the rewritten merge (`7915971518`) and update the release records.
+

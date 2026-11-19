@@ -40,6 +40,16 @@ and logs in the ignored `.research/release-v2/`):
   console errors. Desktop rendered at the full 1.75 pixel ratio and the phone at
   the lite 1.5.
 
+Later the same day the commit messages after `21bcd9d` were rewritten to drop
+co-author lines. A check of all 16 rewritten commits found identical trees,
+authors, committers, and dates; only those lines and the blank lines before them
+changed. `main` and `dev/portfolio-v2` were force-pushed once, and `main`'s
+protection, lifted for that push, read back identical afterwards. The verified
+head is now `654b55d` and the merge `e61bc27`, and the tag `qa-portfolio-v2.0.0`
+moved with it. Vercel rebuilt the merge as deployment `7915971518`, and the live
+HTTP check gave the same result as above: 78 of 82 files byte-identical, the same
+four AVIF plates at the same sizes, and every other check passing.
+
 Still open from the PR: the React chunk that phones load before any input, a
 rebuild after resizing a wide window that may not keep the reader's place
 (plausible, not reproduced), and the unreproduced Windows Firefox Back to top
