@@ -1,0 +1,115 @@
+---
+import { getImage } from 'astro:assets';
+import { getProfile } from '../lib/content';
+import Chrome from '../components/stage/Chrome.astro';
+import Loader from '../components/stage/Loader.astro';
+import Closing from '../components/stage/Closing.astro';
+import heroScene from '../../assets/plates/hero-scene.png';
+// Narrow portrait screens show the live object's own settled opening frame, captured from the stage.
+import phoneStill from '../../assets/plates/stage-still-phone.png';
+import tabletStill from '../../assets/plates/stage-still-tablet.png';
+import displayFont from '@fontsource-variable/alexandria/files/alexandria-latin-wght-normal.woff2?url';
+import bodyFont from '@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2?url';
+import serifFont from '@fontsource-variable/bodoni-moda/files/bodoni-moda-latin-opsz-italic.woff2?url';
+import '../styles/global.css';
+import '../styles/world.css';
+import '../styles/stage.css';
+interface Props { title?: string; description?: string; }
+const { title = 'Mohanad Yehia | Software QA Engineer', description = 'Software QA across web, mobile, API, and data. Explore production experience, test frameworks, and evidence-backed QA case studies.' } = Astro.props;
+const profile = await getProfile();
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const social = await getImage({ src: heroScene, width: 1200, height: 630, fit: 'cover', format: 'webp', quality: 85 });
+const still = await getImage({ src: heroScene, widths: [768, 1280, 1751], format: 'webp', quality: 80 });
+const phone = await getImage({ src: phoneStill, widths: [390, 780], format: 'webp', quality: 74 });
+const tablet = await getImage({ src: tabletStill, widths: [834, 1668], format: 'webp', quality: 74 });
+const person = { '@context': 'https://schema.org', '@type': 'Person', name: profile.name, jobTitle: profile.role, url: Astro.site?.toString(), sameAs: [profile.linkedin, profile.github], email: `mailto:${profile.email}` };
+---
+<!doctype html>
+<html lang="en" id="top" class="stage">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preload" href={displayFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={bodyFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={serifFont} as="font" type="font/woff2" crossorigin />
+    <style is:inline>
+      @view-transition { navigation: auto; }
+      @media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }
+    </style>
+    <script is:inline>
+      // Decide before first paint whether the opening handoff and motion defaults apply.
+      (() => {
+        const root = document.documentElement;
+        if (!matchMedia('(prefers-reduced-motion: no-preference)').matches) return;
+        root.classList.add('can-move');
+        // Phones and touch layouts keep the still until their stage has drawn a frame.
+        const lite = matchMedia('(max-width: 1023px), (pointer: coarse)').matches;
+        if (lite) root.classList.add('stage-lite');
+        const navigation = performance.getEntriesByType('navigation')[0];
+        let seen = false;
+        try { seen = sessionStorage.getItem('portfolio-stage-seen') === '1'; } catch { /* The handoff still releases without storage. */ }
+        // Phones and touch layouts never wait on the stage, so they get no curtain: the headline paints at once.
+        if (navigation?.type !== 'navigate' || location.hash || seen || lite) return;
+        root.classList.add('is-preparing');
+        // Any input ends the handoff at once, and it never holds the page if the scripts fail to arrive.
+        const inputs = ['pointerdown', 'keydown', 'wheel', 'touchstart'];
+        const end = () => { root.classList.remove('is-preparing'); inputs.forEach(name => removeEventListener(name, end)); };
+        inputs.forEach(name => addEventListener(name, end, { passive: true }));
+        setTimeout(end, 6000);
+      })();
+    </script>
+    <meta name="theme-color" content="#171515" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(social.src, Astro.site)} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Layered glass and dark chrome, a conceptual study of software inspection." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json" set:html={JSON.stringify(person).replace(/</g, '\\u003c')} />
+  </head>
+  <body>
+    <Loader />
+    <div class="stage-still" aria-hidden="true">
+      <picture>
+        <source media="(max-width: 600px) and (orientation: portrait)" srcset={phone.srcSet.attribute} sizes="100vw" type="image/webp" />
+        <source media="(max-width: 1023px) and (orientation: portrait)" srcset={tablet.srcSet.attribute} sizes="100vw" type="image/webp" />
+        <img src={still.src} srcset={still.srcSet.attribute} sizes="100vw" alt="" width={heroScene.width} height={heroScene.height} decoding="async" fetchpriority="low" />
+      </picture>
+    </div>
+    <div id="stage-root"></div>
+    <Chrome />
+    <div id="smooth-wrapper">
+      <div id="smooth-content">
+        <main id="main" tabindex="-1"><slot /></main>
+        <Closing profile={profile} />
+      </div>
+    </div>
+    <script>
+      // The choreography and its libraries load once the first screen has actually been painted,
+      // so the first screen never waits on them. The browser reports that paint; a tab opened in
+      // the background has none to protect, and the timer covers a browser that does not report it.
+      let started = false;
+      const start = () => { if (!started) { started = true; void import('../scripts/stage/main'); } };
+      const painted = () => performance.getEntriesByName('first-contentful-paint').length > 0;
+      if (document.visibilityState === 'hidden' || !('PerformanceObserver' in window) || painted()) start();
+      else {
+        try {
+          new PerformanceObserver((list, observer) => {
+            if (list.getEntriesByName('first-contentful-paint').length === 0) return;
+            observer.disconnect();
+            start();
+          }).observe({ type: 'paint', buffered: true });
+        } catch { start(); }
+        document.addEventListener('visibilitychange', start, { once: true });
+        window.setTimeout(start, 2500);
+      }
+    </script>
+  </body>
+</html>

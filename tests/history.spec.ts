@@ -1,27 +1,32 @@
 import { chromium, test, expect } from '@playwright/test';
+import { withoutStage } from './support';
 
 test('a restored history page keeps scroll motion and preference listeners', async ({ baseURL }) => {
   const browser = await chromium.launch({ channel: 'chromium', ignoreDefaultArgs: ['--disable-back-forward-cache'] });
   try {
     const page = await browser.newPage({ baseURL, viewport: { width: 1440, height: 1000 } });
+    await withoutStage(page);
     await page.addInitScript(() => window.addEventListener('pageshow', event => {
       document.documentElement.dataset.pageShows = `${document.documentElement.dataset.pageShows ?? ''},${event.persisted}`;
     }));
     await page.goto('/');
-    const scene = page.locator('.passage-plate');
-    await expect(page.locator('.passage-opening')).toHaveClass(/has-passage-motion/);
+    await expect(page.locator('html')).toHaveClass(/is-ready/, { timeout: 15_000 });
+    const line = page.locator('.hero-line--first');
+    const shift = () => line.evaluate(element => new DOMMatrix(getComputedStyle(element).transform).m41);
     await page.evaluate(() => window.scrollTo({ top: 200, behavior: 'instant' }));
-    await expect.poll(() => scene.evaluate((element: HTMLElement) => element.style.transform)).not.toBe('');
+    await expect.poll(shift).toBeLessThan(-1);
     await page.goto('/work');
     await page.goBack({ waitUntil: 'commit' });
     await expect(page.locator('html')).toHaveAttribute('data-page-shows', /true/);
-    const restoredTransform = await scene.evaluate((element: HTMLElement) => element.style.transform);
-    await page.evaluate(() => window.scrollTo({ top: 400, behavior: 'instant' }));
-    await expect.poll(() => scene.evaluate((element: HTMLElement) => element.style.transform)).not.toBe(restoredTransform);
+    const restored = await shift();
+    await page.evaluate(() => window.scrollTo({ top: 500, behavior: 'instant' }));
+    await expect.poll(shift).toBeLessThan(restored - 1);
     await page.emulateMedia({ reducedMotion: 'reduce' });
-    await expect.poll(() => scene.evaluate((element: HTMLElement) => element.style.transform)).toBe('');
+    await expect(page.locator('html')).not.toHaveClass(/is-staged/);
+    await expect(line).toHaveCSS('transform', 'none');
     await page.emulateMedia({ reducedMotion: 'no-preference' });
-    await expect.poll(() => scene.evaluate((element: HTMLElement) => element.style.transform)).not.toBe('');
+    await expect(page.locator('html')).toHaveClass(/is-staged/);
+    await expect.poll(shift).toBeLessThan(-1);
   } finally { await browser.close(); }
 });
 

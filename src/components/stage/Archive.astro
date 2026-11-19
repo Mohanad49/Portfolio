@@ -1,0 +1,21 @@
+---
+import { getCollection } from 'astro:content';
+import Icon from '../Icon.astro';
+const frameworks = (await getCollection('frameworks')).map(entry => entry.data);
+const first = frameworks.slice(0, 3);
+const second = frameworks.slice(3);
+---
+<section class="archive" data-station="archive" aria-labelledby="archive-title">
+  <div class="archive-reel" aria-hidden="true">
+    <div class="archive-row" data-direction="-1"><div class="archive-track">{[...first, ...first, ...first, ...first].map(item => <span data-label={item.title}><i></i></span>)}</div></div>
+    <div class="archive-row" data-direction="1"><div class="archive-track">{[...second, ...second, ...second, ...second].map(item => <span data-label={item.title}><i></i></span>)}</div></div>
+  </div>
+  <div class="archive-copy">
+    <h2 class="archive-title" id="archive-title">Six frameworks. Four testing <em>disciplines.</em></h2>
+    <div class="archive-action">
+      <p>Web, API, mobile, and performance</p>
+      <a class="text-link" href="/work">Explore the work archive <Icon /></a>
+    </div>
+  </div>
+  <ul class="archive-list">{frameworks.map(item => <li>{item.title}, {item.category}</li>)}</ul>
+</section>

@@ -1,9 +1,39 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-26T01:47:20Z",
+  "generatedAt": "2026-11-17T01:43:36Z",
   "title": "Design System: Mohanad Yehia Software QA Portfolio",
   "extensions": {
     "colorMeta": {
+      "amber": {
+        "role": "primary",
+        "displayName": "Amber",
+        "canonical": "#ffc368",
+        "tonalRamp": [
+          "oklch(15% 0.12812 75.97)",
+          "oklch(26% 0.12812 75.97)",
+          "oklch(38% 0.12812 75.97)",
+          "oklch(49% 0.12812 75.97)",
+          "oklch(61% 0.12812 75.97)",
+          "oklch(72% 0.12812 75.97)",
+          "oklch(84% 0.12812 75.97)",
+          "oklch(95% 0.12812 75.97)"
+        ]
+      },
+      "amber-bright": {
+        "role": "primary",
+        "displayName": "Bright Amber",
+        "canonical": "#ffda98",
+        "tonalRamp": [
+          "oklch(15% 0.09286 81.53)",
+          "oklch(26% 0.09286 81.53)",
+          "oklch(38% 0.09286 81.53)",
+          "oklch(49% 0.09286 81.53)",
+          "oklch(61% 0.09286 81.53)",
+          "oklch(72% 0.09286 81.53)",
+          "oklch(84% 0.09286 81.53)",
+          "oklch(95% 0.09286 81.53)"
+        ]
+      },
       "graphite": {
         "role": "neutral",
         "displayName": "Graphite",
@@ -34,6 +64,21 @@
           "oklch(95% 0.01358 78.26)"
         ]
       },
+      "body-copy": {
+        "role": "neutral",
+        "displayName": "Reading Stone",
+        "canonical": "#d5cec4",
+        "tonalRamp": [
+          "oklch(15% 0.01572 77.06)",
+          "oklch(26% 0.01572 77.06)",
+          "oklch(38% 0.01572 77.06)",
+          "oklch(49% 0.01572 77.06)",
+          "oklch(61% 0.01572 77.06)",
+          "oklch(72% 0.01572 77.06)",
+          "oklch(84% 0.01572 77.06)",
+          "oklch(95% 0.01572 77.06)"
+        ]
+      },
       "muted": {
         "role": "neutral",
         "displayName": "Muted Stone",
@@ -47,21 +92,6 @@
           "oklch(72% 0.01444 78.24)",
           "oklch(84% 0.01444 78.24)",
           "oklch(95% 0.01444 78.24)"
-        ]
-      },
-      "amber": {
-        "role": "primary",
-        "displayName": "Amber",
-        "canonical": "#ffc368",
-        "tonalRamp": [
-          "oklch(15% 0.12812 75.97)",
-          "oklch(26% 0.12812 75.97)",
-          "oklch(38% 0.12812 75.97)",
-          "oklch(49% 0.12812 75.97)",
-          "oklch(61% 0.12812 75.97)",
-          "oklch(72% 0.12812 75.97)",
-          "oklch(84% 0.12812 75.97)",
-          "oklch(95% 0.12812 75.97)"
         ]
       },
       "line": {
@@ -94,39 +124,9 @@
           "oklch(95% 0.00742 67.43)"
         ]
       },
-      "body-copy": {
-        "role": "neutral",
-        "displayName": "Reading Stone",
-        "canonical": "#d5cec4",
-        "tonalRamp": [
-          "oklch(15% 0.01572 77.06)",
-          "oklch(26% 0.01572 77.06)",
-          "oklch(38% 0.01572 77.06)",
-          "oklch(49% 0.01572 77.06)",
-          "oklch(61% 0.01572 77.06)",
-          "oklch(72% 0.01572 77.06)",
-          "oklch(84% 0.01572 77.06)",
-          "oklch(95% 0.01572 77.06)"
-        ]
-      },
-      "paper": {
-        "role": "neutral",
-        "displayName": "Assay Paper",
-        "canonical": "#e9e0d4",
-        "tonalRamp": [
-          "oklch(15% 0.01890 75.31)",
-          "oklch(26% 0.01890 75.31)",
-          "oklch(38% 0.01890 75.31)",
-          "oklch(49% 0.01890 75.31)",
-          "oklch(61% 0.01890 75.31)",
-          "oklch(72% 0.01890 75.31)",
-          "oklch(84% 0.01890 75.31)",
-          "oklch(95% 0.01890 75.31)"
-        ]
-      },
       "paper-ink": {
         "role": "neutral",
-        "displayName": "Paper Ink",
+        "displayName": "Amber Ink",
         "canonical": "#252019",
         "tonalRamp": [
           "oklch(15% 0.01486 76.20)",
@@ -138,224 +138,279 @@
           "oklch(84% 0.01486 76.20)",
           "oklch(95% 0.01486 76.20)"
         ]
+      },
+      "fail": {
+        "role": "tertiary",
+        "displayName": "Recorded Failure",
+        "canonical": "#f0a091",
+        "tonalRamp": [
+          "oklch(15% 0.09860 31.08)",
+          "oklch(26% 0.09860 31.08)",
+          "oklch(38% 0.09860 31.08)",
+          "oklch(49% 0.09860 31.08)",
+          "oklch(61% 0.09860 31.08)",
+          "oklch(72% 0.09860 31.08)",
+          "oklch(84% 0.09860 31.08)",
+          "oklch(95% 0.09860 31.08)"
+        ]
+      },
+      "stage-amber-deep": {
+        "role": "secondary",
+        "displayName": "Stage Amber Deep",
+        "canonical": "#ffab3d",
+        "tonalRamp": [
+          "oklch(15% 0.15419 68.93)",
+          "oklch(26% 0.15419 68.93)",
+          "oklch(38% 0.15419 68.93)",
+          "oklch(49% 0.15419 68.93)",
+          "oklch(61% 0.15419 68.93)",
+          "oklch(72% 0.15419 68.93)",
+          "oklch(84% 0.15419 68.93)",
+          "oklch(95% 0.15419 68.93)"
+        ]
+      },
+      "stage-amber-emit": {
+        "role": "secondary",
+        "displayName": "Stage Amber Emit",
+        "canonical": "#ffa63a",
+        "tonalRamp": [
+          "oklch(15% 0.15632 66.47)",
+          "oklch(26% 0.15632 66.47)",
+          "oklch(38% 0.15632 66.47)",
+          "oklch(49% 0.15632 66.47)",
+          "oklch(61% 0.15632 66.47)",
+          "oklch(72% 0.15632 66.47)",
+          "oklch(84% 0.15632 66.47)",
+          "oklch(95% 0.15632 66.47)"
+        ]
+      },
+      "stage-fail": {
+        "role": "tertiary",
+        "displayName": "Stage Failure",
+        "canonical": "#ff4f33",
+        "tonalRamp": [
+          "oklch(15% 0.21665 31.79)",
+          "oklch(26% 0.21665 31.79)",
+          "oklch(38% 0.21665 31.79)",
+          "oklch(49% 0.21665 31.79)",
+          "oklch(61% 0.21665 31.79)",
+          "oklch(72% 0.21665 31.79)",
+          "oklch(84% 0.21665 31.79)",
+          "oklch(95% 0.21665 31.79)"
+        ]
       }
     },
     "typographyMeta": {
-      "display": {
-        "displayName": "Display",
-        "purpose": "Desktop Pass Through headline, with the documented flowing compact clamps and rem-based lower bound for enlarged text."
+      "display-hero": {
+        "displayName": "Hero",
+        "purpose": "Homepage title only."
       },
-      "headline": {
-        "displayName": "Headline",
-        "purpose": "Representative section heading from the approach; other editorial surfaces use the documented optical size adjustments."
+      "display-hero-compact": {
+        "displayName": "Hero, compact",
+        "purpose": "Homepage title below 1024px."
+      },
+      "display-project": {
+        "displayName": "Project title",
+        "purpose": "The three project chapter titles."
+      },
+      "display-project-compact": {
+        "displayName": "Project title, compact",
+        "purpose": "Project chapter titles below 1024px."
+      },
+      "display-closing": {
+        "displayName": "Closing",
+        "purpose": "The shared closing title on every page."
+      },
+      "display-closing-compact": {
+        "displayName": "Closing, compact",
+        "purpose": "Closing title below 1024px."
+      },
+      "display-page": {
+        "displayName": "Page title",
+        "purpose": "The h1 of the work archive and each case study."
+      },
+      "display-page-compact": {
+        "displayName": "Page title, compact",
+        "purpose": "Reading-page h1 below 760px."
+      },
+      "chapter": {
+        "displayName": "Chapter",
+        "purpose": "Chapter titles: experience, approach, archive page sections, not found."
+      },
+      "chapter-compact": {
+        "displayName": "Chapter, compact",
+        "purpose": "Chapter titles on narrow screens."
+      },
+      "evidence-headline": {
+        "displayName": "Evidence headline",
+        "purpose": "Heading inside the case-study evidence panel."
+      },
+      "row-title": {
+        "displayName": "Row title",
+        "purpose": "Title of a row that leads somewhere."
+      },
+      "row-title-compact": {
+        "displayName": "Row title, compact",
+        "purpose": "Lead row titles below 760px."
+      },
+      "company": {
+        "displayName": "Company",
+        "purpose": "Employer names in the roles list."
+      },
+      "company-compact": {
+        "displayName": "Company, compact",
+        "purpose": "Employer names below 1024px."
+      },
+      "prose-heading": {
+        "displayName": "Prose heading",
+        "purpose": "h2 inside case-study prose."
+      },
+      "claim": {
+        "displayName": "Claim",
+        "purpose": "The one-sentence claim under each project title."
+      },
+      "claim-compact": {
+        "displayName": "Claim, compact",
+        "purpose": "Project claims below 1024px."
       },
       "title": {
         "displayName": "Title",
-        "purpose": "Approach-step heading; archive framework headings use the nearby documented clamp."
+        "purpose": "Approach steps and framework names."
+      },
+      "title-compact": {
+        "displayName": "Title, compact",
+        "purpose": "Approach step titles below 1024px."
+      },
+      "menu-link": {
+        "displayName": "Menu link",
+        "purpose": "Links in the narrow-screen menu."
+      },
+      "address": {
+        "displayName": "Address",
+        "purpose": "The email address in the closing."
+      },
+      "figures": {
+        "displayName": "Figures sentence",
+        "purpose": "The Blue Ribbon sentence that carries the four figures."
+      },
+      "figures-compact": {
+        "displayName": "Figures sentence, compact",
+        "purpose": "The figures sentence below 1024px."
+      },
+      "result-figure": {
+        "displayName": "Result figure",
+        "purpose": "Measured values in the LLM evidence panel."
+      },
+      "subtitle": {
+        "displayName": "Subtitle",
+        "purpose": "Role names and the bold line of a figure caption."
+      },
+      "serif-voice": {
+        "displayName": "Serif voice",
+        "purpose": "Italic, amber. One emphasised word or phrase in a heading, and the Blue Ribbon figures."
+      },
+      "lede": {
+        "displayName": "Lede",
+        "purpose": "Opening paragraph on reading pages."
       },
       "body": {
         "displayName": "Body",
-        "purpose": "Ordinary page copy and the inherited reading base for controls."
+        "purpose": "Default text, summaries, tables."
       },
       "body-reading": {
-        "displayName": "Body Reading",
-        "purpose": "Long-form case-study prose in the reading column capped at 47rem."
-      },
-      "label": {
-        "displayName": "Label",
-        "purpose": "Supporting metadata, captions, and evidence context below headings."
+        "displayName": "Reading",
+        "purpose": "Case-study prose, role summaries, approach descriptions."
       },
       "action": {
         "displayName": "Action",
-        "purpose": "Desktop Pass Through actions with source-inherited 1.65 line height; the preserved component preview still uses 1.2 and is disclosed as pre-existing drift."
+        "purpose": "Buttons and text links."
       },
-      "chapter": {
-        "displayName": "Project Chapter",
-        "purpose": "Linked Cal.diy and LLM headings on desktop, with their complete project-purpose context."
+      "nav": {
+        "displayName": "Nav",
+        "purpose": "Chrome navigation, the Resume button, highlight lists, evidence notes."
       },
-      "chapter-compact": {
-        "displayName": "Compact Project Chapter",
-        "purpose": "Below 1024px, the rem-plus-viewport clamp preserves readable project names in narrow and enlarged-text flow."
+      "note": {
+        "displayName": "Note",
+        "purpose": "Descriptor lines, periods, scope notes, definition labels, captions of tables."
       },
-      "entry-compact": {
-        "displayName": "Compact Case and Archive Entry",
-        "purpose": "Shared case/archive title clamp at 760px and below, in the normal-flow entry above a complete material silhouette."
+      "caption": {
+        "displayName": "Caption",
+        "purpose": "Hero hint and status, scope line, loader note, checked date."
+      },
+      "code": {
+        "displayName": "Code",
+        "purpose": "Inline code in captions and case-study prose."
       }
     },
-    "shadows": [],
+    "shadows": [
+      {
+        "name": "chrome-hairline",
+        "value": "0 1px 0 #49433b",
+        "purpose": "A one-pixel rule under the chrome when it returns as a solid bar over reading-page content. The only box-shadow in the system."
+      }
+    ],
     "motion": [
       {
-        "name": "action-state-duration",
-        "value": ".2s",
-        "purpose": "Background and color changes in opening actions, navigation, and the contact email."
-      },
-      {
-        "name": "arrow-and-disclosure-duration",
-        "value": ".25s",
-        "purpose": "Editorial link arrows and experience-disclosure plus rotation."
-      },
-      {
-        "name": "opening-scrub",
-        "value": ".2s",
-        "purpose": "Native-scroll catch-up for the shared Pass Through opening; its choreography uses relative timeline units rather than a fixed playback duration."
-      },
-      {
-        "name": "content-entrance",
-        "value": "1s",
-        "purpose": "Once-only shared entrance at top 82%; already-visible or revealed content stays steady and completed transform, opacity, and clip styles clear."
-      },
-      {
-        "name": "content-entrance-opacity",
-        "value": "0",
-        "purpose": "Noninteractive waiting groups may fade from zero without visibility hiding. Linked groups remain fully opaque and use transforms alone."
-      },
-      {
-        "name": "content-entrance-displacement",
-        "value": "52px",
-        "purpose": "Shared vertical entrance for below-viewport data-reveal groups; linked groups remain opaque and use transforms alone."
-      },
-      {
-        "name": "entrance-ease",
-        "value": "power3.out",
-        "purpose": "Default easing for shared once-only entrances."
-      },
-      {
-        "name": "heading-reveal-displacement",
-        "value": "56px",
-        "purpose": "Case-prose, evidence, and other shared headings outside work chapters; headings containing controls use translation alone."
-      },
-      {
-        "name": "heading-reveal-mask",
-        "value": "inset(0 0 100% 0)",
-        "purpose": "Initial mask only for shared heading entrances without links or controls; cleared when the entrance completes."
-      },
-      {
-        "name": "ambient-light-scrub",
-        "value": ".7s",
-        "purpose": "Bounded warm/silver light change from document start to max scroll; no idle loop."
-      },
-      {
-        "name": "evidence-rule-entrance",
-        "value": "1.15s",
-        "purpose": "Once-only scaleX reveal of case evidence rules."
-      },
-      {
-        "name": "recorded-observation-entrance",
-        "value": ".7s",
-        "purpose": "TestPulse recorded observations enter once at top 85% with expo.out when not already at the reading position."
-      },
-      {
-        "name": "recorded-observation-stagger",
-        "value": ".14s",
-        "purpose": "Spacing between the shared opening component's recorded observations."
-      },
-      {
-        "name": "document-group-duration",
-        "value": ".42s",
-        "purpose": "Native document-transition group timing, including matching project names across the homepage, archive, cases, and next-case links."
-      },
-      {
-        "name": "document-exit-duration",
-        "value": ".18s",
-        "purpose": "Root page-out transition to zero opacity and translateY(-8px), using ease-out."
-      },
-      {
-        "name": "document-entry-duration",
-        "value": ".38s",
-        "purpose": "Root page-in transition from zero opacity and translateY(12px)."
-      },
-      {
-        "name": "document-entry-ease",
+        "name": "ease-out",
         "value": "cubic-bezier(.16, 1, .3, 1)",
-        "purpose": "Native transition groups and root page-in easing."
+        "purpose": "The one easing curve for entrances, the chrome, the menu wipe, and view transitions (--ease-out)."
       },
       {
-        "name": "opening-resize-settle",
-        "value": "150ms",
-        "purpose": "Opening window/stage resize debounce before geometry, reading-position restoration, and the shared layout event."
+        "name": "state-colour",
+        "value": ".2s to .25s",
+        "purpose": "Colour, background, and border changes on hover and state."
       },
       {
-        "name": "reduced-motion-duration",
-        "value": ".01ms",
-        "purpose": "Global reduced-motion animation and transition duration; scrolling becomes immediate and native document transitions opt out."
+        "name": "nudge",
+        "value": ".25s to .45s",
+        "purpose": "Icon movement on hover: 4px on text links, .5rem on lead rows."
       },
       {
-        "name": "project-chapter-scrub",
-        "value": ".3s",
-        "purpose": "Distinct Cal.diy gate/contention and LLM prism/agreement timelines. Desktop sticks for a 170svh chapter only when the complete stage fits; compact or oversized flow uses figure top 90% to bottom 45%."
+        "name": "chrome-slide",
+        "value": ".5s",
+        "purpose": "The chrome sliding away and back."
       },
       {
-        "name": "material-field-scrub",
-        "value": ".35s",
-        "purpose": "Non-chapter material object from y 44px/scale .88 to y -32px/scale 1 over top 80% to bottom top; fan rotates -12deg to 4deg, other fields -7deg to 3deg. Case LLM halves converge from opposing 10% offsets."
+        "name": "menu-wipe",
+        "value": ".8s open, .7s close",
+        "purpose": "The circular wipe of the narrow-screen menu; links follow at .05s steps."
       },
       {
-        "name": "production-trace-scrub",
-        "value": ".35s",
-        "purpose": "Attributed experience trace follows its disclosure list from top 75% to bottom 45%."
+        "name": "stage-fade",
+        "value": "1.1s",
+        "purpose": "The stage canvas fading in after its first frame, and the still fading out on phones."
       },
       {
-        "name": "portrait-scrub",
-        "value": ".45s",
-        "purpose": "Real portrait settles from scale 1.14/y 6% to scale 1/y -2% over top bottom to bottom 35%."
+        "name": "view-transition",
+        "value": ".42s group, .18s out, .38s in",
+        "purpose": "Page changes, with the project title travelling between pages."
       },
       {
-        "name": "general-resize-settle",
-        "value": "180ms",
-        "purpose": "General motion re-evaluates window/media/project-stage size changes, releases chapters that no longer fit, and preserves the current reading anchor."
-      },
-      {
-        "name": "readiness-release-ceiling",
-        "value": "1600ms",
-        "purpose": "Fresh supported desktop navigation only. Actual opening module/active image/font preparation may release earlier; no minimum delay, percentage, or optional-3D dependency. Interaction and preference/page exit release immediately."
-      },
-      {
-        "name": "readiness-fade",
-        "value": ".3s",
-        "purpose": "Normal first-load readiness release; pointer, keyboard, wheel, page exit, or preference change cancels the fade."
-      },
-      {
-        "name": "readiness-line-cycle",
-        "value": "1s ease-in-out",
-        "purpose": "Indeterminate 40%-width amber line while the bounded readiness field is active. It pauses when inactive and is absent from static, compact, repeat/history/hash, and reduced-motion paths."
+        "name": "scroll-scrub",
+        "value": "linear",
+        "purpose": "Scroll-driven stage and held chapters use no easing; entrances use eased tweens of about .9s."
       }
     ],
     "breakpoints": [
       {
-        "name": "compact-max",
-        "value": "600px"
+        "name": "compact",
+        "value": "600px",
+        "purpose": "Compact gutter; history and strategy table restack."
       },
       {
-        "name": "editorial-stack-max",
-        "value": "760px"
+        "name": "reading-compact",
+        "value": "760px",
+        "purpose": "Reading-page compact type; framework rows stack."
       },
       {
-        "name": "entry-reading-and-portrait-stack-max",
-        "value": "900px"
+        "name": "reading-stack",
+        "value": "900px",
+        "purpose": "Reading-page opening and case reading grid collapse to one column."
       },
       {
-        "name": "header-compact-max",
-        "value": "1000px"
-      },
-      {
-        "name": "opening-desktop-min",
-        "value": "1024px"
-      },
-      {
-        "name": "inspection-static-max",
-        "value": "1023px"
-      },
-      {
-        "name": "inspection-enhancement-min",
-        "value": "1024px"
-      },
-      {
-        "name": "header-type-cap-min",
-        "value": "1800px"
-      },
-      {
-        "name": "chapter-sticky-viewport-height-min",
-        "value": "680px"
+        "name": "stage-wide",
+        "value": "1024px",
+        "purpose": "At and above: held chapters, full chrome. Below (max-width 1023px), or on coarse pointers: flowing chapters, menu button, still until first frame."
       }
     ]
   },
@@ -364,151 +419,151 @@
       "name": "Primary Action",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "Hero work action, shown with its actual flowing-layout sizing. The gradient is source CSS, not a synthesized tonal ramp.",
-      "html": "<a class=\"ds-primary\" href=\"/#work\">Explore the work</a>",
-      "css": ".ds-primary { display: inline-flex; justify-content: center; align-items: center; border-radius: .6rem; font-family: var(--font-sans, 'Manrope Variable', sans-serif); font-size: .9rem; font-weight: 600; line-height: 1.2; min-height: 48px; padding: .85rem 1.2rem; text-decoration: none; transition: background .2s, color .2s; background: linear-gradient(145deg, #ffd17d, #f4a938); color: #17110a; } .ds-primary:hover { background: #ffda98; } .ds-primary:focus-visible { outline: 2px solid var(--color-amber, #ffc368); outline-offset: 6px; } @media (prefers-reduced-motion: reduce) { .ds-primary { transition-duration: .01ms; animation-duration: .01ms; } }"
+      "description": "The main action of a first screen. Used once, in the hero.",
+      "html": "<a class=\"ds-action ds-action--primary\" href=\"#\">Explore the work</a>",
+      "css": ".ds-action { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 1.4rem; border-radius: .6rem; font: 600 1rem/1.65 'Manrope Variable', sans-serif; text-decoration: none; transition: background .2s, color .2s, border-color .2s; } .ds-action--primary { background: linear-gradient(145deg, #ffd17d, #f4a938); color: #17110a; } .ds-action--primary:hover { background: #ffda98; } .ds-action:focus-visible { outline: 2px solid var(--color-amber); outline-offset: 4px; }"
     },
     {
-      "name": "Secondary Action",
+      "name": "Quiet Action",
       "kind": "button",
-      "refersTo": "button-secondary",
-      "description": "Bordered resume action with the actual flowing-layout sizing and dark transparent fill.",
-      "html": "<a class=\"ds-secondary\" href=\"/resume.pdf\" download=\"Mohanad_Yehia_Software_QA_Engineer.pdf\">Resume</a>",
-      "css": ".ds-secondary { display: inline-flex; justify-content: center; align-items: center; border-radius: .6rem; font-family: var(--font-sans, 'Manrope Variable', sans-serif); font-size: .9rem; font-weight: 600; line-height: 1.2; min-height: 48px; padding: .85rem 1.2rem; text-decoration: none; transition: background .2s, color .2s; color: var(--color-ink, #f8f2e9); background: #19171470; border: 1px solid #b1a492; } .ds-secondary:hover { background: #393027; } .ds-secondary:focus-visible { outline: 2px solid var(--color-amber, #ffc368); outline-offset: 6px; } @media (prefers-reduced-motion: reduce) { .ds-secondary { transition-duration: .01ms; animation-duration: .01ms; } }"
+      "refersTo": "button-quiet",
+      "description": "The secondary action beside the primary one.",
+      "html": "<a class=\"ds-action-quiet\" href=\"#\">Resume</a>",
+      "css": ".ds-action-quiet { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 1.4rem; border-radius: .6rem; border: 1px solid #b1a492; background: #19171470; color: var(--color-ink); font: 600 1rem/1.65 'Manrope Variable', sans-serif; text-decoration: none; transition: background .2s, color .2s, border-color .2s; } .ds-action-quiet:hover { background: #393027; } .ds-action-quiet:focus-visible { outline: 2px solid var(--color-amber); outline-offset: 4px; }"
     },
     {
-      "name": "Copy Email Action",
+      "name": "Chrome Resume Button",
       "kind": "button",
-      "refersTo": "copy-email",
-      "description": "Visual preview of the clipboard-supported contact action. The live site owns clipboard execution and its status announcement.",
-      "html": "<button class=\"ds-copy\" type=\"button\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M9 9h11v11H9zM15 5V3H3v12h2\" /></svg><span>Copy email</span></button>",
-      "css": ".ds-copy { display: flex; align-items: center; gap: .7rem; border: 0; background: transparent; color: var(--color-muted, #b3ada4); padding: .75rem 0 .75rem 1rem; font: 400 1rem/1.65 var(--font-sans, 'Manrope Variable', sans-serif); cursor: pointer; } .ds-copy:hover { color: var(--color-ink, #f8f2e9); } .ds-copy:focus-visible { outline: 2px solid var(--color-amber, #ffc368); outline-offset: 6px; } @media (max-width: 760px) { .ds-copy { padding-left: 0; } }"
+      "refersTo": "button-resume",
+      "description": "The flat amber Resume download in the chrome on wide screens.",
+      "html": "<a class=\"ds-chrome-resume\" href=\"#\">Resume</a>",
+      "css": ".ds-chrome-resume { display: inline-flex; align-items: center; min-height: 44px; padding: 0 1.15rem; border-radius: .6rem; background: var(--color-amber); color: var(--paper-ink); font: 600 .95rem/1.65 'Manrope Variable', sans-serif; text-decoration: none; transition: background .2s; } .ds-chrome-resume:hover { background: #ffda98; } .ds-chrome-resume:focus-visible { outline: 2px solid var(--color-amber); outline-offset: 4px; }"
     },
     {
-      "name": "Inspection Reset Action",
-      "kind": "button",
-      "refersTo": "inspection-controls",
-      "description": "Transparent reset action from the native inspection control strip. The live scene restores 22% separation; no invented hover fill is added to this preview.",
-      "html": "<button class=\"ds-reset\" type=\"button\">Reset</button>",
-      "css": ".ds-reset { background: transparent; border: 0; color: var(--color-ink, #f8f2e9); min-height: 44px; padding: .5rem; font: 400 .8rem/1.65 var(--font-sans, 'Manrope Variable', sans-serif); cursor: pointer; } .ds-reset:focus-visible { outline: 2px solid var(--color-amber, #ffc368); outline-offset: 6px; }"
-    },
-    {
-      "name": "Editorial Text Link",
-      "kind": "button",
+      "name": "Text Link",
+      "kind": "custom",
       "refersTo": "text-link",
-      "description": "Ruled content action with the source inline SVG arrow and hover displacement.",
-      "html": "<a class=\"ds-text-link\" href=\"/work/testpulse\">Read the case study <svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 12h15m-6-6 6 6-6 6\" /></svg></a>",
-      "css": ".ds-text-link { display: inline-flex; align-items: center; gap: .8rem; min-height: 44px; border-bottom: 1px solid currentColor; color: var(--color-ink, #f8f2e9); font: 600 1rem/1.65 var(--font-sans, 'Manrope Variable', sans-serif); text-decoration: none; } .ds-text-link:hover { color: var(--color-amber, #ffc368); } .ds-text-link svg { transition: transform .25s; } .ds-text-link:hover svg { transform: translateX(4px); } .ds-text-link:focus-visible { outline: 2px solid var(--color-amber, #ffc368); outline-offset: 6px; } @media (prefers-reduced-motion: reduce) { .ds-text-link svg { transition-duration: .01ms; animation-duration: .01ms; } }"
+      "description": "An underlined link with an outline icon. The quiet form is the second link of a pair.",
+      "html": "<div class=\"ds-links\"><a class=\"ds-text-link\" href=\"#\">Read the case study <svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 12h15m-6-6 6 6-6 6\"/></svg></a><a class=\"ds-text-link ds-text-link--quiet\" href=\"#\">Open dashboard <svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 12h15m-6-6 6 6-6 6\"/></svg></a></div>",
+      "css": ".ds-links { display: flex; flex-wrap: wrap; gap: .25rem 2rem; } .ds-text-link { display: inline-flex; align-items: center; gap: .8rem; min-height: 44px; border-bottom: 1px solid currentColor; color: var(--color-ink); font: 600 1rem/1.65 'Manrope Variable', sans-serif; text-decoration: none; } .ds-text-link--quiet { color: var(--color-muted); } .ds-text-link:hover { color: var(--color-amber); } .ds-text-link svg { transition: transform .25s; } .ds-text-link:hover svg { transform: translateX(4px); } .ds-text-link:focus-visible { outline: 2px solid var(--color-amber); outline-offset: 4px; }"
     },
     {
-      "name": "Main Navigation",
+      "name": "Chrome Navigation",
       "kind": "nav",
       "refersTo": "navigation",
-      "description": "Always-visible text navigation, using the source desktop spacing and compact wrapping behavior. Work demonstrates the current-page state.",
-      "html": "<nav class=\"ds-nav\" aria-label=\"Main navigation\"><a href=\"/#work\" aria-current=\"page\">Work</a><a href=\"/#approach\">Approach</a><a href=\"/#about\">About</a><a href=\"/#contact\">Contact</a></nav>",
-      "css": ".ds-nav { display: flex; gap: 3.1vw; align-items: center; font: 400 1.3vw/1.65 var(--font-sans, 'Manrope Variable', sans-serif); color: #d0c9bf; } .ds-nav a { padding: .2rem 0; color: inherit; text-decoration: none; transition: color .2s; } .ds-nav a:hover, .ds-nav a[aria-current] { color: var(--color-amber, #ffc368); } .ds-nav a:focus-visible { outline: 2px solid var(--color-amber, #ffc368); outline-offset: 6px; } @media (min-width: 1800px) { .ds-nav { font-size: 1.35rem; } } @media (max-width: 1000px) { .ds-nav { font-size: .86rem; gap: 1.8rem; } .ds-nav a { min-height: 44px; display: inline-flex; align-items: center; } } @media (max-width: 600px) { .ds-nav { width: 100%; justify-content: space-between; flex-wrap: wrap; gap: .25rem 1rem; font-size: .86rem; } .ds-nav a { display: flex; align-items: center; min-height: 44px; } } @media (prefers-reduced-motion: reduce) { .ds-nav a { transition-duration: .01ms; animation-duration: .01ms; } }"
+      "description": "The site chrome: brand, five links with an underline that draws in, and the Resume button.",
+      "html": "<header class=\"ds-chrome\"><a class=\"ds-chrome-brand\" href=\"#\">Mohanad Yehia</a><nav class=\"ds-chrome-nav\"><a href=\"#\" aria-current=\"page\">Work</a><a href=\"#\">Experience</a><a href=\"#\">Approach</a><a href=\"#\">About</a><a href=\"#\">Contact</a></nav></header>",
+      "css": ".ds-chrome { display: flex; align-items: center; gap: clamp(1.25rem, 2.4vw, 2.6rem); height: 4.5rem; color: var(--color-ink); background: var(--color-graphite); padding: 0 1.25rem; } .ds-chrome a { color: inherit; text-decoration: none; } .ds-chrome-brand { margin-right: auto; display: inline-flex; align-items: center; min-height: 44px; font: 700 1.15rem/1.65 'Alexandria Variable', sans-serif; letter-spacing: -.03em; } .ds-chrome-nav { display: flex; gap: clamp(1.25rem, 2.4vw, 2.6rem); font: 400 .95rem/1.65 'Manrope Variable', sans-serif; } .ds-chrome-nav a { position: relative; display: inline-flex; align-items: center; min-height: 44px; } .ds-chrome-nav a::after { content: ''; position: absolute; left: 0; right: 0; bottom: .55rem; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform .4s cubic-bezier(.16, 1, .3, 1); } .ds-chrome-nav a:hover::after, .ds-chrome-nav a:focus-visible::after, .ds-chrome-nav a[aria-current]::after { transform: scaleX(1); transform-origin: left; } .ds-chrome-nav a[aria-current] { color: var(--color-amber); } .ds-chrome a:focus-visible { outline: 2px solid var(--color-amber); outline-offset: 4px; }"
     },
     {
-      "name": "Archive Radio Filter",
-      "kind": "input",
-      "refersTo": "filter-option",
-      "description": "Native radio options and actual archive counts. Selection changes text and the bottom rule; filtering the archive belongs to the live site.",
-      "html": "<fieldset class=\"ds-filters\"><legend class=\"ds-filter-legend\">Testing discipline</legend><label class=\"ds-filter\"><input type=\"radio\" name=\"ds-discipline\" value=\"All\" checked><span>All<span class=\"ds-count\">7</span></span></label><label class=\"ds-filter\"><input type=\"radio\" name=\"ds-discipline\" value=\"Web\"><span>Web<span class=\"ds-count\">3</span></span></label><label class=\"ds-filter\"><input type=\"radio\" name=\"ds-discipline\" value=\"API\"><span>API<span class=\"ds-count\">2</span></span></label><label class=\"ds-filter\"><input type=\"radio\" name=\"ds-discipline\" value=\"Mobile\"><span>Mobile<span class=\"ds-count\">1</span></span></label><label class=\"ds-filter\"><input type=\"radio\" name=\"ds-discipline\" value=\"Performance\"><span>Performance<span class=\"ds-count\">1</span></span></label></fieldset>",
-      "css": ".ds-filters { border: 0; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: .5rem 2rem; font: 400 1rem/1.65 var(--font-sans, 'Manrope Variable', sans-serif); } .ds-filter-legend { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; } .ds-filter { position: relative; cursor: pointer; } .ds-filter input { position: absolute; width: 1px; height: 1px; opacity: 0; } .ds-filter > span { min-height: 44px; display: inline-flex; align-items: center; border-bottom: 2px solid transparent; padding-block: .5rem; color: var(--color-muted, #b3ada4); } .ds-filter input:checked + span { color: var(--color-amber, #ffc368); border-color: var(--color-amber, #ffc368); } .ds-filter input:focus-visible + span { outline: 2px solid var(--color-amber, #ffc368); outline-offset: 5px; } .ds-count { margin-left: .4rem; font-size: .7rem; } @media (max-width: 760px) { .ds-filters { gap: .3rem 1.3rem; } }"
-    },
-    {
-      "name": "Inspection Separation Range",
-      "kind": "input",
-      "refersTo": "inspection-controls",
-      "description": "Native range from the desktop-only scene controls. The source geometry and source WebGL support gates remain documented in DESIGN.md; this preview has no rendering runtime.",
-      "html": "<div class=\"ds-inspection-controls\"><label class=\"ds-inspection-label\" for=\"ds-inspection-spread\">Separate layers<input class=\"ds-range\" id=\"ds-inspection-spread\" type=\"range\" min=\"0\" max=\"100\" value=\"22\"></label></div>",
-      "css": ".ds-inspection-controls { color-scheme: dark; display: flex; align-items: end; gap: 1.5rem; padding: 1rem 1.2rem; background: #171411; border: 1px solid var(--line, #49433b); color: var(--color-ink, #f8f2e9); font: 400 .8rem/1.65 var(--font-sans, 'Manrope Variable', sans-serif); } .ds-inspection-label { flex: 1; } .ds-range { display: block; width: 100%; min-height: 44px; accent-color: var(--color-amber, #ffc368); cursor: pointer; } .ds-range:focus-visible { outline: 2px solid var(--color-amber, #ffc368); outline-offset: 6px; }"
+      "name": "Lead Row",
+      "kind": "custom",
+      "refersTo": "lead-row",
+      "description": "A ruled row that leads to a case study. The title carries it and the arrow answers the pointer.",
+      "html": "<a class=\"ds-lead-row\" href=\"#\"><span><span class=\"ds-lead-title\">TestPulse</span><span class=\"ds-lead-kind\">QA reporting and flaky-test analysis</span></span><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 12h15m-6-6 6 6-6 6\"/></svg></a>",
+      "css": ".ds-lead-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1.5rem; align-items: center; padding-block: clamp(1.6rem, 2.6vw, 2.6rem); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); color: var(--color-ink); text-decoration: none; } .ds-lead-row > svg { width: clamp(1.75rem, 2.6vw, 2.6rem); height: clamp(1.75rem, 2.6vw, 2.6rem); transition: transform .45s cubic-bezier(.16, 1, .3, 1); } .ds-lead-row:hover > svg, .ds-lead-row:focus-visible > svg { transform: translateX(.5rem); } .ds-lead-title { display: block; font: 700 clamp(1.7rem, 3.6vw, 4rem)/1.04 'Alexandria Variable', sans-serif; letter-spacing: -.04em; transition: color .25s; } .ds-lead-row:hover .ds-lead-title, .ds-lead-row:focus-visible .ds-lead-title { color: var(--color-amber); } .ds-lead-kind { display: block; margin-top: .9rem; font: 400 .9rem/1.65 'Manrope Variable', sans-serif; color: var(--color-amber); } .ds-lead-row:focus-visible { outline: 2px solid var(--color-amber); outline-offset: 4px; }"
     },
     {
       "name": "Evidence Panel",
       "kind": "card",
-      "refersTo": "evidence-dark",
-      "description": "Rectangular, warm-bordered evidence surface using the shipped LLM agreement panel. Its numerical scope and limitation remain visible.",
-      "html": "<section class=\"ds-evidence\" aria-labelledby=\"ds-evidence-title\"><h2 id=\"ds-evidence-title\">Measure the judge, too.</h2><dl class=\"ds-judge-results\"><div><dt>Raw agreement</dt><dd>82%</dd></div><div><dt>95% confidence interval</dt><dd>69–91%</dd></div><div><dt>Cohen’s kappa</dt><dd>0.51</dd></div></dl><p class=\"ds-evidence-note\">45 blind human labels. The refusal judge is excluded from CI gates; these results do not validate the other judges.</p></section>",
-      "css": ".ds-evidence { padding: clamp(1.5rem, 3.5vw, 4rem); background: #252019; border: 1px solid #4b3d2b; color: var(--color-ink, #f8f2e9); font: 400 1rem/1.65 var(--font-sans, 'Manrope Variable', sans-serif); } .ds-evidence h2 { font-family: var(--font-display, 'Alexandria Variable', sans-serif); font-size: clamp(1.8rem, 3vw, 3.3rem); font-weight: 600; line-height: 1.05; letter-spacing: -.04em; text-wrap: balance; margin: 0 0 2rem; } .ds-judge-results { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin: 0; font-variant-numeric: tabular-nums; } .ds-judge-results dt { font-size: .8rem; color: #d5cec4; } .ds-judge-results dd { font-family: var(--font-display, 'Alexandria Variable', sans-serif); font-size: clamp(2.2rem, 4vw, 4.5rem); letter-spacing: -.04em; margin: .6rem 0 0; color: var(--color-amber, #ffc368); } .ds-evidence-note { margin: 1.5rem 0 0; font-size: .9rem; max-width: 75ch; } @media (max-width: 760px) { .ds-judge-results { grid-template-columns: 1fr; gap: 1.5rem; } }"
+      "refersTo": "evidence-panel",
+      "description": "The one raised surface: a case study evidence panel with a top rule, a headline with the serif voice, and measured figures.",
+      "html": "<section class=\"ds-evidence\"><span class=\"ds-evidence-rule\"></span><h2>Measure the judge, <em>too.</em></h2><dl class=\"ds-results\"><div><dt>Raw agreement</dt><dd>82%</dd></div><div><dt>Cohen’s kappa</dt><dd>0.51</dd></div></dl><p class=\"ds-evidence-note\">45 blind human labels. The refusal judge is excluded from CI gates.</p></section>",
+      "css": ".ds-evidence { position: relative; padding: clamp(1.5rem, 3.5vw, 4rem); background: var(--surface); border: 1px solid var(--line); color: var(--body-copy); font: 400 1rem/1.65 'Manrope Variable', sans-serif; } .ds-evidence-rule { position: absolute; inset: -1px -1px auto; height: 2px; background: var(--color-amber); } .ds-evidence h2 { max-width: 18ch; margin: 0 0 clamp(1.5rem, 2.6vw, 2.6rem); font: 700 clamp(1.9rem, 3.6vw, 4rem)/1.04 'Alexandria Variable', sans-serif; letter-spacing: -.04em; color: var(--color-ink); } .ds-evidence h2 em { font-family: 'Bodoni Moda Variable', 'Bodoni 72', Didot, serif; font-style: italic; font-weight: 500; letter-spacing: -.02em; color: var(--color-amber); } .ds-results { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem; margin: 0; } .ds-results > div { padding-top: 1.1rem; border-top: 1px solid var(--line); } .ds-results dt { font-size: .9rem; color: var(--color-muted); } .ds-results dd { margin: .5rem 0 0; font: 600 clamp(2.4rem, 4.4vw, 5rem)/1 'Alexandria Variable', sans-serif; letter-spacing: -.04em; color: var(--color-amber); font-variant-numeric: tabular-nums; } .ds-evidence-note { margin: 1.5rem 0 0; font-size: .95rem; max-width: 70ch; color: var(--color-muted); }"
     },
     {
-      "name": "Experience Disclosure",
+      "name": "Filter Option",
+      "kind": "chip",
+      "refersTo": "filter-option",
+      "description": "Radio inputs presented as text options with a count. The checked one is amber and underlined.",
+      "html": "<fieldset class=\"ds-filter\"><label class=\"ds-filter-option\"><input type=\"radio\" name=\"ds-discipline\" checked /><span>All<span class=\"ds-filter-count\">6</span></span></label><label class=\"ds-filter-option\"><input type=\"radio\" name=\"ds-discipline\" /><span>Web<span class=\"ds-filter-count\">2</span></span></label><label class=\"ds-filter-option\"><input type=\"radio\" name=\"ds-discipline\" /><span>API<span class=\"ds-filter-count\">2</span></span></label></fieldset>",
+      "css": ".ds-filter { border: 0; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: .5rem 2rem; font: 400 1rem/1.65 'Manrope Variable', sans-serif; } .ds-filter-option { position: relative; cursor: pointer; } .ds-filter-option input { position: absolute; width: 1px; height: 1px; opacity: 0; } .ds-filter-option > span { min-height: 44px; display: inline-flex; align-items: center; border-bottom: 2px solid transparent; padding-block: .5rem; color: var(--color-muted); transition: color .2s, border-color .2s; } .ds-filter-option:hover > span { color: var(--color-ink); } .ds-filter-option input:checked + span { color: var(--color-amber); border-color: var(--color-amber); } .ds-filter-option input:focus-visible + span { outline: 2px solid var(--color-amber); outline-offset: 5px; } .ds-filter-count { margin-left: .4rem; font-size: .75rem; font-variant-numeric: tabular-nums; }"
+    },
+    {
+      "name": "Chapter Title With Serif Voice",
       "kind": "custom",
-      "refersTo": "experience-disclosure",
-      "description": "Native details row with the first role open. Its inline plus rotates and becomes amber in the open state; useful context remains under the role.",
-      "html": "<details class=\"ds-experience\" open><summary><span class=\"ds-company\">Blue Ribbon</span><span class=\"ds-job-role\">Software QA Engineer<span>Jul 2025 - Present</span></span><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 5v14M5 12h14\" /></svg></summary><div class=\"ds-job-body\"><p>End-to-end QA for a production club-management platform spanning a Flutter mobile app, multi-tenant admin portal, REST API, PostgreSQL, payments, and ERP integration.</p></div></details>",
-      "css": ".ds-experience { border-block: 1px solid var(--line, #49433b); color: var(--color-ink, #f8f2e9); font: 400 1rem/1.65 var(--font-sans, 'Manrope Variable', sans-serif); } .ds-experience summary { display: grid; grid-template-columns: 1fr 1.6fr 24px; align-items: center; gap: 2rem; padding-block: 1.8rem; cursor: pointer; list-style: none; } .ds-experience summary::-webkit-details-marker { display: none; } .ds-company { font-family: var(--font-display, 'Alexandria Variable', sans-serif); font-size: clamp(1.4rem, 2vw, 2.3rem); letter-spacing: -.04em; } .ds-job-role { font-size: 1rem; } .ds-job-role > span { display: block; font-size: .8rem; color: var(--color-muted, #b3ada4); margin-top: .3rem; } .ds-experience summary svg { transition: transform .25s; } .ds-experience[open] summary svg { transform: rotate(45deg); color: var(--color-amber, #ffc368); } .ds-job-body { padding: 0 3rem 2.5rem calc(38.45% + .4rem); max-width: 80rem; color: #d5cec4; } .ds-job-body p { margin: 0; max-width: 65ch; } .ds-experience summary:focus-visible { outline: 2px solid var(--color-amber, #ffc368); outline-offset: 6px; } @media (max-width: 600px) { .ds-experience summary { grid-template-columns: 1fr 24px; gap: .8rem; padding-block: 1.5rem; } .ds-company { font-size: 1.5rem; } .ds-job-role { grid-column: 1; font-size: .9rem; } .ds-experience summary svg { grid-column: 2; grid-row: 1 / span 2; } .ds-job-body { padding: 0 0 1.8rem; font-size: .95rem; } } @media (prefers-reduced-motion: reduce) { .ds-experience summary svg { transition-duration: .01ms; animation-duration: .01ms; } }"
+      "description": "A chapter title at the chapter scale with one emphasised phrase in the Bodoni Moda italic voice.",
+      "html": "<h2 class=\"ds-chapter\">Production QA. Behind the <em>numbers.</em></h2>",
+      "css": ".ds-chapter { margin: 0; font: 700 clamp(2.1rem, 4.4vw, 5rem)/1.02 'Alexandria Variable', sans-serif; letter-spacing: -.04em; color: var(--color-ink); text-wrap: balance; } .ds-chapter em { font-family: 'Bodoni Moda Variable', 'Bodoni 72', Didot, serif; font-style: italic; font-weight: 500; font-optical-sizing: auto; letter-spacing: -.02em; color: var(--color-amber); }"
     }
   ],
   "narrative": {
-    "northStar": "Exhibition plinth and inspection monograph",
-    "overview": "Matte graphite makes room for warm white typography, quiet controls, and precisely lit inspection materials. The system pairs an exhibition's large visual statements with a monograph's patient reading rhythm. Offset dark chrome and transparent amber layers give the abstract subject a physical form.\n\nEditorial layouts vary with their content: open project entries, ruled framework rows, attributed numerical evidence, long-form reading columns, and the owner's real portrait. Conceptual imagery is identified as artwork. Readable text and controls stay in HTML, with a complete static experience beneath optional motion and explicitly requested 3D. The accepted Pass Through opening leads into Cal.diy's gate, LLM's paired prisms, and the archive's fan, with finite chapter relationships, material-framed case entrances, and a quiet reading body.",
+    "northStar": "The Object Under Test",
+    "overview": "One live object stands for the system under test. On the homepage it is a real-time WebGL stage of dark chrome and amber glass, fixed behind the document; the cursor inspects it and scrolling turns it into each body of evidence. Everything written sits in HTML in front of it, on graphite, in warm white. The reading pages (work archive, case studies, not found) keep the same chrome, heading voice, and closing without the stage, and carry a still plate of the object beside their opening.\n\nThe system is dark from end to end. Every chapter stays on graphite; the owner withdrew a paper-coloured chapter and an amber-coloured chapter, so there is no light or saturated field anywhere. Amber is an accent: the emphasised word in a heading, the Blue Ribbon figures, thin rules, hover and current states, and the primary action. Type carries the hierarchy with two sans families and one serif italic used as a second headline voice. Surfaces are square and flat, separated by one-pixel rules; depth belongs to the object.\n\nThe homepage holds (pins) its chapters on wide screens while the stage fits, and flows on narrow screens. Phones show a still until the first drawn frame. Reduced motion, no JavaScript, and no WebGL2 keep the full page with the still.",
     "keyCharacteristics": [
-      "Matte graphite, warm white, and a controlled amber accent.",
-      "Alexandria display typography paired with Manrope reading text.",
-      "Rectangular editorial surfaces, fine rules, and generous section spacing.",
-      "Optical depth carried by actual inspection materials and the local live study.",
-      "Complete, project-specific material silhouettes with reserved space before evidence and lists.",
-      "Bounded native-scroll choreography, with steady prose and direct actions.",
-      "Semantic controls, visible focus, and complete static alternatives."
+      "Graphite field on every page and chapter, warm white type, amber as accent only.",
+      "Alexandria for display, Manrope for text, Bodoni Moda italic for one emphasised word or phrase per heading and for the Blue Ribbon figures.",
+      "One chapter scale for chapter titles; only the hero, project titles, and the closing are larger.",
+      "Square, flat DOM surfaces separated by one-pixel warm rules. The two rounded shapes are the action corner and the circular lens.",
+      "A fixed live stage behind the homepage document; a still plate of the object on reading pages.",
+      "Twelve-column chapters with copy on one side and the object or the evidence on the other.",
+      "Complete content without motion, scripts, or WebGL2."
     ],
     "rules": [
       {
-        "name": "The Controlled Light Rule",
-        "body": "Amber identifies illumination, emphasis, or an interactive state; graphite and warm neutrals retain the largest visual fields.",
+        "name": "The Graphite Throughout Rule",
+        "body": "Every chapter and every page sits on Graphite. No light field and no saturated field. The only tonal lift is Raised Graphite on the evidence panel.",
         "section": "colors"
       },
       {
-        "name": "The Evidence State Rule",
-        "body": "Results retain readable words and scope alongside color. The light Cal.diy audit uses its observed retained-failure red locally; that one evidence treatment does not add a global accent family.",
+        "name": "The Amber Is An Accent Rule",
+        "body": "Amber marks emphasis, figures, rules, state, and the primary action. It never becomes a section ground.",
         "section": "colors"
       },
       {
-        "name": "The Reading Contrast Rule",
-        "body": "Warm White carries headings and strong emphasis; Reading Stone carries sustained dark-surface prose; Muted Stone carries secondary context.",
+        "name": "The Words With The Colour Rule",
+        "body": "A result is never carried by colour alone. Recorded Failure always arrives with its word and scope.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Chapter Scale Rule",
+        "body": "Chapter titles use `typography.chapter`. Only the hero, the project titles, and the closing are larger. The owner rejected oversized chapter type.",
         "section": "typography"
       },
       {
-        "name": "The Optical Scale Rule",
-        "body": "Use the observed role and responsive behavior for the surface. This implementation has optical size adjustments, not one universal modular type ratio.",
+        "name": "The One Serif Phrase Rule",
+        "body": "Bodoni Moda italic marks one emphasised word or phrase in a heading, and the Blue Ribbon figures. It never sets running text; emphasis inside paragraphs stays ordinary.",
         "section": "typography"
       },
       {
-        "name": "The Material Depth Rule",
-        "body": "Reserve optical richness for the inspection object; keep reading surfaces and controls structurally clear with tone and rules.",
-        "section": "elevation"
+        "name": "The Tabular Figures Rule",
+        "body": "Tables, definition values, run identifiers, periods, counts, and the clock use tabular numerals.",
+        "section": "typography"
+      },
+      {
+        "name": "The Held Or Flowing Rule",
+        "body": "A chapter holds only on wide screens with motion allowed and the stage running. Everywhere else it flows as ordinary document content, with nothing hidden.",
+        "section": "layout"
       },
       {
         "name": "The Complete Still Rule",
-        "body": "Artwork and content remain complete before enhancement. Demand-rendered 3D updates on pointer, layer-control, or scroll changes and yields to the static artwork outside its supported conditions.",
-        "section": "elevation"
+        "body": "The full page reads with the still image of the object when motion is reduced, scripts are off, or WebGL2 is missing. Phones show the still until the stage has drawn its first frame.",
+        "section": "layout"
       },
       {
-        "name": "The Complete Silhouette Rule",
-        "body": "Reserve the material object's full resting and swept bounds before the next evidence or list surface. Each project's approved negative space is part of its identity, including on compact and enlarged-text layouts.",
+        "name": "The Depth Belongs To The Object Rule",
+        "body": "Glass, chrome, glow, and bloom live in the stage and in its still plates. HTML surfaces stay flat and are separated by rules and tone.",
         "section": "elevation"
       }
     ],
     "dos": [
-      "Do use graphite and warm neutrals as the largest fields, with amber carrying illumination or useful state.",
-      "Do use the actual Alexandria and Manrope families and preserve the distinction between display, reading, and supporting text.",
-      "Do vary editorial structure with the content, using ruled rows, reading columns, and evidence panels where they serve the material.",
-      "Do retain visible keyboard focus, readable selected states, semantic controls, and a complete static composition.",
-      "Do keep the real portrait and identify conceptual inspection imagery as artwork.",
-      "Do keep result labels, numerical scope, and evidence limitations readable beside their visual emphasis.",
-      "Do reserve complete material silhouettes before evidence panels and lists, with ordinary flow when a full chapter cannot fit.",
-      "Do keep 3D an explicit optional action and retain the artwork through preparation and unsupported states."
+      "**Do** keep every chapter and page on Graphite (`colors.graphite`) with Warm White text.",
+      "**Do** use Amber for emphasis words, figures, thin rules, hover and current states, focus, and the primary action.",
+      "**Do** set chapter titles at `typography.chapter`, weight 700, and reserve larger type for the hero, project titles, and the closing.",
+      "**Do** mark one word or phrase per heading with the Bodoni Moda italic voice in Amber.",
+      "**Do** separate content with one-pixel Warm Rule lines and keep panels square.",
+      "**Do** give copy one side of a chapter and the object or the evidence the other.",
+      "**Do** state the scope beside every figure, and pair Recorded Failure with a word.",
+      "**Do** keep interactive targets at 44px or taller with the two-pixel Amber focus outline.",
+      "**Do** keep the page complete with the still when motion is reduced, scripts are off, or WebGL2 is missing."
     ],
     "donts": [
-      "Don't extend the approved Selected work label into a new system of decorative eyebrows or arbitrary indices.",
-      "Don't replace the inspection materials with generic glowing objects or fake report interfaces.",
-      "Don't add elevated shadows to reading panels or turn the varied editorial content into one repeated card template.",
-      "Don't use amber alone to communicate a result or selected state.",
-      "Don't require animation, WebGL, or clipboard support to reach the content, resume, or contact information.",
-      "Don't treat synthesized preview tonal ramps as source tokens or approved new surface colors.",
-      "Don't count up recorded results or move whole diagrams across their captions to imply activity.",
-      "Don't impose a minimum readiness delay or wait for the optional renderer before releasing the opening."
+      "**Don't** introduce a light or saturated chapter field. The owner withdrew the paper-coloured and the amber-coloured chapters.",
+      "**Don't** oversize chapter titles. The owner rejected chapter type above the chapter scale.",
+      "**Don't** set running text or paragraph emphasis in the serif italic.",
+      "**Don't** add drop shadows or rounded panels to HTML surfaces.",
+      "**Don't** carry a result by colour alone.",
+      "**Don't** treat the legacy study page (`src/pages/experience.astro` and its layout) as a reference for new surfaces."
     ]
   }
 }

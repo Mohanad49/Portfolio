@@ -1,0 +1,77 @@
+---
+interface Props { home?: boolean; }
+// On the homepage the chapters are in-page targets. Every other page links back to them.
+const { home = true } = Astro.props;
+const base = home ? '' : '/';
+const inWork = !home && Astro.url.pathname.startsWith('/work');
+const links = [
+  { href: `${base}#work`, label: 'Work', current: inWork },
+  { href: `${base}#experience`, label: 'Experience', current: false },
+  { href: `${base}#approach`, label: 'Approach', current: false },
+  { href: `${base}#about`, label: 'About', current: false },
+  { href: `${base}#contact`, label: 'Contact', current: false },
+];
+---
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-chrome" data-home={home ? '' : undefined}>
+  <a class="chrome-brand" href={home ? '#top' : '/'} aria-label={home ? 'Mohanad Yehia, back to top' : 'Mohanad Yehia, home'}>Mohanad Yehia</a>
+  <nav class="chrome-nav" aria-label="Main navigation">
+    {links.map(link => <a href={link.href} aria-current={link.current ? 'page' : undefined}>{link.label}</a>)}
+  </nav>
+  <a class="chrome-resume" href="/resume.pdf" download="Mohanad_Yehia_Software_QA_Engineer.pdf">Resume</a>
+  <button class="chrome-menu" type="button" aria-expanded="false" aria-controls="site-menu">
+    <span class="chrome-menu-label">Menu</span>
+    <span class="chrome-menu-icon" aria-hidden="true"><i></i><i></i></span>
+  </button>
+</header>
+<div class="site-menu" id="site-menu" inert>
+  <nav aria-label="Menu">
+    {links.map(link => <a href={link.href} aria-current={link.current ? 'page' : undefined}>{link.label}</a>)}
+    <a href="/resume.pdf" download="Mohanad_Yehia_Software_QA_Engineer.pdf">Resume</a>
+  </nav>
+  <p>Mohanad Yehia<span>Software QA Engineer, Cairo</span></p>
+</div>
+<script>
+  const button = document.querySelector<HTMLButtonElement>('.chrome-menu');
+  const menu = document.querySelector<HTMLElement>('.site-menu');
+  if (button && menu) {
+    const label = button.querySelector('.chrome-menu-label');
+    const set = (open: boolean) => {
+      button.setAttribute('aria-expanded', String(open));
+      menu.inert = !open;
+      document.documentElement.classList.toggle('menu-open', open);
+      if (label) label.textContent = open ? 'Close' : 'Menu';
+    };
+    button.addEventListener('click', () => set(button.getAttribute('aria-expanded') !== 'true'));
+    menu.addEventListener('click', event => { if ((event.target as Element).closest('a')) set(false); });
+    window.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && button.getAttribute('aria-expanded') === 'true') { set(false); button.focus(); }
+    });
+    matchMedia('(min-width: 1024px)').addEventListener('change', event => { if (event.matches) set(false); });
+  }
+
+  // The homepage's own choreography moves the chrome. Other pages follow the reader here:
+  // away while reading down, back on the way up, with solid ground once content is beneath it.
+  const chrome = document.querySelector<HTMLElement>('.site-chrome');
+  if (chrome && !chrome.hasAttribute('data-home')) {
+    const root = document.documentElement;
+    let last = scrollY;
+    let queued = false;
+    const update = () => {
+      queued = false;
+      const y = Math.max(0, scrollY);
+      const focusInside = chrome.contains(document.activeElement);
+      root.classList.toggle('chrome-solid', y > 8);
+      // A few pixels of tolerance, so a resting trackpad does not flip the state.
+      if (Math.abs(y - last) > 6) {
+        root.classList.toggle('chrome-away', y > last && y > innerHeight * 0.6 && !focusInside);
+        last = y;
+      }
+    };
+    root.classList.add('chrome-follows');
+    update();
+    window.addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(update); } }, { passive: true });
+    // Keyboard focus always brings it back.
+    chrome.addEventListener('focusin', () => root.classList.remove('chrome-away'));
+  }
+</script>

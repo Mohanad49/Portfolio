@@ -10,49 +10,52 @@ const strategies = [
 <section class:list={['case-evidence', `case-evidence--${slug}`]} aria-label="Evidence in focus">
   <span class="evidence-rule" aria-hidden="true"></span>
   {slug === 'testpulse' && <>
-    <h2>The evidence behind a flake.</h2>
+    <h2>The evidence behind a <em>flake.</em></h2>
     <div class="table-scroll strategy-table" role="region" aria-label="TestPulse strategy comparison" tabindex="0"><table><caption>Two classification strategies documented in TestPulse</caption><thead><tr><th scope="col">Strategy</th><th scope="col">What it uses</th><th scope="col">How to read it</th></tr></thead><tbody>{strategies.map(strategy => <tr><th scope="row">{strategy.name}</th><td>{strategy.uses}</td><td>{strategy.meaning}</td></tr>)}</tbody></table></div>
     <dl class="strategy-list">{strategies.map(strategy => <div><dt>{strategy.name}</dt><dd>{strategy.uses}.<span>{strategy.meaning}.</span></dd></div>)}</dl>
   </>}
   {slug === 'caldiy' && <>
-    <h2>A report that keeps the red.</h2>
+    <h2>A report that keeps the <em>red.</em></h2>
     <div class="table-scroll" role="region" aria-label="Cal.diy recorded audit" tabindex="0"><table><caption>Recorded audit of the pinned Cal.diy v6.2.0 target</caption><thead><tr><th scope="col">Suite</th><th scope="col">Recorded result</th></tr></thead><tbody><tr><th scope="row">API</th><td>13 / 13 passed</td></tr><tr><th scope="row">BDD journeys</th><td>3 / 3 passed</td></tr><tr><th scope="row">DST boundaries</th><td>14 / 14 passed</td></tr><tr class="retained"><th scope="row">Accessibility</th><td>1 / 3 passed. Two failures retained.</td></tr></tbody></table></div>
     <p class="evidence-note">These are retained audit results, rather than a claim about the current hosted Cal.com service.</p>
   </>}
   {slug === 'llm-evaluation' && <>
-    <h2>Measure the judge, too.</h2>
+    <h2>Measure the judge, <em>too.</em></h2>
     <dl class="judge-results"><div><dt>Raw agreement</dt><dd>82%</dd></div><div><dt>95% confidence interval</dt><dd>69–91%</dd></div><div><dt>Cohen’s kappa</dt><dd>0.51</dd></div></dl>
     <p class="evidence-note">45 blind human labels. The refusal judge is excluded from CI gates; these results do not validate the other judges.</p>
   </>}
 </section>
 <style>
-  .case-evidence { position: relative; margin: 0 var(--page-gutter); padding: clamp(1.5rem, 3.5vw, 4rem); background: #252019; border: 1px solid #4b3d2b; }
-  .evidence-rule { position: absolute; inset: 0 0 auto; height: 2px; background: var(--color-amber); transform-origin: left; }
-  .case-evidence--caldiy .evidence-rule { background: #7a311e; }
-  .case-evidence--caldiy { background: #e9e0d4; color: #252019; border: 0; }
-  h2 { font-size: clamp(1.8rem, 3vw, 3.3rem); margin-bottom: 2rem; }
+  /* One evidence panel for all three studies: raised graphite, a rule that draws in, and the real figures. */
+  .case-evidence { position: relative; margin: 0 var(--page-gutter); padding: clamp(1.5rem, 3.5vw, 4rem); background: var(--surface); border: 1px solid var(--line); }
+  .evidence-rule { position: absolute; inset: -1px -1px auto; height: 2px; background: var(--color-amber); transform-origin: left; }
+  .case-evidence--caldiy .evidence-rule { background: var(--fail); }
+  h2 { max-width: 18ch; margin-bottom: clamp(1.5rem, 2.6vw, 2.6rem); font-size: clamp(1.9rem, 3.6vw, 4rem); font-weight: 700; line-height: 1.04; }
+  .case-evidence--caldiy h2 em { color: var(--fail); }
   .table-scroll { overflow-x: auto; }
-  table { border-collapse: collapse; width: 100%; text-align: left; font-size: .95rem; }
-  caption { text-align: left; font-size: .8rem; padding-bottom: 1rem; opacity: .8; }
-  th, td { padding: 1.1rem 1.5rem 1.1rem 0; vertical-align: top; border-top: 1px solid #85735b60; }
-  th { font-weight: 600; }
-  thead { font-size: .8rem; }
+  table { border-collapse: collapse; width: 100%; text-align: left; font-size: 1rem; }
+  caption { text-align: left; font-size: .9rem; padding-bottom: 1rem; color: var(--color-muted); }
+  th, td { padding: 1.1rem 1.5rem 1.1rem 0; vertical-align: top; border-top: 1px solid var(--line); color: var(--body-copy); }
+  th { font-weight: 600; color: var(--color-ink); }
+  thead th { font-size: .9rem; font-weight: 500; color: var(--color-muted); }
   tbody th { width: 30%; }
-  .retained { color: #7a311e; font-weight: 700; }
-  .evidence-note { margin-top: 1.5rem; font-size: .9rem; max-width: 75ch; }
-  .judge-results { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin: 0; }
-  .judge-results dt { font-size: .8rem; color: #d5cec4; }
-  .judge-results dd { font-family: var(--font-display); font-size: clamp(2.2rem, 4vw, 4.5rem); letter-spacing: -.04em; margin: .6rem 0 0; color: var(--color-amber); }
+  /* The retained failures keep their own tone, and the words say so without it. */
+  .retained th, .retained td { color: var(--fail); font-weight: 700; }
+  .evidence-note { margin-top: 1.5rem; font-size: .95rem; max-width: 70ch; color: var(--color-muted); }
+  .judge-results { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; margin: 0; }
+  .judge-results > div { padding-top: 1.1rem; border-top: 1px solid var(--line); }
+  .judge-results dt { font-size: .9rem; color: var(--color-muted); }
+  .judge-results dd { margin: .5rem 0 0; font-family: var(--font-display); font-weight: 600; font-size: clamp(2.4rem, 4.4vw, 5rem); line-height: 1; letter-spacing: -.04em; color: var(--color-amber); }
   .strategy-list { display: none; margin: 0; }
-  .strategy-list > div { padding-block: 1.5rem; border-top: 1px solid #85735b60; }
+  .strategy-list > div { padding-block: 1.5rem; border-top: 1px solid var(--line); }
   .strategy-list dt { font-weight: 700; font-size: 1rem; }
-  .strategy-list dd { margin: .8rem 0 0; font-size: .95rem; color: #d5cec4; }
+  .strategy-list dd { margin: .8rem 0 0; font-size: .95rem; color: var(--body-copy); }
   .strategy-list dd span { display: block; margin-top: .8rem; color: var(--color-amber); }
-  @media (max-width: 760px) { .judge-results { grid-template-columns: 1fr; gap: 1.5rem; } th, td { padding-right: 1rem; min-width: 8rem; } }
+  @media (max-width: 760px) { .judge-results { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; } th, td { padding-right: 1rem; min-width: 8rem; } }
   @media (max-width: 600px) {
     .strategy-table { display: none; }
     .strategy-list { display: block; }
     .case-evidence { padding: min(1.5rem, 6vw); }
-    h2 { font-size: clamp(1.5rem, calc(1rem + 3vw), 1.8rem); }
+    h2 { font-size: clamp(1.5rem, calc(1rem + 3vw), 1.9rem); }
   }
 </style>

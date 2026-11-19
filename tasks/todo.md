@@ -88,3 +88,68 @@
 Production replacement remains outside this completed review and requires the
 owner's explicit release instruction. Current-head checks and the final preview
 are linked from PR 5 and the shared verification record.
+
+## Live stage homepage, D-022, 2026-11-11
+
+- [x] Study landonorris.com and the current production homepage.
+- [x] Search the skills registry; no installation needed (Three.js skills stay rejected).
+- [x] Receive the owner's direction: inspection lens, same world but bolder.
+- [x] Branch locally as dev/portfolio-v2. Production, main, and the remote are untouched.
+- [x] Build the WebGL stage: specimen, gate, prisms, fan, X-ray lens, bloom.
+- [x] Build the ten chapters and their scroll choreography.
+- [x] Add static, reduced-motion, no-JavaScript, and no-WebGL paths.
+- [x] Replace homepage tests that described the retired opening.
+- [x] Pass the local three-browser matrix on the final working tree and record it
+      in docs/verification.md, including the corrected real-renderer skip.
+- [x] Probe the live stage on this Mac's GPU and record the open findings.
+- [x] Owner review of the local preview on 2026-11-17: direction kept, five corrections.
+- [ ] After approval: remove the retired homepage components, update DESIGN.md and
+      the surface briefs through Impeccable's documenter, restyle the shared
+      header on case studies and the archive, rerun the full browser matrix and
+      the mobile performance gate, then open a pull request.
+
+## Owner review corrections, D-023, 2026-11-17
+
+- [x] Reproduce the objects disappearing after scrolling to the bottom and back.
+- [x] Keep a proven stage running through a stall; add rule and reverse-scroll checks.
+- [x] Move Experience and Approach to the graphite theme at chapter type scale.
+- [x] List Blue Ribbon and Atos only in Experience.
+- [x] Give the archive, case studies, and 404 the homepage chrome, voice, and closing.
+- [x] Pass the three-browser matrix on the corrected tree and record it.
+- [ ] Owner review of the corrections and of the three unreviewed choices in D-023.
+
+## Back to top and staged Experience and Approach, D-024, 2026-11-17
+
+- [x] Reproduce Back to top landing on the Cal.diy chapter in a short window.
+- [x] Fix the focus handoff that re-centred in-page jumps; cover it at two heights.
+- [x] Decide on Experience and Approach: stage both, keep the roles calm.
+- [x] Build the career column and the inspected object with the led lens.
+- [x] Keep both stages holding in short windows and within the page's frame rate.
+- [x] Commit on dev/portfolio-v2.
+- [x] Remove the retired homepage components.
+- [x] Mobile performance gate, finish review, DESIGN.md, technical review.
+- [x] Two finish-review rounds; the second verdict goes to the owner as it stands.
+- [x] Full three-browser matrix on the final tree and the verification record.
+- [x] Owner decisions: D-024, D-025, and the D-023 choices confirmed on 2026-11-19 (sub-page rasters decided in D-026, tile tilt kept in D-027).
+
+## Reading-page plates from the live stage, D-026, 2026-11-17
+
+- [x] Capture the four project stations from the live stage on the GPU.
+- [x] Cut the objects out on a transparent ground; compare them in each page with the plates they replace.
+- [x] Owner chose the stage stills for all four pages.
+- [x] Swap the plates, give TestPulse one plate, record provenance for these and the D-025 stills.
+- [x] Three-browser matrix, mobile gate on the reading pages, and recapture of the built pages.
+- [x] Push to the draft PR. Its Windows job then failed two homepage smooth-scroll checks; recorded.
+- [x] Next head: Windows passed; the contention check failed in Linux WebKit. Its timing was the cause, now fixed.
+- [x] Confirm the hosted checks on the fixed check: all four passed on `b9878db`.
+
+## Mobile corrections after the owner's preview review, D-028, 2026-11-19
+
+- [x] Measure the layer notes on a phone: three of four were readable for under 41 pixels of scrolling.
+- [x] Make the notes a list on narrow screens; light each word and plate as its note arrives.
+- [x] Capture the project objects on a phone: the failed run lit only as the runs left the screen.
+- [x] Play each project object's sequence while its window is on screen; stop the stack sliding behind the notes.
+- [x] Regression check for the notes, failing on the previous source and passing on the fix.
+- [x] Three-browser matrix, mobile gate, and the verification record.
+- [ ] Push to the draft PR and confirm its hosted checks.
+

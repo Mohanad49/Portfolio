@@ -1,0 +1,38 @@
+---
+import { getProfile } from '../../lib/content';
+const profile = await getProfile();
+const [modules, cases, defects, coverage] = profile.metrics;
+// The serif's plus and percent signs are hairlines, so the sign is set in the display face.
+const figure = (value: string) => { const match = /^([\d,.]+)(.*)$/.exec(value); return { number: match?.[1] ?? value, sign: match?.[2] ?? '' }; };
+---
+<section class="career" id="experience" data-station="career" aria-labelledby="career-title">
+  <div class="career-stage">
+    <div class="career-head">
+      <h2 class="career-title" id="career-title"><span>Production QA.</span> <span>Behind the <em>numbers.</em></span></h2>
+      <div class="career-ledger">
+        {modules && cases && defects && coverage && <p class="career-figures">
+          <span class="career-line">At Blue Ribbon, QA across <b>{figure(modules.value).number}<i>{figure(modules.value).sign}</i></b> platform modules:</span>
+          <span class="career-line"><b>{figure(cases.value).number}<i>{figure(cases.value).sign}</i></b> test cases authored,</span>
+          <span class="career-line"><b>{figure(defects.value).number}<i>{figure(defects.value).sign}</i></b> defects driven to resolution,</span>
+          <span class="career-line"><b>{figure(coverage.value).number}<i>{figure(coverage.value).sign}</i></b> automated regression coverage on the admin portal.</span>
+        </p>}
+        <p class="career-scope">Production club-management platform. Figures are scoped to Blue Ribbon as stated.</p>
+      </div>
+    </div>
+  </div>
+  <div class="career-record" data-station="roles">
+    <ol class="career-roles">
+      {profile.experience.map(job => <li class="career-stop">
+        <div class="career-stop-head">
+          <h3 class="career-company">{job.company}</h3>
+          <p class="career-role">{job.role}</p>
+          <p class="career-period">{job.period}</p>
+        </div>
+        <div class="career-stop-body">
+          <p class="career-summary">{job.summary}</p>
+          {job.highlights.length > 0 && <ul class="career-points">{job.highlights.map(point => <li>{point}</li>)}</ul>}
+        </div>
+      </li>)}
+    </ol>
+  </div>
+</section>

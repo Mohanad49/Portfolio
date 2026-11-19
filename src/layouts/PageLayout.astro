@@ -1,0 +1,76 @@
+---
+import { getImage } from 'astro:assets';
+import { getProfile } from '../lib/content';
+import Chrome from '../components/stage/Chrome.astro';
+import Closing from '../components/stage/Closing.astro';
+import AmbientField from '../components/AmbientField.astro';
+import MotionLoader from '../components/MotionLoader.astro';
+import heroScene from '../../assets/plates/hero-scene.png';
+import displayFont from '@fontsource-variable/alexandria/files/alexandria-latin-wght-normal.woff2?url';
+import bodyFont from '@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2?url';
+import '../styles/global.css';
+import '../styles/world.css';
+import '../styles/page.css';
+// Every page that is not the homepage: the same chrome, voice, and closing, without the stage.
+interface Props { title?: string; description?: string; noindex?: boolean; motion?: boolean; }
+const { title = 'Mohanad Yehia | Software QA Engineer', description = 'Software QA across web, mobile, API, and data. Explore production experience, test frameworks, and evidence-backed QA case studies.', noindex = false, motion = false } = Astro.props;
+const profile = await getProfile();
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const social = await getImage({ src: heroScene, width: 1200, height: 630, fit: 'cover', format: 'webp', quality: 85 });
+const person = { '@context': 'https://schema.org', '@type': 'Person', name: profile.name, jobTitle: profile.role, url: Astro.site?.toString(), sameAs: [profile.linkedin, profile.github], email: `mailto:${profile.email}` };
+---
+<!doctype html>
+<html lang="en" id="top" class="page">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preload" href={displayFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={bodyFont} as="font" type="font/woff2" crossorigin />
+    <style is:inline>
+      @view-transition { navigation: auto; }
+      @media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }
+    </style>
+    <meta name="theme-color" content="#171515" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(social.src, Astro.site)} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Layered glass and dark chrome, a conceptual study of software inspection." />
+    <meta name="twitter:card" content="summary_large_image" />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    <script type="application/ld+json" set:html={JSON.stringify(person).replace(/</g, '\\u003c')} />
+  </head>
+  <body class:list={{ 'portfolio-surface': motion }}>
+    {motion && <AmbientField />}
+    <Chrome home={false} />
+    <main id="main" tabindex="-1"><slot /></main>
+    <Closing profile={profile} />
+    {motion && <MotionLoader />}
+    <script>
+      // The serif voice is not part of these pages' first screen, so it is fetched once the page
+      // has loaded and never competes with the first paint. Until then, and without scripts, the
+      // headings use the nearest installed serif.
+      import serif from '@fontsource-variable/bodoni-moda/files/bodoni-moda-latin-opsz-italic.woff2?url';
+      const add = () => {
+        const face = new FontFace('Bodoni Moda Variable', `url(${serif}) format('woff2-variations')`, {
+          style: 'italic', weight: '400 900', display: 'swap',
+          unicodeRange: 'U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD',
+        });
+        document.fonts.add(face);
+        // Headings re-wrap in the new face, so anything measured against the old layout is told.
+        void face.load().then(() => window.dispatchEvent(new Event('portfolio:layout'))).catch(() => { /* The fallback serif stays. */ });
+      };
+      // A short pause after load keeps it clear of the first screen's own image.
+      const soon = () => window.setTimeout(add, 400);
+      if (document.readyState === 'complete') soon();
+      else window.addEventListener('load', soon, { once: true });
+    </script>
+  </body>
+</html>

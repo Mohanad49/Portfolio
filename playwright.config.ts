@@ -20,7 +20,8 @@ export default defineConfig({
   use: { baseURL, trace: 'retain-on-failure', screenshot: 'only-on-failure', actionTimeout: 10_000, navigationTimeout: 20_000 },
   projects: browsers.flatMap(browserName => sizes.map(size => ({
     name: `${browserName}-${size.name}`,
-    testIgnore: browserName === 'chromium' && size.name === 'desktop' ? undefined : '**/history.spec.ts',
+    // History and the renderer's pure rules do not vary by engine or size: they run once.
+    testIgnore: browserName === 'chromium' && size.name === 'desktop' ? undefined : ['**/history.spec.ts', '**/governor.spec.ts'],
     use: {
       browserName,
       viewport: size.viewport,

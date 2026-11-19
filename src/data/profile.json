@@ -39,7 +39,7 @@
     {
       "company": "Blue Ribbon",
       "role": "Software QA Engineer",
-      "period": "Jul 2025 - Present",
+      "period": "Jul 2025 – Present",
       "summary": "End-to-end QA for a production club-management platform spanning a Flutter mobile app, multi-tenant admin portal, REST API, PostgreSQL, payments, and ERP integration.",
       "highlights": [
         "Tested cross-module journeys including wallet and payments, dining, bookings, academies, access control, and CRM notifications.",
@@ -51,7 +51,7 @@
     {
       "company": "Atos",
       "role": "Software Testing Intern",
-      "period": "Jul 2026 - Sep 2026",
+      "period": "Jul 2026 – Sep 2026",
       "summary": "Training and project testing on MCIT's Personal Data Protection Centre platform, working with the senior QA team through the sprint cadence.",
       "highlights": [
         "Authored 90+ test cases across 25 user stories covering roles, integration gates, document eligibility, fees, and payment paths.",
@@ -59,20 +59,6 @@
         "Reported an unhandled 500 exposing internal CRM names and error codes mapped to the wrong entity type.",
         "Executed the Regularization suite against staging and logged defects in Azure DevOps."
       ]
-    },
-    {
-      "company": "ENPPI",
-      "role": "IT Intern",
-      "period": "Aug 2024 - Sep 2024",
-      "summary": "Completed a 120-hour IT training programme involving Oracle Forms, ASP.NET MVC, networking, system administration, and internal documentation.",
-      "highlights": []
-    },
-    {
-      "company": "MBG Developments",
-      "role": "Software Engineer Intern",
-      "period": "Jul 2024 - Aug 2024",
-      "summary": "Prepared and executed 20+ SAP S/4HANA Sales and Distribution test cases across master data and transactional flows for 5+ departments.",
-      "highlights": []
     }
   ],
   "approach": [
@@ -100,7 +86,7 @@
   "education": {
     "institution": "German University in Cairo",
     "degree": "B.Sc. Computer Science and Engineering",
-    "period": "Sep 2021 - Jul 2026",
+    "period": "Sep 2021 – Jul 2026",
     "project": "Car Price Prediction Using Machine Learning Techniques",
     "projectSummary": "Processed a 3M-record dataset, benchmarked five models, and deployed a Streamlit prediction app."
   },

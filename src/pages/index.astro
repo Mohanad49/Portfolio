@@ -1,18 +1,19 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import PassThrough from '../components/PassThrough.astro';
-import SelectedWork from '../components/SelectedWork.astro';
-import Experience from '../components/Experience.astro';
-import Approach from '../components/Approach.astro';
-import About from '../components/About.astro';
+import StageLayout from '../layouts/StageLayout.astro';
+import Hero from '../components/stage/Hero.astro';
+import Layers from '../components/stage/Layers.astro';
+import Projects from '../components/stage/Projects.astro';
+import Archive from '../components/stage/Archive.astro';
+import Career from '../components/stage/Career.astro';
+import Method from '../components/stage/Method.astro';
+import Profile from '../components/stage/Profile.astro';
 ---
-<BaseLayout home motion>
-  <PassThrough home />
-  <div class="journey-continuation">
-  <SelectedWork />
-  <Experience />
-  <Approach />
-  <About />
-  </div>
-</BaseLayout>
-<style>.journey-continuation { position: relative; isolation: isolate; overflow: clip; }</style>
+<StageLayout>
+  <Hero />
+  <Layers />
+  <Projects />
+  <Archive />
+  <Career />
+  <Method />
+  <Profile />
+</StageLayout>

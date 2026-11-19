@@ -1,0 +1,276 @@
+@import '@fontsource-variable/bodoni-moda/opsz-italic.css';
+
+/* Stage homepage: one fixed WebGL stage behind the document. Shared parts live in world.css. */
+:root {
+  /* How far the stage takes to fade out above the record chapters, and back in below them. */
+  --dissolve: clamp(5rem, 16svh, 11rem);
+}
+
+html.stage { scroll-behavior: auto; scroll-padding-top: 0; }
+/* A chapter that receives focus from the navigation is a reading position, not a control. */
+html.stage :is(section, footer)[tabindex='-1']:focus { outline: none; }
+html.stage body { overflow-x: clip; }
+
+/* Stage layers */
+.stage-still { position: absolute; inset: 0 0 auto 0; height: 100svh; z-index: 0; overflow: clip; }
+.stage-still picture { display: block; height: 100%; }
+.stage-still img { width: 100%; height: 100%; object-fit: cover; object-position: 70% 50%; opacity: .5; }
+.stage-still::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, var(--color-graphite) 4%, transparent 70%), linear-gradient(0deg, var(--color-graphite), transparent 40%); }
+.stage-canvas { z-index: 0; opacity: 0; transition: opacity 1.1s var(--ease-out); }
+html.stage-live .stage-canvas { opacity: 1; }
+html.stage-live.stage-loose .stage-canvas { opacity: .28; }
+/* The still stands in when no live stage will arrive, and on phones until theirs has drawn its first frame. */
+html.can-move:not(.no-stage):not(.stage-lite) .stage-still { display: none; }
+html.can-move.stage-lite .stage-still { transition: opacity 1.1s var(--ease-out); }
+html.can-move.stage-lite.stage-live .stage-still { opacity: 0; }
+#smooth-wrapper, #smooth-content { position: relative; z-index: 1; }
+/* The smoothing wrapper must not be a scroll container of its own: anything that scrolls an element
+   into view (focus, find in page, automation) has to move the page, not the wrapper. */
+#smooth-wrapper { overflow: clip !important; }
+main:focus { outline: none; }
+
+/* Opening handoff */
+.stage-loader { position: fixed; inset: 0; z-index: 30; display: none; place-items: center; padding: 2rem; background: var(--color-graphite); }
+html.is-preparing .stage-loader { display: grid; }
+.stage-loader-mark { width: min(22rem, 100%); }
+.stage-loader-name { display: block; font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 3rem); font-weight: 600; letter-spacing: -.04em; line-height: 1.2; }
+.stage-loader-line { display: block; height: 1px; margin-top: 2.2rem; overflow: hidden; background: var(--line); }
+.stage-loader-line i { display: block; width: 40%; height: 100%; background: var(--color-amber); animation: stage-prepare 1s ease-in-out infinite; }
+.stage-loader-note { display: block; margin-top: .8rem; font-size: .8rem; color: var(--color-muted); }
+@keyframes stage-prepare { from { transform: translateX(-100%); } to { transform: translateX(350%); } }
+
+/* Shared */
+.archive-list { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Hero */
+.hero { position: relative; display: flex; flex-direction: column; gap: clamp(1.5rem, 3vw, 3rem); min-height: 100svh; padding: calc(var(--chrome-h) + clamp(.5rem, 2vw, 2rem)) var(--page-gutter) clamp(1.5rem, 2.4vw, 2.5rem); }
+.hero-title { flex: 1; display: flex; flex-direction: column; justify-content: space-between; font-size: clamp(2.9rem, 8.4vw, 9.75rem); font-weight: 700; line-height: .98; letter-spacing: -.04em; text-wrap: nowrap; }
+.hero-line { display: block; width: fit-content; }
+.hero-line--second { align-self: flex-end; }
+.hero-title em { font-size: 1.05em; }
+.hero-marked { position: relative; display: inline-block; }
+.hero-mark { position: absolute; left: -7%; top: -4%; width: 114%; height: 118%; overflow: visible; pointer-events: none; }
+.hero-mark path { fill: none; stroke: var(--color-ink); stroke-width: 1.5; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.hero-foot { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: end; gap: 2rem; }
+.hero-role { font-size: clamp(1.2rem, 1.6vw, 1.6rem); font-weight: 500; line-height: 1.3; }
+.hero-summary { max-width: 26ch; margin-top: .35rem; color: var(--body-copy); }
+.hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.4rem; }
+.hero-hint { display: inline-flex; align-items: center; gap: .7rem; padding-bottom: .9rem; font-size: .8rem; color: var(--color-muted); }
+.hero-hint-lens { width: 1.1rem; height: 1.1rem; border: 1px solid var(--color-amber); border-radius: 50%; animation: hint-lens 2.4s var(--ease-out) infinite; }
+.hero-hint-touch { display: none; }
+@keyframes hint-lens { 0% { transform: scale(.6); opacity: 0; } 35% { opacity: 1; } 100% { transform: scale(1.5); opacity: 0; } }
+/* The hint describes the live object, so it waits for it. */
+html:not(.stage-live) .hero-hint { visibility: hidden; }
+.hero-status { justify-self: end; display: grid; gap: .6rem; margin: 0; padding: 0 0 .5rem 1.25rem; border-left: 1px solid var(--line); font-size: .8rem; line-height: 1.5; }
+.hero-status div { display: grid; grid-template-columns: 4.5rem 1fr; gap: .75rem; }
+.hero-status dt { color: var(--color-muted); }
+.hero-status dd { margin: 0; }
+.hero-clock { margin-left: .5rem; color: var(--color-amber); font-variant-numeric: tabular-nums; }
+
+/* Layers */
+.layers-stage { display: grid; align-items: center; min-height: 100svh; padding: calc(var(--chrome-h) + 1rem) var(--page-gutter) 2.5rem; }
+.layers-copy { width: min(58%, 56rem); }
+.layers-sentence { font-size: clamp(2.2rem, 5.6vw, 6.5rem); font-weight: 600; line-height: 1.04; letter-spacing: -.04em; text-wrap: balance; }
+.layers-sentence em { font-size: 1.04em; }
+.layers-notes { display: grid; gap: 1.1rem; margin: clamp(2rem, 3.4vw, 3.4rem) 0 0; padding: 0; list-style: none; }
+.layers-notes li { display: grid; grid-template-columns: 5.5rem minmax(0, 34rem); gap: 1.25rem; align-items: baseline; }
+.layers-notes strong { font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; letter-spacing: -.02em; color: var(--color-amber); }
+.layers-notes span { color: var(--body-copy); line-height: 1.6; }
+.layers-scope { margin-top: 1.6rem; font-size: .8rem; color: var(--color-muted); }
+html.is-staged .layers-stage.is-held .layers-notes { position: relative; display: block; min-height: 6.5rem; }
+html.is-staged .layers-stage.is-held .layers-notes li { position: absolute; inset: 0 auto auto 0; }
+
+/* Projects */
+.project, .layers { position: relative; }
+/* Bookmark targets keep some height so a fractional scroll offset cannot push them out of view. */
+html.stage .legacy-anchor { height: 30svh; }
+.project-stage { position: relative; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 2%; grid-template-rows: minmax(0, 1fr); min-height: 100svh; padding: calc(var(--chrome-h) + .5rem) var(--page-gutter) clamp(1.5rem, 2.6vw, 2.75rem); }
+.project-copy { grid-column: 1 / span 6; grid-row: 1; align-self: center; }
+.project-evidence { grid-column: 8 / span 5; grid-row: 1; align-self: end; margin: 0; }
+[data-side='right'] .project-copy { grid-column: 7 / span 6; }
+[data-side='right'] .project-evidence { grid-column: 1 / span 5; }
+/* TestPulse's three run columns are as wide as the three tiles above them. */
+.project--testpulse .project-evidence { grid-column: 7 / span 6; }
+.project--testpulse .project-evidence figcaption { max-width: 36rem; }
+.project-title { font-size: clamp(3rem, 7.8vw, 9.5rem); font-weight: 700; line-height: .98; letter-spacing: -.04em; }
+.project--llm .project-title { font-size: clamp(2.5rem, 5.9vw, 6.8rem); }
+.project-title a { display: inline-block; transition: color .25s; }
+/* Clipped inline boxes take their baseline from the bottom edge in WebKit; pin it so the line box keeps its height. */
+.title-word-mask { vertical-align: top; }
+.project-title a:hover { color: var(--color-amber); }
+.project-kind { margin-top: 1rem; font-size: 1rem; color: var(--color-amber); }
+.project-claim { margin-top: clamp(1.4rem, 2.4vw, 2.4rem); font-size: clamp(1.6rem, 2.7vw, 3rem); font-weight: 600; line-height: 1.08; max-width: 16ch; }
+.project-summary { max-width: 46ch; margin-top: 1.2rem; font-size: 1.05rem; line-height: 1.75; color: var(--body-copy); }
+.project-links { display: flex; flex-wrap: wrap; gap: .25rem 2rem; margin-top: 1.4rem; }
+.project-evidence figcaption { display: grid; gap: .45rem; margin-top: 1.2rem; font-size: .85rem; line-height: 1.6; color: var(--color-muted); }
+.project-evidence figcaption strong { font-family: var(--font-display); font-size: 1.15rem; font-weight: 600; letter-spacing: -.02em; color: var(--color-ink); }
+.project-evidence code { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: .92em; color: var(--body-copy); }
+
+.history { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+.history-run { display: grid; gap: .2rem; padding: 1rem 1rem 0 0; font-size: .85rem; color: var(--color-muted); }
+.history-state { display: inline-flex; align-items: center; gap: .5rem; font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; letter-spacing: -.02em; color: var(--color-ink); }
+.history-state svg { width: 1.1rem; height: 1.1rem; stroke: var(--color-amber); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.history-run--failed .history-state { color: var(--fail); }
+.history-run--failed .history-state svg { stroke: var(--fail); }
+.history-id { color: var(--body-copy); font-variant-numeric: tabular-nums; }
+
+.contention { display: flex; align-items: flex-end; gap: clamp(3px, .5vw, 8px); height: clamp(4rem, 9svh, 6.5rem); }
+.contention span { flex: 1; height: 40%; background: #756c60; transform-origin: bottom; }
+.contention .winner { height: 100%; background: var(--color-amber); }
+
+.agreement { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 1.25rem; }
+.agreement-value { font-family: var(--font-display); font-size: clamp(4.5rem, 8vw, 8.5rem); font-weight: 600; letter-spacing: -.04em; line-height: .9; color: var(--color-amber); }
+.agreement-value span { font-size: .45em; }
+.agreement-scope { max-width: 14ch; padding-bottom: .5rem; font-size: .9rem; line-height: 1.5; color: var(--color-muted); }
+.agreement-track { height: 2px; margin-top: 1.4rem; background: var(--line); }
+.agreement-track span { display: block; width: 82%; height: 100%; background: var(--color-amber); transform-origin: left; }
+
+/* Archive */
+.archive { position: relative; display: flex; flex-direction: column; justify-content: flex-end; min-height: 125svh; padding: 6rem var(--page-gutter) clamp(6rem, 12vw, 13rem); overflow: clip; }
+.archive-reel { position: absolute; inset: 9svh 0 auto 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: .25rem; }
+.archive-row { overflow: clip; white-space: nowrap; }
+.archive-track { display: inline-flex; will-change: transform; }
+.archive-track span { display: inline-flex; align-items: center; gap: .5em; padding-right: .5em; font-family: var(--font-display); font-size: clamp(2.4rem, 6.4vw, 7.25rem); font-weight: 700; letter-spacing: -.04em; line-height: 1.12; color: rgb(248 242 233 / .1); }
+.archive-track span::before { content: attr(data-label); }
+.archive-track i { flex: none; width: .26em; height: .26em; border-radius: 50%; background: var(--color-amber); }
+.archive-copy { position: relative; display: flex; justify-content: space-between; align-items: flex-end; gap: 3rem; }
+.archive-title { max-width: 15ch; font-size: clamp(2.2rem, 4.6vw, 5.25rem); font-weight: 600; line-height: 1.04; }
+.archive-action { flex: none; }
+.archive-action p { font-size: .9rem; color: var(--color-muted); }
+
+/* Career: a held stage for the figures, then the roles on flat graphite while the stage rests. */
+.career { position: relative; z-index: 2; }
+.career-stage { position: relative; display: grid; align-items: center; padding: clamp(6rem, 11vw, 12rem) var(--page-gutter) clamp(3rem, 5vw, 5rem); }
+.career-head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 2%; align-items: end; }
+.career-title { grid-column: 1 / span 5; font-size: clamp(2.1rem, 4.4vw, 5rem); font-weight: 700; line-height: 1.02; text-wrap: wrap; }
+.career-title > span { display: block; }
+.career-ledger { grid-column: 7 / span 6; }
+.career-figures { font-family: var(--font-display); font-size: clamp(1.25rem, 2.05vw, 2.35rem); font-weight: 500; letter-spacing: -.03em; line-height: 1.32; }
+.career-line { display: block; }
+.career-figures b { font-family: var(--font-serif); font-style: italic; font-weight: 600; font-size: 1.2em; letter-spacing: -.02em; color: var(--color-amber); font-variant-numeric: lining-nums; }
+.career-figures b i { font-family: var(--font-display); font-style: normal; font-weight: 600; font-size: .62em; letter-spacing: 0; margin-left: .04em; }
+.career-scope { margin-top: 1.2rem; font-size: .9rem; color: var(--color-muted); }
+/* With the stage running, the copy keeps to one side and the object takes the other. */
+html.is-staged .career-stage { min-height: 100svh; padding: calc(var(--chrome-h) + 1rem) var(--page-gutter) 2.5rem; }
+html.is-staged .career-head { display: block; width: min(54%, 48rem); }
+html.is-staged .career-ledger { margin-top: clamp(1.25rem, min(2.6vw, 3.4svh), 2.8rem); }
+.career-stage.is-held .career-title { font-size: clamp(2.1rem, min(4.4vw, 8.2svh), 5rem); }
+.career-stage.is-held .career-figures { font-size: clamp(1.25rem, min(2.05vw, 3.9svh), 2.35rem); }
+
+.career-record { position: relative; padding: var(--dissolve) var(--page-gutter); background: linear-gradient(to bottom, transparent, var(--color-graphite) var(--dissolve), var(--color-graphite) calc(100% - var(--dissolve)), transparent); }
+html:not(.is-staged) .career-record { padding-block: 0 clamp(3rem, 6vw, 6rem); }
+.career-roles { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+.career-stop { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 2%; align-items: start; padding: clamp(2rem, 3.4vw, 3.5rem) 0; border-bottom: 1px solid var(--line); }
+.career-stop-head { grid-column: 1 / span 5; }
+.career-company { font-size: clamp(1.8rem, 3.2vw, 3.6rem); font-weight: 700; line-height: 1.02; }
+.career-role { margin-top: .75rem; font-family: var(--font-display); font-size: 1.15rem; font-weight: 600; letter-spacing: -.02em; }
+.career-period { margin-top: .25rem; font-size: .9rem; color: var(--color-muted); font-variant-numeric: tabular-nums; }
+.career-stop-body { grid-column: 7 / span 6; }
+.career-summary { font-size: 1.075rem; line-height: 1.7; }
+.career-points { display: grid; gap: .7rem; margin: 1.3rem 0 0; padding: 0; list-style: none; font-size: .95rem; line-height: 1.6; color: var(--body-copy); }
+.career-points li { padding-left: 1.4rem; background: linear-gradient(var(--color-amber), var(--color-amber)) 0 .75em / .7rem 1px no-repeat; }
+
+/* Method: the object returns under the lens; one step is in focus at a time. */
+.method { position: relative; z-index: 2; }
+.method-stage { position: relative; display: grid; align-items: center; padding: clamp(4rem, 7vw, 7.5rem) var(--page-gutter) clamp(4rem, 7vw, 7.5rem); }
+.method-title { position: relative; width: fit-content; font-size: clamp(2.1rem, 4.4vw, 5rem); font-weight: 700; line-height: 1.02; --lens: 0rem; --mx: 50%; --my: 50%; }
+.method-title > span { display: block; max-width: 11ch; }
+.method-title-wire { position: absolute; inset: 0; color: transparent; -webkit-text-stroke: 1px var(--color-amber); clip-path: circle(var(--lens) at var(--mx) var(--my)); pointer-events: none; }
+.method-title-wire em { color: transparent; }
+.method-title-solid { -webkit-mask-image: radial-gradient(circle var(--lens) at var(--mx) var(--my), transparent 99%, #000 100%); mask-image: radial-gradient(circle var(--lens) at var(--mx) var(--my), transparent 99%, #000 100%); }
+.method-title::after { content: ''; position: absolute; left: var(--mx); top: var(--my); width: calc(var(--lens) * 2); height: calc(var(--lens) * 2); translate: -50% -50%; border: 1px solid var(--color-amber); border-radius: 50%; pointer-events: none; }
+.method-steps { margin: clamp(3rem, 5.5vw, 6rem) 0 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+.method-step { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 2%; align-items: baseline; padding: clamp(1.5rem, 2.4vw, 2.5rem) 0; border-bottom: 1px solid var(--line); }
+.method-step h3 { grid-column: 1 / span 5; font-size: clamp(1.5rem, 2.5vw, 2.75rem); font-weight: 600; line-height: 1.06; transition: color .5s var(--ease-out), transform .7s var(--ease-out); }
+.method-body { grid-column: 7 / span 6; }
+.method-body p { max-width: 46ch; font-size: 1.075rem; line-height: 1.65; color: var(--body-copy); }
+.method-body .method-evidence { margin-top: .6rem; font-size: .9rem; color: var(--color-muted); transition: color .5s var(--ease-out); }
+/* One step is in focus at a time. The others stay fully readable. */
+html.is-staged .method-step:not(.is-active) h3 { color: var(--color-muted); }
+html.is-staged .method-step.is-active h3 { transform: translateX(clamp(.4rem, 1.1vw, 1.25rem)); }
+html.is-staged .method-step.is-active .method-evidence { color: var(--color-amber); }
+/* Staged: the copy keeps to the right half, the object to the left. */
+html.is-staged .method-stage { min-height: 100svh; padding: calc(var(--chrome-h) + 1rem) var(--page-gutter) 2.5rem; }
+html.is-staged .method-copy { width: min(52%, 46rem); margin-left: auto; }
+html.is-staged .method-steps { margin-top: clamp(1.75rem, 3vw, 3.25rem); }
+html.is-staged .method-step { display: block; }
+html.is-staged .method-body { margin-top: .9rem; }
+/* Held: four headings and one note. The step in focus shows its note; the rest wait in place. */
+/* Sizes follow the window's height as well as its width, so the stage still holds in a short window. */
+.method-stage.is-held .method-title { font-size: clamp(2.1rem, min(4.4vw, 8.2svh), 5rem); }
+.method-stage.is-held .method-steps { position: relative; margin-top: clamp(1rem, min(3vw, 3svh), 3.25rem); padding-bottom: 9.5rem; border-bottom: 1px solid var(--line); }
+.method-stage.is-held .method-step { padding: clamp(.5rem, 1.5svh, .85rem) 0; border-bottom: 0; }
+.method-stage.is-held .method-step + .method-step { border-top: 1px solid var(--line); }
+.method-stage.is-held .method-step h3 { font-size: clamp(1.35rem, 2.1vw, 2.3rem); }
+.method-stage.is-held .method-body { position: absolute; inset: auto 0 0 0; height: 8.25rem; margin: 0; padding-top: 1.1rem; border-top: 1px solid var(--line); opacity: 0; transform: translateY(.75rem); transition: opacity .35s, transform .6s var(--ease-out); }
+.method-stage.is-held .method-step.is-active .method-body { opacity: 1; transform: none; }
+
+/* Profile */
+.profile { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 7%; align-items: start; padding: clamp(6rem, 11vw, 12rem) var(--page-gutter) clamp(4rem, 8vw, 8rem); }
+.profile-portrait { margin: 0; }
+.profile-frame { aspect-ratio: 4 / 5; overflow: clip; }
+.profile-frame img { width: 100%; height: 100%; object-fit: cover; object-position: center 41%; }
+.profile-portrait figcaption { display: flex; justify-content: space-between; gap: 1rem; margin-top: .9rem; font-size: .85rem; }
+.profile-portrait figcaption span { color: var(--color-muted); }
+.profile-title { font-size: clamp(2.1rem, 4.1vw, 4.75rem); font-weight: 700; line-height: 1.04; text-wrap: nowrap; }
+.profile-title > span { display: block; }
+.profile-bio { max-width: 34ch; margin: clamp(1.6rem, 2.6vw, 2.6rem) 0 1.4rem; font-size: clamp(1.15rem, 1.7vw, 1.75rem); line-height: 1.45; color: var(--color-ink); }
+.profile-facts { margin: clamp(2.5rem, 4vw, 4rem) 0 0; }
+.profile-facts > div { display: grid; grid-template-columns: 8rem minmax(0, 1fr); gap: 1.5rem; padding: 1.4rem 0; border-top: 1px solid var(--line); }
+.profile-facts dt { font-size: .9rem; color: var(--color-muted); }
+.profile-facts dd { margin: 0; color: var(--body-copy); line-height: 1.65; }
+.profile-facts strong { display: block; font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; letter-spacing: -.02em; color: var(--color-ink); }
+.profile-facts dd span { display: block; margin-top: .5rem; font-size: .9rem; color: var(--color-muted); }
+.profile-facts dd p + p { margin-top: .9rem; }
+
+/* Narrow portrait screens: the still is the live object's own opening frame, in the place the object takes. */
+@media (max-width: 1023px) and (orientation: portrait) {
+  .stage-still img { object-position: 50% 50%; opacity: 1; }
+  .stage-still::after { display: none; }
+}
+
+/* Narrow layouts: the object sits in the upper part of the screen, copy follows beneath it. */
+@media (max-width: 1023px) {
+  .hero-title { flex: none; gap: .1em; font-size: clamp(1.7rem, 10.2vw, 6.5rem); text-wrap: balance; }
+  .hero-line--second { align-self: flex-start; }
+  .hero { justify-content: space-between; }
+  .hero-foot { grid-template-columns: minmax(0, 1fr); gap: 1.25rem; }
+  .hero-hint { order: -1; padding-bottom: 0; }
+  .hero-hint-fine { display: none; }
+  .hero-hint-touch { display: inline; }
+  .hero-status { justify-self: start; }
+  .layers-stage { align-items: end; min-height: 100svh; padding-top: 46svh; }
+  .layers-copy { width: 100%; }
+  .layers-sentence { font-size: clamp(1.3rem, 8.6vw, 4.6rem); }
+  .layers-notes li { grid-template-columns: 4.5rem minmax(0, 1fr); }
+  .project-stage { display: flex; flex-direction: column; justify-content: flex-end; gap: 2.5rem; padding-top: 46svh; }
+  .project-title, .project--llm .project-title { font-size: clamp(1.35rem, 12vw, 6rem); }
+  .project-claim { font-size: clamp(1.35rem, 6vw, 3rem); }
+  .project-summary { font-size: 1rem; }
+  .archive { min-height: 0; padding-top: 50svh; padding-bottom: clamp(3.5rem, 9svh, 5.5rem); justify-content: flex-start; }
+  .archive-reel { inset: 4svh 0 auto 0; }
+  .archive-copy { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+  .archive-title { font-size: clamp(1.25rem, 8vw, 5.25rem); }
+  .archive-action { flex: initial; }
+  .profile { grid-template-columns: minmax(0, 1fr); gap: 3rem; }
+  .profile-portrait { max-width: 30rem; }
+  .profile-title { font-size: clamp(1.6rem, 8.4vw, 4rem); text-wrap: balance; }
+  /* The closing leaves the upper screen to the object. */
+  .closing { padding-top: 40svh; }
+  .career-head, .career-stop, .method-step { grid-template-columns: minmax(0, 1fr); row-gap: 1.25rem; }
+  .career-title, .career-ledger, .career-stop-head, .career-stop-body, .method-step h3, .method-body { grid-column: 1; }
+  .career-title, .method-title { font-size: clamp(1.5rem, 8.4vw, 4rem); }
+  .career-ledger { margin-top: 1rem; }
+  /* The upper screen belongs to the object, as in the project chapters. */
+  html.is-staged .career-stage, html.is-staged .method-stage { align-items: end; padding-top: 46svh; }
+  html.is-staged .career-head, html.is-staged .method-copy { width: 100%; }
+  .career-figures { font-size: clamp(1.1rem, 4.6vw, 1.9rem); }
+  .career-company { font-size: clamp(1.4rem, 7.4vw, 3.2rem); }
+  .method-step h3 { font-size: clamp(1.25rem, 5.6vw, 2.4rem); }
+}
+@media (max-width: 600px) {
+  .hero-status div { grid-template-columns: 4rem 1fr; }
+  .history { grid-template-columns: minmax(0, 1fr); }
+  .history-run { grid-template-columns: 6.5rem 5rem 1fr; align-items: baseline; padding: .7rem 0; border-bottom: 1px solid var(--line); }
+  .profile-facts > div { grid-template-columns: minmax(0, 1fr); gap: .4rem; }
+}
