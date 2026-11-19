@@ -406,3 +406,27 @@ to keep the approved tilt. Nothing changes in the stage or in the TestPulse stil
 Still mine to decide: whether D-024, D-025, and the choices D-023 made in
 implementation stand.
 
+## D-028: Mobile corrections after my preview review
+
+On 2026-11-19 I reviewed the hosted preview on desktop and on my phone. D-024,
+D-025, and the two choices D-023 made in implementation (the roles as two rows,
+the Cal.diy evidence panel on graphite) stand. Desktop is approved as it is. Two
+things on the phone were wrong:
+
+- The four layer notes (web, mobile, API, data) took turns in one place, so an
+  ordinary scroll flicked through them before they could be read. On narrow
+  screens they are now a list: each note arrives as it enters the window and
+  stays while it is in view, and the word it explains lights with it, as does
+  the matching plate of the object. Wide screens keep the held chapter with one
+  note at a time.
+- The middle TestPulse run turned red only after the runs had left the screen.
+  On narrow screens each project object now plays its sequence while its window
+  at the top of the chapter is on screen: the runs light in order with the
+  failed one in the middle of the screen, the Cal.diy contenders crowd into the
+  gate, and the LLM prisms converge. Between the layers and the runs, the object
+  no longer slides behind the notes; it shrinks away and grows back in the runs'
+  window.
+
+No copy, figure, or scope note changed. Measured results are in
+[verification](docs/verification.md).
+
